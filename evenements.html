@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141414">
+<title>Événements 2026 — Collectif Jardin</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap');
+
+:root {
+  --bg: #141414;
+  --mauve: #edacff;
+  --orange: #fd2f00;
+  --burgundy: #38050e;
+  --cream: #fffbdb;
+}
+
+*,*::before,*::after { box-sizing:border-box;margin:0;padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);color:var(--cream);
+  font-family:'Space Mono',monospace;font-size:14px;line-height:1.6;overflow-x:hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 48px;transition:background .4s ease;
+}
+nav.scrolled {
+  background:rgba(20,20,20,0.95);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(237,172,255,.08);
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;
+  letter-spacing:.18em;color:var(--cream);text-decoration:none;text-transform:uppercase;
+}
+.nav-logo span { color:var(--mauve); }
+.nav-links { display:flex;gap:30px;list-style:none; }
+.nav-links a {
+  color:var(--cream);text-decoration:none;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;opacity:.8;transition:opacity .3s,color .3s;
+}
+.nav-links a:hover { opacity:1;color:var(--orange); }
+.nav-links a.active { opacity:1;color:var(--mauve); }
+.nav-cta {
+  border:1.5px solid var(--orange);color:var(--orange)!important;
+  padding:8px 16px;opacity:1!important;transition:background .3s,color .3s!important;
+}
+.nav-cta:hover { background:var(--orange)!important;color:var(--bg)!important; }
+
+/* Hamburger */
+.nav-hamburger {
+  display:none;flex-direction:column;justify-content:center;gap:6px;
+  background:none;border:none;cursor:pointer;padding:8px;z-index:1100;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.nav-hamburger span {
+  display:block;width:24px;height:1.5px;background:var(--cream);
+  transition:transform .3s ease,opacity .25s ease;transform-origin:center;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+.nav-overlay {
+  display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:36px;z-index:1050;opacity:0;transition:opacity .3s ease;
+}
+.nav-overlay.open { display:flex;opacity:1; }
+.nav-overlay a {
+  color:var(--cream);text-decoration:none;font-size:20px;letter-spacing:.2em;
+  text-transform:uppercase;opacity:.8;transition:color .3s,opacity .3s;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-overlay a:active { opacity:1;color:var(--orange); }
+.nav-overlay .nav-cta { border:1.5px solid var(--orange);color:var(--orange)!important;padding:12px 28px;opacity:1!important; }
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  min-height:40vh;position:relative;display:flex;align-items:flex-end;
+  padding:0 48px 60px;overflow:hidden;margin-top:0;
+  border-bottom:1px solid rgba(237,172,255,.08);
+}
+.page-hero-bg {
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(135deg,#1a0524,#38050e,#141414);
+}
+.page-hero-orb {
+  position:absolute;border-radius:77%;filter:blur(80px);opacity:.15;animation:drift 18s linear infinite;
+}
+.orb-a { width:600px;height:600px;background:var(--mauve);top:-200px;right:-100px;animation-delay:0s; }
+.orb-b { width:400px;height:400px;background:var(--orange);bottom:-100px;left:20%;animation-delay:3s; }
+@keyframes drift {
+  0%{transform:translate(0,0) scale(1);}25%{transform:translate(30px,-20px) scale(1.1);}
+  50%{transform:translate(15px,35px) scale(1.15);}75%{transform:translate(-25px,15px) scale(1.1);}
+  100%{transform:translate(0,0) scale(1);}
+}
+.page-hero-content { position:relative;z-index:1;max-width:700px; }
+.page-back {
+  display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.25em;
+  text-transform:uppercase;color:rgba(255,251,219,.4);text-decoration:none;
+  margin-bottom:32px;transition:color .3s,gap .3s;
+}
+.page-back:hover { color:var(--mauve);gap:16px; }
+.page-back::before { content:'←'; }
+.page-title {
+  font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);
+  font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:20px;
+}
+.page-title em { font-style:italic;color:var(--mauve); }
+.page-subtitle { font-size:13px;color:rgba(255,251,219,.45);letter-spacing:.1em;line-height:1.8; }
+
+/* ─── FILTER NAV ─── */
+.filter-section {
+  padding:40px 48px 0;display:flex;gap:0;flex-wrap:wrap;
+  border-bottom:1px solid rgba(237,172,255,.06);
+}
+.filter-tab {
+  padding:12px 28px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,251,219,.4);background:transparent;border:none;
+  border-bottom:2px solid transparent;cursor:pointer;transition:all .3s;
+  font-family:'Space Mono',monospace;-webkit-tap-highlight-color:transparent;
+}
+.filter-tab:hover { color:var(--cream); }
+.filter-tab.active { color:var(--mauve);border-bottom-color:var(--mauve); }
+
+/* ─── MAIN CONTENT ─── */
+.events-page { padding:80px 48px 120px; }
+
+/* ─── CATEGORY SECTION ─── */
+.category-block {
+  margin-bottom:100px;scroll-margin-top:100px;
+}
+.category-header {
+  display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;
+  margin-bottom:48px;padding-bottom:32px;
+  border-bottom:1px solid rgba(237,172,255,.08);
+}
+.category-number {
+  font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:300;
+  color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.15);
+  line-height:1;letter-spacing:-.05em;user-select:none;
+}
+.category-info {}
+.category-label { font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:12px; }
+.category-title {
+  font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,56px);
+  font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;
+}
+.category-title em { font-style:italic;color:var(--mauve); }
+.category-desc {
+  font-size:13px;color:rgba(255,251,219,.55);line-height:2;
+  letter-spacing:.04em;max-width:600px;
+}
+.category-meta {
+  margin-top:20px;display:flex;gap:32px;flex-wrap:wrap;
+}
+.category-meta-item { display:flex;flex-direction:column;gap:4px; }
+.category-meta-label { font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.7; }
+.category-meta-value { font-size:12px;color:rgba(255,251,219,.7);letter-spacing:.05em; }
+
+/* ─── POSTER ─── */
+.category-poster {
+  width:100%;max-width:360px;aspect-ratio:3/4;overflow:hidden;cursor:zoom-in;
+  position:relative;margin-bottom:40px;
+}
+.category-poster img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;display:block;
+}
+.category-poster:hover img { transform:scale(1.03); }
+.category-poster-placeholder {
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+}
+
+/* ─── EVENT CARDS GRID ─── */
+.events-list { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2px;margin-top:8px; }
+
+.ev-card {
+  background:#1a1a1a;padding:32px 28px;position:relative;
+  border:1px solid rgba(237,172,255,.05);transition:border-color .3s,background .3s;
+  cursor:pointer;
+}
+.ev-card:hover { border-color:rgba(237,172,255,.2);background:#1e1e1e; }
+.ev-card-tag { font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px; }
+.ev-card-name {
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;
+  line-height:1.1;margin-bottom:12px;color:var(--cream);
+}
+.ev-card-date { font-size:10px;letter-spacing:.2em;color:rgba(255,251,219,.4);margin-bottom:6px; }
+.ev-card-location { font-size:10px;letter-spacing:.12em;color:var(--mauve);margin-bottom:16px; }
+.ev-card-desc { font-size:12px;color:rgba(255,251,219,.45);line-height:1.9;letter-spacing:.03em; }
+.ev-card-btn {
+  display:inline-block;margin-top:20px;border:1px solid rgba(237,172,255,.2);
+  padding:8px 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream);text-decoration:none;transition:border-color .3s,color .3s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ev-card:hover .ev-card-btn { border-color:var(--orange);color:var(--orange); }
+.ev-card-sold-out { color:rgba(255,251,219,.25);font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-top:16px; }
+.ev-card-upcoming {
+  position:absolute;top:20px;right:20px;
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--orange);color:var(--bg);padding:4px 10px;
+}
+
+/* ─── SECTION DIVIDER ─── */
+.section-divider {
+  display:flex;align-items:center;gap:24px;margin-bottom:32px;
+}
+.section-divider-line { flex:1;height:1px;background:rgba(237,172,255,.06); }
+.section-divider-label { font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,251,219,.2); }
+
+/* ─── REVEAL ─── */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease; }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.reveal-d1 { transition-delay:.1s; }
+.reveal-d2 { transition-delay:.2s; }
+.reveal-d3 { transition-delay:.3s; }
+
+/* ─── FOOTER ─── */
+footer {
+  background:var(--burgundy);padding:48px 48px 32px;
+  border-top:1px solid rgba(237,172,255,.1);
+}
+.footer-inner {
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;
+  padding-bottom:28px;margin-bottom:28px;
+  border-bottom:1px solid rgba(237,172,255,.08);
+}
+.footer-logo-sm {
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;
+  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);
+}
+.footer-logo-sm span { color:var(--mauve); }
+.footer-links-sm { display:flex;gap:24px;flex-wrap:wrap; }
+.footer-links-sm a {
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,251,219,.35);text-decoration:none;transition:color .3s;
+}
+.footer-links-sm a:hover { color:var(--mauve); }
+.footer-copy-sm { font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em; }
+
+/* ─── LIGHTBOX ─── */
+#lightbox {
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);
+  z-index:9000;align-items:center;justify-content:center;cursor:pointer;
+}
+#lightbox-btn-close {
+  position:absolute;top:20px;right:24px;background:none;border:none;
+  color:#edacff;font-size:40px;line-height:1;cursor:pointer;z-index:9001;
+  padding:8px;-webkit-tap-highlight-color:transparent;
+}
+#lightbox-content {
+  max-width:92vw;max-height:88vh;display:flex;align-items:center;
+  justify-content:center;cursor:default;
+}
+#lightbox-content img {
+  max-width:90vw;max-height:85vh;object-fit:contain;display:block;
+  box-shadow:0 0 80px rgba(0,0,0,.8);
+}
+
+/* ═══════════════════════════════════════════
+   TABLET
+════════════════════════════════════════════ */
+@media (max-width:1024px) and (min-width:769px) {
+  nav { padding:20px 32px; }
+  .page-hero { padding:0 32px 48px; }
+  .filter-section { padding:32px 32px 0; }
+  .events-page { padding:60px 32px 80px; }
+  .category-number { font-size:60px; }
+  footer { padding:40px 32px 28px; }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════════ */
+@media (max-width:768px) {
+  nav { padding:16px 20px; }
+  .nav-hamburger { display:flex; }
+  .nav-links { display:none; }
+
+  .page-hero { padding:0 20px 48px;min-height:35vh; }
+  .page-title { font-size:clamp(40px,12vw,64px); }
+  .page-back { margin-bottom:20px; }
+
+  .filter-section { padding:24px 20px 0;gap:0; }
+  .filter-tab { padding:10px 16px;font-size:8px; }
+
+  .events-page { padding:40px 20px 80px; }
+
+  .category-header { grid-template-columns:1fr;gap:16px; }
+  .category-number { font-size:50px; }
+  .category-meta { gap:20px; }
+  .category-poster { max-width:100%; }
+
+  .events-list { grid-template-columns:1fr;gap:2px; }
+
+  footer { padding:36px 20px 24px; }
+  .footer-inner { flex-direction:column;align-items:flex-start;gap:20px; }
+  .footer-links-sm { gap:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">Collectif<span> Jardin</span></a>
+  <ul class="nav-links">
+    <li><a href="evenements.html" class="active">Événements</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="index.html#merch">Objets</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-overlay" id="navOverlay">
+  <a href="evenements.html" onclick="closeNav()">Événements</a>
+  <a href="index.html#about" onclick="closeNav()">À propos</a>
+  <a href="index.html#merch" onclick="closeNav()">Objets</a>
+  <a href="index.html#contact" class="nav-cta" onclick="closeNav()">Contact</a>
+</div>
+
+<!-- ─── PAGE HERO ─── -->
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <div class="page-hero-orb orb-a"></div>
+    <div class="page-hero-orb orb-b"></div>
+  </div>
+  <div class="page-hero-content">
+    <a href="index.html" class="page-back">Retour à l'accueil</a>
+    <h1 class="page-title">Calendrier<br><em>2026</em></h1>
+    <p class="page-subtitle">Toutes nos dates, trois séries d'événements.<br>Rimouski, Québec.</p>
+  </div>
+</div>
+
+<!-- ─── FILTER TABS ─── -->
+<div class="filter-section">
+  <button class="filter-tab active" onclick="filterEvents('all', this)">Tout voir</button>
+  <button class="filter-tab" onclick="filterEvents('bain-public', this)">Bain Public</button>
+  <button class="filter-tab" onclick="filterEvents('brise-lames', this)">Brise-Lames</button>
+  <button class="filter-tab" onclick="filterEvents('halloween', this)">Halloween</button>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div class="events-page">
+
+  <!-- ══════════════════════════════════
+       CATÉGORIE 1 — BAIN PUBLIC
+  ══════════════════════════════════ -->
+  <div class="category-block reveal" id="bain-public" data-category="bain-public">
+    <div class="category-header">
+      <div class="category-number">01</div>
+      <div class="category-info">
+        <div class="category-label">Série régulière — Salle culturelle</div>
+        <h2 class="category-title">Open Deck<br><em>Bain Public</em></h2>
+        <p class="category-desc">
+          En partenariat avec la salle culturelle du Bain Public à Rimouski, notre série Open Deck ouvre la scène à tou·te·s les artistes locaux·les. Chaque édition célèbre une communauté différente — une soirée queer, une soirée mixte, une soirée féminine. La musique électronique comme espace de liberté et d'inclusion.
+        </p>
+        <div class="category-meta">
+          <div class="category-meta-item">
+            <span class="category-meta-label">Lieu</span>
+            <span class="category-meta-value">Bain Public, Rimouski</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Format</span>
+            <span class="category-meta-value">21h → 3h</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Fréquence</span>
+            <span class="category-meta-value">Mensuel (automne–printemps)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-poster reveal reveal-d1"
+         onclick="openImageLightbox('Image-Events/OPEN Deck Queer.jpeg')"
+         title="Voir l'affiche en grand">
+      <img src="Image-Events/OPEN Deck Queer.jpeg" alt="Open Deck Bain Public" loading="lazy">
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Dates 2026</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="events-list">
+      <div class="ev-card reveal reveal-d1" data-category="bain-public">
+        <div class="ev-card-upcoming">À venir</div>
+        <div class="ev-card-tag">✦ Open Deck</div>
+        <div class="ev-card-name">Édition Féminin + Queer</div>
+        <div class="ev-card-date">Vendredi 20 mars 2026 — 21h → 3h</div>
+        <div class="ev-card-location">Bain Public, Rimouski</div>
+        <div class="ev-card-desc">Une soirée dédiée aux artistes féminines et à la communauté queer. Open deck — tout le monde peut jouer. Ambiance house organique et underground.</div>
+        <a href="#" class="ev-card-btn">Billets disponibles →</a>
+      </div>
+
+      <div class="ev-card reveal reveal-d2" data-category="bain-public">
+        <div class="ev-card-tag">✦ Open Deck</div>
+        <div class="ev-card-name">Édition Mixte</div>
+        <div class="ev-card-date">Samedi 18 avril 2026 — 21h → 3h</div>
+        <div class="ev-card-location">Bain Public, Rimouski</div>
+        <div class="ev-card-desc">Notre soirée open deck mixte — tout artiste bienvenu·e. L'occasion idéale pour les nouveaux DJs de faire leurs premières armes sur scène.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+
+      <div class="ev-card reveal reveal-d3" data-category="bain-public">
+        <div class="ev-card-tag">✦ Open Deck</div>
+        <div class="ev-card-name">Édition de Clôture</div>
+        <div class="ev-card-date">Vendredi 15 mai 2026 — 21h → 3h</div>
+        <div class="ev-card-location">Bain Public, Rimouski</div>
+        <div class="ev-card-desc">La dernière édition Bain Public avant la saison estivale. Une soirée de célébration pour clore l'année en salle avec toute la communauté.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CATÉGORIE 2 — BRISE-LAMES
+  ══════════════════════════════════ -->
+  <div class="category-block reveal" id="brise-lames" data-category="brise-lames">
+    <div class="category-header">
+      <div class="category-number">02</div>
+      <div class="category-info">
+        <div class="category-label">Série estivale — Plein air</div>
+        <h2 class="category-title">Saison<br><em>Brise-Lames</em></h2>
+        <p class="category-desc">
+          Chaque mois de l'été, de juin à septembre, nous investissons le site du Brise-Lames de Rimouski pour une journée de musique électronique en plein air. Face au fleuve Saint-Laurent, dans un cadre naturel exceptionnel — notre événement phare. Quatre éditions, quatre ambiances, une seule communauté.
+        </p>
+        <div class="category-meta">
+          <div class="category-meta-item">
+            <span class="category-meta-label">Lieu</span>
+            <span class="category-meta-value">Brise-Lames, Rimouski</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Format</span>
+            <span class="category-meta-value">15h → 23h — Plein air</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Saison</span>
+            <span class="category-meta-value">Juin · Juillet · Août · Septembre</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-poster reveal reveal-d1"
+         onclick="openImageLightbox('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png')"
+         title="Voir l'affiche en grand">
+      <img src="Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png" alt="Brise-Lames Solstice" loading="lazy">
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Dates 2026</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="events-list">
+      <div class="ev-card reveal reveal-d1" data-category="brise-lames">
+        <div class="ev-card-tag">✦ Édition Juin</div>
+        <div class="ev-card-name">Solstice d'Été</div>
+        <div class="ev-card-date">Samedi 20 juin 2026 — 15h → 23h</div>
+        <div class="ev-card-location">Brise-Lames, Rimouski</div>
+        <div class="ev-card-desc">L'ouverture de la saison estivale, au solstice d'été. Le soleil se couche tard, la musique joue encore plus longtemps. Notre édition phare depuis la fondation du collectif.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+
+      <div class="ev-card reveal reveal-d2" data-category="brise-lames">
+        <div class="ev-card-tag">✦ Édition Juillet</div>
+        <div class="ev-card-name">Plein Été</div>
+        <div class="ev-card-date">Samedi 18 juillet 2026 — 15h → 23h</div>
+        <div class="ev-card-location">Brise-Lames, Rimouski</div>
+        <div class="ev-card-desc">Le cœur de l'été. Des artistes invités de l'extérieur rejoignent notre programmation locale pour une journée de découvertes musicales face au Saint-Laurent.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+
+      <div class="ev-card reveal reveal-d3" data-category="brise-lames">
+        <div class="ev-card-tag">✦ Édition Août</div>
+        <div class="ev-card-name">Dernières Chaleurs</div>
+        <div class="ev-card-date">Samedi 15 août 2026 — 15h → 23h</div>
+        <div class="ev-card-location">Brise-Lames, Rimouski</div>
+        <div class="ev-card-desc">La chaleur de l'été commence à décliner, mais la musique reste intense. Une édition tournée vers les sonorités plus profondes, plus organiques.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+
+      <div class="ev-card reveal" data-category="brise-lames">
+        <div class="ev-card-tag">✦ Édition Septembre</div>
+        <div class="ev-card-name">Récolte</div>
+        <div class="ev-card-date">Samedi 19 septembre 2026 — 14h → 22h</div>
+        <div class="ev-card-location">Brise-Lames, Rimouski</div>
+        <div class="ev-card-desc">La clôture de la saison estivale. Une édition mélancolique et puissante, pour célébrer la fin de l'été avec toute la communauté avant le retour à l'intérieur.</div>
+        <a href="#" class="ev-card-btn">Billets bientôt →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CATÉGORIE 3 — HALLOWEEN
+  ══════════════════════════════════ -->
+  <div class="category-block reveal" id="halloween" data-category="halloween">
+    <div class="category-header">
+      <div class="category-number">03</div>
+      <div class="category-info">
+        <div class="category-label">Classique annuel — 31 octobre</div>
+        <h2 class="category-title">Nuit<br><em>Halloween</em></h2>
+        <p class="category-desc">
+          Notre événement le plus mystérieux, le plus attendu. Chaque 31 octobre, le Collectif Jardin transforme un lieu de Rimouski en terrain de jeu pour la nuit la plus sombre de l'année. Costumes exigés, musique de l'autre monde, communauté réunie. Une tradition depuis les débuts du collectif.
+        </p>
+        <div class="category-meta">
+          <div class="category-meta-item">
+            <span class="category-meta-label">Date</span>
+            <span class="category-meta-value">31 octobre 2026</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Format</span>
+            <span class="category-meta-value">21h → 3h</span>
+          </div>
+          <div class="category-meta-item">
+            <span class="category-meta-label">Lieu</span>
+            <span class="category-meta-value">À confirmer, Rimouski</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-poster reveal reveal-d1"
+         onclick="openImageLightbox('Image-Events/OPEN Deck Mixte.png')"
+         title="Voir l'affiche en grand">
+      <img src="Image-Events/OPEN Deck Mixte.png" alt="Nuit Halloween" loading="lazy">
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Dates 2026</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="events-list">
+      <div class="ev-card reveal reveal-d1" data-category="halloween">
+        <div class="ev-card-tag">✦ Classique annuel</div>
+        <div class="ev-card-name">La Grande Nuit d'Halloween</div>
+        <div class="ev-card-date">Samedi 31 octobre 2026 — 21h → 3h</div>
+        <div class="ev-card-location">Lieu à confirmer, Rimouski</div>
+        <div class="ev-card-desc">La cinquième édition de notre nuit d'Halloween. Costumes exigés. Musique sombre et hypnotique. Scénographie immersive. Un événement qui repousse les limites à chaque édition. Plus de détails à venir cet automne.</div>
+        <span class="ev-card-sold-out">Détails à confirmer à l'automne 2026</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.events-page -->
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-sm">Collectif<span>Jardin</span></a>
+    <div class="footer-links-sm">
+      <a href="evenements.html">Événements</a>
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#merch">Objets</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour & pollen.</div>
+</footer>
+
+<!-- ─── LIGHTBOX ─── -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-btn-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
+  <div id="lightbox-content" onclick="event.stopPropagation()"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── NAV scroll ── */
+var nav=document.getElementById('mainNav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+
+/* ── MOBILE NAV ── */
+window.toggleNav=function(){
+  var ov=document.getElementById('navOverlay');
+  var btn=document.getElementById('navHamburger');
+  var open=ov.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.setAttribute('aria-expanded',open);
+  if(open){
+    document.body.dataset.sy=window.scrollY;
+    document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+  } else {
+    var sy=parseInt(document.body.dataset.sy||0);
+    document.body.style.cssText='';
+    window.scrollTo(0,sy);
+  }
+};
+window.closeNav=function(){
+  var ov=document.getElementById('navOverlay');
+  if(!ov.classList.contains('open'))return;
+  ov.classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.getElementById('navHamburger').setAttribute('aria-expanded','false');
+  var sy=parseInt(document.body.dataset.sy||0);
+  document.body.style.cssText='';
+  window.scrollTo(0,sy);
+};
+document.getElementById('navOverlay').addEventListener('click',function(e){if(e.target===this)closeNav();});
+
+/* ── REVEAL ── */
+var revEls=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+  revEls.forEach(function(el){io.observe(el);});
+}else{revEls.forEach(function(el){el.classList.add('visible');});}
+
+/* ── FILTER ── */
+window.filterEvents=function(cat, btn){
+  document.querySelectorAll('.filter-tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.category-block').forEach(function(block){
+    if(cat==='all'||block.dataset.category===cat){
+      block.style.display='';
+    } else {
+      block.style.display='none';
+    }
+  });
+};
+
+/* ── IMAGE LIGHTBOX ── */
+window.openImageLightbox=function(src){
+  var lb=document.getElementById('lightbox');
+  var lbContent=document.getElementById('lightbox-content');
+  lbContent.innerHTML='<img src="'+src+'" alt="Affiche">';
+  lb.style.display='flex';
+};
+window.closeLightbox=function(){
+  var lb=document.getElementById('lightbox');
+  if(lb) lb.style.display='none';
+};
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') window.closeLightbox();
+});
+
+/* ── SCROLL TO ANCHOR on load (e.g. from index.html#bain-public) ── */
+if(window.location.hash){
+  setTimeout(function(){
+    var target=document.querySelector(window.location.hash);
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  },300);
+}
+
+})();
+</script>
+</body>
+</html>
