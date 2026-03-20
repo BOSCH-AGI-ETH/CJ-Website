@@ -561,6 +561,31 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .big-num { display:none; }
 }
 
+
+/* ─── FLOWER BACKGROUND LAYER ─── */
+#flower-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fl {
+  position: absolute;
+  background-image: url('Jardin-fleur-mauve-fond-orange.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  mix-blend-mode: screen; /* removes black bg — black = transparent on screen blend */
+  pointer-events: none;
+  will-change: transform;
+  transform-origin: center center;
+}
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fl { animation: none !important; transition: none !important; }
+}
+
 @media (max-width:390px) {
   .hero-title { font-size:clamp(34px,14vw,52px); }
   .gallery-item { width:180px;height:256px; }
@@ -574,6 +599,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── FLOWER BACKGROUND LAYER ─── -->
+<div id="flower-layer" aria-hidden="true"></div>
 
 <!-- ─── NAV ─── -->
 <nav id="mainNav">
@@ -592,7 +620,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- Mobile overlay — separate element, never inside overflow:hidden -->
 <div class="nav-overlay" id="navOverlay">
-  <a href="evenements.html"  onclick="closeNav()">Événements</a>
+  <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="#about"   onclick="closeNav()">À propos</a>
   <a href="#merch"   onclick="closeNav()">Objets</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
@@ -649,52 +677,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     </div>
   </div>
   <div class="events-grid reveal">
-
-    <!-- Catégorie 1 — Bain Public -->
-    <div class="event-card">
-      <div class="event-card-bg card-grad-1"
-           onclick="openImageLightbox('Image-Events/OPEN Deck Queer.jpeg')"
-           style="cursor:zoom-in;"
-           title="Voir l'affiche"></div>
-      <div class="event-card-inner">
-        <span class="event-tag">✦ Série régulière</span>
-        <div class="event-name">Open Deck<br>Bain Public</div>
-        <div class="event-date">Rimouski — Salle culturelle</div>
-        <div class="event-location">Événements tout au long de l'année</div>
-        <a href="evenements.html#bain-public" class="event-btn">Plus de détails</a>
-      </div>
-    </div>
-
-    <!-- Catégorie 2 — Brise-Lames -->
-    <div class="event-card">
-      <div class="event-card-bg card-grad-3"
-           onclick="openImageLightbox('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png')"
-           style="cursor:zoom-in;"
-           title="Voir l'affiche"></div>
-      <div class="event-card-inner">
-        <span class="event-tag">✦ Série estivale</span>
-        <div class="event-name">Saison<br>Brise-Lames</div>
-        <div class="event-date">Juin · Juillet · Août · Septembre</div>
-        <div class="event-location">Brise-Lames, Rimouski</div>
-        <a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a>
-      </div>
-    </div>
-
-    <!-- Catégorie 3 — Halloween -->
-    <div class="event-card">
-      <div class="event-card-bg card-grad-2"
-           onclick="openImageLightbox('Image-Events/OPEN Deck Mixte.png')"
-           style="cursor:zoom-in;"
-           title="Voir l'affiche"></div>
-      <div class="event-card-inner">
-        <span class="event-tag">✦ Classique annuel</span>
-        <div class="event-name">Nuit<br>Halloween</div>
-        <div class="event-date">31 octobre — Chaque année</div>
-        <div class="event-location">Rimouski</div>
-        <a href="evenements.html#halloween" class="event-btn">Plus de détails</a>
-      </div>
-    </div>
-
+    <div class="event-card"><div class="event-card-bg card-grad-1" onclick="openImageLightbox('Image-Events/OPEN Deck Queer.jpeg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série régulière</span><div class="event-name">Open Deck<br>Bain Public</div><div class="event-date">Rimouski — Salle culturelle</div><div class="event-location">Événements tout au long de l'année</div><a href="evenements.html#bain-public" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-3" onclick="openImageLightbox('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série estivale</span><div class="event-name">Saison<br>Brise-Lames</div><div class="event-date">Juin · Juillet · Août · Septembre</div><div class="event-location">Brise-Lames, Rimouski</div><a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Events/OPEN Deck Mixte.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
   </div>
   <div class="stats-row reveal">
     <div class="stat-box"><div class="stat-num">47</div><div class="stat-label">Événements organisés</div></div>
@@ -810,10 +795,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div>
       <p class="contact-intro reveal">Vous avez un projet, une idée, une <em>vision</em> qui s'aligne avec la nôtre ?</p>
       <div class="contact-links reveal">
-        <a href="mailto:bonjour@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email">bonjour@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#781a171612170d0a381b1714141d1b0c111e12190a1c1116561b19" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="3c5e53525653494e7c5f535050595f48555a565d4e585552125f5d">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
         <a href="#" class="contact-link-item"><span class="contact-link-label">Instagram</span><span class="contact-link-email">@collectifjardin</span><span class="contact-link-arrow">→</span></a>
-        <a href="mailto:objets@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email">objets@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
-        <a href="mailto:presse@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email">presse@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#ea8588808f9e99aa898586868f899e838c808b988e8384c4898b" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="dab5b8b0bfaea99ab9b5b6b6bfb9aeb3bcb0bba8beb3b4f4b9bb">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#6a1a180f19190f2a090506060f091e030c000b180e030444090b" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="bacac8dfc9c9dffad9d5d6d6dfd9ced3dcd0dbc8ded3d494d9db">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
       </div>
       <div class="newsletter-box reveal">
         <div class="section-label" style="margin-bottom:8px;">Infolettre</div>
@@ -838,7 +823,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 <footer>
   <div class="footer-top">
     <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2025 Collectif Jardin</p></div>
-    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links"><li><a href="#events">Événements</a></li><li><a href="#about">À propos</a></li><li><a href="#merch">Objets promo</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links"><li><a href="evenements.html">Événements</a></li><li><a href="#about">À propos</a></li><li><a href="#merch">Objets promo</a></li><li><a href="#contact">Contact</a></li></ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="#" class="social-link">Instagram</a><a href="#" class="social-link">Facebook</a><a href="#" class="social-link">SoundCloud</a><a href="#" class="social-link">ResidentAdvisor</a><a href="#" class="social-link">Bandcamp</a></div></div>
   </div>
   <div class="footer-bottom">
@@ -972,6 +957,7 @@ if(track && btnL && btnR){
   },{passive:true});
 }
 
+/* ── 6. GALLERY ITEM LIGHTBOX ── */
 document.querySelectorAll('.gallery-item').forEach(function(item){
   item.addEventListener('click',function(){
     var lb=document.getElementById('lightbox');
@@ -985,7 +971,7 @@ document.querySelectorAll('.gallery-item').forEach(function(item){
   });
 });
 
-/* ── 6. IMAGE LIGHTBOX (event card posters) ── */
+/* ── 7. IMAGE LIGHTBOX (event card posters) ── */
 window.openImageLightbox=function(src){
   var lb=document.getElementById('lightbox');
   var lbContent=document.getElementById('lightbox-content');
@@ -993,15 +979,121 @@ window.openImageLightbox=function(src){
   lb.style.display='flex';
 };
 
-/* ── 7. CLOSE LIGHTBOX ── */
+/* ── 8. CLOSE LIGHTBOX ── */
 window.closeLightbox=function(){
   var lb=document.getElementById('lightbox');
   if(lb) lb.style.display='none';
 };
-
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
+
+/* ── 9. FLOWER BACKGROUND ANIMATION ── */
+(function(){
+  var layer = document.getElementById('flower-layer');
+  if(!layer) return;
+
+  // Each flower: x%, y%, size px, rotation deg, animation duration s, delay s, opacity
+  var flowers = [
+    [5,  8,  44, -15, 12, 0,   0.55],
+    [18, 22, 32,  20, 16, 1.5, 0.45],
+    [33, 5,  56,  -8, 14, 0.8, 0.50],
+    [48, 18, 38,  35, 18, 2.2, 0.40],
+    [62, 7,  48,  -22,13, 0.4, 0.55],
+    [77, 25, 30,  12, 17, 1.0, 0.45],
+    [88, 10, 60,  -5, 15, 2.8, 0.50],
+    [92, 40, 36,  28, 19, 0.6, 0.40],
+    [10, 55, 50,  -30,14, 1.8, 0.45],
+    [25, 72, 40,  18, 16, 0.2, 0.50],
+    [42, 60, 34,  -12,18, 2.5, 0.40],
+    [58, 80, 52,  8,  13, 1.2, 0.55],
+    [73, 65, 42,  -25,15, 0.9, 0.45],
+    [85, 75, 46,  15, 17, 2.0, 0.50],
+    [95, 58, 38,  -8, 14, 0.5, 0.40],
+    [3,  88, 44,  22, 16, 1.6, 0.45],
+    [20, 45, 36,  -18,18, 3.0, 0.50],
+    [52, 35, 48,  10, 12, 0.7, 0.40],
+    [70, 50, 32,  -5, 20, 2.3, 0.55],
+    [38, 90, 54,  30, 15, 1.1, 0.45]
+  ];
+
+  // Create keyframe style
+  var styleEl = document.createElement('style');
+  var css = '';
+  flowers.forEach(function(f, i){
+    var dx = (Math.random()*30-15).toFixed(1);
+    var dy = (Math.random()*30-15).toFixed(1);
+    var dr = (Math.random()*30-15).toFixed(1);
+    css += '@keyframes fl'+i+'{';
+    css += '0%{transform:translate(0,0) rotate('+f[3]+'deg);}';
+    css += '25%{transform:translate('+dx+'px,'+(-Math.abs(dy))+'px) rotate('+(f[3]+parseFloat(dr))+'deg);}';
+    css += '50%{transform:translate('+(Math.abs(dx))+'px,'+dy+'px) rotate('+(f[3]+parseFloat(dr)*1.5)+'deg);}';
+    css += '75%{transform:translate('+(-Math.abs(dx))+'px,'+(parseFloat(dy)*0.5).toFixed(1)+'px) rotate('+(f[3]-parseFloat(dr)*0.5)+'deg);}';
+    css += '100%{transform:translate(0,0) rotate('+f[3]+'deg);}}';
+  });
+  styleEl.textContent = css;
+  document.head.appendChild(styleEl);
+
+  // Create flower elements
+  var els = [];
+  flowers.forEach(function(f, i){
+    var div = document.createElement('div');
+    div.className = 'fl';
+    div.style.cssText = [
+      'left:'+f[0]+'%',
+      'top:'+f[1]+'%',
+      'width:'+f[2]+'px',
+      'height:'+f[2]+'px',
+      'opacity:'+f[6],
+      'animation:fl'+i+' '+f[4]+'s '+f[5]+'s ease-in-out infinite alternate'
+    ].join(';');
+    layer.appendChild(div);
+    els.push({ el:div, bx:f[0], by:f[1], ox:0, oy:0, tr:0, bs:f[2] });
+  });
+
+  // Mouse/touch interaction — flowers near cursor get pushed
+  var mx=0.5, my=0.5;
+  var raf=false;
+
+  function onMove(cx, cy){
+    mx = cx / window.innerWidth;
+    my = cy / window.innerHeight;
+    if(!raf){
+      raf=true;
+      requestAnimationFrame(updateFlowers);
+    }
+  }
+
+  function updateFlowers(){
+    raf=false;
+    els.forEach(function(f){
+      var fx = f.bx/100;
+      var fy = f.by/100;
+      var dist = Math.sqrt((mx-fx)*(mx-fx)+(my-fy)*(my-fy));
+      var maxDist = 0.22;
+      if(dist < maxDist){
+        var strength = (1 - dist/maxDist);
+        var angle = Math.atan2(fy-my, fx-mx);
+        f.ox = Math.cos(angle)*strength*60;
+        f.oy = Math.sin(angle)*strength*60;
+        f.tr = strength * 25;
+        f.el.style.transition = 'transform 0.35s cubic-bezier(0.2,0,0,1)';
+        f.el.style.opacity = Math.min(0.85, parseFloat(flowers[els.indexOf(f)][6]) + strength*0.3);
+      } else {
+        f.ox = 0; f.oy = 0; f.tr = 0;
+        f.el.style.transition = 'transform 1.2s ease, opacity 1.2s ease';
+        f.el.style.opacity = flowers[els.indexOf(f)][6];
+      }
+      // We apply the cursor offset via CSS variable trick on each element
+      f.el.style.marginLeft = f.ox + 'px';
+      f.el.style.marginTop  = f.oy + 'px';
+    });
+  }
+
+  document.addEventListener('mousemove', function(e){ onMove(e.clientX, e.clientY); }, {passive:true});
+  document.addEventListener('touchmove', function(e){ if(e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+
+})();
 
 })();
 </script>
