@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141414">
+<title>Projets — Collectif Jardin</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap');
+:root{--bg:#141414;--mauve:#edacff;--orange:#fd2f00;--burgundy:#38050e;--cream:#fffbdb;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;font-size:14px;line-height:1.6;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .4s ease;}
+nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(237,172,255,.08);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.18em;color:var(--cream);text-decoration:none;text-transform:uppercase;}
+.nav-logo span{color:var(--mauve);}
+.nav-links{display:flex;gap:30px;list-style:none;}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;transition:opacity .3s,color .3s;}
+.nav-links a:hover{opacity:1;color:var(--orange);}
+.nav-links a.active{opacity:1;color:var(--mauve);}
+.nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:8px 16px;opacity:1!important;transition:background .3s,color .3s!important;}
+.nav-cta:hover{background:var(--orange)!important;color:var(--bg)!important;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:6px;background:none;border:none;cursor:pointer;padding:8px;z-index:1100;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:transform .3s ease,opacity .25s ease;transform-origin:center;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:1050;opacity:0;transition:opacity .3s ease;}
+.nav-overlay.open{display:flex;opacity:1;}
+.nav-overlay a{color:var(--cream);text-decoration:none;font-size:20px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;transition:color .3s,opacity .3s;-webkit-tap-highlight-color:transparent;}
+.nav-overlay a:active{opacity:1;color:var(--orange);}
+.nav-overlay .nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:12px 28px;opacity:1!important;}
+
+/* PAGE HERO */
+.page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:0 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
+.page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#0a1820,#1a0524,#141414);}
+.page-hero-orb{position:absolute;border-radius:77%;filter:blur(80px);opacity:.13;animation:drift 20s linear infinite;will-change:transform;}
+.orb-a{width:500px;height:500px;background:var(--mauve);top:-160px;right:-60px;}
+.orb-b{width:360px;height:360px;background:#0066aa;bottom:-80px;left:18%;animation-delay:5s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1);}25%{transform:translate(30px,-20px) scale(1.1);}50%{transform:translate(15px,35px) scale(1.15);}75%{transform:translate(-25px,15px) scale(1.1);}100%{transform:translate(0,0) scale(1);}}
+.page-hero-content{position:relative;z-index:1;max-width:700px;}
+.page-back{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.4);text-decoration:none;margin-bottom:28px;transition:color .3s,gap .3s;}
+.page-back:hover{color:var(--mauve);gap:16px;}
+.page-back::before{content:'←';}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,96px);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:18px;}
+.page-title em{font-style:italic;color:var(--mauve);}
+.page-subtitle{font-size:12px;color:rgba(255,251,219,.4);letter-spacing:.12em;line-height:1.9;}
+
+/* YEAR TABS */
+.year-nav{display:flex;gap:0;flex-wrap:wrap;padding:0 48px;border-bottom:1px solid rgba(237,172,255,.06);position:sticky;top:67px;z-index:100;background:rgba(20,20,20,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+.year-tab{padding:16px 32px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,251,219,.4);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.year-tab:hover{color:var(--cream);}
+.year-tab.active{color:var(--mauve);border-bottom-color:var(--mauve);}
+
+/* MAIN */
+.proj-main{padding:72px 48px 120px;}
+.year-block{display:none;margin-bottom:100px;}
+.year-block.visible{display:block;}
+
+/* YEAR HEADER */
+.year-heading{display:flex;align-items:flex-end;gap:28px;margin-bottom:56px;padding-bottom:24px;border-bottom:1px solid rgba(237,172,255,.07);}
+.year-num{font-family:'Cormorant Garamond',serif;font-size:clamp(60px,8vw,110px);font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.15);line-height:1;letter-spacing:-.04em;user-select:none;}
+.year-intro{padding-bottom:8px;}
+.year-intro-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.year-intro-text{font-size:13px;color:rgba(255,251,219,.45);line-height:1.9;letter-spacing:.04em;max-width:480px;}
+
+/* ── FEATURED PROJECT (Système de son) ── */
+.proj-featured{
+  background:linear-gradient(135deg,rgba(56,5,14,.6),rgba(26,5,36,.6),rgba(20,20,20,.8));
+  border:1px solid rgba(237,172,255,.18);
+  padding:48px;
+  margin-bottom:48px;
+  position:relative;
+  overflow:hidden;
+}
+.proj-featured::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(237,172,255,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.proj-featured-badge{
+  display:inline-block;font-size:8px;letter-spacing:.25em;text-transform:uppercase;
+  background:var(--mauve);color:var(--bg);padding:5px 12px;margin-bottom:24px;
+}
+.proj-featured-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,52px);
+  font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:8px;
+}
+.proj-featured-title em{font-style:italic;color:var(--mauve);}
+.proj-featured-subtitle{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:24px;
+}
+.proj-featured-desc{
+  font-size:13px;color:rgba(255,251,219,.65);line-height:2;
+  letter-spacing:.04em;max-width:680px;margin-bottom:32px;
+}
+.proj-featured-meta{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:24px;margin-bottom:36px;
+  padding:24px;border:1px solid rgba(237,172,255,.1);
+}
+.proj-meta-item{display:flex;flex-direction:column;gap:6px;}
+.proj-meta-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.8;}
+.proj-meta-val{font-size:12px;color:rgba(255,251,219,.75);letter-spacing:.05em;line-height:1.6;}
+
+/* Progress bar */
+.proj-progress{margin-bottom:32px;}
+.proj-progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.proj-progress-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.4);}
+.proj-progress-pct{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--mauve);}
+.proj-progress-bar{width:100%;height:2px;background:rgba(237,172,255,.12);position:relative;overflow:hidden;}
+.proj-progress-fill{height:100%;background:var(--mauve);width:0%;transition:width 1.5s ease;will-change:width;}
+.proj-progress-goal{font-size:9px;color:rgba(255,251,219,.3);letter-spacing:.15em;margin-top:8px;}
+
+/* CTA buttons */
+.proj-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:var(--orange);color:var(--bg);padding:14px 32px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:transform .3s,box-shadow .3s;-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.35);}
+.btn-mauve{border:1.5px solid rgba(237,172,255,.35);color:var(--mauve);padding:14px 32px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color .3s,background .3s;-webkit-tap-highlight-color:transparent;}
+.btn-mauve:hover{border-color:var(--mauve);background:rgba(237,172,255,.08);}
+.btn-ghost-sm{border:1px solid rgba(255,251,219,.18);color:rgba(255,251,219,.6);padding:10px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color .3s,color .3s;}
+.btn-ghost-sm:hover{border-color:var(--mauve);color:var(--mauve);}
+
+/* ── STATUS SECTIONS ── */
+.status-section{margin-bottom:64px;}
+.status-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-active{background:var(--mauve);}
+.dot-upcoming{background:var(--orange);}
+.dot-done{background:rgba(255,251,219,.2);}
+.status-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,251,219,.35);}
+.status-line{flex:1;height:1px;background:rgba(237,172,255,.06);}
+
+/* ── PROJECT CARDS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2px;}
+
+.proj-card{
+  background:#181818;
+  border:1px solid rgba(237,172,255,.05);
+  padding:28px 24px;
+  position:relative;
+  transition:border-color .3s,background .3s;
+}
+.proj-card:hover{border-color:rgba(237,172,255,.15);background:#1c1c1c;}
+.proj-card-status{
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  padding:3px 10px;display:inline-block;margin-bottom:16px;
+}
+.status-en-cours{background:rgba(237,172,255,.12);color:var(--mauve);border:1px solid rgba(237,172,255,.2);}
+.status-collabore{background:rgba(253,47,0,.1);color:var(--orange);border:1px solid rgba(253,47,0,.2);}
+.status-invitation{background:rgba(255,251,219,.06);color:rgba(255,251,219,.5);border:1px solid rgba(255,251,219,.12);}
+.status-complete{background:rgba(255,251,219,.04);color:rgba(255,251,219,.3);border:1px solid rgba(255,251,219,.08);}
+.proj-card-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;line-height:1.2;margin-bottom:8px;}
+.proj-card-org{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;opacity:.8;}
+.proj-card-desc{font-size:12px;color:rgba(255,251,219,.45);line-height:1.9;letter-spacing:.03em;margin-bottom:16px;}
+.proj-card-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.proj-tag{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,251,219,.25);padding:3px 8px;border:1px solid rgba(255,251,219,.08);}
+
+/* ── ARCHIVE LIST (for older years) ── */
+.archive-list{display:flex;flex-direction:column;gap:0;}
+.archive-item{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;
+  padding:18px 0;border-bottom:1px solid rgba(237,172,255,.05);
+  transition:border-color .3s;
+}
+.archive-item:hover{border-bottom-color:rgba(237,172,255,.15);}
+.archive-item:last-child{border-bottom:none;}
+.archive-type{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);opacity:.7;white-space:nowrap;}
+.archive-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--cream);}
+.archive-org{font-size:10px;color:rgba(255,251,219,.35);letter-spacing:.08em;}
+.archive-date{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.25);white-space:nowrap;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}
+.rd4{transition-delay:.32s;}.rd5{transition-delay:.4s;}
+
+/* FOOTER */
+footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rgba(237,172,255,.1);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid rgba(237,172,255,.08);}
+.footer-logo-sm{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);}
+.footer-logo-sm span{color:var(--mauve);}
+.footer-links-sm{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links-sm a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.35);text-decoration:none;transition:color .3s;}
+.footer-links-sm a:hover{color:var(--mauve);}
+.footer-copy-sm{font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em;}
+
+/* TABLET */
+@media(max-width:1024px) and (min-width:769px){
+  nav{padding:20px 32px;}
+  .page-hero{padding:0 32px 44px;}
+  .year-nav{padding:0 32px;}
+  .proj-main{padding:60px 32px 80px;}
+  .proj-featured{padding:36px;}
+  .proj-featured-meta{grid-template-columns:repeat(2,1fr);}
+  footer{padding:40px 32px 28px;}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-hamburger{display:flex;}
+  .nav-links{display:none;}
+  .page-hero{padding:0 20px 40px;min-height:30vh;}
+  .page-title{font-size:clamp(38px,11vw,60px);}
+  .page-back{margin-bottom:16px;}
+  .year-nav{padding:0 16px;top:60px;}
+  .year-tab{padding:12px 18px;font-size:8px;letter-spacing:.18em;}
+  .proj-main{padding:36px 20px 80px;}
+  .year-heading{flex-direction:column;align-items:flex-start;gap:12px;}
+  .year-num{font-size:clamp(48px,12vw,72px);}
+  .proj-featured{padding:24px 20px;}
+  .proj-featured-meta{grid-template-columns:1fr 1fr;gap:16px;padding:16px;}
+  .proj-ctas{flex-direction:column;gap:12px;}
+  .btn-primary,.btn-mauve{text-align:center;}
+  .proj-grid{grid-template-columns:1fr;gap:2px;}
+  .archive-item{grid-template-columns:1fr auto;gap:12px;}
+  .archive-type{display:none;}
+  footer{padding:36px 20px 24px;}
+  .footer-inner{flex-direction:column;align-items:flex-start;gap:16px;}
+  .footer-links-sm{gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">Collectif<span> Jardin</span></a>
+  <ul class="nav-links">
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="projets.html" class="active">Projets</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="index.html#merch">Objets</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="navOverlay">
+  <a href="evenements.html" onclick="closeNav()">Événements</a>
+  <a href="projets.html" onclick="closeNav()">Projets</a>
+  <a href="index.html#about" onclick="closeNav()">À propos</a>
+  <a href="index.html#merch" onclick="closeNav()">Objets</a>
+  <a href="index.html#contact" class="nav-cta" onclick="closeNav()">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <div class="page-hero-orb orb-a"></div>
+    <div class="page-hero-orb orb-b"></div>
+  </div>
+  <div class="page-hero-content">
+    <a href="index.html" class="page-back">Retour à l'accueil</a>
+    <h1 class="page-title">Nos<br><em>Projets</em></h1>
+    <p class="page-subtitle">Collaborations · Participations · Développement<br>Rimouski, Bas-du-Fleuve.</p>
+  </div>
+</div>
+
+<!-- YEAR TABS -->
+<nav class="year-nav" aria-label="Années">
+  <button class="year-tab active" onclick="showYear('y2026',this)">2026</button>
+  <button class="year-tab" onclick="showYear('y2025',this)">2025</button>
+  <button class="year-tab" onclick="showYear('y2024',this)">2024</button>
+</nav>
+
+<main class="proj-main">
+
+<!-- ══════════════════════════════════
+     2026
+══════════════════════════════════ -->
+<div class="year-block visible" id="y2026">
+
+  <div class="year-heading reveal">
+    <div class="year-num">2026</div>
+    <div class="year-intro">
+      <div class="year-intro-label">Année en cours</div>
+      <p class="year-intro-text">Notre année la plus ambitieuse. Construction de notre infrastructure sonore maison, expansion des collaborations régionales, et engagement profond dans l'écosystème culturel du Bas-du-Fleuve.</p>
+    </div>
+  </div>
+
+  <!-- ══ FEATURED: Système de son ══ -->
+  <div class="proj-featured reveal" id="systeme-son">
+    <span class="proj-featured-badge">✦ Projet phare — En développement</span>
+    <h2 class="proj-featured-title">Système de Son<br><em>Maison du Collectif</em></h2>
+    <div class="proj-featured-subtitle">Infrastructure sonore · Expertise locale · Sociofinancement</div>
+    <p class="proj-featured-desc">
+      Le Collectif Jardin entreprend la construction de son propre système de sonorisation — conçu, assemblé et calibré avec les expertises du Bas-du-Fleuve. Un projet qui rassemble des techniciens, ingénieurs et artistes de la région pour créer une infrastructure sonore adaptée à nos événements en plein air et en salle, ancrée dans notre territoire.
+    </p>
+    <p class="proj-featured-desc">
+      Ce système nous permettra de réduire nos coûts de location, d'améliorer la qualité sonore de nos événements, de prêter l'équipement à d'autres collectifs de la région, et de développer une autonomie technique durable. Un investissement pour toute la scène musicale underground rimousquoise.
+    </p>
+
+    <div class="proj-featured-meta">
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Statut</span>
+        <span class="proj-meta-val">Développement actif</span>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Territoire</span>
+        <span class="proj-meta-val">Bas-du-Fleuve, Rimouski</span>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Expertise</span>
+        <span class="proj-meta-val">Locale & régionale</span>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Financement</span>
+        <span class="proj-meta-val">Sociofinancement communautaire</span>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Capacité cible</span>
+        <span class="proj-meta-val">Événements 200–800 personnes</span>
+      </div>
+      <div class="proj-meta-item">
+        <span class="proj-meta-lbl">Livraison prévue</span>
+        <span class="proj-meta-val">Saison estivale 2026</span>
+      </div>
+    </div>
+
+    <!-- Progress bar — sociofinancement -->
+    <div class="proj-progress">
+      <div class="proj-progress-header">
+        <span class="proj-progress-label">Objectif de sociofinancement</span>
+        <span class="proj-progress-pct" id="progressPct">—</span>
+      </div>
+      <div class="proj-progress-bar">
+        <div class="proj-progress-fill" id="progressFill" data-target="35"></div>
+      </div>
+      <div class="proj-progress-goal">Campagne de sociofinancement à venir — rejoignez-nous pour suivre les mises à jour</div>
+    </div>
+
+    <div class="proj-ctas">
+      <!-- Remplacer # par le lien de sociofinancement quand disponible -->
+      <a href="#" class="btn-primary">Soutenir le projet →</a>
+      <a href="index.html#contact" class="btn-mauve">Nous contacter</a>
+    </div>
+  </div>
+
+  <!-- ══ En cours / À venir ══ -->
+  <div class="status-section reveal">
+    <div class="status-header">
+      <div class="status-dot dot-active"></div>
+      <span class="status-label">En cours &amp; à venir</span>
+      <div class="status-line"></div>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <span class="proj-card-status status-en-cours">En cours</span>
+        <div class="proj-card-title">Cartographie des expertises sonores</div>
+        <div class="proj-card-org">Bas-du-Fleuve · Réseau local</div>
+        <p class="proj-card-desc">Identification et connexion des techniciens, ingénieurs et artisans du son de la région pour constituer l'équipe du projet système de son maison.</p>
+        <div class="proj-card-tags"><span class="proj-tag">Réseau</span><span class="proj-tag">Technique</span><span class="proj-tag">Territoire</span></div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-card-status status-en-cours">En cours</span>
+        <div class="proj-card-title">Planification Saison Brise-Lames 2026</div>
+        <div class="proj-card-org">Collectif Jardin · Interne</div>
+        <p class="proj-card-desc">Organisation des quatre éditions estivales avec intégration progressive du nouveau système sonore. Développement de la programmation artistique 2026.</p>
+        <div class="proj-card-tags"><span class="proj-tag">Production</span><span class="proj-tag">Programmation</span></div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-card-status status-en-cours">En cours</span>
+        <div class="proj-card-title">Développement identité visuelle 2026</div>
+        <div class="proj-card-org">Collectif Jardin · Design</div>
+        <p class="proj-card-desc">Création des affiches et identités visuelles pour la saison complète 2026 — cohérence graphique entre toutes les séries d'événements.</p>
+        <div class="proj-card-tags"><span class="proj-tag">Design</span><span class="proj-tag">Communication</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     2025
+══════════════════════════════════ -->
+<div class="year-block" id="y2025">
+
+  <div class="year-heading reveal">
+    <div class="year-num">2025</div>
+    <div class="year-intro">
+      <div class="year-intro-label">Collaborations & participations</div>
+      <p class="year-intro-text">Une année de consolidation et d'ouverture — invitations à mixer hors de Rimouski, premières collaborations inter-collectifs et développement de nos réseaux artistiques régionaux.</p>
+    </div>
+  </div>
+
+  <!-- Collaborations -->
+  <div class="status-section reveal">
+    <div class="status-header">
+      <div class="status-dot dot-upcoming"></div>
+      <span class="status-label">Collaborations &amp; co-créations</span>
+      <div class="status-line"></div>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <span class="proj-card-status status-collabore">Collaboration</span>
+        <div class="proj-card-title">Résidence artistique sonore</div>
+        <div class="proj-card-org">Partenaire régional · Bas-du-Fleuve</div>
+        <p class="proj-card-desc">Participation à une résidence de création explorant la relation entre paysage sonore du fleuve et musique électronique organique.</p>
+        <div class="proj-card-tags"><span class="proj-tag">Résidence</span><span class="proj-tag">Création</span><span class="proj-tag">Territoire</span></div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-card-status status-collabore">Collaboration</span>
+        <div class="proj-card-title">Nuit Blanche — scène électronique</div>
+        <div class="proj-card-org">Événement culturel municipal</div>
+        <p class="proj-card-desc">Curation et gestion de la scène électronique dans le cadre d'un événement culturel nocturne de grande ampleur à Rimouski.</p>
+        <div class="proj-card-tags"><span class="proj-tag">Curation</span><span class="proj-tag">Production</span></div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-card-status status-invitation">Invitation</span>
+        <div class="proj-card-title">Guest mix — festival régional</div>
+        <div class="proj-card-org">Festival partenaire · Québec</div>
+        <p class="proj-card-desc">Invitation d'artistes du collectif à mixer dans le cadre d'un festival électronique régional — première représentation hors de Rimouski.</p>
+        <div class="proj-card-tags"><span class="proj-tag">DJ Set</span><span class="proj-tag">Représentation</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Invitations à mixer -->
+  <div class="status-section reveal">
+    <div class="status-header">
+      <div class="status-dot dot-done"></div>
+      <span class="status-label">Invitations à mixer</span>
+      <div class="status-line"></div>
+    </div>
+    <div class="archive-list">
+      <div class="archive-item">
+        <span class="archive-type">DJ Set</span>
+        <div><div class="archive-name">Soirée de clôture CÉGEP de Rimouski</div><div class="archive-org">Campus de Rimouski</div></div>
+        <span class="archive-date">Mai 2025</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Live</span>
+        <div><div class="archive-name">Vernissage Studio Collectif</div><div class="archive-org">Espace culturel, Rimouski</div></div>
+        <span class="archive-date">Mars 2025</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">DJ Set</span>
+        <div><div class="archive-name">Après-ski électronique</div><div class="archive-org">Mont-Lac-Vert, Bas-du-Fleuve</div></div>
+        <span class="archive-date">Février 2025</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Invitation</span>
+        <div><div class="archive-name">Soirée bénéfice — organisme communautaire</div><div class="archive-org">Rimouski</div></div>
+        <span class="archive-date">Janvier 2025</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════
+     2024
+══════════════════════════════════ -->
+<div class="year-block" id="y2024">
+
+  <div class="year-heading reveal">
+    <div class="year-num">2024</div>
+    <div class="year-intro">
+      <div class="year-intro-label">Fondation & premiers pas</div>
+      <p class="year-intro-text">L'année de l'ancrage — mise en place de nos premières collaborations structurantes, premiers partenariats institutionnels et construction de notre réputation dans l'écosystème culturel régional.</p>
+    </div>
+  </div>
+
+  <!-- Archive complète -->
+  <div class="status-section reveal">
+    <div class="status-header">
+      <div class="status-dot dot-done"></div>
+      <span class="status-label">Projets &amp; participations complétés</span>
+      <div class="status-line"></div>
+    </div>
+    <div class="archive-list">
+      <div class="archive-item">
+        <span class="archive-type">Collaboration</span>
+        <div><div class="archive-name">Lancement Brise-Lames — co-production</div><div class="archive-org">Partenaire culturel, Rimouski</div></div>
+        <span class="archive-date">Juin 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">DJ Set</span>
+        <div><div class="archive-name">Soirée d'ouverture galerie d'art</div><div class="archive-org">Espace galerie, Rimouski</div></div>
+        <span class="archive-date">Septembre 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Invitation</span>
+        <div><div class="archive-name">Set électronique — Fête nationale</div><div class="archive-org">Parc, Rimouski</div></div>
+        <span class="archive-date">Juin 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Collaboration</span>
+        <div><div class="archive-name">Atelier initiation au DJing</div><div class="archive-org">Centre jeunesse, Rimouski</div></div>
+        <span class="archive-date">Octobre 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">DJ Set</span>
+        <div><div class="archive-name">Soirée fundraiser association étudiante</div><div class="archive-org">UQAR, Rimouski</div></div>
+        <span class="archive-date">Novembre 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Invitation</span>
+        <div><div class="archive-name">Festival des arts de la rue — ambiance musicale</div><div class="archive-org">Centre-ville, Rimouski</div></div>
+        <span class="archive-date">Août 2024</span>
+      </div>
+      <div class="archive-item">
+        <span class="archive-type">Collaboration</span>
+        <div><div class="archive-name">Création sonore pour exposition</div><div class="archive-org">Musée régional de Rimouski</div></div>
+        <span class="archive-date">Décembre 2024</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-sm">Collectif<span>Jardin</span></a>
+    <div class="footer-links-sm">
+      <a href="evenements.html">Événements</a>
+      <a href="projets.html">Projets</a>
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#merch">Objets</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour &amp; pollen.</div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* NAV scroll */
+var nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+/* MOBILE NAV */
+window.toggleNav = function(){
+  var ov = document.getElementById('navOverlay');
+  var btn = document.getElementById('navHamburger');
+  var open = ov.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+  if(open){
+    document.body.dataset.sy = window.scrollY;
+    document.body.style.cssText = 'position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+  } else {
+    var sy = parseInt(document.body.dataset.sy||0);
+    document.body.style.cssText = '';
+    window.scrollTo(0,sy);
+  }
+};
+window.closeNav = function(){
+  var ov = document.getElementById('navOverlay');
+  if(!ov.classList.contains('open')) return;
+  ov.classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.getElementById('navHamburger').setAttribute('aria-expanded','false');
+  var sy = parseInt(document.body.dataset.sy||0);
+  document.body.style.cssText = '';
+  window.scrollTo(0,sy);
+};
+document.getElementById('navOverlay').addEventListener('click', function(e){ if(e.target===this) closeNav(); });
+
+/* REVEAL */
+var revEls = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        // Animate progress bar when featured section becomes visible
+        var fill = e.target.querySelector ? e.target.querySelector('.proj-progress-fill') : null;
+        if(fill){
+          var target = parseInt(fill.getAttribute('data-target') || 0);
+          setTimeout(function(){
+            fill.style.width = target + '%';
+            var pctEl = document.getElementById('progressPct');
+            if(pctEl) pctEl.textContent = target + '%';
+          }, 400);
+        }
+      }
+    });
+  }, {threshold:0.06, rootMargin:'0px 0px -20px 0px'});
+  revEls.forEach(function(el){ io.observe(el); });
+} else {
+  revEls.forEach(function(el){ el.classList.add('visible'); });
+}
+
+/* YEAR SWITCHER */
+window.showYear = function(id, btn){
+  document.querySelectorAll('.year-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.year-block').forEach(function(b){ b.classList.remove('visible'); });
+  var target = document.getElementById(id);
+  if(target){
+    target.classList.add('visible');
+    window.scrollTo({top: document.querySelector('.year-nav').offsetTop - 10, behavior:'smooth'});
+    // Retrigger reveals for newly visible block
+    target.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('visible'); });
+    setTimeout(function(){
+      target.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+      // Animate progress bar if 2026
+      var fill = target.querySelector('.proj-progress-fill');
+      if(fill){
+        var t = parseInt(fill.getAttribute('data-target')||0);
+        fill.style.width = t + '%';
+        var pctEl = document.getElementById('progressPct');
+        if(pctEl) pctEl.textContent = t + '%';
+      }
+    }, 50);
+  }
+};
+
+/* Anchor on load */
+if(window.location.hash === '#systeme-son'){
+  setTimeout(function(){
+    var el = document.getElementById('systeme-son');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 400);
+}
+
+})();
+</script>
+</body>
+</html>
