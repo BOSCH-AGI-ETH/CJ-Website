@@ -213,7 +213,7 @@ section { padding:120px 48px;position:relative; }
 }
 .view-all-link:hover { gap:22px; }
 .view-all-link::after { content:'→'; }
-.events-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1200px;margin:0 48px; }
+.events-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto; }
 .event-card {
   position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
   -webkit-tap-highlight-color:transparent;
@@ -278,7 +278,7 @@ section { padding:120px 48px;position:relative; }
 
 .gallery-scroll-track {
   display:flex; gap:8px; width:max-content;
-  animation:infiniteScroll 28s linear infinite;
+  animation:infiniteScroll 60s linear infinite;
   will-change:transform;
 }
 @keyframes infiniteScroll {
@@ -306,6 +306,9 @@ section { padding:120px 48px;position:relative; }
 .gi1{background:var(--burgundy)}.gi2{background:#1a0d38}.gi3{background:#0d1a0a}
 .gi4{background:#2d1a00}.gi5{background:#0a1220}.gi6{background:#1a1a38}
 .gi7{background:#200a2d}.gi8{background:#0a200d}
+
+#lightbox { transition: opacity 0.3s ease; }
+#lightbox-content svg, #lightbox-content img { max-width:90vw; max-height:85vh; }
 
 /* ─── ABOUT ─── */
 #about {
@@ -876,7 +879,7 @@ var btnL   = document.getElementById('galleryPrev');
 var btnR   = document.getElementById('galleryNext');
 
 if(track && btnL && btnR){
-  var DUR    = 28000; // ms — must match CSS
+  var DUR    = 60000; // ms — must match CSS
   var STEP   = 300;   // px per click
 
   function getX(){
@@ -897,8 +900,8 @@ if(track && btnL && btnR){
     track.style.animationPlayState='running';
   }
 
-  btnL.addEventListener('click',function(){seekTo(getX()-STEP);});
-  btnR.addEventListener('click',function(){seekTo(getX()+STEP);});
+  btnL.addEventListener('click',function(){seekTo(getX()+STEP);});
+  btnR.addEventListener('click',function(){seekTo(getX()-STEP);});
 
   // Pause on hover
   var vp=track.parentElement;
@@ -918,7 +921,7 @@ if(track && btnL && btnR){
     var dx=e.touches[0].clientX-tx0;
     var h=halfW();
     if(h<=0)return;
-    var newDelay=td0-(dx/h)*DUR;
+    var newDelay=td0+(dx/h)*DUR;
     track.style.animationDelay=newDelay+'ms';
   },{passive:true});
   track.addEventListener('touchend',function(){
@@ -926,7 +929,39 @@ if(track && btnL && btnR){
   },{passive:true});
 }
 
+document.querySelectorAll('.gallery-item').forEach(function(item){
+  item.addEventListener('click', function(){
+    var lb = document.getElementById('lightbox');
+    var inner = item.querySelector('.gallery-item-inner');
+    var content = inner.cloneNode(true);
+    content.style.cssText = 'width:70vw;height:70vh;max-width:600px;max-height:600px;display:flex;align-items:center;justify-content:center;';
+    var lbContent = document.getElementById('lightbox-content');
+    lbContent.innerHTML = '';
+    lbContent.appendChild(content);
+    lb.style.display = 'flex';
+  });
+});
+
+window.closeLightbox = function(){
+  var lb = document.getElementById('lightbox');
+  if(lb) lb.style.display = 'none';
+};
+
 })();
 </script>
+
+<!-- LIGHTBOX — must be outside the IIFE script, in the HTML -->
+<div id="lightbox"
+     onclick="closeLightbox()"
+     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9000;align-items:center;justify-content:center;cursor:pointer;">
+  <button
+    onclick="closeLightbox()"
+    style="position:absolute;top:20px;right:24px;background:none;border:none;color:#edacff;font-size:36px;line-height:1;cursor:pointer;z-index:9001;padding:8px;-webkit-tap-highlight-color:transparent;"
+    aria-label="Fermer">✕</button>
+  <div id="lightbox-content"
+       onclick="event.stopPropagation()"
+       style="max-width:90vw;max-height:85vh;display:flex;align-items:center;justify-content:center;cursor:default;"></div>
+</div>
+
 </body>
 </html>
