@@ -493,39 +493,46 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* Mobile projects — sticky scroll-driven horizontal */
-  #projets-preview { overflow:visible; }
+  /* ── Mobile projects: scroll-driven horizontal ── */
+  #projets-preview { padding:0; overflow:visible; }
   .proj-scroll-driver {
-    /* Extra height = the horizontal travel distance, added BELOW the sticky vh */
-    /* Actual height set by JS */
+    /* height = 100vh (screen while pinned) + scroll travel distance; set by JS */
     position:relative;
   }
   .proj-sticky-track {
     position:sticky;
     top:0;
-    height:100svh; /* full screen while pinned */
+    height:100vh;
     display:flex;
-    align-items:center;
+    flex-direction:column;
+    justify-content:center;
     overflow:hidden;
     background:var(--bg);
-    z-index:2;
+    padding:24px 0 16px;
   }
+  .proj-track-header {
+    padding:0 20px;
+    margin-bottom:20px;
+    flex-shrink:0;
+  }
+  .proj-track-header .section-title { font-size:clamp(24px,7vw,36px); }
   .proj-grid-preview {
     display:flex;
     flex-direction:row;
-    gap:16px;
+    gap:12px;
     padding:0 20px;
     will-change:transform;
+    flex-shrink:0;
+    /* No overflow hidden — cards slide out of sticky-track's overflow:hidden */
   }
   .proj-card-preview {
-    flex:0 0 82vw;
-    max-width:82vw;
-    aspect-ratio:3/4;
+    flex:0 0 78vw;
+    max-width:78vw;
+    aspect-ratio:2/3;
     flex-shrink:0;
   }
-  .proj-btn-preview { opacity:1;transform:translateY(0);border-color:rgba(237,172,255,.3); }
-  .proj-name-preview { font-size:26px; }
-  .proj-view-all-btn { padding:0 20px; }
+  .proj-btn-preview { opacity:1 !important;transform:translateY(0) !important;border-color:rgba(237,172,255,.3); }
+  .proj-view-all-btn { padding:32px 20px 0; }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
@@ -611,9 +618,26 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 /* ─── PROJECTS PREVIEW ─── */
-#projets-preview { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
+#projets-preview {
+  background:var(--bg);
+  border-top:1px solid rgba(237,172,255,.06);
+  /* Desktop: normal section padding */
+  padding:80px 0;
+}
+/* ── Desktop layout (grid of 3) ── */
+.proj-scroll-driver { }
+.proj-sticky-track { }
+.proj-track-header {
+  padding:0 48px;
+  margin-bottom:60px;
+}
 .proj-grid-preview {
-  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:60px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 48px;
 }
 .proj-card-preview {
   position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
@@ -643,7 +667,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 .proj-card-preview:hover .proj-btn-preview { opacity:1;transform:translateY(0);border-color:var(--mauve); }
 .proj-card-preview:hover .proj-btn-preview:hover { border-color:var(--orange);color:var(--orange); }
-.proj-view-all-btn { margin-top:52px;text-align:center; }
+.proj-view-all-btn { margin-top:52px;text-align:center;padding:0 48px; }
 </style>
 </head>
 <body>
@@ -753,88 +777,92 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- ─── PROJETS PREVIEW ─── -->
 <section id="projets-preview">
-  <div class="big-num" style="right:-20px;top:-60px;opacity:.025;">04</div>
-  <div class="section-label reveal">Nos projets</div>
-  <h2 class="section-title reveal">Ce que nous <em>cultivons</em></h2>
 
-  <!-- Desktop: normal grid. Mobile: wrapped in scroll-driver for scroll-driven horizontal motion -->
   <div id="projScrollDriver" class="proj-scroll-driver">
     <div id="projStickyTrack" class="proj-sticky-track">
-      <div class="proj-grid-preview reveal" id="projGridPreview">
 
-    <div class="proj-card-preview">
-      <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/>
-          <circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/>
-          <circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/>
-          <circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/>
-          <path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
-          <path d="M232 100 Q275 170 232 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-          <path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
-          <path d="M68 100 Q25 170 68 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-          <path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/>
-        </svg></div>
-      <div class="proj-card-inner-preview">
-        <span class="proj-tag-preview">✦ En développement</span>
-        <div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div>
-        <div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div>
-        <a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a>
+      <!-- Title stays visible during the whole horizontal scroll -->
+      <div class="proj-track-header">
+        <div class="section-label">Nos projets</div>
+        <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
       </div>
-    </div>
 
-    <div class="proj-card-preview">
-      <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/>
-          <circle cx="68"  cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
-          <circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
-          <circle cx="105" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
-          <circle cx="195" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
-          <circle cx="55"  cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
-          <circle cx="245" cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
-          <line x1="150" y1="145" x2="68"  y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
-          <line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
-          <line x1="68"  y1="225" x2="105" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
-          <line x1="232" y1="225" x2="195" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
-          <line x1="150" y1="145" x2="55"  y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
-          <line x1="150" y1="145" x2="245" y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
-          <line x1="68"  y1="225" x2="195" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
-          <line x1="232" y1="225" x2="105" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
-        </svg></div>
-      <div class="proj-card-inner-preview">
-        <span class="proj-tag-preview">✦ En expansion</span>
-        <div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div>
-        <div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div>
-        <a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a>
-      </div>
-    </div>
+      <!-- Cards row -->
+      <div class="proj-grid-preview" id="projGridPreview">
 
-    <div class="proj-card-preview">
-      <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/>
-          <line x1="150" y1="278" x2="88"  y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
-          <line x1="150" y1="278" x2="212" y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
-          <line x1="150" y1="312" x2="55"  y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
-          <line x1="150" y1="312" x2="245" y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
-          <path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/>
-          <path d="M98 195 L150 100 L202 195 Z" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-          <line x1="75"  y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/>
-          <line x1="92"  y1="165" x2="208" y2="165" stroke="#edacff" stroke-width=".4" opacity=".16"/>
-          <line x1="112" y1="135" x2="188" y2="135" stroke="#edacff" stroke-width=".3" opacity=".12"/>
-          <circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/>
-        </svg></div>
-      <div class="proj-card-inner-preview">
-        <span class="proj-tag-preview">✦ Structuration 2026</span>
-        <div class="proj-name-preview">Économie Sociale<br><em>& Vie en OBNL</em></div>
-        <div class="proj-sub-preview">Gouvernance · Pérennité</div>
-        <a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a>
-      </div>
-    </div>
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/>
+              <circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/>
+              <circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/>
+              <circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/>
+              <path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
+              <path d="M232 100 Q275 170 232 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+              <path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
+              <path d="M68 100 Q25 170 68 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+              <path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/>
+            </svg></div>
+          <div class="proj-card-inner-preview">
+            <span class="proj-tag-preview">✦ En développement</span>
+            <div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div>
+            <div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div>
+            <a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a>
+          </div>
+        </div>
+
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/>
+              <circle cx="68"  cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
+              <circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
+              <circle cx="105" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
+              <circle cx="195" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
+              <circle cx="55"  cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
+              <circle cx="245" cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
+              <line x1="150" y1="145" x2="68"  y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
+              <line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
+              <line x1="68"  y1="225" x2="105" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
+              <line x1="232" y1="225" x2="195" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
+              <line x1="150" y1="145" x2="55"  y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
+              <line x1="150" y1="145" x2="245" y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
+              <line x1="68"  y1="225" x2="195" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
+              <line x1="232" y1="225" x2="105" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
+            </svg></div>
+          <div class="proj-card-inner-preview">
+            <span class="proj-tag-preview">✦ En expansion</span>
+            <div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div>
+            <div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div>
+            <a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a>
+          </div>
+        </div>
+
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/>
+              <line x1="150" y1="278" x2="88"  y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
+              <line x1="150" y1="278" x2="212" y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
+              <line x1="150" y1="312" x2="55"  y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
+              <line x1="150" y1="312" x2="245" y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
+              <path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/>
+              <path d="M98 195 L150 100 L202 195 Z" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+              <line x1="75"  y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/>
+              <line x1="92"  y1="165" x2="208" y2="165" stroke="#edacff" stroke-width=".4" opacity=".16"/>
+              <line x1="112" y1="135" x2="188" y2="135" stroke="#edacff" stroke-width=".3" opacity=".12"/>
+              <circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/>
+            </svg></div>
+          <div class="proj-card-inner-preview">
+            <span class="proj-tag-preview">✦ Structuration 2026</span>
+            <div class="proj-name-preview">Économie Sociale<br><em>& Vie en OBNL</em></div>
+            <div class="proj-sub-preview">Gouvernance · Pérennité</div>
+            <a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a>
+          </div>
+        </div>
 
       </div><!-- /.proj-grid-preview -->
     </div><!-- /.proj-sticky-track -->
   </div><!-- /.proj-scroll-driver -->
 
-  <div class="proj-view-all-btn reveal">
+  <div class="proj-view-all-btn">
     <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:24px;">Collaborations passées, projets en cours et à venir</p>
     <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
   </div>
@@ -1143,14 +1171,16 @@ document.addEventListener('keydown',function(e){
 
 /* ── SCROLL-DRIVEN HORIZONTAL PROJECTS (mobile only) ── */
 (function(){
-  function isMobile(){ return window.innerWidth <= 768; }
-
   var driver = document.getElementById('projScrollDriver');
   var grid   = document.getElementById('projGridPreview');
   if(!driver || !grid) return;
 
-  var CARD_GAP = 16;
-  var raf = false;
+  var CARD_W   = 0;
+  var CARD_GAP = 12;
+  var TOTAL_X  = 0;
+  var raf      = false;
+
+  function isMobile(){ return window.innerWidth <= 768; }
 
   function setup(){
     if(!isMobile()){
@@ -1158,40 +1188,37 @@ document.addEventListener('keydown',function(e){
       grid.style.transform = '';
       return;
     }
-    // Each card is 82vw wide. We need to scroll 2 × (cardW + gap) horizontally.
-    var cardW  = window.innerWidth * 0.82;
-    var totalX = (cardW + CARD_GAP) * 2;
-    // Driver height = one full screen (for the sticky pin) + totalX extra scroll room
-    driver.style.height = (window.innerHeight + totalX) + 'px';
+    CARD_W  = window.innerWidth * 0.78;
+    TOTAL_X = (CARD_W + CARD_GAP) * 2; // scroll 2 card-widths to reveal all 3
+    // Driver height: 100vh (sticky pinned frame) + TOTAL_X (scroll room)
+    driver.style.height = (window.innerHeight + TOTAL_X) + 'px';
+    update(); // apply immediately
   }
 
   function update(){
     raf = false;
     if(!isMobile()) return;
-    var cardW  = window.innerWidth * 0.82;
-    var totalX = (cardW + CARD_GAP) * 2;
-
-    // How far the driver's top has scrolled above the viewport top
-    var driverTop = driver.getBoundingClientRect().top;
-    // scrolled = how many px we are INTO the driver past the point it pinned
-    var scrolled = -driverTop;
-    if(scrolled < 0)      scrolled = 0;
-    if(scrolled > totalX) scrolled = totalX;
-
-    grid.style.transform = 'translateX(-' + scrolled.toFixed(1) + 'px)';
+    // How far we have scrolled past the top of the driver
+    var scrolled = -(driver.getBoundingClientRect().top);
+    if(scrolled < 0)       scrolled = 0;
+    if(scrolled > TOTAL_X) scrolled = TOTAL_X;
+    grid.style.transform = 'translateX(' + (-scrolled).toFixed(1) + 'px)';
   }
 
   window.addEventListener('scroll', function(){
     if(!raf){ raf = true; requestAnimationFrame(update); }
   }, {passive:true});
 
-  setup();
-  update();
+  // Run setup after everything has rendered
+  if(document.readyState === 'complete'){
+    setup();
+  } else {
+    window.addEventListener('load', setup);
+  }
 
-  var resizeTimer;
+  var t;
   window.addEventListener('resize', function(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){ setup(); update(); }, 150);
+    clearTimeout(t); t = setTimeout(setup, 150);
   });
 })();
 
