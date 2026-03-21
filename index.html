@@ -493,22 +493,22 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* Mobile projects — scroll-hijack horizontal reveal */
+  /* Mobile projects — sticky scroll-driven horizontal */
   #projets-preview { overflow:visible; }
   .proj-scroll-driver {
+    /* Extra height = the horizontal travel distance, added BELOW the sticky vh */
+    /* Actual height set by JS */
     position:relative;
-    /* height set by JS at runtime */
   }
   .proj-sticky-track {
     position:sticky;
     top:0;
-    height:100vh;
+    height:100svh; /* full screen while pinned */
     display:flex;
     align-items:center;
     overflow:hidden;
-    /* Dark bg so the section looks full-screen while hijacked */
     background:var(--bg);
-    z-index:1;
+    z-index:2;
   }
   .proj-grid-preview {
     display:flex;
@@ -516,8 +516,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     gap:16px;
     padding:0 20px;
     will-change:transform;
-    transition:none;
-    flex-shrink:0;
   }
   .proj-card-preview {
     flex:0 0 82vw;
@@ -910,7 +908,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
           <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div>
           <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div>
           <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Julie</div><div class="team-role">Gestion artistique</div></div>
-          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Michael</div><div class="team-role">Homme à tout faire</div></div>
+          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Michael</div><div class="team-role">Logistique & opérations terrain</div></div>
           <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Alexis</div><div class="team-role">Développement durable & admin.</div></div>
           <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Samuel</div><div class="team-role">Coordonnateur & développement</div></div>
         </div>
@@ -1143,123 +1141,57 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── SCROLL-HIJACK HORIZONTAL PROJECTS (mobile only) ── */
+/* ── SCROLL-DRIVEN HORIZONTAL PROJECTS (mobile only) ── */
 (function(){
   function isMobile(){ return window.innerWidth <= 768; }
 
-  var driver  = document.getElementById('projScrollDriver');
-  var track   = document.getElementById('projStickyTrack');
-  var grid    = document.getElementById('projGridPreview');
-  if(!driver || !track || !grid) return;
+  var driver = document.getElementById('projScrollDriver');
+  var grid   = document.getElementById('projGridPreview');
+  if(!driver || !grid) return;
 
-  var CARD_GAP  = 16;
-  var totalX    = 0;   // total horizontal distance to traverse
-  var currentX  = 0;   // current translated position
-  var hijacking = false;
-  var touchStartY = 0;
-  var touchLastY  = 0;
-
-  function getCardW(){ return window.innerWidth * 0.82; }
+  var CARD_GAP = 16;
+  var raf = false;
 
   function setup(){
     if(!isMobile()){
-      teardown();
+      driver.style.height = '';
+      grid.style.transform = '';
       return;
     }
-    var cardW = getCardW();
-    totalX = (cardW + CARD_GAP) * 2; // 2 moves to reveal cards 2 and 3
-    currentX = 0;
-    grid.style.transform = 'translateX(0px)';
-    // Driver needs height to create scroll room for entry/exit
-    driver.style.height = '100vh'; // just tall enough to sticky-pin
+    // Each card is 82vw wide. We need to scroll 2 × (cardW + gap) horizontally.
+    var cardW  = window.innerWidth * 0.82;
+    var totalX = (cardW + CARD_GAP) * 2;
+    // Driver height = one full screen (for the sticky pin) + totalX extra scroll room
+    driver.style.height = (window.innerHeight + totalX) + 'px';
   }
 
-  function teardown(){
-    driver.style.height = '';
-    grid.style.transform = '';
-    currentX = 0;
-    hijacking = false;
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-  }
-
-  // Check if the sticky track is currently pinned (visible in viewport at top:0)
-  function isTrackPinned(){
-    if(!isMobile()) return false;
-    var rect = track.getBoundingClientRect();
-    // Pinned when its top is at 0 (sticky fired) and it fills the screen
-    return Math.abs(rect.top) < 2 && rect.height >= window.innerHeight * 0.9;
-  }
-
-  /* ── TOUCH handler ── */
-  document.addEventListener('touchstart', function(e){
+  function update(){
+    raf = false;
     if(!isMobile()) return;
-    touchStartY = e.touches[0].clientY;
-    touchLastY  = touchStartY;
+    var cardW  = window.innerWidth * 0.82;
+    var totalX = (cardW + CARD_GAP) * 2;
+
+    // How far the driver's top has scrolled above the viewport top
+    var driverTop = driver.getBoundingClientRect().top;
+    // scrolled = how many px we are INTO the driver past the point it pinned
+    var scrolled = -driverTop;
+    if(scrolled < 0)      scrolled = 0;
+    if(scrolled > totalX) scrolled = totalX;
+
+    grid.style.transform = 'translateX(-' + scrolled.toFixed(1) + 'px)';
+  }
+
+  window.addEventListener('scroll', function(){
+    if(!raf){ raf = true; requestAnimationFrame(update); }
   }, {passive:true});
-
-  document.addEventListener('touchmove', function(e){
-    if(!isMobile()) return;
-    if(!isTrackPinned()) return;
-
-    var dy = touchLastY - e.touches[0].clientY; // positive = scrolling down
-    touchLastY = e.touches[0].clientY;
-
-    var willEnter = (dy > 0 && currentX < totalX); // scrolling down, not at end
-    var willExit  = (dy < 0 && currentX > 0);      // scrolling up, not at start
-
-    if(willEnter || willExit){
-      e.preventDefault(); // STOP vertical scroll
-      currentX += dy * 1.4; // amplify slightly for feel
-      if(currentX < 0)      currentX = 0;
-      if(currentX > totalX) currentX = totalX;
-      grid.style.transform = 'translateX(-' + currentX.toFixed(1) + 'px)';
-    }
-    // If at start and scrolling up, or at end and scrolling down: let page scroll normally
-  }, {passive:false});
-
-  /* ── WHEEL handler (desktop trackpad / mouse) ── */
-  document.addEventListener('wheel', function(e){
-    if(!isMobile()) return;
-    if(!isTrackPinned()) return;
-
-    var dy = e.deltaY;
-    var willEnter = (dy > 0 && currentX < totalX);
-    var willExit  = (dy < 0 && currentX > 0);
-
-    if(willEnter || willExit){
-      e.preventDefault();
-      currentX += dy * 0.8;
-      if(currentX < 0)      currentX = 0;
-      if(currentX > totalX) currentX = totalX;
-      grid.style.transform = 'translateX(-' + currentX.toFixed(1) + 'px)';
-    }
-  }, {passive:false});
-
-  /* ── Snap to nearest card on release ── */
-  document.addEventListener('touchend', function(){
-    if(!isMobile() || !isTrackPinned()) return;
-    var cardW = getCardW();
-    var snap  = Math.round(currentX / (cardW + CARD_GAP)) * (cardW + CARD_GAP);
-    if(snap < 0)      snap = 0;
-    if(snap > totalX) snap = totalX;
-    currentX = snap;
-    grid.style.transition = 'transform .35s cubic-bezier(.25,.46,.45,.94)';
-    grid.style.transform  = 'translateX(-' + snap + 'px)';
-    setTimeout(function(){ grid.style.transition = 'none'; }, 400);
-  }, {passive:true});
-
-  /* ── After all 3 cards shown: scroll down resumes page scroll ──
-     We set driver height to give room for the page to scroll past it.
-     The driver is 100vh tall. When the sticky track un-pins (driver fully
-     scrolled past), normal vertical scroll resumes automatically. ── */
 
   setup();
+  update();
 
   var resizeTimer;
   window.addEventListener('resize', function(){
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setup, 150);
+    resizeTimer = setTimeout(function(){ setup(); update(); }, 150);
   });
 })();
 
