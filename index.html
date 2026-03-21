@@ -222,15 +222,15 @@ section { padding:120px 48px;position:relative; }
   position:absolute;inset:0;background-size:cover;background-position:center;
   transition:transform .6s ease,filter .6s ease;will-change:transform;
 }
-.card-grad-1 { background-image:url('Image-Events/BainPublic X CollectifJardin1.png'); }
-.card-grad-2 { background-image:url('Image-Gallery/BIRDVIEW-BRISE-LAME-2025.jpg'); }
-.card-grad-3 { background-image:url('Image-Events/Invertus III - 2024.jpg'); }
+.card-grad-1 { background-image:url('Image-Events/OPEN Deck Queer.jpeg'); }
+.card-grad-2 { background-image:url('Image-Events/OPEN Deck Mixte.png'); }
+.card-grad-3 { background-image:url('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png'); }
 .event-card:hover .event-card-bg { transform:scale(1.06);filter:blur(6px) brightness(.55); }
 .event-card-inner {
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
   padding:32px 28px;background:linear-gradient(to top,rgba(20,20,20,.95) 0%,transparent 55%);z-index:2;
 }
-.event-tag { font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
+.event-tag { font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
 .event-name { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:8px; }
 .event-date { font-size:9px;letter-spacing:.2em;color:rgba(255,251,219,.45);margin-bottom:6px; }
 .event-location { font-size:9px;letter-spacing:.15em;color:var(--mauve); }
@@ -327,28 +327,18 @@ section { padding:120px 48px;position:relative; }
   font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;
   line-height:1.4;color:var(--mauve);border-left:2px solid var(--orange);padding-left:28px;margin:40px 0;
 }
-.about-visual { position:sticky;top:120px; } /* sticky works because parent is overflow:clip */
-.about-img-frame {
-  width:100%;aspect-ratio:3/4;background:linear-gradient(145deg,#38050e,#1a0d38,#141414);
-  position:relative;overflow:hidden;
+.about-visual { position:sticky;top:120px; }
+.about-logo-banner {
+  width:100%;display:flex;align-items:center;justify-content:center;
+  padding:20px 0 20px;
+  margin-bottom:20px;
 }
-.about-img-frame::after {
-  content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(56,5,14,.6),transparent 50%);
+.about-logo-banner img {
+  width:100%;max-width:300px;height:auto;display:block;
+  opacity:.92;filter:brightness(1);
 }
-.timeline { position:relative;padding-left:32px;margin-top:40px; }
-.timeline::before {
-  content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;
-  background:linear-gradient(to bottom,var(--orange),rgba(237,172,255,.2),transparent);
-}
-.timeline-item { position:relative;padding-bottom:36px; }
-.timeline-item::before {
-  content:'';position:absolute;left:-36px;top:6px;width:8px;height:8px;
-  border-radius:50%;background:var(--orange);border:2px solid var(--burgundy);
-}
-.timeline-year { font-size:9px;letter-spacing:.3em;color:var(--orange);margin-bottom:6px; }
-.timeline-text { font-size:12px;color:rgba(255,251,219,.55);line-height:1.8; }
-.team-section { margin-top:72px; }
-.team-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px; }
+.team-section { }
+.team-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:0; }
 .team-card { text-align:center; }
 .team-avatar { width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;display:flex;align-items:center;justify-content:center; }
 .ta1{background:linear-gradient(135deg,#38050e,rgba(237,172,255,.25))}
@@ -357,6 +347,18 @@ section { padding:120px 48px;position:relative; }
 .ta4{background:linear-gradient(135deg,#2d1a00,rgba(253,47,0,.2))}
 .team-name { font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:4px; }
 .team-role { font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--mauve);opacity:.7; }
+.timeline { position:relative;padding-left:32px;margin-top:40px; }
+.timeline::before {
+  content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;
+  background:linear-gradient(to bottom,var(--orange),rgba(237,172,255,.2),transparent);
+}
+.timeline-item { position:relative;padding-bottom:32px; }
+.timeline-item::before {
+  content:'';position:absolute;left:-36px;top:6px;width:8px;height:8px;
+  border-radius:50%;background:var(--orange);border:2px solid var(--burgundy);
+}
+.timeline-year { font-size:9px;letter-spacing:.3em;color:var(--orange);margin-bottom:6px; }
+.timeline-text { font-size:12px;color:rgba(255,251,219,.55);line-height:1.8; }
 
 /* ─── MERCH ─── */
 #merch { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
@@ -473,6 +475,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .about-grid { gap:48px; }
   .about-visual { position:static; }
   .team-grid { grid-template-columns:repeat(2,1fr); }
+  .proj-grid-preview { grid-template-columns:1fr; }
   #merch { padding:100px 32px; }
   .merch-grid { grid-template-columns:repeat(2,1fr); }
   .contact-grid { gap:48px; }
@@ -484,7 +487,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 /* ═══════════════════════════════════════════
    MOBILE ≤768px  —  all iOS Safari fixes
 ════════════════════════════════════════════ */
+@media (max-width:1024px) and (min-width:769px) {
+  .proj-grid-preview { grid-template-columns:repeat(2,1fr); }
+}
+
 @media (max-width:768px) {
+  .proj-grid-preview { grid-template-columns:1fr; }
+  .proj-btn-preview { opacity:1;transform:translateY(0); }
+
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
 
@@ -526,16 +536,15 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
   #about { padding:72px 20px;overflow:clip; }
   .about-grid { grid-template-columns:1fr;gap:0;margin-top:36px; }
-  .about-visual { position:static;order:-1;margin-bottom:40px; }
-  .about-img-frame { aspect-ratio:16/9;width:100%; }
+  .about-visual { position:static;order:-1;margin-bottom:36px; }
+  .about-logo-banner { padding:20px 0 24px;margin-bottom:24px; }
+  .about-logo-banner img { max-width:240px; }
   .about-quote { font-size:20px;padding-left:18px;margin:24px 0; }
   .about-text p { font-size:12px; }
   .team-section { margin-top:48px; }
   .team-grid { grid-template-columns:repeat(2,1fr);gap:16px; }
   .team-avatar { width:60px;height:60px; }
   .team-name { font-size:15px; }
-  .timeline { padding-left:22px; }
-  .timeline-item::before { left:-30px; }
 
   #merch { padding:72px 20px; }
   .merch-grid { grid-template-columns:1fr;gap:16px; }
@@ -561,7 +570,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .big-num { display:none; }
 }
 
-
 @media (max-width:390px) {
   .hero-title { font-size:clamp(34px,14vw,52px); }
   .gallery-item { width:180px;height:256px; }
@@ -569,13 +577,45 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .events-header { margin:0 16px 24px; }
   .stats-row { margin:28px 16px 0; }
 }
+
+/* ─── PROJECTS PREVIEW ─── */
+#projets-preview { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
+.proj-grid-preview { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:60px auto 0; }
+.proj-card-preview {
+  position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.proj-card-bg-preview {
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:transform .6s ease,filter .6s ease;will-change:transform;
+}
+.pp1 { background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d); }
+.pp2 { background:linear-gradient(145deg,#0a1408,#38050e,#141414); }
+.pp3 { background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414); }
+.proj-card-bg-preview svg { position:absolute;inset:0;width:100%;height:100%; }
+.proj-card-preview:hover .proj-card-bg-preview { transform:scale(1.06);filter:blur(6px) brightness(.5); }
+.proj-card-inner-preview {
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:32px 28px;background:linear-gradient(to top,rgba(20,20,20,.96) 0%,transparent 55%);z-index:2;
+}
+.proj-tag-preview { font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
+.proj-name-preview { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream); }
+.proj-name-preview em { font-style:italic;color:var(--mauve); }
+.proj-sub-preview { font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4); }
+.proj-btn-preview {
+  margin-top:20px;display:inline-block;border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);text-decoration:none;
+  opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,border-color .3s,color .3s;
+}
+.proj-card-preview:hover .proj-btn-preview { opacity:1;transform:translateY(0);border-color:var(--mauve); }
+.proj-card-preview:hover .proj-btn-preview:hover { border-color:var(--orange);color:var(--orange); }
+.proj-view-all-btn { margin-top:52px;text-align:center; }
 </style>
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
 
 <!-- ─── NAV ─── -->
 <nav id="mainNav">
@@ -653,9 +693,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     </div>
   </div>
   <div class="events-grid reveal">
-    <div class="event-card"><div class="event-card-bg card-grad-1" onclick="openImageLightbox('Image-Events/BainPublic X CollectifJardin1.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série régulière</span><div class="event-name">Bain Public X<br>Collectif Jardin</div><div class="event-date">Rimouski — Salle culturelle</div><div class="event-location">Événements tout au long de l'année</div><a href="evenements.html#bain-public" class="event-btn">Plus de détails</a></div></div>
-    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Gallery/BIRDVIEW-BRISE-LAME-2025.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série estivale</span><div class="event-name">Saison<br>Brise-Lames</div><div class="event-date">Juin · Juillet · Août · Septembre</div><div class="event-location">Brise-Lames, Rimouski</div><a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a></div></div>
-    <div class="event-card"><div class="event-card-bg card-grad-3" onclick="openImageLightbox('Image-Events/Invertus III - 2024.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-1" onclick="openImageLightbox('Image-Events/OPEN Deck Queer.jpeg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série régulière</span><div class="event-name">Open Deck<br>Bain Public</div><div class="event-date">Rimouski — Salle culturelle</div><div class="event-location">Événements tout au long de l'année</div><a href="evenements.html#bain-public" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-3" onclick="openImageLightbox('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série estivale</span><div class="event-name">Saison<br>Brise-Lames</div><div class="event-date">Juin · Juillet · Août · Septembre</div><div class="event-location">Brise-Lames, Rimouski</div><a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Events/OPEN Deck Mixte.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
   </div>
   <div class="stats-row reveal">
     <div class="stat-box"><div class="stat-num">47</div><div class="stat-label">Événements organisés</div></div>
@@ -664,6 +704,104 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
   </div>
 </section>
+
+<!-- ─── PARTNERS ─── -->
+<div class="partners-section">
+  <div class="partners-label">Ils poussent avec nous</div>
+  <div class="partners-row">
+    <div class="partner-item">Phi Centre</div><div class="partner-item">MUTEK</div>
+    <div class="partner-item">SAT</div><div class="partner-item">La Sotterenea</div>
+    <div class="partner-item">Bota Bota</div><div class="partner-item">OBORO</div>
+  </div>
+</div>
+
+
+
+<!-- ─── PROJETS PREVIEW ─── -->
+<section id="projets-preview">
+  <div class="big-num" style="right:-20px;top:-60px;opacity:.025;">04</div>
+  <div class="section-label reveal">Nos projets</div>
+  <h2 class="section-title reveal">Ce que nous <em>cultivons</em></h2>
+
+  <div class="proj-grid-preview reveal">
+
+    <div class="proj-card-preview">
+      <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/>
+          <circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/>
+          <circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/>
+          <circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/>
+          <path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
+          <path d="M232 100 Q275 170 232 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+          <path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
+          <path d="M68 100 Q25 170 68 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+          <path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/>
+        </svg></div>
+      <div class="proj-card-inner-preview">
+        <span class="proj-tag-preview">✦ En développement</span>
+        <div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div>
+        <div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div>
+        <a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a>
+      </div>
+    </div>
+
+    <div class="proj-card-preview">
+      <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/>
+          <circle cx="68"  cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
+          <circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
+          <circle cx="105" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
+          <circle cx="195" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
+          <circle cx="55"  cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
+          <circle cx="245" cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
+          <line x1="150" y1="145" x2="68"  y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
+          <line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
+          <line x1="68"  y1="225" x2="105" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
+          <line x1="232" y1="225" x2="195" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
+          <line x1="150" y1="145" x2="55"  y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
+          <line x1="150" y1="145" x2="245" y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
+          <line x1="68"  y1="225" x2="195" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
+          <line x1="232" y1="225" x2="105" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
+        </svg></div>
+      <div class="proj-card-inner-preview">
+        <span class="proj-tag-preview">✦ En expansion</span>
+        <div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div>
+        <div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div>
+        <a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a>
+      </div>
+    </div>
+
+    <div class="proj-card-preview">
+      <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/>
+          <line x1="150" y1="278" x2="88"  y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
+          <line x1="150" y1="278" x2="212" y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
+          <line x1="150" y1="312" x2="55"  y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
+          <line x1="150" y1="312" x2="245" y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
+          <path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/>
+          <path d="M98 195 L150 100 L202 195 Z" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
+          <line x1="75"  y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/>
+          <line x1="92"  y1="165" x2="208" y2="165" stroke="#edacff" stroke-width=".4" opacity=".16"/>
+          <line x1="112" y1="135" x2="188" y2="135" stroke="#edacff" stroke-width=".3" opacity=".12"/>
+          <circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/>
+        </svg></div>
+      <div class="proj-card-inner-preview">
+        <span class="proj-tag-preview">✦ Structuration 2026</span>
+        <div class="proj-name-preview">Économie Sociale<br><em>& Vie en OBNL</em></div>
+        <div class="proj-sub-preview">Gouvernance · Pérennité</div>
+        <a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="proj-view-all-btn reveal">
+    <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:24px;">Collaborations passées, projets en cours et à venir</p>
+    <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
+  </div>
+</section>
+
+
 
 <!-- ─── GALLERY ─── -->
 <div class="gallery-strip" id="galleryStrip">
@@ -699,6 +837,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </div>
 
+
+
 <!-- ─── ABOUT ─── -->
 <section id="about">
   <svg class="flora-bg-el" style="top:8%;right:4%;width:240px;" viewBox="0 0 300 400" fill="none"><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width="1" fill="none"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(30 150 200)"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(60 150 200)"/><circle cx="150" cy="200" r="20" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg>
@@ -707,34 +847,39 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <h2 class="section-title reveal">Qui cultive<br><em>ce jardin</em></h2>
   <div class="about-grid">
     <div class="about-text">
-      <div class="about-quote reveal">"Un espace où la musique pousse comme des mauvaises herbes — librement, sauvagement, magnifiquement."</div>
-      <p class="reveal">Collectif Jardin est né d'une conviction simple : <strong>la musique électronique peut être à la fois underground et accueillante</strong>, dark et organique, immersive et humaine.</p>
-      <p class="reveal reveal-delay-1">Fondé à Rimouski en 2019, notre collectif réunit des artistes, DJs, producteurs, designers visuels et passionnés autour d'une même vision : créer des événements qui ressemblent à de véritables <strong>expériences sensorielles</strong>.</p>
-      <p class="reveal reveal-delay-2">Chaque soirée est conçue comme un voyage — avec une attention maniaque portée à la programmation sonore, à la scénographie lumineuse, et à l'énergie du lieu. On ne fait pas "juste une fête". On construit un jardin temporaire.</p>
+      <div class="about-quote reveal">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
+      <p class="reveal">Collectif Jardin est né d'une conviction simple et profonde : <strong>contribuer bénévolement à la culture</strong>, avec le respect et l'inclusivité comme valeurs fondatrices. Un groupe de passionné·e·s qui a décidé de faire pousser quelque chose de beau dans leur ville.</p>
+      <p class="reveal reveal-delay-1">Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <strong>espaces de musique, de nature et de communauté</strong>. Chaque événement est pensé pour rassembler et inclure.</p>
+      <p class="reveal reveal-delay-2">Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales. On ne fait pas "juste une fête". On cultive un jardin vivant, ancré dans le Bas-du-Fleuve.</p>
       <div class="timeline reveal reveal-delay-3">
-        <div class="timeline-item"><div class="timeline-year">2019</div><div class="timeline-text">Fondation du collectif. Premier événement dans une serre privée à Rosemont.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-text">Pivot vers les événements intimes et les live streams pendant la pandémie.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-text">Retour en force avec la série "Racines Profondes". Premier événement plein air.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-text">Expansion de la programmation. 12 événements en une saison.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-text">Lancement de la boutique d'objets promo et des Solstices comme événements phare.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-text">Fondation du collectif. Premières soirées expérimentales à Rimouski avec une poignée de passionné·e·s.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-text">Lancement de la série Open Deck au Bain Public — scène ouverte, format inclusif.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-text">Première édition Brise-Lames en plein air face au Saint-Laurent. Le collectif s'ancre dans son territoire.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-text">Expansion des collaborations culturelles régionales. Halloween devient un classique annuel.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-text">La saison Brise-Lames atteint 4 éditions. Début des démarches de structuration en OBNL.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-text">Lancement du sociofinancement pour le système de son maison. Nouvelle ambition, mêmes valeurs.</div></div>
       </div>
     </div>
     <div class="about-visual reveal">
-      <div class="about-img-frame">
-        <svg width="100%" height="100%" viewBox="0 0 400 530" fill="none"><defs><radialGradient id="glow1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#edacff" stop-opacity=".15"/><stop offset="100%" stop-color="#38050e" stop-opacity="0"/></radialGradient></defs><rect width="400" height="530" fill="url(#glow1)"/><ellipse cx="200" cy="265" rx="120" ry="220" stroke="#edacff" stroke-width=".8" fill="none" opacity=".4"/><ellipse cx="200" cy="265" rx="120" ry="220" stroke="#edacff" stroke-width=".5" fill="none" opacity=".3" transform="rotate(30 200 265)"/><ellipse cx="200" cy="265" rx="120" ry="220" stroke="#edacff" stroke-width=".5" fill="none" opacity=".3" transform="rotate(60 200 265)"/><ellipse cx="200" cy="265" rx="120" ry="220" stroke="#fd2f00" stroke-width=".4" fill="none" opacity=".2" transform="rotate(120 200 265)"/><circle cx="200" cy="265" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".5"/><circle cx="200" cy="265" r="5" fill="#edacff" opacity=".6"/><text x="200" y="520" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="11" fill="#edacff" opacity=".3" letter-spacing="6">COLLECTIF JARDIN</text></svg>
+      <div class="about-logo-banner">
+        <img src="Image-About/Jardin - logo officiel orange.png" alt="Collectif Jardin — Logo officiel">
       </div>
       <div class="team-section">
-        <div class="section-label" style="margin-bottom:8px;">L'équipe</div>
+        <div class="section-label" style="margin-bottom:16px;">L'équipe</div>
         <div class="team-grid">
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Maëlis</div><div class="team-role">Direction artistique</div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Théo</div><div class="team-role">Programmation</div></div>
-          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Sasha</div><div class="team-role">Lumière & Scéno</div></div>
-          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Lou</div><div class="team-role">Communication</div></div>
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div>
+          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Julie</div><div class="team-role">Gestion artistique</div></div>
+          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Michael</div><div class="team-role">Homme à tout faire</div></div>
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Alexis</div><div class="team-role">Développement durable & admin.</div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Samuel</div><div class="team-role">Coordonnateur & développement</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <!-- ─── MERCH ─── -->
 <section id="merch">
@@ -752,15 +897,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </section>
 
-<!-- ─── PARTNERS ─── -->
-<div class="partners-section">
-  <div class="partners-label">Ils poussent avec nous</div>
-  <div class="partners-row">
-    <div class="partner-item">Phi Centre</div><div class="partner-item">MUTEK</div>
-    <div class="partner-item">SAT</div><div class="partner-item">La Sotterenea</div>
-    <div class="partner-item">Bota Bota</div><div class="partner-item">OBORO</div>
-  </div>
-</div>
+
+
 
 <!-- ─── CONTACT ─── -->
 <section id="contact">
@@ -771,10 +909,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div>
       <p class="contact-intro reveal">Vous avez un projet, une idée, une <em>vision</em> qui s'aligne avec la nôtre ?</p>
       <div class="contact-links reveal">
-        <a href="/cdn-cgi/l/email-protection#781a171612170d0a381b1714141d1b0c111e12190a1c1116561b19" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="3c5e53525653494e7c5f535050595f48555a565d4e585552125f5d">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#9af8f5f4f0f5efe8daf9f5f6f6fff9eef3fcf0fbe8fef3f4b4f9fb" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="7c1e13121613090e3c1f131010191f08151a161d0e181512521f1d">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
         <a href="#" class="contact-link-item"><span class="contact-link-label">Instagram</span><span class="contact-link-email">@collectifjardin</span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#ea8588808f9e99aa898586868f899e838c808b988e8384c4898b" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="dab5b8b0bfaea99ab9b5b6b6bfb9aeb3bcb0bba8beb3b4f4b9bb">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#6a1a180f19190f2a090506060f091e030c000b180e030444090b" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="bacac8dfc9c9dffad9d5d6d6dfd9ced3dcd0dbc8ded3d494d9db">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#8ce3eee6e9f8ffccefe3e0e0e9eff8e5eae6edfee8e5e2a2efed" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="3758555d5243447754585b5b5254435e515d5645535e59195456">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#e2929087919187a2818d8e8e8781968b84888390868b8ccc8183" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="6f1f1d0a1c1c0a2f0c0003030a0c1b0609050e1d0b0601410c0e">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
       </div>
       <div class="newsletter-box reveal">
         <div class="section-label" style="margin-bottom:8px;">Infolettre</div>
@@ -795,11 +933,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </section>
 
+
+
 <!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-top">
-    <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2025 Collectif Jardin</p></div>
-    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links"><li><a href="evenements.html">Événements</a></li><li><a href="#about">À propos</a></li><li><a href="#merch">Objets promo</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2026 Collectif Jardin</p></div>
+    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links"><li><a href="evenements.html">Événements</a></li>
+    <li><a href="projets.html">Projets</a></li><li><a href="#about">À propos</a></li><li><a href="#merch">Objets promo</a></li><li><a href="#contact">Contact</a></li></ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="#" class="social-link">Instagram</a><a href="#" class="social-link">Facebook</a><a href="#" class="social-link">SoundCloud</a><a href="#" class="social-link">ResidentAdvisor</a><a href="#" class="social-link">Bandcamp</a></div></div>
   </div>
   <div class="footer-bottom">
@@ -808,7 +949,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 'use strict';
 
@@ -932,8 +1073,6 @@ if(track && btnL && btnR){
     setTimeout(function(){track.style.animationPlayState='running';},600);
   },{passive:true});
 }
-
-/* ── 6. GALLERY ITEM LIGHTBOX ── */
 document.querySelectorAll('.gallery-item').forEach(function(item){
   item.addEventListener('click',function(){
     var lb=document.getElementById('lightbox');
@@ -947,7 +1086,7 @@ document.querySelectorAll('.gallery-item').forEach(function(item){
   });
 });
 
-/* ── 7. IMAGE LIGHTBOX (event card posters) ── */
+/* ── IMAGE LIGHTBOX (event/project card posters) ── */
 window.openImageLightbox=function(src){
   var lb=document.getElementById('lightbox');
   var lbContent=document.getElementById('lightbox-content');
@@ -955,7 +1094,7 @@ window.openImageLightbox=function(src){
   lb.style.display='flex';
 };
 
-/* ── 8. CLOSE LIGHTBOX ── */
+/* ── CLOSE LIGHTBOX ── */
 window.closeLightbox=function(){
   var lb=document.getElementById('lightbox');
   if(lb) lb.style.display='none';
@@ -963,8 +1102,6 @@ window.closeLightbox=function(){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
-
-
 
 })();
 </script>

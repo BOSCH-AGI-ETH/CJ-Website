@@ -12,7 +12,7 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;font-size:14px;line-height:1.6;overflow-x:hidden;}
 
-/* NAV */
+/* ─── NAV ─── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .4s ease;}
 nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(237,172,255,.08);}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.18em;color:var(--cream);text-decoration:none;text-transform:uppercase;}
@@ -34,7 +34,7 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .nav-overlay a:active{opacity:1;color:var(--orange);}
 .nav-overlay .nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:12px 28px;opacity:1!important;}
 
-/* PAGE HERO */
+/* ─── PAGE HERO ─── */
 .page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:0 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
 .page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1a0524,#38050e,#141414);}
 .page-hero-orb{position:absolute;border-radius:77%;filter:blur(80px);opacity:.13;animation:drift 20s linear infinite;will-change:transform;}
@@ -49,40 +49,50 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .page-title em{font-style:italic;color:var(--mauve);}
 .page-subtitle{font-size:12px;color:rgba(255,251,219,.4);letter-spacing:.12em;line-height:1.9;}
 
-/* CATEGORY TABS */
+/* ─── CATEGORY TABS (sticky) ─── */
 .cat-nav{display:flex;gap:0;flex-wrap:wrap;padding:0 48px;border-bottom:1px solid rgba(237,172,255,.06);position:sticky;top:67px;z-index:100;background:rgba(20,20,20,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
 .cat-tab{padding:16px 32px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,251,219,.4);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
 .cat-tab:hover{color:var(--cream);}
 .cat-tab.active{color:var(--mauve);border-bottom-color:var(--mauve);}
 
-/* MAIN */
+/* ─── MAIN CONTENT ─── */
 .ev-main{padding:72px 48px 120px;}
-.cat-block{margin-bottom:120px;scroll-margin-top:130px;display:none;}
+.cat-block{display:none;}
 .cat-block.visible{display:block;}
 
-/* CATEGORY HEADER */
-.cat-header{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start;padding-bottom:36px;margin-bottom:60px;border-bottom:1px solid rgba(237,172,255,.07);}
+/* ─── CATEGORY DESCRIPTION BLOCK ─── */
+.cat-desc-block{
+  display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start;
+  padding-bottom:48px;margin-bottom:60px;
+  border-bottom:1px solid rgba(237,172,255,.07);
+}
 .cat-num{font-family:'Cormorant Garamond',serif;font-size:90px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.12);line-height:1;letter-spacing:-.05em;user-select:none;padding-top:4px;}
+.cat-info{}
 .cat-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
-.cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:18px;}
+.cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
 .cat-title em{font-style:italic;color:var(--mauve);}
-.cat-desc{font-size:13px;color:rgba(255,251,219,.55);line-height:2;letter-spacing:.04em;max-width:580px;margin-bottom:24px;}
-.cat-meta{display:flex;gap:36px;flex-wrap:wrap;}
+.cat-desc{font-size:13px;color:rgba(255,251,219,.55);line-height:2;letter-spacing:.04em;max-width:580px;margin-bottom:20px;}
+.cat-meta{display:flex;gap:32px;flex-wrap:wrap;}
 .cat-meta-item{display:flex;flex-direction:column;gap:4px;}
 .cat-meta-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.7;}
 .cat-meta-val{font-size:11px;color:rgba(255,251,219,.65);letter-spacing:.06em;}
 
-/* YEAR SECTION */
+/* ─── YEAR SECTION ─── */
 .year-section{margin-bottom:64px;}
 .year-header{display:flex;align-items:center;gap:20px;margin-bottom:28px;}
-.year-label{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--cream);letter-spacing:-.02em;}
+.year-label{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--cream);letter-spacing:-.02em;}
 .year-line{flex:1;height:1px;background:rgba(237,172,255,.07);}
 
-/* FLYER GRID */
+/* ─── FLYER GRID ─── */
 .flyer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
 
-/* FLYER CARD */
-.flyer-card{position:relative;aspect-ratio:3/4;overflow:hidden;background:#1a1a1a;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .4s ease;}
+/* ─── FLYER CARD ─── */
+.flyer-card{
+  position:relative;aspect-ratio:3/4;overflow:hidden;
+  background:#1a1a1a;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .4s ease;
+}
 .flyer-card:hover{transform:translateY(-4px);}
 .flyer-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,filter .5s ease;}
 .flyer-card:hover img{transform:scale(1.04);}
@@ -90,34 +100,147 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .flyer-card.past:hover img{filter:brightness(1);}
 
 /* Placeholder */
-.flyer-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#1a1a1a,#2a1a2a);gap:12px;}
-.flyer-placeholder svg{opacity:.2;}
-.flyer-placeholder-txt{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.25);text-align:center;padding:0 16px;line-height:1.8;}
+.flyer-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#1a1a1a,#2a1a2a);gap:12px;pointer-events:none;}
+.ph-icon{width:36px;height:36px;opacity:.18;}
+.flyer-placeholder-txt{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.2);text-align:center;padding:0 16px;line-height:1.8;}
 
-/* Badges */
-.flyer-badge{position:absolute;top:12px;left:12px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;z-index:2;}
-.badge-past{background:rgba(20,20,20,.7);color:rgba(255,251,219,.4);border:1px solid rgba(255,251,219,.12);}
+/* Badge */
+.flyer-badge{position:absolute;top:10px;left:10px;font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;z-index:2;pointer-events:none;}
+.badge-past{background:rgba(20,20,20,.75);color:rgba(255,251,219,.4);border:1px solid rgba(255,251,219,.1);}
 .badge-upcoming{background:var(--orange);color:var(--bg);}
 
-/* Overlay */
-.flyer-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 16px;background:linear-gradient(to top,rgba(20,20,20,.92) 0%,transparent 55%);opacity:0;transition:opacity .3s ease;}
-.flyer-card:hover .flyer-overlay{opacity:1;}
-.flyer-ev-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:4px;}
-.flyer-ev-date{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.5);margin-bottom:10px;}
-.flyer-btn{display:inline-block;border:1px solid var(--orange);padding:6px 14px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);text-decoration:none;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent;}
-.flyer-btn:hover{background:var(--orange);color:var(--bg);}
-.flyer-btn-ghost{display:inline-block;border:1px solid rgba(255,251,219,.18);padding:6px 14px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.45);}
+/* Hover overlay hint */
+.flyer-hint{
+  position:absolute;inset:0;z-index:3;
+  display:flex;align-items:flex-end;
+  padding:16px;
+  background:linear-gradient(to top,rgba(20,20,20,.85) 0%,transparent 50%);
+  opacity:0;transition:opacity .3s;
+  pointer-events:none;
+}
+.flyer-card:hover .flyer-hint{opacity:1;}
+.flyer-hint-txt{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.5);}
 
-/* SVG placeholder icon */
-.ph-icon{width:40px;height:40px;opacity:.18;}
-
-/* REVEAL */
+/* ─── REVEAL ─── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-.rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}
-.rd4{transition-delay:.32s;}.rd5{transition-delay:.40s;}.rd6{transition-delay:.48s;}
 
-/* FOOTER */
+/* ══════════════════════════════════════════
+   LIGHTBOX — DESKTOP (centred overlay)
+   MOBILE — bottom sheet
+══════════════════════════════════════════ */
+#ev-lightbox{
+  display:none;
+  position:fixed;inset:0;z-index:9000;
+  /* dark backdrop */
+  background:rgba(0,0,0,.88);
+  align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+#ev-lightbox.open{display:flex;}
+
+/* Close backdrop click area */
+.lb-backdrop{position:absolute;inset:0;cursor:pointer;}
+
+/* ── Desktop panel ── */
+.lb-panel{
+  position:relative;z-index:1;
+  display:flex;flex-direction:row;
+  max-width:900px;width:90vw;
+  max-height:88vh;
+  background:#181818;
+  overflow:hidden;
+}
+.lb-image-col{
+  flex:0 0 45%;
+  position:relative;overflow:hidden;
+}
+.lb-image-col img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.lb-placeholder-col{
+  flex:0 0 45%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#1a1a1a,#2a1a2a);
+  min-height:400px;
+}
+.lb-info-col{
+  flex:1;
+  padding:40px 36px;
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+  gap:0;
+  /* custom scrollbar */
+  scrollbar-width:thin;scrollbar-color:rgba(237,172,255,.2) transparent;
+}
+.lb-info-col::-webkit-scrollbar{width:4px;}
+.lb-info-col::-webkit-scrollbar-track{background:transparent;}
+.lb-info-col::-webkit-scrollbar-thumb{background:rgba(237,172,255,.2);border-radius:2px;}
+
+.lb-close{
+  position:absolute;top:14px;right:14px;z-index:10;
+  background:rgba(20,20,20,.85);border:1px solid rgba(237,172,255,.15);
+  color:var(--mauve);font-size:22px;line-height:1;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s,border-color .2s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.lb-close:hover{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+.lb-badge{font-size:8px;letter-spacing:.22em;text-transform:uppercase;padding:4px 10px;display:inline-block;margin-bottom:20px;}
+.lb-badge-upcoming{background:var(--orange);color:var(--bg);}
+.lb-badge-past{background:rgba(255,251,219,.06);color:rgba(255,251,219,.4);border:1px solid rgba(255,251,219,.1);}
+
+.lb-cat{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.lb-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,34px);font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream);}
+.lb-date{font-size:9px;letter-spacing:.2em;color:rgba(255,251,219,.4);margin-bottom:6px;}
+.lb-location{font-size:9px;letter-spacing:.15em;color:var(--mauve);margin-bottom:24px;}
+.lb-divider{width:40px;height:1px;background:rgba(237,172,255,.2);margin-bottom:24px;}
+.lb-desc{font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;margin-bottom:28px;flex:1;}
+.lb-btn{
+  display:inline-block;background:var(--orange);color:var(--bg);
+  padding:13px 28px;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;align-self:flex-start;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.lb-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(253,47,0,.35);}
+
+/* ── Mobile bottom sheet ── */
+@media (max-width:768px){
+  #ev-lightbox{
+    align-items:flex-end;
+    justify-content:stretch;
+    background:rgba(0,0,0,.7);
+  }
+  .lb-panel{
+    flex-direction:column;
+    width:100%;max-width:100%;
+    max-height:92vh;
+    border-radius:16px 16px 0 0;
+    overflow:hidden;
+  }
+  .lb-image-col,.lb-placeholder-col{
+    flex:0 0 auto;
+    width:100%;
+    height:56vw;
+    max-height:260px;
+  }
+  .lb-image-col img{
+    width:100%;height:100%;object-fit:cover;
+  }
+  .lb-info-col{
+    padding:28px 24px 40px;
+    /* iOS safe area */
+    padding-bottom:max(40px, env(safe-area-inset-bottom, 40px));
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .lb-title{font-size:22px;}
+  .lb-close{top:12px;right:12px;}
+}
+
+/* ─── FOOTER ─── */
 footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rgba(237,172,255,.1);}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid rgba(237,172,255,.08);}
 .footer-logo-sm{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);}
@@ -127,25 +250,22 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 .footer-links-sm a:hover{color:var(--mauve);}
 .footer-copy-sm{font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em;}
 
-/* LIGHTBOX */
-#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9000;align-items:center;justify-content:center;cursor:pointer;}
-#lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#edacff;font-size:40px;line-height:1;cursor:pointer;z-index:9001;padding:8px;-webkit-tap-highlight-color:transparent;}
-#lightbox-content{max-width:92vw;max-height:88vh;display:flex;align-items:center;justify-content:center;cursor:default;}
-#lightbox-content img{max-width:88vw;max-height:85vh;object-fit:contain;display:block;box-shadow:0 0 80px rgba(0,0,0,.8);}
-
-/* TABLET */
+/* ─── TABLET ─── */
 @media (max-width:1024px) and (min-width:769px){
   nav{padding:20px 32px;}
   .page-hero{padding:0 32px 44px;}
   .cat-nav{padding:0 32px;}
   .ev-main{padding:60px 32px 80px;}
   .cat-num{font-size:64px;}
+  .cat-desc-block{gap:24px;}
   .flyer-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
   footer{padding:40px 32px 28px;}
+  .lb-panel{max-width:96vw;}
 }
 
-/* MOBILE */
+/* ─── MOBILE ─── */
 @media (max-width:768px){
+  body{cursor:auto;}
   nav{padding:16px 20px;}
   .nav-hamburger{display:flex;}
   .nav-links{display:none;}
@@ -155,14 +275,17 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   .cat-nav{padding:0 16px;top:60px;}
   .cat-tab{padding:12px 16px;font-size:8px;letter-spacing:.18em;}
   .ev-main{padding:36px 20px 80px;}
-  .cat-header{grid-template-columns:1fr;gap:12px;}
-  .cat-num{font-size:50px;}
+  .cat-desc-block{grid-template-columns:1fr;gap:12px;}
+  .cat-num{font-size:52px;}
   .cat-meta{gap:20px;}
   .year-label{font-size:26px;}
   .flyer-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
   footer{padding:36px 20px 24px;}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:16px;}
   .footer-links-sm{gap:12px;}
+}
+@media (max-width:390px){
+  .flyer-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
 }
 </style>
 </head>
@@ -199,12 +322,12 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="page-hero-content">
     <a href="index.html" class="page-back">Retour à l'accueil</a>
     <h1 class="page-title">Nos<br><em>Événements</em></h1>
-    <p class="page-subtitle">Archives &amp; à venir — 2024 · 2025 · 2026<br>Rimouski, Québec.</p>
+    <p class="page-subtitle">Archives &amp; à venir — 2026 · 2025 · 2024<br>Rimouski, Québec.</p>
   </div>
 </div>
 
 <!-- CATEGORY TABS -->
-<nav class="cat-nav" aria-label="Catégories">
+<nav class="cat-nav" aria-label="Catégories d'événements">
   <button class="cat-tab active" onclick="showCat('bain-public',this)">Bain Public × CJ</button>
   <button class="cat-tab" onclick="showCat('brise-lames',this)">Saison Brise-Lames</button>
   <button class="cat-tab" onclick="showCat('halloween',this)">Soirée Halloween</button>
@@ -212,19 +335,20 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 
 <main class="ev-main">
 
-<!-- ════════════════════════════
+<!-- ══════════════════════════════
      CAT 1 — BAIN PUBLIC
-════════════════════════════ -->
+══════════════════════════════ -->
 <section class="cat-block visible" id="bain-public">
-  <div class="cat-header reveal">
+
+  <div class="cat-desc-block reveal">
     <div class="cat-num">01</div>
-    <div>
+    <div class="cat-info">
       <div class="cat-label">Partenariat — Salle culturelle</div>
       <h2 class="cat-title">Bain Public<br><em>× Collectif Jardin</em></h2>
       <p class="cat-desc">En collaboration avec la salle culturelle du Bain Public à Rimouski, notre série Open Deck ouvre la scène à tou·te·s les artistes locaux·les. Format inclusif et communautaire — chaque édition célèbre une identité différente : queer, féminin, mixte. La musique électronique comme espace de liberté, de découverte et d'appartenance.</p>
       <div class="cat-meta">
         <div class="cat-meta-item"><span class="cat-meta-lbl">Lieu</span><span class="cat-meta-val">Bain Public, Rimouski</span></div>
-        <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">21h → 3h — Intérieur</span></div>
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">21h → 3h</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Saison</span><span class="cat-meta-val">Automne · Hiver · Printemps</span></div>
       </div>
     </div>
@@ -234,43 +358,102 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2026</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card upcoming">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Féminin + Queer<br>Affiche à venir</div></div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({
+        img:'',
+        title:'Open Deck — Féminin + Queer',
+        cat:'Bain Public × Collectif Jardin',
+        date:'20 mars 2026 — 21h → 3h',
+        location:'Bain Public, Rimouski',
+        upcoming:true,
+        ticketUrl:'#',
+        desc:'Soirée dédiée aux artistes féminines et à la communauté queer de Rimouski. Format open deck — tou·te·s peuvent s\'inscrire pour jouer. Ambiance house organique et underground dans la salle intimiste du Bain Public.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
         <span class="flyer-badge badge-upcoming">À venir</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck<br>Féminin + Queer</div><div class="flyer-ev-date">20 mars 2026 — 21h → 3h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card upcoming">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Open Deck Mixte<br>Affiche à venir</div></div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({
+        img:'',
+        title:'Open Deck Mixte',
+        cat:'Bain Public × Collectif Jardin',
+        date:'18 avril 2026 — 21h → 3h',
+        location:'Bain Public, Rimouski',
+        upcoming:true,
+        ticketUrl:'#',
+        desc:'Soirée open deck ouverte à tou·te·s les artistes. Première occasion de la saison 2026 pour les nouveaux DJs de monter sur scène dans un cadre bienveillant et festif.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
         <span class="flyer-badge badge-upcoming">À venir</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck Mixte</div><div class="flyer-ev-date">18 avril 2026 — 21h → 3h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card upcoming">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Clôture de saison<br>Affiche à venir</div></div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({
+        img:'',
+        title:'Open Deck — Clôture de saison',
+        cat:'Bain Public × Collectif Jardin',
+        date:'15 mai 2026 — 21h → 3h',
+        location:'Bain Public, Rimouski',
+        upcoming:true,
+        ticketUrl:'#',
+        desc:'La dernière édition Bain Public avant la saison estivale. Une soirée de célébration pour clore l\'année en salle avec toute la communauté avant les grandes soirées plein air du Brise-Lames.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
         <span class="flyer-badge badge-upcoming">À venir</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck<br>Clôture de saison</div><div class="flyer-ev-date">15 mai 2026 — 21h → 3h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
+
     </div>
   </div>
-</section>
+
   <!-- 2025 -->
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2025</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/OPEN Deck Queer.jpeg')">
+
+      <div class="flyer-card past" onclick="openEvent({
+        img:'Image-Events/OPEN Deck Queer.jpeg',
+        title:'Open Deck — Féminin + Queer',
+        cat:'Bain Public × Collectif Jardin',
+        date:'21 mars 2025 — 21h → 3h',
+        location:'Bain Public, Rimouski',
+        upcoming:false,
+        desc:'Une soirée inoubliable célébrant les artistes féminines et la communauté queer de Rimouski. La scène a été partagée entre DJs établis et nouvelles voix locales pour une nuit de musique house organique et inclusive.'
+      })">
         <img src="Image-Events/OPEN Deck Queer.jpeg" alt="Open Deck Féminin + Queer 2025" loading="lazy">
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck<br>Féminin + Queer</div><div class="flyer-ev-date">21 mars 2025 — 21h → 3h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/OPEN Deck Mixte.png')">
+
+      <div class="flyer-card past" onclick="openEvent({
+        img:'Image-Events/OPEN Deck Mixte.png',
+        title:'Open Deck Mixte',
+        cat:'Bain Public × Collectif Jardin',
+        date:'20 avril 2025',
+        location:'Bain Public, Rimouski',
+        upcoming:false,
+        desc:'La deuxième édition de la saison Bain Public 2025. Open deck mixte avec une belle présence de nouveaux talents de la scène rimousquoise. Une soirée chaleureuse et vibrante qui a confirmé l\'élan du collectif.'
+      })">
         <img src="Image-Events/OPEN Deck Mixte.png" alt="Open Deck Mixte 2025" loading="lazy">
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck Mixte</div><div class="flyer-ev-date">20 avril 2025</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bp-2025-03.jpg')">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Open Deck #3<br>Ajouter l'affiche</div></div>
+
+      <div class="flyer-card past" onclick="openEvent({
+        img:'',
+        title:'Open Deck — Édition Printemps',
+        cat:'Bain Public × Collectif Jardin',
+        date:'Printemps 2025',
+        location:'Bain Public, Rimouski',
+        upcoming:false,
+        desc:'La clôture de la saison Bain Public 2025. Ajouter l\'affiche et la description de cet événement.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck — Édition 3</div><div class="flyer-ev-date">Printemps 2025</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
+
     </div>
   </div>
 
@@ -278,27 +461,47 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2024</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bp-2024-01.jpg')">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Open Deck #1<br>Ajouter l'affiche</div></div>
+
+      <div class="flyer-card past" onclick="openEvent({
+        img:'',
+        title:'Open Deck — Édition 1',
+        cat:'Bain Public × Collectif Jardin',
+        date:'Automne 2024',
+        location:'Bain Public, Rimouski',
+        upcoming:false,
+        desc:'Première édition de notre série Open Deck au Bain Public. Ajouter l\'affiche et la description de cet événement fondateur.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck — Édition 1</div><div class="flyer-ev-date">Automne 2024</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bp-2024-02.jpg')">
-        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Open Deck #2<br>Ajouter l'affiche</div></div>
+
+      <div class="flyer-card past" onclick="openEvent({
+        img:'',
+        title:'Open Deck — Édition 2',
+        cat:'Bain Public × Collectif Jardin',
+        date:'Hiver 2024',
+        location:'Bain Public, Rimouski',
+        upcoming:false,
+        desc:'Deuxième édition de notre série Open Deck au Bain Public. Ajouter l\'affiche et la description de cet événement.'
+      })">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Open Deck — Édition 2</div><div class="flyer-ev-date">Hiver 2024</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
+
     </div>
   </div>
+</section>
 
-
-<!-- ════════════════════════════
+<!-- ══════════════════════════════
      CAT 2 — BRISE-LAMES
-════════════════════════════ -->
+══════════════════════════════ -->
 <section class="cat-block" id="brise-lames">
-  <div class="cat-header reveal">
+
+  <div class="cat-desc-block reveal">
     <div class="cat-num">02</div>
-    <div>
+    <div class="cat-info">
       <div class="cat-label">Série estivale — Plein air</div>
       <h2 class="cat-title">Saison<br><em>Brise-Lames</em></h2>
       <p class="cat-desc">De juin à septembre, nous investissons le Brise-Lames de Rimouski pour une journée de musique électronique en plein air, face au Saint-Laurent. Chaque édition mensuelle est un chapitre de l'été — du solstice à la récolte. Quatre événements, quatre atmosphères, une seule communauté qui grandit saison après saison.</p>
@@ -314,25 +517,63 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2026</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card upcoming"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Solstice 2026<br>Affiche à venir</div></div><span class="flyer-badge badge-upcoming">À venir</span><div class="flyer-overlay"><div class="flyer-ev-name">Solstice d'Été</div><div class="flyer-ev-date">20 juin 2026 — 15h → 23h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div></div>
-      <div class="flyer-card upcoming"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Juillet 2026<br>Affiche à venir</div></div><span class="flyer-badge badge-upcoming">À venir</span><div class="flyer-overlay"><div class="flyer-ev-name">Plein Été</div><div class="flyer-ev-date">18 juillet 2026 — 15h → 23h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div></div>
-      <div class="flyer-card upcoming"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Août 2026<br>Affiche à venir</div></div><span class="flyer-badge badge-upcoming">À venir</span><div class="flyer-overlay"><div class="flyer-ev-name">Dernières Chaleurs</div><div class="flyer-ev-date">15 août 2026 — 15h → 23h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div></div>
-      <div class="flyer-card upcoming"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Septembre 2026<br>Affiche à venir</div></div><span class="flyer-badge badge-upcoming">À venir</span><div class="flyer-overlay"><div class="flyer-ev-name">Récolte</div><div class="flyer-ev-date">19 septembre 2026 — 14h → 22h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div></div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({img:'',title:'Solstice d\'Été',cat:'Saison Brise-Lames',date:'20 juin 2026 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:true,ticketUrl:'#',desc:'L\'ouverture de la saison estivale, au solstice d\'été. Le soleil se couche tard sur le fleuve, la musique joue encore plus longtemps. Notre édition phare — celle qui lance la saison plein air avec toute l\'énergie d\'un collectif en pleine croissance.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
+        <span class="flyer-badge badge-upcoming">À venir</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({img:'',title:'Plein Été',cat:'Saison Brise-Lames',date:'18 juillet 2026 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:true,ticketUrl:'#',desc:'Le cœur de l\'été face au Saint-Laurent. Des artistes invités de l\'extérieur rejoignent notre programmation locale pour une journée complète de découvertes musicales. L\'édition la plus internationale de notre saison.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
+        <span class="flyer-badge badge-upcoming">À venir</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({img:'',title:'Dernières Chaleurs',cat:'Saison Brise-Lames',date:'15 août 2026 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:true,ticketUrl:'#',desc:'La chaleur de l\'été commence à décliner, mais la musique reste intense. Une édition tournée vers les sonorités plus profondes et plus organiques — le fleuve en toile de fond d\'une expérience sensorielle unique.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
+        <span class="flyer-badge badge-upcoming">À venir</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
+      <div class="flyer-card upcoming" onclick="openEvent({img:'',title:'Récolte',cat:'Saison Brise-Lames',date:'19 septembre 2026 — 14h → 22h',location:'Brise-Lames, Rimouski',upcoming:true,ticketUrl:'#',desc:'La clôture mélancolique et puissante de notre saison estivale. Dernier coucher de soleil sur le fleuve avant l\'automne — une édition qui célèbre la fin de l\'été et ce que nous avons construit ensemble.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
+        <span class="flyer-badge badge-upcoming">À venir</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
     </div>
   </div>
-</section>
+
   <!-- 2025 -->
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2025</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png')">
+
+      <div class="flyer-card past" onclick="openEvent({img:'Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png',title:'Solstice d\'Été 2025',cat:'Saison Brise-Lames',date:'20 juin 2025 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'La grande ouverture de la saison estivale 2025. Une journée exceptionnelle face au Saint-Laurent avec une programmation allant de la house organique aux sonorités plus profondes. Plus de 400 personnes réunies pour célébrer le solstice en musique.'})">
         <img src="Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png" alt="Solstice Brise-Lames 2025" loading="lazy">
         <span class="flyer-badge badge-past">Passé</span>
-        <div class="flyer-overlay"><div class="flyer-ev-name">Solstice d'Été</div><div class="flyer-ev-date">20 juin 2025 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
       </div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2025-juil.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Juillet 2025<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Plein Été</div><div class="flyer-ev-date">Juillet 2025 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2025-aout.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Août 2025<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Dernières Chaleurs</div><div class="flyer-ev-date">Août 2025 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2025-sept.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Septembre 2025<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Récolte</div><div class="flyer-ev-date">Septembre 2025 — 14h → 22h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
+
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Plein Été 2025',cat:'Saison Brise-Lames',date:'Juillet 2025 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Deuxième édition de la saison Brise-Lames 2025. Ajouter l\'affiche et la description de cet événement.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
+        <span class="flyer-badge badge-past">Passé</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Dernières Chaleurs 2025',cat:'Saison Brise-Lames',date:'Août 2025 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Troisième édition Brise-Lames 2025. Ajouter l\'affiche et la description de cet événement.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
+        <span class="flyer-badge badge-past">Passé</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Récolte 2025',cat:'Saison Brise-Lames',date:'Septembre 2025 — 14h → 22h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Édition de clôture de la saison estivale 2025. Ajouter l\'affiche et la description de cet événement.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
+        <span class="flyer-badge badge-past">Passé</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
+
     </div>
   </div>
 
@@ -340,24 +581,26 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2024</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2024-juin.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Juin 2024<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Solstice d'Été</div><div class="flyer-ev-date">Juin 2024 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2024-juil.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Juillet 2024<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Plein Été</div><div class="flyer-ev-date">Juillet 2024 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2024-aout.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Août 2024<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Dernières Chaleurs</div><div class="flyer-ev-date">Août 2024 — 15h → 23h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-bl-2024-sept.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Septembre 2024<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Récolte</div><div class="flyer-ev-date">Septembre 2024 — 14h → 22h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Solstice d\'Été 2024',cat:'Saison Brise-Lames',date:'Juin 2024 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Ajouter l\'affiche et la description.'})"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Plein Été 2024',cat:'Saison Brise-Lames',date:'Juillet 2024 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Ajouter l\'affiche et la description.'})"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Dernières Chaleurs 2024',cat:'Saison Brise-Lames',date:'Août 2024 — 15h → 23h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Ajouter l\'affiche et la description.'})"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Récolte 2024',cat:'Saison Brise-Lames',date:'Septembre 2024 — 14h → 22h',location:'Brise-Lames, Rimouski',upcoming:false,desc:'Ajouter l\'affiche et la description.'})"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div></div>
     </div>
   </div>
 
+</section>
 
-<!-- ════════════════════════════
+<!-- ══════════════════════════════
      CAT 3 — HALLOWEEN
-════════════════════════════ -->
+══════════════════════════════ -->
 <section class="cat-block" id="halloween">
-  <div class="cat-header reveal">
+
+  <div class="cat-desc-block reveal">
     <div class="cat-num">03</div>
-    <div>
+    <div class="cat-info">
       <div class="cat-label">Classique annuel — 31 octobre</div>
       <h2 class="cat-title">Soirée<br><em>Halloween</em></h2>
-      <p class="cat-desc">Chaque 31 octobre, le Collectif Jardin transforme un lieu de Rimouski en terrain de jeu pour la nuit la plus sombre de l'année. Costumes exigés. Musique sombre, hypnotique, organique. Scénographie immersive pensée pour l'occasion. Notre événement le plus mystérieux et le plus attendu — une tradition qui évolue et s'affirme à chaque édition.</p>
+      <p class="cat-desc">Chaque 31 octobre, le Collectif Jardin transforme un lieu de Rimouski en terrain de jeu pour la nuit la plus sombre de l'année. Costumes exigés. Musique sombre, hypnotique, organique. Scénographie immersive pensée pour l'occasion. Notre événement le plus mystérieux et le plus attendu — une tradition qui s'affirme et évolue à chaque édition.</p>
       <div class="cat-meta">
         <div class="cat-meta-item"><span class="cat-meta-lbl">Date</span><span class="cat-meta-val">31 octobre — Chaque année</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">21h → 3h</span></div>
@@ -370,15 +613,23 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2026</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card upcoming"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Halloween 2026<br>Affiche à venir</div></div><span class="flyer-badge badge-upcoming">À venir</span><div class="flyer-overlay"><div class="flyer-ev-name">La Grande Nuit<br>d'Halloween</div><div class="flyer-ev-date">31 octobre 2026 — 21h → 3h</div><a href="#" class="flyer-btn" onclick="event.stopPropagation()">Acheter les billets →</a></div></div>
+      <div class="flyer-card upcoming" onclick="openEvent({img:'',title:'La Grande Nuit d\'Halloween',cat:'Soirée Halloween',date:'31 octobre 2026 — 21h → 3h',location:'Lieu à confirmer, Rimouski',upcoming:true,ticketUrl:'#',desc:'La cinquième édition de notre nuit d\'Halloween. Costumes exigés. Musique sombre et hypnotique. Scénographie immersive qui repousse les limites à chaque édition. Le lieu sera révélé quelques semaines avant l\'événement — gardez la date et surveillez nos réseaux.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Affiche à venir</div></div>
+        <span class="flyer-badge badge-upcoming">À venir</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
     </div>
   </div>
-</section>
+
   <!-- 2025 -->
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2025</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-hw-2025.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Halloween 2025<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Nuit Halloween</div><div class="flyer-ev-date">31 octobre 2025 — 21h → 3h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Nuit Halloween 2025',cat:'Soirée Halloween',date:'31 octobre 2025 — 21h → 3h',location:'Rimouski',upcoming:false,desc:'Quatrième édition de notre Nuit Halloween. Ajouter l\'affiche et la description de cet événement.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
+        <span class="flyer-badge badge-past">Passé</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
     </div>
   </div>
 
@@ -386,10 +637,15 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   <div class="year-section reveal">
     <div class="year-header"><div class="year-label">2024</div><div class="year-line"></div></div>
     <div class="flyer-grid">
-      <div class="flyer-card past" onclick="openLightbox('Image-Events/placeholder-hw-2024.jpg')"><div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="2" stroke="#edacff" stroke-width="1"/><line x1="4" y1="28" x2="36" y2="28" stroke="#edacff" stroke-width="1"/><circle cx="14" cy="18" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Halloween 2024<br>Ajouter l'affiche</div></div><span class="flyer-badge badge-past">Passé</span><div class="flyer-overlay"><div class="flyer-ev-name">Nuit Halloween</div><div class="flyer-ev-date">31 octobre 2024 — 21h → 3h</div><span class="flyer-btn-ghost">Voir l'affiche</span></div></div>
+      <div class="flyer-card past" onclick="openEvent({img:'',title:'Nuit Halloween 2024',cat:'Soirée Halloween',date:'31 octobre 2024 — 21h → 3h',location:'Rimouski',upcoming:false,desc:'Troisième édition de notre Nuit Halloween. Ajouter l\'affiche et la description de cet événement.'})">
+        <div class="flyer-placeholder"><svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg><div class="flyer-placeholder-txt">Ajouter l'affiche</div></div>
+        <span class="flyer-badge badge-past">Passé</span>
+        <div class="flyer-hint"><span class="flyer-hint-txt">Voir les détails</span></div>
+      </div>
     </div>
   </div>
 
+</section>
 
 </main>
 
@@ -399,28 +655,34 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <a href="index.html" class="footer-logo-sm">Collectif<span>Jardin</span></a>
     <div class="footer-links-sm">
       <a href="evenements.html">Événements</a>
+      <a href="projets.html">Projets</a>
       <a href="index.html#about">À propos</a>
       <a href="index.html#merch">Objets</a>
       <a href="index.html#contact">Contact</a>
-      <a href="#">Instagram</a>
     </div>
   </div>
   <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour &amp; pollen.</div>
 </footer>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLightbox()">
-  <button id="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
-  <div id="lightbox-content" onclick="event.stopPropagation()"></div>
+<!-- ═══════════════════════════════════════
+     EVENT LIGHTBOX (desktop centred / mobile bottom sheet)
+════════════════════════════════════════ -->
+<div id="ev-lightbox" role="dialog" aria-modal="true" aria-label="Détails de l'événement">
+  <div class="lb-backdrop" onclick="closeLightbox()"></div>
+  <div class="lb-panel" id="lb-panel">
+    <!-- Filled by JS -->
+  </div>
 </div>
 
 <script>
 (function(){
 'use strict';
 
+/* ── NAV scroll ── */
 var nav = document.getElementById('mainNav');
 window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
 
+/* ── MOBILE NAV ── */
 window.toggleNav = function(){
   var ov = document.getElementById('navOverlay');
   var btn = document.getElementById('navHamburger');
@@ -431,9 +693,9 @@ window.toggleNav = function(){
     document.body.dataset.sy = window.scrollY;
     document.body.style.cssText = 'position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
   } else {
-    var sy = parseInt(document.body.dataset.sy || 0);
+    var sy = parseInt(document.body.dataset.sy||0);
     document.body.style.cssText = '';
-    window.scrollTo(0, sy);
+    window.scrollTo(0,sy);
   }
 };
 window.closeNav = function(){
@@ -442,22 +704,22 @@ window.closeNav = function(){
   ov.classList.remove('open');
   document.getElementById('navHamburger').classList.remove('open');
   document.getElementById('navHamburger').setAttribute('aria-expanded','false');
-  var sy = parseInt(document.body.dataset.sy || 0);
+  var sy = parseInt(document.body.dataset.sy||0);
   document.body.style.cssText = '';
-  window.scrollTo(0, sy);
+  window.scrollTo(0,sy);
 };
 document.getElementById('navOverlay').addEventListener('click', function(e){ if(e.target===this) closeNav(); });
 
-/* REVEAL */
+/* ── REVEAL ── */
 var revEls = document.querySelectorAll('.reveal');
 if('IntersectionObserver' in window){
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-  }, {threshold:0.06, rootMargin:'0px 0px -20px 0px'});
+  },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
   revEls.forEach(function(el){ io.observe(el); });
 } else { revEls.forEach(function(el){ el.classList.add('visible'); }); }
 
-/* CATEGORY SWITCHER */
+/* ── CATEGORY SWITCHER ── */
 window.showCat = function(id, btn){
   document.querySelectorAll('.cat-tab').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
@@ -466,27 +728,82 @@ window.showCat = function(id, btn){
   if(target){
     target.classList.add('visible');
     window.scrollTo({top: document.querySelector('.cat-nav').offsetTop - 10, behavior:'smooth'});
+    // Re-trigger reveals
+    target.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('visible'); });
+    setTimeout(function(){
+      target.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+    }, 60);
   }
 };
 
-/* LIGHTBOX */
-window.openLightbox = function(src){
-  var lb = document.getElementById('lightbox');
-  var content = document.getElementById('lightbox-content');
-  if(src && src.indexOf('placeholder') === -1){
-    content.innerHTML = '<img src="'+src+'" alt="Affiche">';
+/* ══════════════════════════════════════
+   EVENT LIGHTBOX
+   ev = { img, title, cat, date, location, upcoming, ticketUrl, desc }
+══════════════════════════════════════ */
+window.openEvent = function(ev){
+  var lb    = document.getElementById('ev-lightbox');
+  var panel = document.getElementById('lb-panel');
+
+  // Build image column HTML
+  var imgHtml;
+  if(ev.img){
+    imgHtml = '<div class="lb-image-col"><img src="'+ev.img+'" alt="'+ev.title+'" loading="lazy"></div>';
   } else {
-    content.innerHTML = '<div style="padding:48px;text-align:center;font-size:12px;color:rgba(255,251,219,.4);letter-spacing:.12em;">Affiche à ajouter<br><br><span style="font-size:10px;opacity:.6;">Remplacez le placeholder<br>par le vrai fichier image</span></div>';
+    imgHtml = '<div class="lb-placeholder-col">'
+      +'<svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="opacity:.15">'
+      +'<rect x="4" y="4" width="40" height="40" rx="3" stroke="#edacff" stroke-width="1"/>'
+      +'<line x1="4" y1="34" x2="44" y2="34" stroke="#edacff" stroke-width="1"/>'
+      +'<circle cx="16" cy="22" r="6" stroke="#fd2f00" stroke-width="1" fill="none"/>'
+      +'</svg></div>';
   }
-  lb.style.display = 'flex';
-};
-window.closeLightbox = function(){
-  var lb = document.getElementById('lightbox');
-  if(lb) lb.style.display = 'none';
-};
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
 
-/* ANCHOR on load */
+  // Badge
+  var badgeHtml = ev.upcoming
+    ? '<span class="lb-badge lb-badge-upcoming">À venir</span>'
+    : '<span class="lb-badge lb-badge-past">Passé</span>';
+
+  // Ticket button — only for upcoming events
+  var btnHtml = '';
+  if(ev.upcoming && ev.ticketUrl){
+    btnHtml = '<a href="'+ev.ticketUrl+'" class="lb-btn" target="_blank" rel="noopener">Acheter les billets →</a>';
+  }
+
+  panel.innerHTML =
+    imgHtml +
+    '<div class="lb-info-col">'
+      + '<button class="lb-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>'
+      + badgeHtml
+      + '<div class="lb-cat">'+ev.cat+'</div>'
+      + '<h2 class="lb-title">'+ev.title+'</h2>'
+      + '<div class="lb-date">'+ev.date+'</div>'
+      + '<div class="lb-location">'+ev.location+'</div>'
+      + '<div class="lb-divider"></div>'
+      + '<p class="lb-desc">'+ev.desc+'</p>'
+      + btnHtml
+    + '</div>';
+
+  lb.classList.add('open');
+
+  // Prevent body scroll (iOS safe)
+  document.body.dataset.lbSy = window.scrollY;
+  document.body.style.cssText = 'position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+};
+
+window.closeLightbox = function(){
+  var lb = document.getElementById('ev-lightbox');
+  lb.classList.remove('open');
+  // Restore scroll
+  var sy = parseInt(document.body.dataset.lbSy||0);
+  document.body.style.cssText = '';
+  window.scrollTo(0,sy);
+};
+
+/* Escape key */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeLightbox();
+});
+
+/* ── ANCHOR on load ── */
 if(window.location.hash){
   var id = window.location.hash.replace('#','');
   var map = {'bain-public':0,'brise-lames':1,'halloween':2};
