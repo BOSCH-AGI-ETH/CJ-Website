@@ -223,7 +223,7 @@ section { padding:120px 48px;position:relative; }
   transition:transform .6s ease,filter .6s ease;will-change:transform;
 }
 .card-grad-1 { background-image:url('Image-Events/BainPublic X CollectifJardin1.png'); }
-.card-grad-2 { background-image:url('Image-Events/Jardin - Invertus 2025 - Affiche imprimée Dernière 6 oct.jpg'); }
+.card-grad-2 { background-image:url('Image-Events/Jardin - Invertus 2025.jpg'); }
 .card-grad-3 { background-image:url('Image-Events/BIRDVIEW-BRISE-LAME-2025.jpg'); }
 .event-card:hover .event-card-bg { transform:scale(1.06);filter:blur(6px) brightness(.55); }
 .event-card-inner {
@@ -327,7 +327,7 @@ section { padding:120px 48px;position:relative; }
   font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;
   line-height:1.4;color:var(--mauve);border-left:2px solid var(--orange);padding-left:28px;margin:40px 0;
 }
-.about-visual { position:sticky;top:120px; }
+.about-visual { position:sticky;top:68px; }
 .about-logo-banner {
   width:100%;display:flex;align-items:center;justify-content:center;
   padding:20px 0 20px;
@@ -338,14 +338,14 @@ section { padding:120px 48px;position:relative; }
   opacity:.92;filter:brightness(1);
 }
 .team-section { }
-.team-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:0; }
-.team-card { text-align:center; }
-.team-avatar { width:80px;height:80px;border-radius:50%;margin:0 auto 16px;overflow:hidden;display:flex;align-items:center;justify-content:center; }
+.team-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:0; }
+.team-card { display:flex;align-items:center;gap:14px;text-align:left; }
+.team-avatar { width:44px;height:44px;flex-shrink:0;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center; }
 .ta1{background:linear-gradient(135deg,#38050e,rgba(237,172,255,.25))}
 .ta2{background:linear-gradient(135deg,#1a0d38,rgba(237,172,255,.25))}
 .ta3{background:linear-gradient(135deg,#0d1a0a,rgba(237,172,255,.2))}
 .ta4{background:linear-gradient(135deg,#2d1a00,rgba(253,47,0,.2))}
-.team-name { font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:4px; }
+.team-name { font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;margin-bottom:2px;line-height:1.2; }
 .team-role { font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--mauve);opacity:.7; }
 .timeline { position:relative;padding-left:32px;margin-top:40px; }
 .timeline::before {
@@ -474,7 +474,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   #about { padding:100px 32px; }
   .about-grid { gap:48px; }
   .about-visual { position:static; }
-  .team-grid { grid-template-columns:repeat(2,1fr); }
+  .team-grid { grid-template-columns:1fr; }
   .proj-grid-preview { grid-template-columns:1fr; }
   #merch { padding:100px 32px; }
   .merch-grid { grid-template-columns:repeat(2,1fr); }
@@ -488,12 +488,38 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
    MOBILE ≤768px  —  all iOS Safari fixes
 ════════════════════════════════════════════ */
 @media (max-width:1024px) and (min-width:769px) {
-  .proj-grid-preview { grid-template-columns:repeat(2,1fr); }
+  .proj-grid-preview { grid-template-columns:repeat(3,1fr);gap:16px; }
 }
 
 @media (max-width:768px) {
-  .proj-grid-preview { grid-template-columns:1fr; }
-  .proj-btn-preview { opacity:1;transform:translateY(0); }
+  /* Mobile projects: horizontal scroll snap */
+  .proj-grid-preview {
+    display:flex;
+    flex-direction:row;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:0;
+    margin:40px 0 0;
+    padding:0;
+    max-width:100%;
+    /* hide scrollbar */
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .proj-grid-preview::-webkit-scrollbar { display:none; }
+  .proj-card-preview {
+    flex:0 0 88vw;
+    max-width:88vw;
+    scroll-snap-align:center;
+    margin-right:12px;
+    aspect-ratio:4/5;
+  }
+  .proj-card-preview:first-child { margin-left:6vw; }
+  .proj-card-preview:last-child { margin-right:6vw; }
+  .proj-btn-preview { opacity:1;transform:translateY(0);border-color:rgba(237,172,255,.3); }
+  .proj-name-preview { font-size:28px; }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
@@ -542,7 +568,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .about-quote { font-size:20px;padding-left:18px;margin:24px 0; }
   .about-text p { font-size:12px; }
   .team-section { margin-top:48px; }
-  .team-grid { grid-template-columns:repeat(2,1fr);gap:16px; }
+  .team-grid { grid-template-columns:1fr;gap:10px; }
   .team-avatar { width:60px;height:60px; }
   .team-name { font-size:15px; }
 
@@ -580,7 +606,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 /* ─── PROJECTS PREVIEW ─── */
 #projets-preview { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
-.proj-grid-preview { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:60px auto 0; }
+.proj-grid-preview {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:60px auto 0;
+}
 .proj-card-preview {
   position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
   -webkit-tap-highlight-color:transparent;
@@ -695,7 +723,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <div class="events-grid reveal">
     <div class="event-card"><div class="event-card-bg card-grad-1" onclick="openImageLightbox('Image-Events/BainPublic X CollectifJardin1.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série régulière</span><div class="event-name">Open Deck<br>Bain Public</div><div class="event-date">Rimouski — Salle culturelle</div><div class="event-location">Événements tout au long de l'année</div><a href="evenements.html#bain-public" class="event-btn">Plus de détails</a></div></div>
     <div class="event-card"><div class="event-card-bg card-grad-3" onclick="openImageLightbox('Image-Events/BIRDVIEW-BRISE-LAME-2025.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série estivale</span><div class="event-name">Saison<br>Brise-Lames</div><div class="event-date">Juin · Juillet · Août · Septembre</div><div class="event-location">Brise-Lames, Rimouski</div><a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a></div></div>
-    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Events/Jardin - Invertus 2025 - Affiche imprimée Dernière 6 oct.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
+    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Events/Jardin - Invertus 2025.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
   </div>
   <div class="stats-row reveal">
     <div class="stat-box"><div class="stat-num">47</div><div class="stat-label">Événements organisés</div></div>
@@ -865,7 +893,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
         <img src="Image-About/Jardin - logo officiel orange.png" alt="Collectif Jardin — Logo officiel">
       </div>
       <div class="team-section">
-        <div class="section-label" style="margin-bottom:16px;">L'équipe</div>
         <div class="team-grid">
           <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div>
           <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div>
