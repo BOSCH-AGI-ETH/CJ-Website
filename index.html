@@ -493,12 +493,11 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* Mobile projects — scroll-driven horizontal reveal */
-  #projets-preview { overflow:hidden; }
+  /* Mobile projects — scroll-hijack horizontal reveal */
+  #projets-preview { overflow:visible; }
   .proj-scroll-driver {
-    /* tall container that drives the horizontal animation via scroll */
-    height:300vw; /* 3 cards × 100vw = full scroll distance */
     position:relative;
+    /* height set by JS at runtime */
   }
   .proj-sticky-track {
     position:sticky;
@@ -507,6 +506,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     display:flex;
     align-items:center;
     overflow:hidden;
+    /* Dark bg so the section looks full-screen while hijacked */
+    background:var(--bg);
+    z-index:1;
   }
   .proj-grid-preview {
     display:flex;
@@ -515,7 +517,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     padding:0 20px;
     will-change:transform;
     transition:none;
-    width:calc(3 * 88vw + 2 * 16px + 40px);
     flex-shrink:0;
   }
   .proj-card-preview {
@@ -1142,56 +1143,123 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── SCROLL-DRIVEN HORIZONTAL PROJECTS (mobile only) ── */
+/* ── SCROLL-HIJACK HORIZONTAL PROJECTS (mobile only) ── */
 (function(){
   function isMobile(){ return window.innerWidth <= 768; }
 
-  var driver = document.getElementById('projScrollDriver');
-  var track  = document.getElementById('projStickyTrack');
-  var grid   = document.getElementById('projGridPreview');
+  var driver  = document.getElementById('projScrollDriver');
+  var track   = document.getElementById('projStickyTrack');
+  var grid    = document.getElementById('projGridPreview');
   if(!driver || !track || !grid) return;
 
-  function setupMobile(){
-    if(!isMobile()) return;
+  var CARD_GAP  = 16;
+  var totalX    = 0;   // total horizontal distance to traverse
+  var currentX  = 0;   // current translated position
+  var hijacking = false;
+  var touchStartY = 0;
+  var touchLastY  = 0;
 
-    // Cards: 82vw each + 16px gap, 3 cards
-    // Total scroll distance needed = 2 card widths + 2 gaps
-    var cardW   = window.innerWidth * 0.82;
-    var gapW    = 16;
-    var totalX  = (cardW + gapW) * 2; // distance to reveal all 3 cards
+  function getCardW(){ return window.innerWidth * 0.82; }
 
-    // Driver height = viewport height + total horizontal scroll mapped to vertical
-    driver.style.height = (window.innerHeight + totalX) + 'px';
-
-    function onScroll(){
-      if(!isMobile()) { grid.style.transform = ''; return; }
-      var rect    = driver.getBoundingClientRect();
-      var scrolled = -rect.top; // how far we've scrolled INTO the driver
-      if(scrolled < 0) scrolled = 0;
-      if(scrolled > totalX) scrolled = totalX;
-      grid.style.transform = 'translateX(-' + scrolled + 'px)';
+  function setup(){
+    if(!isMobile()){
+      teardown();
+      return;
     }
-
-    window.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
+    var cardW = getCardW();
+    totalX = (cardW + CARD_GAP) * 2; // 2 moves to reveal cards 2 and 3
+    currentX = 0;
+    grid.style.transform = 'translateX(0px)';
+    // Driver needs height to create scroll room for entry/exit
+    driver.style.height = '100vh'; // just tall enough to sticky-pin
   }
 
-  function teardownMobile(){
-    if(isMobile()) return;
+  function teardown(){
     driver.style.height = '';
     grid.style.transform = '';
+    currentX = 0;
+    hijacking = false;
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
-  setupMobile();
+  // Check if the sticky track is currently pinned (visible in viewport at top:0)
+  function isTrackPinned(){
+    if(!isMobile()) return false;
+    var rect = track.getBoundingClientRect();
+    // Pinned when its top is at 0 (sticky fired) and it fills the screen
+    return Math.abs(rect.top) < 2 && rect.height >= window.innerHeight * 0.9;
+  }
 
-  // Re-init on resize
+  /* ── TOUCH handler ── */
+  document.addEventListener('touchstart', function(e){
+    if(!isMobile()) return;
+    touchStartY = e.touches[0].clientY;
+    touchLastY  = touchStartY;
+  }, {passive:true});
+
+  document.addEventListener('touchmove', function(e){
+    if(!isMobile()) return;
+    if(!isTrackPinned()) return;
+
+    var dy = touchLastY - e.touches[0].clientY; // positive = scrolling down
+    touchLastY = e.touches[0].clientY;
+
+    var willEnter = (dy > 0 && currentX < totalX); // scrolling down, not at end
+    var willExit  = (dy < 0 && currentX > 0);      // scrolling up, not at start
+
+    if(willEnter || willExit){
+      e.preventDefault(); // STOP vertical scroll
+      currentX += dy * 1.4; // amplify slightly for feel
+      if(currentX < 0)      currentX = 0;
+      if(currentX > totalX) currentX = totalX;
+      grid.style.transform = 'translateX(-' + currentX.toFixed(1) + 'px)';
+    }
+    // If at start and scrolling up, or at end and scrolling down: let page scroll normally
+  }, {passive:false});
+
+  /* ── WHEEL handler (desktop trackpad / mouse) ── */
+  document.addEventListener('wheel', function(e){
+    if(!isMobile()) return;
+    if(!isTrackPinned()) return;
+
+    var dy = e.deltaY;
+    var willEnter = (dy > 0 && currentX < totalX);
+    var willExit  = (dy < 0 && currentX > 0);
+
+    if(willEnter || willExit){
+      e.preventDefault();
+      currentX += dy * 0.8;
+      if(currentX < 0)      currentX = 0;
+      if(currentX > totalX) currentX = totalX;
+      grid.style.transform = 'translateX(-' + currentX.toFixed(1) + 'px)';
+    }
+  }, {passive:false});
+
+  /* ── Snap to nearest card on release ── */
+  document.addEventListener('touchend', function(){
+    if(!isMobile() || !isTrackPinned()) return;
+    var cardW = getCardW();
+    var snap  = Math.round(currentX / (cardW + CARD_GAP)) * (cardW + CARD_GAP);
+    if(snap < 0)      snap = 0;
+    if(snap > totalX) snap = totalX;
+    currentX = snap;
+    grid.style.transition = 'transform .35s cubic-bezier(.25,.46,.45,.94)';
+    grid.style.transform  = 'translateX(-' + snap + 'px)';
+    setTimeout(function(){ grid.style.transition = 'none'; }, 400);
+  }, {passive:true});
+
+  /* ── After all 3 cards shown: scroll down resumes page scroll ──
+     We set driver height to give room for the page to scroll past it.
+     The driver is 100vh tall. When the sticky track un-pins (driver fully
+     scrolled past), normal vertical scroll resumes automatically. ── */
+
+  setup();
+
   var resizeTimer;
   window.addEventListener('resize', function(){
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){
-      if(isMobile()) setupMobile();
-      else teardownMobile();
-    }, 150);
+    resizeTimer = setTimeout(setup, 150);
   });
 })();
 
