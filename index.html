@@ -493,10 +493,13 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* ── Mobile projects: sticky horizontal ── */
-  #projets-preview { padding:0; overflow:visible; }
-  .proj-header-row { padding:28px 20px 12px; margin-bottom:0; flex-shrink:0; }
-  #projPinWrap { position:relative; /* height set by JS */ }
+  /* ── Mobile projects ── */
+  #projets-preview { padding:0; }
+  .proj-header-row { padding:28px 20px 16px; margin-bottom:0; flex-shrink:0; }
+  #projPinWrap {
+    position:relative;
+    /* JS sets height = 100vh + TRAVEL */
+  }
   #projPinPanel {
     position:sticky;
     top:0;
@@ -505,27 +508,28 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     background:var(--bg);
     display:flex;
     flex-direction:column;
-    box-sizing:border-box;
+    /* touch-action:none tells browser WE handle all touch on this element */
+    touch-action:none;
   }
   #projCardsTrack {
     display:flex;
     flex-direction:row;
     gap:16px;
-    padding:0 20px 32px;
+    padding:0 20px 40px;
     will-change:transform;
     flex:1;
     min-height:0;
+    align-items:stretch;
   }
   .proj-card-preview {
-    flex:0 0 calc(100vw - 40px);
-    width:calc(100vw - 40px);
-    min-width:calc(100vw - 40px);
-    max-width:calc(100vw - 40px);
-    /* height fills flex parent */
-    align-self:stretch;
-    aspect-ratio:unset;
+    /* Exactly one card = panel width */
+    flex:0 0 calc(100vw - 40px) !important;
+    width:calc(100vw - 40px) !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:100% !important;
+    aspect-ratio:unset !important;
     flex-shrink:0;
-    box-sizing:border-box;
   }
   .proj-btn-preview { opacity:1 !important; transform:translateY(0) !important; }
   .proj-view-all-btn { padding:24px 20px 0; }
@@ -1158,94 +1162,96 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── PROJECTS: scroll-driven horizontal on mobile ── */
+/* ── PROJECTS: touch-driven horizontal carousel on mobile ── */
 (function(){
-  var wrap  = document.getElementById('projPinWrap');
   var panel = document.getElementById('projPinPanel');
+  var wrap  = document.getElementById('projPinWrap');
   var track = document.getElementById('projCardsTrack');
-  if(!wrap || !panel || !track) return;
+  if(!panel || !wrap || !track) return;
 
-  var CARD_W = 0;
+  var CARDS  = 3;
   var GAP    = 16;
-  var TRAVEL = 0;
-  var posX   = 0;
-  var raf    = false;
+  var cardW  = 0;
+  var travel = 0;
+  var posX   = 0;        /* current offset px */
+  var card   = 0;        /* 0, 1, 2 */
 
-  /* Touch tracking */
-  var ty0 = 0, tx0 = 0, lastTy = 0;
-  var swiping = false; /* true = we intercepted this touch gesture */
+  /* Touch state */
+  var t0y = 0, t0x = 0, startPosX = 0, dragging = false;
 
   function mobile(){ return window.innerWidth <= 768; }
 
   function recalc(){
-    if(!mobile()){
+    cardW  = window.innerWidth - 40;
+    travel = (cardW + GAP) * (CARDS - 1);
+    /* Wrap tall enough for sticky panel + real scroll room below */
+    if(mobile()){
+      wrap.style.height = (window.innerHeight + travel + 200) + 'px';
+    } else {
       wrap.style.height = '';
       track.style.transform = '';
-      return;
     }
-    CARD_W = window.innerWidth - 40;
-    TRAVEL = (CARD_W + GAP) * 2;
-    /* Wrap height = viewport + travel so sticky panel has real scroll room */
-    wrap.style.height = (window.innerHeight + TRAVEL) + 'px';
   }
 
-  function setX(x){
-    posX = Math.max(0, Math.min(x, TRAVEL));
-    track.style.transform = 'translateX(' + (-posX).toFixed(1) + 'px)';
+  function goTo(idx){
+    card = Math.max(0, Math.min(CARDS - 1, idx));
+    posX = card * (cardW + GAP);
+    track.style.transition = 'transform .4s cubic-bezier(.25,.46,.45,.94)';
+    track.style.transform  = 'translateX(' + (-posX) + 'px)';
+    setTimeout(function(){ track.style.transition = 'none'; }, 420);
   }
 
-  /* Is panel pinned at viewport top right now? */
-  function isPinned(){
-    if(!mobile()) return false;
-    var r = wrap.getBoundingClientRect();
-    /* Panel is pinned when wrap top has scrolled above viewport */
-    return r.top < 0 && r.bottom > window.innerHeight * 0.5;
-  }
-
-  document.addEventListener('touchstart', function(e){
+  /* Attach touch listeners directly to panel (not document)
+     because panel has touch-action:none — browser won't scroll */
+  panel.addEventListener('touchstart', function(e){
     if(!mobile()) return;
-    ty0    = e.touches[0].clientY;
-    tx0    = e.touches[0].clientX;
-    lastTy = ty0;
-    swiping = false;
+    t0y = e.touches[0].clientY;
+    t0x = e.touches[0].clientX;
+    startPosX = posX;
+    dragging  = false;
+    track.style.transition = 'none';
   }, {passive:true});
 
-  document.addEventListener('touchmove', function(e){
+  panel.addEventListener('touchmove', function(e){
     if(!mobile()) return;
-    if(!isPinned()) return;
+    var dy = t0y - e.touches[0].clientY;
+    var dx = t0x - e.touches[0].clientX;
 
-    var dy = lastTy - e.touches[0].clientY; /* >0 = swiping up (going forward) */
-    var dx = Math.abs(tx0 - e.touches[0].clientX);
-    lastTy = e.touches[0].clientY;
+    /* Start drag once we detect predominantly vertical intent */
+    if(!dragging){
+      if(Math.abs(dy) < 6) return; /* too small to decide */
+      dragging = true;
+    }
 
-    /* Ignore horizontal swipes */
-    if(dx > Math.abs(dy) * 1.5 && !swiping) return;
+    /* Convert vertical drag to horizontal:
+       swipe up (dy>0) = go right (next card), swipe down = go left */
+    var newX = startPosX + dy * 1.2;
+    newX = Math.max(-50, Math.min(travel + 50, newX)); /* slight overscroll */
+    track.style.transform = 'translateX(' + (-newX) + 'px)';
+    posX = newX;
+  }, {passive:true}); /* passive OK — touch-action:none already blocks browser */
 
-    var atStart = posX <= 0;
-    var atEnd   = posX >= TRAVEL;
-
-    /* At boundary going out → release */
-    if(dy < 0 && atStart) return;
-    if(dy > 0 && atEnd)   return;
-
-    /* Intercept: convert vertical drag → horizontal */
-    e.preventDefault();
-    swiping = true;
-    setX(posX + dy * 1.1);
-  }, {passive:false});
-
-  document.addEventListener('touchend', function(){
-    if(!mobile() || !swiping) return;
-    swiping = false;
-    /* Snap to nearest card */
-    var snap = Math.round(posX / (CARD_W + GAP)) * (CARD_W + GAP);
-    posX = Math.max(0, Math.min(snap, TRAVEL));
-    track.style.transition = 'transform .35s cubic-bezier(.25,.46,.45,.94)';
-    track.style.transform  = 'translateX(' + (-posX).toFixed(1) + 'px)';
-    setTimeout(function(){ track.style.transition = ''; }, 380);
+  panel.addEventListener('touchend', function(){
+    if(!mobile() || !dragging) return;
+    dragging = false;
+    /* Determine which card to snap to based on velocity/distance */
+    var dragged = posX - startPosX;
+    if(dragged > (cardW + GAP) * 0.25){
+      goTo(card + 1);
+    } else if(dragged < -(cardW + GAP) * 0.25){
+      goTo(card - 1);
+    } else {
+      goTo(card); /* snap back */
+    }
   }, {passive:true});
 
-  function init(){ recalc(); }
+  function init(){
+    if(!mobile()) return;
+    recalc();
+    posX  = 0;
+    card  = 0;
+    track.style.transform = 'translateX(0)';
+  }
 
   if(document.readyState === 'complete'){ init(); }
   else { window.addEventListener('load', init); }
@@ -1253,7 +1259,8 @@ document.addEventListener('keydown',function(e){
   var t;
   window.addEventListener('resize', function(){
     clearTimeout(t);
-    t = setTimeout(function(){ posX = 0; recalc(); }, 150);
+    t = setTimeout(function(){ posX=0; card=0; recalc();
+      track.style.transform = 'translateX(0)'; }, 200);
   });
 })();
 
