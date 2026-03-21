@@ -493,46 +493,42 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* ── Mobile projects: scroll-driven horizontal ── */
+  /* ── Mobile projects: sticky horizontal ── */
   #projets-preview { padding:0; overflow:visible; }
-  .proj-scroll-driver {
-    /* height = 100vh (screen while pinned) + scroll travel distance; set by JS */
-    position:relative;
-  }
-  .proj-sticky-track {
+  .proj-header-row { padding:28px 20px 12px; margin-bottom:0; flex-shrink:0; }
+  #projPinWrap { position:relative; /* height set by JS */ }
+  #projPinPanel {
     position:sticky;
     top:0;
     height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
     overflow:hidden;
     background:var(--bg);
-    padding:24px 0 16px;
+    display:flex;
+    flex-direction:column;
+    box-sizing:border-box;
   }
-  .proj-track-header {
-    padding:0 20px;
-    margin-bottom:20px;
-    flex-shrink:0;
-  }
-  .proj-track-header .section-title { font-size:clamp(24px,7vw,36px); }
-  .proj-grid-preview {
+  #projCardsTrack {
     display:flex;
     flex-direction:row;
-    gap:12px;
-    padding:0 20px;
+    gap:16px;
+    padding:0 20px 32px;
     will-change:transform;
-    flex-shrink:0;
-    /* No overflow hidden — cards slide out of sticky-track's overflow:hidden */
+    flex:1;
+    min-height:0;
   }
   .proj-card-preview {
-    flex:0 0 78vw;
-    max-width:78vw;
-    aspect-ratio:2/3;
+    flex:0 0 calc(100vw - 40px);
+    width:calc(100vw - 40px);
+    min-width:calc(100vw - 40px);
+    max-width:calc(100vw - 40px);
+    /* height fills flex parent */
+    align-self:stretch;
+    aspect-ratio:unset;
     flex-shrink:0;
+    box-sizing:border-box;
   }
-  .proj-btn-preview { opacity:1 !important;transform:translateY(0) !important;border-color:rgba(237,172,255,.3); }
-  .proj-view-all-btn { padding:32px 20px 0; }
+  .proj-btn-preview { opacity:1 !important; transform:translateY(0) !important; }
+  .proj-view-all-btn { padding:24px 20px 0; }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
@@ -621,23 +617,19 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 #projets-preview {
   background:var(--bg);
   border-top:1px solid rgba(237,172,255,.06);
-  /* Desktop: normal section padding */
-  padding:80px 0;
+  padding:80px 48px;
+  overflow:hidden;
 }
-/* ── Desktop layout (grid of 3) ── */
-.proj-scroll-driver { }
-.proj-sticky-track { }
-.proj-track-header {
-  padding:0 48px;
-  margin-bottom:60px;
-}
-.proj-grid-preview {
+.proj-header-row { margin-bottom:52px; }
+/* Desktop: normal 3-col grid */
+#projPinWrap { }
+#projPinPanel { }
+#projCardsTrack {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:24px;
   max-width:1200px;
   margin:0 auto;
-  padding:0 48px;
 }
 .proj-card-preview {
   position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
@@ -647,27 +639,27 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   position:absolute;inset:0;background-size:cover;background-position:center;
   transition:transform .6s ease,filter .6s ease;will-change:transform;
 }
-.pp1 { background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d); }
-.pp2 { background:linear-gradient(145deg,#0a1408,#38050e,#141414); }
-.pp3 { background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414); }
-.proj-card-bg-preview svg { position:absolute;inset:0;width:100%;height:100%; }
-.proj-card-preview:hover .proj-card-bg-preview { transform:scale(1.06);filter:blur(6px) brightness(.5); }
-.proj-card-inner-preview {
+.pp1{background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d);}
+.pp2{background:linear-gradient(145deg,#0a1408,#38050e,#141414);}
+.pp3{background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414);}
+.proj-card-bg-preview svg{position:absolute;inset:0;width:100%;height:100%;}
+.proj-card-preview:hover .proj-card-bg-preview{transform:scale(1.06);filter:blur(6px) brightness(.5);}
+.proj-card-inner-preview{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
   padding:32px 28px;background:linear-gradient(to top,rgba(20,20,20,.96) 0%,transparent 55%);z-index:2;
 }
-.proj-tag-preview { font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
-.proj-name-preview { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream); }
-.proj-name-preview em { font-style:italic;color:var(--mauve); }
-.proj-sub-preview { font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4); }
-.proj-btn-preview {
+.proj-tag-preview{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.proj-name-preview{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream);}
+.proj-name-preview em{font-style:italic;color:var(--mauve);}
+.proj-sub-preview{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4);}
+.proj-btn-preview{
   margin-top:20px;display:inline-block;border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;
   font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);text-decoration:none;
   opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,border-color .3s,color .3s;
 }
-.proj-card-preview:hover .proj-btn-preview { opacity:1;transform:translateY(0);border-color:var(--mauve); }
-.proj-card-preview:hover .proj-btn-preview:hover { border-color:var(--orange);color:var(--orange); }
-.proj-view-all-btn { margin-top:52px;text-align:center;padding:0 48px; }
+.proj-card-preview:hover .proj-btn-preview{opacity:1;transform:translateY(0);border-color:var(--mauve);}
+.proj-card-preview:hover .proj-btn-preview:hover{border-color:var(--orange);color:var(--orange);}
+.proj-view-all-btn{margin-top:52px;text-align:center;}
 </style>
 </head>
 <body>
@@ -778,17 +770,15 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 <!-- ─── PROJETS PREVIEW ─── -->
 <section id="projets-preview">
 
-  <div id="projScrollDriver" class="proj-scroll-driver">
-    <div id="projStickyTrack" class="proj-sticky-track">
-
-      <!-- Title stays visible during the whole horizontal scroll -->
-      <div class="proj-track-header">
+  <!-- The pin-wrapper: on mobile this becomes the tall scroll driver.
+       On desktop it's just a normal section container. -->
+  <div id="projPinWrap">
+    <div id="projPinPanel">
+      <div class="proj-header-row">
         <div class="section-label">Nos projets</div>
         <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
       </div>
-
-      <!-- Cards row -->
-      <div class="proj-grid-preview" id="projGridPreview">
+      <div id="projCardsTrack">
 
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -858,16 +848,15 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
           </div>
         </div>
 
-      </div><!-- /.proj-grid-preview -->
-    </div><!-- /.proj-sticky-track -->
-  </div><!-- /.proj-scroll-driver -->
+            </div><!-- /#projCardsTrack -->
+    </div><!-- /#projPinPanel -->
+  </div><!-- /#projPinWrap -->
 
   <div class="proj-view-all-btn">
     <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:24px;">Collaborations passées, projets en cours et à venir</p>
     <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
   </div>
 </section>
-
 
 
 <!-- ─── GALLERY ─── -->
@@ -1169,56 +1158,102 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── SCROLL-DRIVEN HORIZONTAL PROJECTS (mobile only) ── */
+/* ── PROJECTS: scroll-driven horizontal on mobile ── */
 (function(){
-  var driver = document.getElementById('projScrollDriver');
-  var grid   = document.getElementById('projGridPreview');
-  if(!driver || !grid) return;
+  var wrap  = document.getElementById('projPinWrap');
+  var panel = document.getElementById('projPinPanel');
+  var track = document.getElementById('projCardsTrack');
+  if(!wrap || !panel || !track) return;
 
-  var CARD_W   = 0;
-  var CARD_GAP = 12;
-  var TOTAL_X  = 0;
-  var raf      = false;
+  var CARD_W = 0;
+  var GAP    = 16;
+  var TRAVEL = 0;
+  var posX   = 0;
+  var raf    = false;
 
-  function isMobile(){ return window.innerWidth <= 768; }
+  /* Touch tracking */
+  var ty0 = 0, tx0 = 0, lastTy = 0;
+  var swiping = false; /* true = we intercepted this touch gesture */
 
-  function setup(){
-    if(!isMobile()){
-      driver.style.height = '';
-      grid.style.transform = '';
+  function mobile(){ return window.innerWidth <= 768; }
+
+  function recalc(){
+    if(!mobile()){
+      wrap.style.height = '';
+      track.style.transform = '';
       return;
     }
-    CARD_W  = window.innerWidth * 0.78;
-    TOTAL_X = (CARD_W + CARD_GAP) * 2; // scroll 2 card-widths to reveal all 3
-    // Driver height: 100vh (sticky pinned frame) + TOTAL_X (scroll room)
-    driver.style.height = (window.innerHeight + TOTAL_X) + 'px';
-    update(); // apply immediately
+    CARD_W = window.innerWidth - 40;
+    TRAVEL = (CARD_W + GAP) * 2;
+    /* Wrap height = viewport + travel so sticky panel has real scroll room */
+    wrap.style.height = (window.innerHeight + TRAVEL) + 'px';
   }
 
-  function update(){
-    raf = false;
-    if(!isMobile()) return;
-    // How far we have scrolled past the top of the driver
-    var scrolled = -(driver.getBoundingClientRect().top);
-    if(scrolled < 0)       scrolled = 0;
-    if(scrolled > TOTAL_X) scrolled = TOTAL_X;
-    grid.style.transform = 'translateX(' + (-scrolled).toFixed(1) + 'px)';
+  function setX(x){
+    posX = Math.max(0, Math.min(x, TRAVEL));
+    track.style.transform = 'translateX(' + (-posX).toFixed(1) + 'px)';
   }
 
-  window.addEventListener('scroll', function(){
-    if(!raf){ raf = true; requestAnimationFrame(update); }
+  /* Is panel pinned at viewport top right now? */
+  function isPinned(){
+    if(!mobile()) return false;
+    var r = wrap.getBoundingClientRect();
+    /* Panel is pinned when wrap top has scrolled above viewport */
+    return r.top < 0 && r.bottom > window.innerHeight * 0.5;
+  }
+
+  document.addEventListener('touchstart', function(e){
+    if(!mobile()) return;
+    ty0    = e.touches[0].clientY;
+    tx0    = e.touches[0].clientX;
+    lastTy = ty0;
+    swiping = false;
   }, {passive:true});
 
-  // Run setup after everything has rendered
-  if(document.readyState === 'complete'){
-    setup();
-  } else {
-    window.addEventListener('load', setup);
-  }
+  document.addEventListener('touchmove', function(e){
+    if(!mobile()) return;
+    if(!isPinned()) return;
+
+    var dy = lastTy - e.touches[0].clientY; /* >0 = swiping up (going forward) */
+    var dx = Math.abs(tx0 - e.touches[0].clientX);
+    lastTy = e.touches[0].clientY;
+
+    /* Ignore horizontal swipes */
+    if(dx > Math.abs(dy) * 1.5 && !swiping) return;
+
+    var atStart = posX <= 0;
+    var atEnd   = posX >= TRAVEL;
+
+    /* At boundary going out → release */
+    if(dy < 0 && atStart) return;
+    if(dy > 0 && atEnd)   return;
+
+    /* Intercept: convert vertical drag → horizontal */
+    e.preventDefault();
+    swiping = true;
+    setX(posX + dy * 1.1);
+  }, {passive:false});
+
+  document.addEventListener('touchend', function(){
+    if(!mobile() || !swiping) return;
+    swiping = false;
+    /* Snap to nearest card */
+    var snap = Math.round(posX / (CARD_W + GAP)) * (CARD_W + GAP);
+    posX = Math.max(0, Math.min(snap, TRAVEL));
+    track.style.transition = 'transform .35s cubic-bezier(.25,.46,.45,.94)';
+    track.style.transform  = 'translateX(' + (-posX).toFixed(1) + 'px)';
+    setTimeout(function(){ track.style.transition = ''; }, 380);
+  }, {passive:true});
+
+  function init(){ recalc(); }
+
+  if(document.readyState === 'complete'){ init(); }
+  else { window.addEventListener('load', init); }
 
   var t;
   window.addEventListener('resize', function(){
-    clearTimeout(t); t = setTimeout(setup, 150);
+    clearTimeout(t);
+    t = setTimeout(function(){ posX = 0; recalc(); }, 150);
   });
 })();
 
