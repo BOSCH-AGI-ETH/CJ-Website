@@ -493,73 +493,92 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* ── Mobile projects: scroll-hijack horizontal ── */
+  /* ══════════════════════════════════════════════════════
+     MOBILE (<1024px): scroll-driven horizontal carousel
+     Architecture:
+       #projPinWrap  — tall element (100vh + travel px) that creates
+                       the scroll room. parent of sticky panel.
+       #projPinPanel — position:sticky, 100vh, clips overflow.
+                       Contains header + cards track.
+       #projCardsTrack — flex-row, driven by translateX via JS.
+  ══════════════════════════════════════════════════════ */
 
-  /* Override the generic `section { overflow:hidden }` rule — critical for sticky */
+  /* Override the generic `section { overflow:hidden }` which breaks sticky */
   #projets-preview {
     padding: 0 !important;
     overflow: visible !important;
+    border-bottom: none !important;
   }
 
-  /* The pin-wrap creates the sticky context.
-     It must NOT have overflow:hidden — that would break sticky. */
+  /* Tall wrapper — height set by JS to 100vh + travel */
   #projPinWrap {
     position: relative;
-    /* Height set by JS: 100vh + horizontal travel distance */
+    width: 100%;
+    /* overflow must be visible so sticky works */
+    overflow: visible;
   }
 
-  /* The sticky panel: fills viewport, clips card overflow */
+  /* Sticky panel — fills the viewport while wrap is being scrolled */
   #projPinPanel {
     position: sticky;
     top: 0;
     height: 100vh;
-    overflow: hidden;      /* clips cards that are off-screen */
+    width: 100%;
+    overflow: hidden; /* clips off-screen cards */
     background: var(--bg);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    /* Add bottom padding inside panel for breathing room */
+    padding-bottom: 0;
   }
 
-  /* Title row — fixed inside panel, always visible */
+  /* Title row — same typography as all other sections, no overrides */
   .proj-header-row {
     flex-shrink: 0;
-    padding: 24px 20px 12px;
+    padding: 16px 20px 10px;
     margin-bottom: 0;
   }
   .proj-header-row .section-label { margin-bottom: 4px; }
-  .proj-header-row .section-title  { font-size: clamp(22px,6vw,32px); }
+  /* NO .section-title override — inherits global design system values */
 
-  /* Cards track — JS drives translateX */
+  /* Cards track — gap:16px matches JS GAP=16, no right padding */
   #projCardsTrack {
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: row;
     gap: 16px;
-    padding: 0 20px 24px;
+    padding: 8px 0 16px 20px;
     will-change: transform;
-    align-items: stretch;
-    /* Do NOT set overflow:hidden here — panel already clips */
+    align-items: flex-start;
   }
 
-  /* Each card: full visible width */
+  /* Card: width matches JS cardW() = innerWidth-40 exactly (no overshoot)
+     Height: 100vh minus title block (section-label ~14px + section-title ~40px
+     + padding 26px + track padding 24px) = ~104px total overhead → use 110px */
   .proj-card-preview {
     flex: 0 0 calc(100vw - 40px);
     width: calc(100vw - 40px);
     min-width: calc(100vw - 40px);
-    height: 100%;
+    max-width: calc(100vw - 40px);
+    height: calc(100vh - 110px);
     aspect-ratio: unset;
     flex-shrink: 0;
   }
 
-  /* Button always visible on touch */
+  /* Always show button on touch */
   .proj-btn-preview {
     opacity: 1 !important;
     transform: translateY(0) !important;
     border-color: rgba(237,172,255,.3) !important;
   }
 
-  .proj-view-all-btn { padding: 20px 20px 0; }
+  /* View-all button lives outside the sticky panel */
+  .proj-view-all-btn {
+    padding: 24px 20px 48px;
+    text-align: center;
+  }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
@@ -645,75 +664,62 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 /* ─── PROJECTS PREVIEW ─── */
+
+/* ── DESKTOP (≥1024px): simple 3-col layout, no JS ── */
 #projets-preview {
   background: var(--bg);
   border-top: 1px solid rgba(237,172,255,.06);
-  /* Desktop: normal section with padding */
   padding: 60px 48px 80px;
-  /* CRITICAL: must NOT be overflow:hidden — kills sticky on children */
-  overflow: visible;
+  overflow: visible; /* NEVER overflow:hidden — breaks sticky */
 }
-/* On desktop the wrappers are transparent passthrough */
-#projPinWrap  { }
-#projPinPanel { }
+#projPinWrap, #projPinPanel { /* transparent on desktop */ }
+.proj-header-row { margin-bottom: 28px; }
 
-.proj-header-row {
-  margin-bottom: 32px; /* tighter gap title → cards */
-}
-
-/* Desktop: 3 cards side by side */
 #projCardsTrack {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,1fr);
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* ── Card base styles (shared desktop + mobile) ── */
+/* ── Card styles (shared) ── */
 .proj-card-preview {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  background: #1a1a1a;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  position:relative; overflow:hidden; aspect-ratio:3/4;
+  background:#1a1a1a; cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 .proj-card-bg-preview {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  transition: transform .6s ease, filter .6s ease;
-  will-change: transform;
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transition:transform .6s ease,filter .6s ease; will-change:transform;
 }
-.pp1 { background: linear-gradient(145deg,#0a1220,#1a0d38,#200a2d); }
-.pp2 { background: linear-gradient(145deg,#0a1408,#38050e,#141414); }
-.pp3 { background: linear-gradient(145deg,#1a0d38,#2d1a00,#141414); }
-.proj-card-bg-preview svg { position:absolute;inset:0;width:100%;height:100%; }
-.proj-card-preview:hover .proj-card-bg-preview { transform:scale(1.06);filter:blur(6px) brightness(.5); }
-.proj-card-inner-preview {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 32px 28px;
-  background: linear-gradient(to top, rgba(20,20,20,.96) 0%, transparent 55%);
-  z-index: 2;
+.pp1{background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d);}
+.pp2{background:linear-gradient(145deg,#0a1408,#38050e,#141414);}
+.pp3{background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414);}
+.proj-card-bg-preview svg{position:absolute;inset:0;width:100%;height:100%;}
+.proj-card-preview:hover .proj-card-bg-preview{transform:scale(1.06);filter:blur(6px) brightness(.5);}
+.proj-card-inner-preview{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:32px 28px;
+  background:linear-gradient(to top,rgba(20,20,20,.96) 0%,transparent 55%);
+  z-index:2;
 }
-.proj-tag-preview   { font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
-.proj-name-preview  { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream); }
-.proj-name-preview em { font-style:italic;color:var(--mauve); }
-.proj-sub-preview   { font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4); }
-.proj-btn-preview {
-  margin-top: 20px;
-  display: inline-block;
-  border: 1.5px solid rgba(237,172,255,.3);
-  padding: 8px 18px;
-  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--cream); text-decoration: none;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity .3s, transform .3s, border-color .3s, color .3s;
+.proj-tag-preview{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.proj-name-preview{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream);}
+.proj-name-preview em{font-style:italic;color:var(--mauve);}
+.proj-sub-preview{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4);}
+.proj-btn-preview{
+  margin-top:20px;display:inline-block;
+  border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cream);text-decoration:none;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .3s,transform .3s,border-color .3s,color .3s;
 }
-.proj-card-preview:hover .proj-btn-preview { opacity:1;transform:translateY(0);border-color:var(--mauve); }
-.proj-card-preview:hover .proj-btn-preview:hover { border-color:var(--orange);color:var(--orange); }
-.proj-view-all-btn { margin-top: 52px; text-align: center; }
+.proj-card-preview:hover .proj-btn-preview{opacity:1;transform:translateY(0);border-color:var(--mauve);}
+.proj-card-preview:hover .proj-btn-preview:hover{border-color:var(--orange);color:var(--orange);}
+.proj-view-all-btn{margin-top:40px;text-align:center;padding-bottom:16px;}
 </style>
 </head>
 <body>
@@ -1212,222 +1218,119 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── PROJECTS: scroll-hijack horizontal carousel ── */
+/* ══════════════════════════════════════════════════════════
+   PROJECTS: scroll-driven horizontal carousel
+   
+   HOW IT WORKS:
+   1. JS sets #projPinWrap height = 100vh + totalTravel px.
+      This creates real scroll room in the document.
+   2. #projPinPanel is position:sticky;top:0;height:100vh
+      so it stays pinned to viewport while wrap is scrolling.
+   3. On each scroll event, we read how far the wrap's top
+      has gone above the viewport (= scrollProgress).
+      This maps directly to translateX on the cards track.
+   4. No touch interception needed — the browser's native
+      scroll drives the animation. Zero conflict.
+   5. Desktop: wrap height reset to auto, no translateX.
+   ══════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
-  /* ── Elements ── */
-  var wrap  = document.getElementById('projPinWrap');
-  var panel = document.getElementById('projPinPanel');
-  var track = document.getElementById('projCardsTrack');
-  if (!wrap || !panel || !track) return;
-
-  /* ── Config ── */
-  var BREAKPOINT = 1024; /* px — mobile below, desktop above */
+  var BREAKPOINT = 1024; /* mobile below this width */
   var CARDS      = 3;
-  var GAP        = 16;   /* px between cards (must match CSS gap) */
+  var GAP        = 16;   /* matches CSS gap on #projCardsTrack */
 
-  /* ── State ── */
-  var posX     = 0;      /* current horizontal offset, px */
-  var frozen   = false;
-  var savedScrollY = 0;
-  var wrapOffsetTop = 0; /* wrap.offsetTop cached at freeze time */
+  var wrap  = document.getElementById('projPinWrap');
+  var track = document.getElementById('projCardsTrack');
+  if (!wrap || !track) return;
+
+  /* matchMedia query — triggers on breakpoint cross */
   var mq = window.matchMedia('(max-width: ' + (BREAKPOINT - 1) + 'px)');
 
-  /* ── Helpers ── */
-  function cardW()   { return window.innerWidth - 40; }     /* card width px  */
-  function maxTravel(){ return (cardW() + GAP) * (CARDS - 1); } /* total px to travel */
-
-  /* Is this a mobile viewport? */
   function isMobile() { return mq.matches; }
 
-  /* Absolute top of wrap (distance from document top) */
-  function getWrapTop() {
-    var el = wrap, top = 0;
-    while (el) { top += el.offsetTop; el = el.offsetParent; }
-    return top;
-  }
+  /* Card width = viewport width - 40px (20px padding each side) */
+  function cardW()     { return window.innerWidth - 40; }
 
-  /* ── Freeze: fix body at current scroll position ── */
-  function freeze() {
-    if (frozen) return;
-    wrapOffsetTop = getWrapTop();  /* measure before fixing body */
-    savedScrollY  = window.scrollY;
-    frozen = true;
-    document.body.style.cssText =
-      'position:fixed;top:-' + savedScrollY + 'px;' +
-      'left:0;right:0;width:100%;overflow-y:scroll;';
-  }
+  /* Total horizontal distance to travel (card 1 → card 3) */
+  function totalTravel() { return (cardW() + GAP) * (CARDS - 1); }
 
-  /* ── Unfreeze and jump scroll to correct exit position ── */
-  function unfreeze(direction) {
-    if (!frozen) return;
-    frozen = false;
-    document.body.style.cssText = '';
-
-    var targetScrollY;
-    if (direction > 0) {
-      /* Exiting forward: land just past the bottom of the wrap */
-      targetScrollY = wrapOffsetTop + wrap.offsetHeight + 2;
-    } else {
-      /* Exiting backward: land just above the top of the wrap */
-      targetScrollY = Math.max(0, wrapOffsetTop - 2);
-      /* Reset cards to first position */
-      posX = 0;
-      setX(0);
-    }
-    window.scrollTo(0, targetScrollY);
-  }
-
-  /* ── Set horizontal translation ── */
-  function setX(x) {
-    posX = Math.max(0, Math.min(x, maxTravel()));
-    track.style.transform = 'translateX(-' + posX.toFixed(1) + 'px)';
-  }
-
-  /* ── Snap posX to nearest card boundary ── */
-  function snapToCard() {
-    var step = cardW() + GAP;
-    var snapped = Math.round(posX / step) * step;
-    snapped = Math.max(0, Math.min(snapped, maxTravel()));
-    posX = snapped;
-    track.style.transition = 'transform .36s cubic-bezier(.25,.46,.45,.94)';
-    track.style.transform  = 'translateX(-' + posX + 'px)';
-    setTimeout(function () { track.style.transition = ''; }, 380);
-  }
-
-  /* ── Check whether the wrap is in the "active zone" (panel should be pinned) ──
-     Uses offsetTop (layout-based, not affected by body:fixed) */
-  function wrapIsActive() {
-    var top    = getWrapTop();
-    var bottom = top + wrap.offsetHeight;
-    var scrollY = frozen ? savedScrollY : window.scrollY;
-    var vpBot   = scrollY + window.innerHeight;
-    /* Active = wrap top is above or at viewport top AND wrap bottom is visible */
-    return top <= scrollY + 10 && bottom >= scrollY + window.innerHeight * 0.3;
-  }
-
-  /* ════════════════════════════════════════════════════════
-     TOUCH HANDLING
-     Attached to `panel` with passive:false on touchstart so
-     iOS Safari allows us to call preventDefault in touchmove.
-  ════════════════════════════════════════════════════════ */
-  var touchStartY = 0;
-  var touchStartX = 0;
-  var touchLastY  = 0;
-  var touchLastX  = 0;
-  var touchActive = false; /* true = we own this gesture */
-  var touchEnterFrozen = false; /* were we frozen when the touch started? */
-
-  panel.addEventListener('touchstart', function (e) {
-    if (!isMobile()) return;
-    touchStartY  = touchLastY  = e.touches[0].clientY;
-    touchStartX  = touchLastX  = e.touches[0].clientX;
-    touchActive  = false;
-    touchEnterFrozen = frozen;
-  }, { passive: false });
-
-  panel.addEventListener('touchmove', function (e) {
-    if (!isMobile()) return;
-
-    var cy = e.touches[0].clientY;
-    var cx = e.touches[0].clientX;
-    var dy = touchLastY - cy;   /* > 0 = finger moving up = going forward */
-    var dx = Math.abs(cx - touchLastX);
-    touchLastY = cy;
-    touchLastX = cx;
-
-    /* Ignore tiny or horizontal-dominant movements */
-    if (!touchActive) {
-      var totalDy = Math.abs(touchStartY - cy);
-      var totalDx = Math.abs(touchStartX - cx);
-      if (totalDy < 4) return;                 /* too small */
-      if (totalDx > totalDy * 0.8) return;     /* mostly horizontal */
-    }
-
-    /* ── Boundary exits ── */
-    /* At card 1, scrolling backward → unfreeze upward */
-    if (frozen && dy < 0 && posX <= 0) {
-      touchActive = false;
-      unfreeze(-1);
-      return;
-    }
-    /* At card 3, scrolling forward → unfreeze downward */
-    if (frozen && dy > 0 && posX >= maxTravel()) {
-      touchActive = false;
-      unfreeze(1);
-      return;
-    }
-
-    /* ── Not in section → let native scroll handle it ── */
-    if (!frozen && !wrapIsActive()) return;
-
-    /* ── We own this gesture: block native scroll, move cards ── */
-    e.preventDefault();
-    touchActive = true;
-    if (!frozen) freeze();
-    setX(posX + dy * 1.5);
-
-  }, { passive: false });
-
-  panel.addEventListener('touchend', function () {
-    if (!isMobile() || !touchActive) return;
-    touchActive = false;
-    if (!frozen) return;
-
-    snapToCard();
-
-    /* After snap animation, check if we should auto-exit */
-    setTimeout(function () {
-      if (posX <= 0)              { unfreeze(-1); }
-      else if (posX >= maxTravel()) { unfreeze(1);  }
-    }, 390);
-  }, { passive: false });
-
-  /* ════════════════════════════════════════════════════════
-     SETUP: set wrap height so the panel becomes sticky
-  ════════════════════════════════════════════════════════ */
-  function setupMobile() {
-    /* Wrap height = viewport height + a small buffer.
-       The sticky panel fills 100vh; the wrap just needs to be
-       tall enough for sticky to activate (> 100vh). */
-    wrap.style.height = (window.innerHeight + 20) + 'px';
-  }
-
-  function teardownMobile() {
-    wrap.style.height = '';
-    track.style.transform = '';
-    track.style.transition = '';
-    posX = 0;
-    if (frozen) {
-      frozen = false;
-      document.body.style.cssText = '';
-    }
-  }
-
-  function init() {
+  /* ─────────────────────────────────────────────
+     SETUP: set wrap height so the sticky panel
+     has enough vertical scroll room to map to
+     the full horizontal travel distance.
+  ───────────────────────────────────────────── */
+  function setup() {
     if (isMobile()) {
-      setupMobile();
+      var h = window.innerHeight + totalTravel();
+      wrap.style.height = h + 'px';
     } else {
-      teardownMobile();
+      /* Desktop: reset everything */
+      wrap.style.height = '';
+      track.style.transform = '';
     }
   }
 
-  /* Run on load */
-  if (document.readyState === 'complete') { init(); }
-  else { window.addEventListener('load', init); }
+  /* ─────────────────────────────────────────────
+     UPDATE: called on every scroll event.
+     Maps scroll progress → translateX.
+  ───────────────────────────────────────────── */
+  var raf = false;
 
-  /* Re-run on breakpoint change */
-  mq.addEventListener('change', function () {
-    init();
-  });
+  function update() {
+    raf = false;
+    if (!isMobile()) return;
 
-  /* Re-run on resize (debounced) */
+    /* wrapRect.top = distance from wrap's top edge to viewport top.
+       When negative, the wrap has scrolled above the viewport —
+       that's our scroll progress into the section. */
+    var wrapTop  = wrap.getBoundingClientRect().top;
+    var progress = -wrapTop; /* 0 at entry, grows as user scrolls */
+
+    if (progress < 0)              progress = 0;
+    if (progress > totalTravel())  progress = totalTravel();
+
+    track.style.transform = 'translateX(-' + progress.toFixed(1) + 'px)';
+  }
+
+  /* ─────────────────────────────────────────────
+     SCROLL LISTENER
+  ───────────────────────────────────────────── */
+  window.addEventListener('scroll', function () {
+    if (!raf) {
+      raf = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+
+  /* ─────────────────────────────────────────────
+     RESIZE / BREAKPOINT CHANGE
+  ───────────────────────────────────────────── */
   var resizeTimer;
-  window.addEventListener('resize', function () {
+  function onResize() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(init, 150);
-  });
+    resizeTimer = setTimeout(function () {
+      setup();
+      update();
+    }, 100);
+  }
+
+  window.addEventListener('resize', onResize);
+  mq.addEventListener('change', onResize);
+
+  /* ─────────────────────────────────────────────
+     INIT
+  ───────────────────────────────────────────── */
+  function init() {
+    setup();
+    update();
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('load', init);
+  }
 
 })();
 
