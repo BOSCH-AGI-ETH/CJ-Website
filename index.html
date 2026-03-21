@@ -327,17 +327,18 @@ section { padding:120px 48px;position:relative; }
   font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;
   line-height:1.4;color:var(--mauve);border-left:2px solid var(--orange);padding-left:28px;margin:40px 0;
 }
-.about-visual { position:sticky;top:68px; }
+.about-visual { position:sticky;top:120px; }
 .about-logo-banner {
-  width:100%;display:flex;align-items:center;justify-content:center;
-  padding:20px 0 20px;
-  margin-bottom:20px;
+  width:100%;display:flex;align-items:flex-start;justify-content:flex-start;
+  padding:0;
+  margin-bottom:24px;
 }
 .about-logo-banner img {
-  width:100%;max-width:300px;height:auto;display:block;
+  width:auto;max-width:100%;height:auto;display:block;
+  max-height:160px;
   opacity:.92;filter:brightness(1);
 }
-.team-section { }
+.team-section { margin-top:0; }
 .team-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:0; }
 .team-card { display:flex;align-items:center;gap:14px;text-align:left; }
 .team-avatar { width:44px;height:44px;flex-shrink:0;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center; }
@@ -492,34 +493,40 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 }
 
 @media (max-width:768px) {
-  /* Mobile projects: horizontal scroll snap */
+  /* Mobile projects — scroll-driven horizontal reveal */
+  #projets-preview { overflow:hidden; }
+  .proj-scroll-driver {
+    /* tall container that drives the horizontal animation via scroll */
+    height:300vw; /* 3 cards × 100vw = full scroll distance */
+    position:relative;
+  }
+  .proj-sticky-track {
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+  }
   .proj-grid-preview {
     display:flex;
     flex-direction:row;
-    overflow-x:scroll;
-    overflow-y:hidden;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    gap:0;
-    margin:40px 0 0;
-    padding:0;
-    max-width:100%;
-    /* hide scrollbar */
-    scrollbar-width:none;
-    -ms-overflow-style:none;
+    gap:16px;
+    padding:0 20px;
+    will-change:transform;
+    transition:none;
+    width:calc(3 * 88vw + 2 * 16px + 40px);
+    flex-shrink:0;
   }
-  .proj-grid-preview::-webkit-scrollbar { display:none; }
   .proj-card-preview {
-    flex:0 0 88vw;
-    max-width:88vw;
-    scroll-snap-align:center;
-    margin-right:12px;
-    aspect-ratio:4/5;
+    flex:0 0 82vw;
+    max-width:82vw;
+    aspect-ratio:3/4;
+    flex-shrink:0;
   }
-  .proj-card-preview:first-child { margin-left:6vw; }
-  .proj-card-preview:last-child { margin-right:6vw; }
   .proj-btn-preview { opacity:1;transform:translateY(0);border-color:rgba(237,172,255,.3); }
-  .proj-name-preview { font-size:28px; }
+  .proj-name-preview { font-size:26px; }
+  .proj-view-all-btn { padding:0 20px; }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
@@ -751,7 +758,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <div class="section-label reveal">Nos projets</div>
   <h2 class="section-title reveal">Ce que nous <em>cultivons</em></h2>
 
-  <div class="proj-grid-preview reveal">
+  <!-- Desktop: normal grid. Mobile: wrapped in scroll-driver for scroll-driven horizontal motion -->
+  <div id="projScrollDriver" class="proj-scroll-driver">
+    <div id="projStickyTrack" class="proj-sticky-track">
+      <div class="proj-grid-preview reveal" id="projGridPreview">
 
     <div class="proj-card-preview">
       <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -821,7 +831,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       </div>
     </div>
 
-  </div>
+      </div><!-- /.proj-grid-preview -->
+    </div><!-- /.proj-sticky-track -->
+  </div><!-- /.proj-scroll-driver -->
 
   <div class="proj-view-all-btn reveal">
     <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:24px;">Collaborations passées, projets en cours et à venir</p>
@@ -1129,6 +1141,59 @@ window.closeLightbox=function(){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
+
+/* ── SCROLL-DRIVEN HORIZONTAL PROJECTS (mobile only) ── */
+(function(){
+  function isMobile(){ return window.innerWidth <= 768; }
+
+  var driver = document.getElementById('projScrollDriver');
+  var track  = document.getElementById('projStickyTrack');
+  var grid   = document.getElementById('projGridPreview');
+  if(!driver || !track || !grid) return;
+
+  function setupMobile(){
+    if(!isMobile()) return;
+
+    // Cards: 82vw each + 16px gap, 3 cards
+    // Total scroll distance needed = 2 card widths + 2 gaps
+    var cardW   = window.innerWidth * 0.82;
+    var gapW    = 16;
+    var totalX  = (cardW + gapW) * 2; // distance to reveal all 3 cards
+
+    // Driver height = viewport height + total horizontal scroll mapped to vertical
+    driver.style.height = (window.innerHeight + totalX) + 'px';
+
+    function onScroll(){
+      if(!isMobile()) { grid.style.transform = ''; return; }
+      var rect    = driver.getBoundingClientRect();
+      var scrolled = -rect.top; // how far we've scrolled INTO the driver
+      if(scrolled < 0) scrolled = 0;
+      if(scrolled > totalX) scrolled = totalX;
+      grid.style.transform = 'translateX(-' + scrolled + 'px)';
+    }
+
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
+
+  function teardownMobile(){
+    if(isMobile()) return;
+    driver.style.height = '';
+    grid.style.transform = '';
+  }
+
+  setupMobile();
+
+  // Re-init on resize
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      if(isMobile()) setupMobile();
+      else teardownMobile();
+    }, 150);
+  });
+})();
 
 })();
 </script>
