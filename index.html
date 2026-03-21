@@ -522,14 +522,15 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     align-items:stretch;
   }
   .proj-card-preview {
-    /* Exactly one card = panel width */
-    flex:0 0 calc(100vw - 40px) !important;
-    width:calc(100vw - 40px) !important;
-    min-width:0 !important;
-    max-width:none !important;
-    height:100% !important;
-    aspect-ratio:unset !important;
+    flex:0 0 calc(100vw - 40px);
+    width:calc(100vw - 40px);
+    height:calc(100vw - 40px);  /* square-ish, no cropping */
+    min-width:calc(100vw - 40px);
+    max-width:calc(100vw - 40px);
+    aspect-ratio:unset;
     flex-shrink:0;
+    position:relative;
+    overflow:hidden;
   }
   .proj-btn-preview { opacity:1 !important; transform:translateY(0) !important; }
   .proj-view-all-btn { padding:24px 20px 0; }
@@ -1162,7 +1163,7 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') window.closeLightbox();
 });
 
-/* ── PROJECTS: touch-driven horizontal carousel on mobile ── */
+/* ── PROJECTS: touch carousel on mobile ── */
 (function(){
   var panel = document.getElementById('projPinPanel');
   var wrap  = document.getElementById('projPinWrap');
@@ -1173,84 +1174,103 @@ document.addEventListener('keydown',function(e){
   var GAP    = 16;
   var cardW  = 0;
   var travel = 0;
-  var posX   = 0;        /* current offset px */
-  var card   = 0;        /* 0, 1, 2 */
+  var current = 0;   /* active card index 0-2 */
+  var baseX   = 0;   /* posX at touchstart */
+  var live    = false;
 
-  /* Touch state */
-  var t0y = 0, t0x = 0, startPosX = 0, dragging = false;
+  /* Touch tracking */
+  var startY = 0, startX = 0, lastY = 0, lastTime = 0;
+  var velY   = 0;  /* velocity px/ms, positive = moving forward */
 
   function mobile(){ return window.innerWidth <= 768; }
 
-  function recalc(){
+  function setup(){
+    if(!mobile()){ wrap.style.height=''; return; }
     cardW  = window.innerWidth - 40;
     travel = (cardW + GAP) * (CARDS - 1);
-    /* Wrap tall enough for sticky panel + real scroll room below */
-    if(mobile()){
-      wrap.style.height = (window.innerHeight + travel + 200) + 'px';
-    } else {
-      wrap.style.height = '';
-      track.style.transform = '';
-    }
+    wrap.style.height = (window.innerHeight + travel + 100) + 'px';
   }
 
-  function goTo(idx){
-    card = Math.max(0, Math.min(CARDS - 1, idx));
-    posX = card * (cardW + GAP);
-    track.style.transition = 'transform .4s cubic-bezier(.25,.46,.45,.94)';
-    track.style.transform  = 'translateX(' + (-posX) + 'px)';
-    setTimeout(function(){ track.style.transition = 'none'; }, 420);
+  function snap(idx){
+    current = Math.max(0, Math.min(CARDS-1, idx));
+    var tx  = -(current * (cardW + GAP));
+    track.style.transition = 'transform .38s cubic-bezier(.42,0,.28,1)';
+    track.style.transform  = 'translateX(' + tx + 'px)';
+    setTimeout(function(){ track.style.transition='none'; }, 400);
   }
 
-  /* Attach touch listeners directly to panel (not document)
-     because panel has touch-action:none — browser won't scroll */
+  function live_translate(dy){
+    /* dy > 0 = finger moved UP = advance cards leftward */
+    var tx = -(current * (cardW + GAP)) - dy;
+    /* Rubber-band at edges */
+    var minTx = -(travel);
+    var maxTx = 0;
+    if(tx > maxTx) tx = maxTx + (tx - maxTx) * 0.25;
+    if(tx < minTx) tx = minTx + (tx - minTx) * 0.25;
+    track.style.transform = 'translateX(' + tx.toFixed(1) + 'px)';
+  }
+
   panel.addEventListener('touchstart', function(e){
     if(!mobile()) return;
-    t0y = e.touches[0].clientY;
-    t0x = e.touches[0].clientX;
-    startPosX = posX;
-    dragging  = false;
+    startY   = e.touches[0].clientY;
+    startX   = e.touches[0].clientX;
+    lastY    = startY;
+    lastTime = Date.now();
+    velY     = 0;
+    baseX    = current * (cardW + GAP);
+    live     = false;
     track.style.transition = 'none';
   }, {passive:true});
 
   panel.addEventListener('touchmove', function(e){
     if(!mobile()) return;
-    var dy = t0y - e.touches[0].clientY;
-    var dx = t0x - e.touches[0].clientX;
+    var cy = e.touches[0].clientY;
+    var cx = e.touches[0].clientX;
+    var dy = startY - cy;   /* positive = swiped UP */
+    var dx = Math.abs(startX - cx);
 
-    /* Start drag once we detect predominantly vertical intent */
-    if(!dragging){
-      if(Math.abs(dy) < 6) return; /* too small to decide */
-      dragging = true;
-    }
+    /* Only activate after 8px vertical movement */
+    if(!live && Math.abs(dy) < 8) return;
+    /* Ignore if mostly horizontal */
+    if(!live && dx > Math.abs(dy)) return;
+    live = true;
 
-    /* Convert vertical drag to horizontal:
-       swipe up (dy>0) = go right (next card), swipe down = go left */
-    var newX = startPosX + dy * 1.2;
-    newX = Math.max(-50, Math.min(travel + 50, newX)); /* slight overscroll */
-    track.style.transform = 'translateX(' + (-newX) + 'px)';
-    posX = newX;
-  }, {passive:true}); /* passive OK — touch-action:none already blocks browser */
+    /* Track velocity */
+    var now  = Date.now();
+    var dt   = now - lastTime;
+    if(dt > 0) velY = (lastY - cy) / dt;  /* px/ms */
+    lastY    = cy;
+    lastTime = now;
+
+    live_translate(dy);
+  }, {passive:true});
 
   panel.addEventListener('touchend', function(){
-    if(!mobile() || !dragging) return;
-    dragging = false;
-    /* Determine which card to snap to based on velocity/distance */
-    var dragged = posX - startPosX;
-    if(dragged > (cardW + GAP) * 0.25){
-      goTo(card + 1);
-    } else if(dragged < -(cardW + GAP) * 0.25){
-      goTo(card - 1);
-    } else {
-      goTo(card); /* snap back */
+    if(!mobile() || !live) return;
+    live = false;
+
+    /* Use velocity for flick detection (threshold: 0.3 px/ms) */
+    var next = current;
+    if(velY >  0.3) next = current + 1;
+    else if(velY < -0.3) next = current - 1;
+    else {
+      /* Use distance — current matrix translateX */
+      var style  = window.getComputedStyle(track);
+      var matrix = new DOMMatrix(style.transform);
+      var tx     = matrix.m41;  /* current X in px, negative */
+      var moved  = -tx - current * (cardW + GAP);
+      if(moved >  cardW * 0.35) next = current + 1;
+      else if(moved < -cardW * 0.35) next = current - 1;
     }
+    snap(next);
   }, {passive:true});
 
   function init(){
     if(!mobile()) return;
-    recalc();
-    posX  = 0;
-    card  = 0;
-    track.style.transform = 'translateX(0)';
+    setup();
+    current = 0;
+    track.style.transition = 'none';
+    track.style.transform  = 'translateX(0)';
   }
 
   if(document.readyState === 'complete'){ init(); }
@@ -1259,8 +1279,7 @@ document.addEventListener('keydown',function(e){
   var t;
   window.addEventListener('resize', function(){
     clearTimeout(t);
-    t = setTimeout(function(){ posX=0; card=0; recalc();
-      track.style.transform = 'translateX(0)'; }, 200);
+    t = setTimeout(function(){ current=0; init(); }, 200);
   });
 })();
 
