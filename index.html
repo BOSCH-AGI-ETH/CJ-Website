@@ -530,9 +530,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    /* NO transform/will-change — avoids stacking context that can trap fixed elements on iOS */
   }
 
   /* Title row — inherits global design system, no size overrides */
@@ -578,8 +576,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     height: calc(100svh - var(--nav-h) - 230px); /* header~76px + viewall~78px + paddings~76px = 230px */
     aspect-ratio: unset;
     flex-shrink: 0;
-    will-change: transform;
-    transform: translateZ(0);
   }
 
   /* Always show button on touch */
