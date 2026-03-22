@@ -10,6 +10,7 @@
 
 /* ─── VARIABLES ─── */
 :root {
+  --nav-h: 56px; /* fixed navbar height on mobile */
   --bg: #141414;
   --mauve: #edacff;
   --orange: #fd2f00;
@@ -521,15 +522,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   /* Sticky panel — fills the viewport while wrap is being scrolled */
   #projPinPanel {
     position: sticky;
-    top: 0;
-    height: 100svh; /* svh: stable, doesn't shift with mobile browser chrome */
+    top: var(--nav-h);
+    height: calc(100svh - var(--nav-h));
     width: 100%;
     overflow: hidden;
     background: var(--bg);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    /* Promote to GPU compositor layer — eliminates sticky + transform jitter */
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -538,7 +538,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   /* Title row — inherits global design system, no size overrides */
   .proj-header-row {
     flex-shrink: 0;
-    padding: 20px 20px 12px;
+    padding: 14px 20px 10px;
     margin-bottom: 0;
   }
   .proj-header-row .section-label { margin-bottom: 4px; }
@@ -555,10 +555,12 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     display: flex;
     flex-direction: row;
     gap: 16px;
-    padding: 8px 20px 16px 20px; /* equal left & right → symmetric margins */
+    /* P=20px matches global site spacing.
+       Card width reduced to W-44 so card2 is hidden by 4px at scroll end.
+       Formula: C = W-40 - (P-gap)/1 - 2 = W-44 → card2_right = -4px */
+    padding: 6px 0 6px 20px;
     will-change: transform;
     align-items: flex-start;
-    /* GPU-promote the track to avoid repaint jitter */
     transform: translateX(0);
     backface-visibility: hidden;
   }
@@ -568,14 +570,16 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
      height = stable fixed value to avoid layout reflow during scroll.
      Use calc() so it adapts to dvh on mobile, avoiding address-bar jitter. */
   .proj-card-preview {
-    flex: 0 0 calc(100vw - 40px);
-    width: calc(100vw - 40px);
-    min-width: calc(100vw - 40px);
-    max-width: calc(100vw - 40px);
-    height: calc(100svh - 130px); /* svh = stable viewport height, no bar jitter */
+    /* W-44: with P=20 and gap=16, this ensures card2 is hidden by 4px at scroll end.
+       JS uses cardW=W-40 for translation distance — CSS width is independent. */
+    flex: 0 0 calc(100vw - 44px);
+    width: calc(100vw - 44px);
+    min-width: calc(100vw - 44px);
+    max-width: calc(100vw - 44px);
+    /* Panel = 100svh - nav-h. Card = panel - header(~84px) - view-all(~72px) - track-padding(~24px) */
+    height: calc(100svh - var(--nav-h) - 230px); /* header~76px + viewall~78px + paddings~76px = 230px */
     aspect-ratio: unset;
     flex-shrink: 0;
-    /* Promote to own layer — eliminates composite jitter */
     will-change: transform;
     transform: translateZ(0);
   }
@@ -587,9 +591,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     border-color: rgba(237,172,255,.3) !important;
   }
 
-  /* View-all button lives outside the sticky panel */
+  /* View-all button — inside panel, compact */
   .proj-view-all-btn {
-    padding: 24px 20px 48px;
+    flex-shrink: 0;
+    padding: 10px 20px 12px;
     text-align: center;
   }
 
@@ -921,14 +926,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
           </div>
         </div>
 
+        <!-- No spacer: JS totalTravel + card geometry gives clean viewport stop -->
             </div><!-- /#projCardsTrack -->
+      <div class="proj-view-all-btn">
+        <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:10px;">Collaborations passées, projets en cours et à venir</p>
+        <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
+      </div>
     </div><!-- /#projPinPanel -->
   </div><!-- /#projPinWrap -->
-
-  <div class="proj-view-all-btn">
-    <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:24px;">Collaborations passées, projets en cours et à venir</p>
-    <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
-  </div>
 </section>
 
 
@@ -991,7 +996,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     </div>
     <div class="about-visual reveal">
       <div class="about-logo-banner">
-        <img src="Image-About/Jardin - logo officiel orange.png" alt="Collectif Jardin — Logo officiel">
+        <img src="Image-About/Jardin - logo officiel orange no BG.png" alt="Collectif Jardin — Logo officiel">
       </div>
       <div class="team-section">
         <div class="team-grid">
