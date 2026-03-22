@@ -561,7 +561,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     padding: 6px 0 6px 20px;
     will-change: transform;
     align-items: flex-start;
-    transform: translateX(0);
     backface-visibility: hidden;
   }
 
@@ -572,10 +571,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .proj-card-preview {
     /* W-44: with P=20 and gap=16, this ensures card2 is hidden by 4px at scroll end.
        JS uses cardW=W-40 for translation distance — CSS width is independent. */
-    flex: 0 0 calc(100vw - 44px);
-    width: calc(100vw - 44px);
-    min-width: calc(100vw - 44px);
-    max-width: calc(100vw - 44px);
+    flex: 0 0 calc(100vw - 52px);
+    width: calc(100vw - 52px);
+    min-width: calc(100vw - 52px);
+    max-width: calc(100vw - 52px);
     /* Panel = 100svh - nav-h. Card = panel - header(~84px) - view-all(~72px) - track-padding(~24px) */
     height: calc(100svh - var(--nav-h) - 230px); /* header~76px + viewall~78px + paddings~76px = 230px */
     aspect-ratio: unset;
