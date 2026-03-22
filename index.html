@@ -554,10 +554,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     min-height: 0;
     display: flex;
     flex-direction: row;
-    gap: 16px;
-    /* P=20px matches global site spacing.
-       Card width reduced to W-44 so card2 is hidden by 4px at scroll end.
-       Formula: C = W-40 - (P-gap)/1 - 2 = W-44 → card2_right = -4px */
+    gap: 32px;
+    /* gap=32px: with P=20 and C=W-52, card2 is exactly hidden at rest (0px bleed)
+       and hidden by 4px at scroll end. Right space = 24px. Clean framing both ends. */
     padding: 6px 0 6px 20px;
     will-change: transform;
     align-items: flex-start;
@@ -639,8 +638,17 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   #about { padding:72px 20px;overflow:clip; }
   .about-grid { grid-template-columns:1fr;gap:0;margin-top:36px; }
   .about-visual { position:static;order:-1;margin-bottom:36px; }
-  .about-logo-banner { padding:20px 0 24px;margin-bottom:24px; }
-  .about-logo-banner img { max-width:240px; }
+  .about-logo-banner {
+      padding: 24px 0 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .about-logo-banner img {
+      max-width: 280px;
+      margin: 0 auto;
+    }
   .about-quote { font-size:20px;padding-left:18px;margin:24px 0; }
   .about-text p { font-size:12px; }
   .team-section { margin-top:48px; }
