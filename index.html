@@ -62,11 +62,17 @@ nav.scrolled {
   border-bottom: 1px solid rgba(237,172,255,0.08);
 }
 .nav-logo {
-  font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300;
-  letter-spacing: .18em; color: var(--cream); text-decoration: none;
-  text-transform: uppercase; position: relative; z-index: 1100;
+  display: inline-flex; align-items: center;
+  text-decoration: none; position: relative; z-index: 1100;
+  line-height: 0; /* collapse baseline gap */
 }
-.nav-logo span { color: var(--mauve); }
+.nav-logo img {
+  height: 36px; width: auto;
+  display: block;
+  /* PNG no-BG on dark bg — no filter needed */
+  transition: opacity .3s;
+}
+.nav-logo:hover img { opacity: .75; }
 .nav-links { display: flex; gap: 30px; list-style: none; }
 .nav-links a {
   color: var(--cream); text-decoration: none; font-size: 12px;
@@ -103,6 +109,13 @@ nav.scrolled {
   flex-direction: column; align-items: center; justify-content: center;
   gap: 36px; z-index: 1050;
   opacity: 0; transition: opacity .3s ease;
+}
+.nav-overlay.open { display: flex; opacity: 1; }
+.nav-overlay-logo {
+  margin-bottom: 8px;
+}
+.nav-overlay-logo img {
+  height: 52px; width: auto; display: block; opacity: .9;
 }
 .nav-overlay.open { display: flex; opacity: 1; }
 .nav-overlay a {
@@ -596,6 +609,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .cursor,.cursor-ring { display:none !important; }
 
   nav { padding:16px 20px; }
+  .nav-logo img { height: 28px; }
   .nav-hamburger { display:flex; }
   .nav-links { display:none; } /* links are in overlay on mobile */
 
@@ -750,7 +764,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- ─── NAV ─── -->
 <nav id="mainNav">
-  <a href="#hero" class="nav-logo">Collectif<span> Jardin</span></a>
+  <a href="#hero" class="nav-logo" aria-label="Collectif Jardin — Accueil">
+    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+  </a>
   <ul class="nav-links">
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="projets.html">Projets</a></li>
@@ -766,6 +782,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- Mobile overlay — separate element, never inside overflow:hidden -->
 <div class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-logo">
+    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+  </div>
   <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="projets.html" onclick="closeNav()">Projets</a>
   <a href="#about"   onclick="closeNav()">À propos</a>
