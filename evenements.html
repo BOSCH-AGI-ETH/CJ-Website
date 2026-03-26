@@ -15,8 +15,9 @@ body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;
 /* ─── NAV ─── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .4s ease;}
 nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(237,172,255,.08);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.18em;color:var(--cream);text-decoration:none;text-transform:uppercase;}
-.nav-logo span{color:var(--mauve);}
+.nav-logo{display:inline-flex;align-items:center;text-decoration:none;position:relative;z-index:1100;line-height:0;}
+.nav-logo img{height:48px;width:auto;display:block;transition:opacity .3s;}
+.nav-logo:hover img{opacity:.75;}
 .nav-links{display:flex;gap:30px;list-style:none;}
 .nav-links a{color:var(--cream);text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;transition:opacity .3s,color .3s;}
 .nav-links a:hover{opacity:1;color:var(--orange);}
@@ -30,12 +31,14 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
 .nav-overlay{display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:1050;opacity:0;transition:opacity .3s ease;}
 .nav-overlay.open{display:flex;opacity:1;}
+.nav-overlay-logo{margin-bottom:8px;}
+.nav-overlay-logo img{height:52px;width:auto;display:block;opacity:.9;}
 .nav-overlay a{color:var(--cream);text-decoration:none;font-size:20px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;transition:color .3s,opacity .3s;-webkit-tap-highlight-color:transparent;}
 .nav-overlay a:active{opacity:1;color:var(--orange);}
 .nav-overlay .nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:12px 28px;opacity:1!important;}
 
 /* ─── PAGE HERO ─── */
-.page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:0 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
+.page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:112px 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
 .page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1a0524,#38050e,#141414);}
 .page-hero-orb{position:absolute;border-radius:77%;filter:blur(80px);opacity:.13;animation:drift 20s linear infinite;will-change:transform;}
 .orb-a{width:500px;height:500px;background:var(--mauve);top:-160px;right:-60px;}
@@ -50,7 +53,7 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .page-subtitle{font-size:12px;color:rgba(255,251,219,.4);letter-spacing:.12em;line-height:1.9;}
 
 /* ─── CATEGORY TABS (sticky) ─── */
-.cat-nav{display:flex;gap:0;flex-wrap:wrap;padding:0 48px;border-bottom:1px solid rgba(237,172,255,.06);position:sticky;top:67px;z-index:100;background:rgba(20,20,20,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+.cat-nav{display:flex;gap:0;flex-wrap:wrap;padding:0 48px;border-bottom:1px solid rgba(237,172,255,.06);position:sticky;top:92px;z-index:100;background:rgba(20,20,20,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
 .cat-tab{padding:16px 32px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,251,219,.4);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .3s;font-family:'Space Mono',monospace;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
 .cat-tab:hover{color:var(--cream);}
 .cat-tab.active{color:var(--mauve);border-bottom-color:var(--mauve);}
@@ -253,8 +256,8 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 /* ─── TABLET ─── */
 @media (max-width:1024px) and (min-width:769px){
   nav{padding:20px 32px;}
-  .page-hero{padding:0 32px 44px;}
-  .cat-nav{padding:0 32px;}
+  .page-hero{padding:96px 32px 44px;}
+  .cat-nav{padding:0 32px;top:84px;}
   .ev-main{padding:60px 32px 80px;}
   .cat-num{font-size:64px;}
   .cat-desc-block{gap:24px;}
@@ -267,12 +270,13 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 @media (max-width:768px){
   body{cursor:auto;}
   nav{padding:16px 20px;}
+  .nav-logo img{height:34px;}
   .nav-hamburger{display:flex;}
   .nav-links{display:none;}
-  .page-hero{padding:0 20px 40px;min-height:30vh;}
+  .page-hero{padding:82px 20px 40px;min-height:30vh;}
   .page-title{font-size:clamp(38px,11vw,60px);}
   .page-back{margin-bottom:16px;}
-  .cat-nav{padding:0 16px;top:60px;}
+  .cat-nav{padding:0 16px;top:66px;}
   .cat-tab{padding:12px 16px;font-size:8px;letter-spacing:.18em;}
   .ev-main{padding:36px 20px 80px;}
   .cat-desc-block{grid-template-columns:1fr;gap:12px;}
@@ -287,14 +291,118 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 @media (max-width:390px){
   .flyer-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
 }
+
+/* ─── CALENDRIER TAB ─── */
+#calendrier { }
+
+.cal-intro {
+  padding: 48px 48px 40px;
+  border-bottom: 1px solid rgba(237,172,255,.07);
+}
+.cal-intro-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 300; line-height: 1.05; letter-spacing: -.02em;
+  margin-bottom: 10px;
+}
+.cal-intro-title em { font-style: italic; color: var(--mauve); }
+.cal-intro-sub {
+  font-size: 12px; color: rgba(255,251,219,.4);
+  letter-spacing: .08em; line-height: 1.8;
+}
+
+.cal-list { padding: 0 48px 80px; display: flex; flex-direction: column; gap: 2px; margin-top: 0; }
+
+/* Row */
+.cal-row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(237,172,255,.06);
+  transition: background .2s;
+}
+.cal-row--next {
+  background: linear-gradient(90deg, rgba(237,172,255,.04) 0%, transparent 100%);
+  border-bottom-color: rgba(237,172,255,.14);
+  padding: 28px 20px;
+  margin: 0 -20px;
+}
+
+/* Date block */
+.cal-date-block { display: flex; flex-direction: column; gap: 3px; }
+.cal-date-day { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; line-height: 1; color: var(--cream); }
+.cal-row--next .cal-date-day { color: var(--mauve); font-size: 36px; }
+.cal-date-month { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,251,219,.4); }
+.cal-date-year { font-size: 9px; letter-spacing: .2em; color: rgba(255,251,219,.25); }
+
+/* Info block */
+.cal-info { display: flex; flex-direction: column; gap: 6px; }
+.cal-info-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cal-badge-next {
+  font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  background: var(--mauve); color: var(--bg); padding: 3px 10px;
+  font-family: 'Space Mono', monospace;
+}
+.cal-badge-cat {
+  font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--orange); border: 1px solid rgba(253,47,0,.25); padding: 3px 9px;
+}
+.cal-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; line-height: 1.1; color: var(--cream);
+}
+.cal-row--next .cal-name { font-size: 26px; }
+.cal-name em { font-style: italic; color: var(--mauve); }
+.cal-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+.cal-meta-item { font-size: 10px; color: rgba(255,251,219,.45); letter-spacing: .06em; }
+.cal-meta-item.loc { color: var(--mauve); opacity: .75; }
+
+/* CTA */
+.cal-cta-col { display: flex; justify-content: flex-end; }
+.cal-btn-billets {
+  display: inline-block; background: var(--orange); color: var(--bg);
+  padding: 10px 22px; font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+  transition: transform .2s, box-shadow .2s;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.cal-btn-billets:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(253,47,0,.4); }
+.cal-row--next .cal-btn-billets { padding: 12px 28px; font-size: 11px; }
+
+/* Mobile calendrier */
+@media (max-width:768px) {
+  .cal-intro { padding: 32px 20px 28px; }
+  .cal-list { padding: 0 20px 60px; }
+  .cal-row {
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px 16px;
+    padding: 20px 0;
+  }
+  .cal-cta-col { grid-column: 1 / -1; justify-content: flex-start; }
+  .cal-row--next { padding: 20px 16px; margin: 0 -16px; }
+  .cal-date-day { font-size: 26px; }
+  .cal-row--next .cal-date-day { font-size: 30px; }
+  .cal-name { font-size: 18px; }
+  .cal-row--next .cal-name { font-size: 21px; }
+}
+@media (max-width:768px) {
+  .cal-intro { padding: 32px 20px 28px; }
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a href="index.html" class="nav-logo">Collectif<span> Jardin</span></a>
+  <a href="index.html" class="nav-logo" aria-label="Collectif Jardin — Accueil">
+    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+  </a>
   <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
     <li><a href="evenements.html" class="active">Événements</a></li>
     <li><a href="projets.html">Projets</a></li>
     <li><a href="index.html#about">À propos</a></li>
@@ -306,6 +414,10 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   </button>
 </nav>
 <div class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-logo">
+    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+  </div>
+  <a href="index.html" onclick="closeNav()">Accueil</a>
   <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="projets.html" onclick="closeNav()">Projets</a>
   <a href="index.html#about" onclick="closeNav()">À propos</a>
@@ -328,17 +440,197 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 
 <!-- CATEGORY TABS -->
 <nav class="cat-nav" aria-label="Catégories d'événements">
-  <button class="cat-tab active" onclick="showCat('bain-public',this)">Bain Public × CJ</button>
-  <button class="cat-tab" onclick="showCat('brise-lames',this)">Saison Brise-Lames</button>
-  <button class="cat-tab" onclick="showCat('halloween',this)">Soirée Halloween</button>
+  <button class="cat-tab active" onclick="showCat('calendrier',this)" id="tab-calendrier">Calendrier</button>
+  <button class="cat-tab" onclick="showCat('bain-public',this)" id="tab-bain-public">Bain Public × CJ</button>
+  <button class="cat-tab" onclick="showCat('brise-lames',this)" id="tab-brise-lames">Saison Brise-Lames</button>
+  <button class="cat-tab" onclick="showCat('hors-serie',this)" id="tab-hors-serie">Hors série</button>
+  <button class="cat-tab" onclick="showCat('halloween',this)" id="tab-halloween">Halloween</button>
 </nav>
 
 <main class="ev-main">
 
 <!-- ══════════════════════════════
+     CAT 0 — CALENDRIER (DEFAULT)
+══════════════════════════════ -->
+<section class="cat-block visible" id="calendrier">
+
+  <div class="cal-intro reveal">
+    <div class="cal-intro-title">Tous les événements <em>à venir</em></div>
+    <p class="cal-intro-sub">Calendrier 2026 — du plus proche au plus lointain</p>
+  </div>
+
+  <div class="cal-list reveal">
+
+    <!-- PROCHAIN — Open Deck Féminin + Queer -->
+    <div class="cal-row cal-row--next">
+      <div class="cal-date-block">
+        <span class="cal-date-day">20</span>
+        <span class="cal-date-month">Mars</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top">
+          <span class="cal-badge-next">✦ Prochain</span>
+          <span class="cal-badge-cat">Bain Public × CJ</span>
+        </div>
+        <div class="cal-name">Open Deck <em>Féminin + Queer</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">21h → 3h</span>
+          <span class="cal-meta-item loc">Bain Public, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Open Deck Mixte -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">18</span>
+        <span class="cal-date-month">Avril</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Bain Public × CJ</span></div>
+        <div class="cal-name">Open Deck <em>Mixte</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">21h → 3h</span>
+          <span class="cal-meta-item loc">Bain Public, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Open Deck Clôture -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">15</span>
+        <span class="cal-date-month">Mai</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Bain Public × CJ</span></div>
+        <div class="cal-name">Open Deck <em>Clôture de saison</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">21h → 3h</span>
+          <span class="cal-meta-item loc">Bain Public, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Solstice d'Été -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">20</span>
+        <span class="cal-date-month">Juin</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Brise-Lames</span></div>
+        <div class="cal-name">Solstice <em>d'Été</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">15h → 23h</span>
+          <span class="cal-meta-item loc">Brise-Lames, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Plein Été -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">18</span>
+        <span class="cal-date-month">Juill.</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Brise-Lames</span></div>
+        <div class="cal-name"><em>Plein Été</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">15h → 23h</span>
+          <span class="cal-meta-item loc">Brise-Lames, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Dernières Chaleurs -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">15</span>
+        <span class="cal-date-month">Août</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Brise-Lames</span></div>
+        <div class="cal-name"><em>Dernières Chaleurs</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">15h → 23h</span>
+          <span class="cal-meta-item loc">Brise-Lames, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Récolte -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">19</span>
+        <span class="cal-date-month">Sept.</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Brise-Lames</span></div>
+        <div class="cal-name"><em>Récolte</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">14h → 22h</span>
+          <span class="cal-meta-item loc">Brise-Lames, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+    <!-- Halloween -->
+    <div class="cal-row">
+      <div class="cal-date-block">
+        <span class="cal-date-day">31</span>
+        <span class="cal-date-month">Oct.</span>
+        <span class="cal-date-year">2026</span>
+      </div>
+      <div class="cal-info">
+        <div class="cal-info-top"><span class="cal-badge-cat">Halloween</span></div>
+        <div class="cal-name">La Grande Nuit <em>d'Halloween</em></div>
+        <div class="cal-meta">
+          <span class="cal-meta-item">21h → 3h</span>
+          <span class="cal-meta-item loc">Lieu à confirmer, Rimouski</span>
+        </div>
+      </div>
+      <div class="cal-cta-col">
+        <a href="#" class="cal-btn-billets" target="_blank" rel="noopener">Billets</a>
+      </div>
+    </div>
+
+  </div><!-- /.cal-list -->
+</section>
+
+<!-- ══════════════════════════════
      CAT 1 — BAIN PUBLIC
 ══════════════════════════════ -->
-<section class="cat-block visible" id="bain-public">
+<section class="cat-block" id="bain-public">
 
   <div class="cat-desc-block reveal">
     <div class="cat-num">01</div>
@@ -591,7 +883,39 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 </section>
 
 <!-- ══════════════════════════════
-     CAT 3 — HALLOWEEN
+     CAT 4 — HORS SÉRIE
+══════════════════════════════ -->
+<section class="cat-block" id="hors-serie">
+
+  <div class="cat-desc-block reveal">
+    <div class="cat-info">
+      <div class="cat-label">Événements spéciaux — Ponctuels</div>
+      <h2 class="cat-title">Hors<br><em>Série</em></h2>
+      <p class="cat-desc">Des événements uniques en dehors de nos séries régulières. Collaborations spéciales, soirées thématiques, formats expérimentaux — chaque édition hors série est une occasion de sortir du cadre et d'explorer de nouveaux territoires musicaux et artistiques.</p>
+      <div class="cat-meta">
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">Variable</span></div>
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Lieu</span><span class="cat-meta-val">À confirmer</span></div>
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Fréquence</span><span class="cat-meta-val">Ponctuel</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="year-section reveal">
+    <div class="year-header"><div class="year-label">2026</div><div class="year-line"></div></div>
+    <div class="flyer-grid">
+      <div class="flyer-card" style="cursor:default;">
+        <div class="flyer-placeholder">
+          <svg class="ph-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><line x1="3" y1="25" x2="33" y2="25" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="16" r="4" stroke="#fd2f00" stroke-width="1" fill="none"/></svg>
+          <div class="flyer-placeholder-txt">Événements à venir<br>Surveillez nos réseaux</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════
+     CAT 5 — HALLOWEEN
 ══════════════════════════════ -->
 <section class="cat-block" id="halloween">
 
@@ -806,7 +1130,7 @@ document.addEventListener('keydown', function(e){
 /* ── ANCHOR on load ── */
 if(window.location.hash){
   var id = window.location.hash.replace('#','');
-  var map = {'bain-public':0,'brise-lames':1,'halloween':2};
+  var map = {'calendrier':0,'bain-public':1,'brise-lames':2,'hors-serie':3,'halloween':4};
   if(id in map){
     setTimeout(function(){
       var tabs = document.querySelectorAll('.cat-tab');

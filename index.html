@@ -8,9 +8,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap');
 
-/* ─── VARIABLES ─── */
 :root {
-  --nav-h: 56px; /* fixed navbar height on mobile */
+  --nav-h: 56px;
   --bg: #141414;
   --mauve: #edacff;
   --orange: #fd2f00;
@@ -18,340 +17,178 @@
   --cream: #fffbdb;
 }
 
-/* ─── RESET ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--cream);
-  font-family: 'Space Mono', monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+body { background: var(--bg); color: var(--cream); font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
 
-/* ─── CUSTOM CURSOR — shown only via JS on desktop ─── */
-.cursor {
-  position: fixed; width: 8px; height: 8px;
-  background: var(--mauve); border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .25s, height .25s, background .2s;
-  mix-blend-mode: difference; display: none;
-}
-.cursor-ring {
-  position: fixed; width: 36px; height: 36px;
-  border: 1px solid var(--mauve); border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: transform .15s ease, opacity .3s, border-color .3s;
-  opacity: 0.5; display: none;
-}
+.cursor { position: fixed; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .2s; mix-blend-mode: difference; display: none; }
+.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform .15s ease, opacity .3s, border-color .3s; opacity: 0.5; display: none; }
 
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 48px;
-  transition: background .4s ease;
-}
-nav.scrolled {
-  background: rgba(20,20,20,0.95);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(237,172,255,0.08);
-}
-.nav-logo {
-  display: inline-flex; align-items: center;
-  text-decoration: none; position: relative; z-index: 1100;
-  line-height: 0; /* collapse baseline gap */
-}
-.nav-logo img {
-  height: 36px; width: auto;
-  display: block;
-  /* PNG no-BG on dark bg — no filter needed */
-  transition: opacity .3s;
-}
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; transition: background .4s ease; }
+nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(237,172,255,0.08); }
+.nav-logo { display: inline-flex; align-items: center; text-decoration: none; position: relative; z-index: 1100; line-height: 0; }
+.nav-logo img { height: 48px; width: auto; display: block; transition: opacity .3s; }
 .nav-logo:hover img { opacity: .75; }
 .nav-links { display: flex; gap: 30px; list-style: none; }
-.nav-links a {
-  color: var(--cream); text-decoration: none; font-size: 12px;
-  letter-spacing: .18em; text-transform: uppercase; opacity: .8;
-  transition: opacity .3s, color .3s;
-}
+.nav-links a { color: var(--cream); text-decoration: none; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .8; transition: opacity .3s, color .3s; }
 .nav-links a:hover { opacity: 1; color: var(--orange); }
-.nav-cta {
-  border: 1.5px solid var(--orange); color: var(--orange) !important;
-  padding: 8px 16px; opacity: 1 !important;
-  transition: background .3s, color .3s !important;
-}
+.nav-links a.active { opacity: 1; color: var(--mauve); }
+.nav-cta { border: 1.5px solid var(--orange); color: var(--orange) !important; padding: 8px 16px; opacity: 1 !important; transition: background .3s, color .3s !important; }
 .nav-cta:hover { background: var(--orange) !important; color: var(--bg) !important; }
-
-/* Hamburger */
-.nav-hamburger {
-  display: none; flex-direction: column; justify-content: center;
-  gap: 6px; background: none; border: none; cursor: pointer;
-  padding: 8px; z-index: 1100; position: relative;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-}
-.nav-hamburger span {
-  display: block; width: 24px; height: 1.5px; background: var(--cream);
-  transition: transform .3s ease, opacity .25s ease; transform-origin: center;
-}
+.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1100; position: relative; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: transform .3s ease, opacity .25s ease; transform-origin: center; }
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-
-/* Mobile overlay — NO backdrop-filter (kills touch on iOS) */
-.nav-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(20,20,20,0.97);
-  flex-direction: column; align-items: center; justify-content: center;
-  gap: 36px; z-index: 1050;
-  opacity: 0; transition: opacity .3s ease;
-}
+.nav-overlay { display: none; position: fixed; inset: 0; background: rgba(20,20,20,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 36px; z-index: 1050; opacity: 0; transition: opacity .3s ease; }
 .nav-overlay.open { display: flex; opacity: 1; }
-.nav-overlay-logo {
-  margin-bottom: 8px;
-}
-.nav-overlay-logo img {
-  height: 52px; width: auto; display: block; opacity: .9;
-}
-.nav-overlay.open { display: flex; opacity: 1; }
-.nav-overlay a {
-  color: var(--cream); text-decoration: none; font-size: 20px;
-  letter-spacing: .2em; text-transform: uppercase; opacity: .8;
-  transition: color .3s, opacity .3s;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-}
+.nav-overlay-logo { margin-bottom: 8px; }
+.nav-overlay-logo img { height: 52px; width: auto; display: block; opacity: .9; }
+.nav-overlay a { color: var(--cream); text-decoration: none; font-size: 20px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; transition: color .3s, opacity .3s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .nav-overlay a:active { opacity: 1; color: var(--orange); }
-.nav-overlay .nav-cta {
-  border: 1.5px solid var(--orange); color: var(--orange) !important;
-  padding: 12px 28px; opacity: 1 !important;
-}
+.nav-overlay .nav-cta { border: 1.5px solid var(--orange); color: var(--orange) !important; padding: 12px 28px; opacity: 1 !important; }
 
-/* ─── HERO ─── */
-#hero {
-  min-height: 100vh; min-height: 100dvh;
-  position: relative; display: flex; align-items: flex-end;
-  padding: 0 0 80px; overflow: hidden;
-}
+/* HERO */
+#hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; align-items: flex-end; padding: 0 0 80px; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-orb {
-  position: absolute; border-radius: 77%;
-  filter: blur(77px); opacity: .18;
-  animation: drift 15s linear infinite; will-change: transform;
-}
+.hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; will-change: transform; }
 .orb1 { width:555px;height:555px;background:var(--mauve);top:-100px;right:-100px;animation-delay:1s; }
 .orb2 { width:444px;height:444px;background:var(--orange);bottom:10px;left:30%;animation-delay:2s; }
 .orb3 { width:333px;height:333px;background:var(--burgundy);top:20%;left:-20px; }
-@keyframes drift {
-  0%   { transform:translate(0,0) scale(1); }
-  25%  { transform:translate(40px,-20px) scale(1.1); }
-  50%  { transform:translate(20px,40px) scale(1.2); }
-  75%  { transform:translate(-30px,20px) scale(1.1); }
-  100% { transform:translate(0,0) scale(1); }
-}
+@keyframes drift { 0%{transform:translate(0,0) scale(1);} 25%{transform:translate(40px,-20px) scale(1.1);} 50%{transform:translate(20px,40px) scale(1.2);} 75%{transform:translate(-30px,20px) scale(1.1);} 100%{transform:translate(0,0) scale(1);} }
 .hero-content { position:relative;z-index:1;max-width:800px;margin-left:48px;margin-right:24px; }
-.hero-label {
-  font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);
-  margin-top:24px;margin-bottom:40px;opacity:0;animation:fadeUp 1s .3s ease forwards;
-}
-.hero-title {
-  font-family:'Cormorant Garamond',serif;font-size:clamp(54px,9vw,130px);
-  font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:32px;
-  opacity:0;animation:fadeUp 1s .5s ease forwards;
-}
+.hero-label { font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-top:24px;margin-bottom:40px;opacity:0;animation:fadeUp 1s .3s ease forwards; }
+.hero-title { font-family:'Cormorant Garamond',serif;font-size:clamp(54px,9vw,130px);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:32px;opacity:0;animation:fadeUp 1s .5s ease forwards; }
 .hero-title em { font-style:italic;color:var(--mauve); }
 .hero-title .line2 { display:block;padding-left:35px; }
-.hero-sub {
-  font-size:13px;letter-spacing:.1em;color:rgba(255,251,219,.55);max-width:340px;
-  margin-bottom:20px;opacity:0;animation:fadeUp 1s .7s ease forwards;line-height:1.9;
-}
+.hero-sub { font-size:13px;letter-spacing:.1em;color:rgba(255,251,219,.55);max-width:340px;margin-bottom:20px;opacity:0;animation:fadeUp 1s .7s ease forwards;line-height:1.9; }
 .hero-btns { display:flex;gap:20px;flex-wrap:wrap;opacity:0;animation:fadeUp 1s .9s ease forwards; }
-.btn-primary {
-  background:var(--orange);color:var(--bg);padding:14px 36px;
-  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
-  text-transform:uppercase;text-decoration:none;display:inline-block;
-  transition:transform .3s,box-shadow .3s;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
+.btn-primary { background:var(--orange);color:var(--bg);padding:14px 36px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:transform .3s,box-shadow .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation; }
 .btn-primary:hover { transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.35); }
-.btn-ghost {
-  border:1px solid rgba(255,251,219,.25);color:var(--cream);padding:14px 36px;
-  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
-  text-transform:uppercase;text-decoration:none;display:inline-block;
-  transition:border-color .3s,color .3s;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
+.btn-ghost { border:1px solid rgba(255,251,219,.25);color:var(--cream);padding:14px 36px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color .3s,color .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation; }
 .btn-ghost:hover { border-color:var(--orange);color:var(--orange); }
-.hero-scroll-hint {
-  position:absolute;bottom:40px;right:48px;display:flex;align-items:center;gap:12px;
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.3);
-  z-index:2;opacity:0;animation:fadeUp 1s 1.3s ease forwards;
-}
+.hero-scroll-hint { position:absolute;bottom:40px;right:48px;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.3);z-index:2;opacity:0;animation:fadeUp 1s 1.3s ease forwards; }
 .scroll-line { width:100px;height:1px;background:rgba(255,251,219,.2);position:relative;overflow:hidden; }
-.scroll-line::after {
-  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-  background:var(--mauve);animation:scrollLine 4s ease infinite;
-}
+.scroll-line::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--mauve);animation:scrollLine 4s ease infinite; }
 @keyframes scrollLine { to { left:100%; } }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-/* ─── MARQUEE ─── */
-.marquee-section {
-  overflow:hidden;border-top:.66px solid var(--mauve);border-bottom:.66px solid var(--mauve);
-  padding:16px 0;background:rgba(128,0,32,.075);
-}
+/* MARQUEE */
+.marquee-section { overflow:hidden;border-top:.66px solid var(--mauve);border-bottom:.66px solid var(--mauve);padding:16px 0;background:rgba(128,0,32,.075); }
 .marquee-track { display:flex;animation:marquee 60s linear infinite;width:max-content;will-change:transform; }
 .marquee-item { white-space:nowrap;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mauve);padding:0 40px; }
 .marquee-dot { color:var(--orange); }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* ─── SECTION BASE ─── */
+/* SECTION BASE */
 section { padding:120px 48px;position:relative; }
 .section-label { font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:16px; }
 .section-title { font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-.02em; }
 .section-title em { font-style:italic;color:var(--mauve); }
 
-/* ─── EVENTS ─── */
-#events { padding:80px 0; }
-.events-header {
-  display:grid;grid-template-columns:1fr auto;align-items:end;
-  margin:0 48px 48px;gap:24px;
+/* ═══════════════════════════════════
+   EVENTS — NOUVELLE VERSION TIMELINE
+═══════════════════════════════════ */
+#events { padding: 80px 0; scroll-margin-top: 108px; }
+
+.events-header-new {
+  display: grid; grid-template-columns: 1fr auto; align-items: end;
+  margin: 0 48px 56px; gap: 24px;
 }
-.events-header p { font-size:13px;color:rgba(255,251,219,.4);max-width:280px;line-height:1.9;letter-spacing:.05em;margin:0; }
-.view-all-link {
-  font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mauve);
-  text-decoration:none;display:flex;align-items:center;gap:10px;white-space:nowrap;transition:gap .3s;
-}
+.events-header-new p { font-size: 13px; color: rgba(255,251,219,.4); max-width: 280px; line-height: 1.9; letter-spacing: .05em; margin: 0; }
+
+.view-all-link { font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mauve);text-decoration:none;display:flex;align-items:center;gap:10px;white-space:nowrap;transition:gap .3s; }
 .view-all-link:hover { gap:22px; }
 .view-all-link::after { content:'→'; }
-.events-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto; }
-.event-card {
-  position:relative;overflow:hidden;aspect-ratio:3/4;background:#1a1a1a;cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-.event-card-bg {
-  position:absolute;inset:0;background-size:cover;background-position:center;
-  transition:transform .6s ease,filter .6s ease;will-change:transform;
-}
-.card-grad-1 { background-image:url('Image-Events/BainPublic X CollectifJardin1.png'); }
-.card-grad-2 { background-image:url('Image-Events/Jardin - Invertus 2025.jpg'); }
-.card-grad-3 { background-image:url('Image-Events/BIRDVIEW-BRISE-LAME-2025.jpg'); }
-.event-card:hover .event-card-bg { transform:scale(1.06);filter:blur(6px) brightness(.55); }
-.event-card-inner {
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:32px 28px;background:linear-gradient(to top,rgba(20,20,20,.95) 0%,transparent 55%);z-index:2;
-}
-.event-tag { font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px; }
-.event-name { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:8px; }
-.event-date { font-size:9px;letter-spacing:.2em;color:rgba(255,251,219,.45);margin-bottom:6px; }
-.event-location { font-size:9px;letter-spacing:.15em;color:var(--mauve); }
-.event-btn {
-  margin-top:20px;display:inline-block;border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);text-decoration:none;
-  opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,border-color .3s,color .3s;cursor:pointer;
-}
-.event-card:hover .event-btn { opacity:1;transform:translateY(0);border-color:var(--mauve); }
-.event-card:hover .event-btn:hover { border-color:var(--orange);color:var(--orange); }
-.stats-row { display:grid;grid-template-columns:repeat(4,1fr);margin:80px 48px 0;border:1px solid rgba(237,172,255,.06); }
+
+/* Conteneur timeline */
+.events-timeline { position: relative; max-width: 860px; margin: 0 48px; display: flex; flex-direction: column; }
+
+/* Ligne verticale */
+.events-timeline::before { content: ''; position: absolute; left: 28px; top: 40px; bottom: 40px; width: 1px; background: linear-gradient(to bottom, var(--orange) 0%, rgba(237,172,255,.25) 60%, transparent 100%); z-index: 0; }
+
+/* Ligne */
+.ev-row { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding-bottom: 16px; }
+
+/* Point */
+.ev-dot { position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 28px; z-index: 1; }
+.ev-dot-inner { width: 10px; height: 10px; border-radius: 50%; background: var(--orange); border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--orange); flex-shrink: 0; }
+.ev-row--first .ev-dot-inner { width: 14px; height: 14px; background: var(--mauve); box-shadow: 0 0 14px rgba(237,172,255,.5), 0 0 0 1px var(--mauve); }
+
+/* Carte */
+.ev-card-new { background: #1a1a1a; border: 1px solid rgba(237,172,255,.08); padding: 28px 32px; transition: border-color .3s; cursor: pointer; position: relative; overflow: hidden; }
+.ev-card-new:hover { border-color: rgba(237,172,255,.22); }
+
+/* Premier événement */
+.ev-row--first .ev-card-new { background: linear-gradient(135deg, #1e1220, #1a1010, #1a1a1a); border-color: rgba(237,172,255,.2); padding: 36px 40px; }
+.ev-row--first .ev-card-new::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--mauve), var(--orange), transparent); }
+
+.ev-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.ev-badges { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ev-badge-prochain { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; background: var(--mauve); color: var(--bg); padding: 4px 12px; font-family: 'Space Mono', monospace; }
+.ev-badge-cat { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(253,47,0,.3); padding: 3px 10px; }
+
+.ev-name-new { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; line-height: 1.1; margin-bottom: 12px; }
+.ev-row--first .ev-name-new { font-size: 32px; }
+
+.ev-meta-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+.ev-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.ev-meta-lbl { font-size: 8px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,251,219,.3); }
+.ev-meta-val { font-size: 11px; color: rgba(255,251,219,.75); letter-spacing: .06em; }
+.ev-meta-val.mauve { color: var(--mauve); }
+
+/* CTA — toujours visible */
+.ev-btn-billets { display: inline-block; background: var(--orange); color: var(--bg); padding: 10px 24px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: transform .2s, box-shadow .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; cursor: pointer; border: none; }
+.ev-btn-billets:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(253,47,0,.4); }
+.ev-row--first .ev-btn-billets { padding: 12px 32px; font-size: 12px; }
+
+.ev-btn-details { display: inline-block; border: 1px solid rgba(237,172,255,.2); color: rgba(255,251,219,.5); padding: 10px 20px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: border-color .2s, color .2s; cursor: pointer; background: none; -webkit-tap-highlight-color: transparent; }
+.ev-btn-details:hover { border-color: rgba(237,172,255,.5); color: var(--cream); }
+
+.ev-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+/* Voir tout */
+.events-view-all-wrap { margin: 32px 48px 0; display: flex; align-items: center; gap: 20px; }
+.events-view-all-wrap::before { content: ''; flex: 0 0 56px; height: 1px; background: rgba(237,172,255,.12); }
+
+/* Stats */
+.stats-row { display:grid;grid-template-columns:repeat(4,1fr);margin:80px 48px 0;border:1px solid rgba(237,172,255,.06); padding-bottom: 80px; }
 .stat-box { padding:36px 28px;text-align:center;border-right:1px solid rgba(237,172,255,.06); }
 .stat-box:last-child { border-right:none; }
 .stat-num { font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--mauve);line-height:1;margin-bottom:8px; }
 .stat-label { font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,251,219,.25); }
 
-/* ─── GALLERY — TRUE INFINITE CSS LOOP ───────────────────────────
-   Architecture: 8 items + 8 clones in a flex track.
-   CSS @keyframes translates 0 → -50% endlessly (hits clone set → looks infinite).
-   Arrows use animation-delay manipulation to "seek" forward/back — zero scrollLeft.
-   This is 100% iOS Safari compatible.
-──────────────────────────────────────────────────────────────────── */
-.gallery-strip {
-  padding:48px 0 60px; position:relative; background:var(--bg);
-  border-top:1px solid rgba(237,172,255,.06); border-bottom:1px solid rgba(237,172,255,.06);
-  overflow:clip; /* overflow:clip ≠ overflow:hidden — no scroll context, sticky children work */
-}
+/* GALLERY */
+.gallery-strip { padding:48px 0 60px; position:relative; background:var(--bg); border-top:1px solid rgba(237,172,255,.06); border-bottom:1px solid rgba(237,172,255,.06); overflow:clip; }
 .gallery-strip-header { padding:0 48px 40px;display:flex;align-items:flex-end;justify-content:space-between; }
-
-.gallery-arrow {
-  position:absolute; top:50%; transform:translateY(20%); z-index:20;
-  background:rgba(20,20,20,.92); border:1px solid rgba(237,172,255,.25); color:var(--mauve);
-  font-size:28px; line-height:1; width:52px; height:52px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; user-select:none;
-  /* NO backdrop-filter — causes touch pass-through on iOS */
-  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
-  transition:background .2s,border-color .2s,color .2s;
-}
+.gallery-arrow { position:absolute; top:50%; transform:translateY(20%); z-index:20; background:rgba(20,20,20,.92); border:1px solid rgba(237,172,255,.25); color:var(--mauve); font-size:28px; line-height:1; width:52px; height:52px; display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:background .2s,border-color .2s,color .2s; }
 .gallery-arrow:hover, .gallery-arrow:active { background:var(--orange);border-color:var(--orange);color:#fff; }
-.gallery-arrow.left  { left:16px; }
+.gallery-arrow.left { left:16px; }
 .gallery-arrow.right { right:16px; }
-
 .gallery-viewport { overflow:hidden;width:100%; }
-
-.gallery-scroll-track {
-  display:flex; gap:8px; width:max-content;
-  animation:infiniteScroll 60s linear infinite;
-  will-change:transform;
-}
-@keyframes infiniteScroll {
-  from { transform:translateX(0); }
-  to   { transform:translateX(-50%); }
-}
-
-.gallery-item {
-  width:280px;height:380px;flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-.gallery-item-inner {
-  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-  transition:transform .5s ease;will-change:transform;
-}
+.gallery-scroll-track { display:flex; gap:8px; width:max-content; animation:infiniteScroll 60s linear infinite; will-change:transform; }
+@keyframes infiniteScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+.gallery-item { width:280px;height:380px;flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent; }
+.gallery-item-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s ease;will-change:transform; }
 .gallery-item:hover .gallery-item-inner { transform:scale(1.04); }
-.gallery-item-label {
-  position:absolute;bottom:0;left:0;right:0;padding:40px 20px 18px;
-  background:linear-gradient(to top,rgba(20,20,20,.9),transparent);
-  font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.6);
-  opacity:0;transition:opacity .3s;
-}
+.gallery-item-label { position:absolute;bottom:0;left:0;right:0;padding:40px 20px 18px;background:linear-gradient(to top,rgba(20,20,20,.9),transparent);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.6);opacity:0;transition:opacity .3s; }
 .gallery-item:hover .gallery-item-label { opacity:1; }
-
 .gi1{background:var(--burgundy)}.gi2{background:#1a0d38}.gi3{background:#0d1a0a}
 .gi4{background:#2d1a00}.gi5{background:#0a1220}.gi6{background:#1a1a38}
 .gi7{background:#200a2d}.gi8{background:#0a200d}
-
-#lightbox { transition: opacity 0.3s ease; }
 #lightbox-content svg, #lightbox-content img { max-width:90vw; max-height:85vh; }
 
-/* ─── ABOUT ─── */
-#about {
-  background:var(--burgundy);position:relative;
-  overflow:clip; /* clip not hidden — preserves sticky behaviour on iOS */
-  padding:120px 48px;
-}
-#about::before {
-  content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;
-  background:radial-gradient(circle,rgba(237,172,255,.06) 0%,transparent 70%);pointer-events:none;
-}
+/* ABOUT */
+#about { background:var(--burgundy);position:relative;overflow:clip;padding:120px 48px; }
+#about::before { content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(237,172,255,.06) 0%,transparent 70%);pointer-events:none; }
 .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:64px; }
 .about-text p { font-size:13px;line-height:2;color:rgba(255,251,219,.65);letter-spacing:.04em;margin-bottom:24px; }
 .about-text p strong { color:var(--cream);font-weight:400; }
-.about-quote {
-  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;
-  line-height:1.4;color:var(--mauve);border-left:2px solid var(--orange);padding-left:28px;margin:40px 0;
-}
+.about-quote { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;line-height:1.4;color:var(--mauve);border-left:2px solid var(--orange);padding-left:28px;margin:40px 0; }
 .about-visual { position:sticky;top:120px; }
-.about-logo-banner {
-  width:100%;display:flex;align-items:flex-start;justify-content:flex-start;
-  padding:0;
-  margin-bottom:24px;
-}
-.about-logo-banner img {
-  width:auto;max-width:100%;height:auto;display:block;
-  max-height:160px;
-  opacity:.92;filter:brightness(1);
-}
+.about-logo-banner { width:100%;display:flex;align-items:flex-start;justify-content:flex-start;padding:0;margin-bottom:24px; }
+.about-logo-banner img { width:auto;max-width:100%;height:auto;display:block;max-height:160px;opacity:.92; }
 .team-section { margin-top:0; }
 .team-grid { display:grid;grid-template-columns:1fr;gap:12px;margin-top:0; }
 .team-card { display:flex;align-items:center;gap:14px;text-align:left; }
@@ -363,19 +200,13 @@ section { padding:120px 48px;position:relative; }
 .team-name { font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;margin-bottom:2px;line-height:1.2; }
 .team-role { font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--mauve);opacity:.7; }
 .timeline { position:relative;padding-left:32px;margin-top:40px; }
-.timeline::before {
-  content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;
-  background:linear-gradient(to bottom,var(--orange),rgba(237,172,255,.2),transparent);
-}
+.timeline::before { content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--orange),rgba(237,172,255,.2),transparent); }
 .timeline-item { position:relative;padding-bottom:32px; }
-.timeline-item::before {
-  content:'';position:absolute;left:-36px;top:6px;width:8px;height:8px;
-  border-radius:50%;background:var(--orange);border:2px solid var(--burgundy);
-}
+.timeline-item::before { content:'';position:absolute;left:-36px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--orange);border:2px solid var(--burgundy); }
 .timeline-year { font-size:9px;letter-spacing:.3em;color:var(--orange);margin-bottom:6px; }
 .timeline-text { font-size:12px;color:rgba(255,251,219,.55);line-height:1.8; }
 
-/* ─── MERCH ─── */
+/* MERCH */
 #merch { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
 .merch-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:60px; }
 .merch-card { border:1px solid rgba(237,172,255,.08);overflow:hidden;transition:border-color .3s; }
@@ -391,24 +222,20 @@ section { padding:120px 48px;position:relative; }
 .merch-price { font-size:10px;letter-spacing:.2em;color:var(--mauve);display:flex;justify-content:space-between;align-items:center; }
 .merch-tag { font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.3); }
 
-/* ─── PARTNERS ─── */
+/* PARTNERS */
 .partners-section { padding:60px 48px;background:var(--burgundy);border-top:1px solid rgba(237,172,255,.08); }
 .partners-label { font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,251,219,.3);text-align:center;margin-bottom:36px; }
 .partners-row { display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap; }
 .partner-item { font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,251,219,.25);transition:color .3s;cursor:default; }
 .partner-item:hover { color:rgba(237,172,255,.6); }
 
-/* ─── CONTACT ─── */
+/* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:clip; }
 .contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:64px; }
 .contact-intro { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.5;color:rgba(255,251,219,.75);margin-bottom:40px; }
 .contact-intro em { font-style:italic;color:var(--mauve); }
 .contact-links { display:flex;flex-direction:column; }
-.contact-link-item {
-  display:flex;align-items:center;gap:16px;padding:16px 0;
-  border-bottom:1px solid rgba(237,172,255,.08);text-decoration:none;color:var(--cream);
-  transition:gap .3s,color .3s;-webkit-tap-highlight-color:transparent;
-}
+.contact-link-item { display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(237,172,255,.08);text-decoration:none;color:var(--cream);transition:gap .3s,color .3s;-webkit-tap-highlight-color:transparent; }
 .contact-link-item:hover { gap:24px;color:var(--mauve); }
 .contact-link-label { font-size:9px;letter-spacing:.3em;text-transform:uppercase;min-width:120px; }
 .contact-link-email { font-size:11px;color:rgba(255,251,219,.5); }
@@ -416,31 +243,19 @@ section { padding:120px 48px;position:relative; }
 .contact-form { display:flex;flex-direction:column;gap:24px; }
 .form-group { display:flex;flex-direction:column;gap:8px; }
 .form-label { font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,251,219,.35); }
-.form-input,.form-textarea,.form-select {
-  background:transparent;border:none;border-bottom:1px solid rgba(237,172,255,.15);
-  padding:10px 0;font-family:'Space Mono',monospace;font-size:12px;color:var(--cream);
-  letter-spacing:.05em;outline:none;transition:border-color .3s;
-  -webkit-appearance:none;appearance:none;width:100%;
-  border-radius:0; /* iOS adds radius by default */
-}
+.form-input,.form-textarea,.form-select { background:transparent;border:none;border-bottom:1px solid rgba(237,172,255,.15);padding:10px 0;font-family:'Space Mono',monospace;font-size:12px;color:var(--cream);letter-spacing:.05em;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;width:100%;border-radius:0; }
 .form-select { background:transparent;cursor:pointer; }
 .form-select option { background:#1a1a1a; }
 .form-input:focus,.form-textarea:focus,.form-select:focus { border-bottom-color:var(--mauve); }
 .form-textarea { resize:none;height:100px; }
-.form-submit {
-  border:none;background:var(--orange);color:var(--bg);padding:16px 40px;
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  cursor:pointer;transition:transform .3s,box-shadow .3s;align-self:flex-start;
-  border-radius:0;-webkit-appearance:none;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-}
+.form-submit { border:none;background:var(--orange);color:var(--bg);padding:16px 40px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:transform .3s,box-shadow .3s;align-self:flex-start;border-radius:0;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent; }
 .form-submit:hover { transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.3); }
 .newsletter-box { margin-top:48px;padding:28px;border:1px solid rgba(237,172,255,.1); }
 .newsletter-row { display:flex;gap:0;margin-top:16px; }
 .newsletter-row .form-input { border-right:none;flex:1; }
 .newsletter-row .form-submit { margin:0;padding:10px 24px;align-self:auto; }
 
-/* ─── FOOTER ─── */
+/* FOOTER */
 footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid rgba(237,172,255,.1); }
 .footer-top { display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:48px; }
 .footer-logo { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px; }
@@ -459,7 +274,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 .footer-legal a { font-size:9px;color:rgba(255,251,219,.2);text-decoration:none;transition:color .3s; }
 .footer-legal a:hover { color:rgba(237,172,255,.5); }
 
-/* ─── REVEAL ─── */
+/* REVEAL */
 .reveal { opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease; }
 .reveal.visible { opacity:1;transform:translateY(0); }
 .reveal-delay-1 { transition-delay:.12s; }
@@ -467,30 +282,43 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 .reveal-delay-3 { transition-delay:.36s; }
 .reveal-delay-4 { transition-delay:.48s; }
 
-/* Decorative */
-.big-num {
-  font-family:'Cormorant Garamond',serif;font-size:200px;font-weight:300;color:transparent;
-  -webkit-text-stroke:1px rgba(237,172,255,.05);position:absolute;pointer-events:none;
-  line-height:1;letter-spacing:-.05em;
-}
+.big-num { font-family:'Cormorant Garamond',serif;font-size:200px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.05);position:absolute;pointer-events:none;line-height:1;letter-spacing:-.05em; }
 .flora-bg-el { position:absolute;pointer-events:none;opacity:.04; }
 
-/* ═══════════════════════════════════════════
-   TABLET 769–1024px
-════════════════════════════════════════════ */
+/* PROJECTS PREVIEW */
+#projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.06); padding: 60px 48px 80px; overflow: visible; }
+.proj-header-row { margin-bottom: 28px; }
+#projCardsTrack { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+.proj-card-preview { position:relative; overflow:hidden; aspect-ratio:3/4; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.proj-card-bg-preview { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .6s ease,filter .6s ease; will-change:transform; }
+.pp1{background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d);}
+.pp2{background:linear-gradient(145deg,#0a1408,#38050e,#141414);}
+.pp3{background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414);}
+.proj-card-bg-preview svg{position:absolute;inset:0;width:100%;height:100%;}
+.proj-card-preview:hover .proj-card-bg-preview{transform:scale(1.06);filter:blur(6px) brightness(.5);}
+.proj-card-inner-preview { position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 28px;background:linear-gradient(to top,rgba(20,20,20,.96) 0%,transparent 55%);z-index:2; }
+.proj-tag-preview{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.proj-name-preview{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream);}
+.proj-name-preview em{font-style:italic;color:var(--mauve);}
+.proj-sub-preview{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4);}
+.proj-btn-preview { margin-top:20px;display:inline-block;border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);text-decoration:none;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,border-color .3s,color .3s; }
+.proj-card-preview:hover .proj-btn-preview{opacity:1;transform:translateY(0);border-color:var(--mauve);}
+.proj-card-preview:hover .proj-btn-preview:hover{border-color:var(--orange);color:var(--orange);}
+.proj-view-all-btn{margin-top:40px;text-align:center;padding-bottom:16px;}
+
+/* TABLET */
 @media (max-width:1024px) and (min-width:769px) {
   nav { padding:20px 32px; }
   section { padding:100px 32px; }
-  .events-header { margin:0 32px 40px; }
-  .events-grid { grid-template-columns:repeat(2,1fr);margin:0 32px; }
-  .event-card:nth-child(3) { grid-column:span 2;aspect-ratio:16/6; }
+  .events-header-new { margin:0 32px 40px; }
+  .events-timeline { margin:0 32px; }
+  .events-view-all-wrap { margin:28px 32px 0; }
   .stats-row { margin:60px 32px 0; }
   .gallery-strip-header { padding:0 32px 36px; }
   #about { padding:100px 32px; }
   .about-grid { gap:48px; }
   .about-visual { position:static; }
   .team-grid { grid-template-columns:1fr; }
-  .proj-grid-preview { grid-template-columns:1fr; }
   #merch { padding:100px 32px; }
   .merch-grid { grid-template-columns:repeat(2,1fr); }
   .contact-grid { gap:48px; }
@@ -499,119 +327,28 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .footer-top>div:first-child { grid-column:span 2; }
 }
 
-/* ═══════════════════════════════════════════
-   MOBILE ≤768px  —  all iOS Safari fixes
-════════════════════════════════════════════ */
+/* MOBILE */
 @media (max-width:1024px) and (min-width:769px) {
   .proj-grid-preview { grid-template-columns:repeat(3,1fr);gap:16px; }
 }
 
 @media (max-width:768px) {
-  /* ══════════════════════════════════════════════════════
-     MOBILE (<1024px): scroll-driven horizontal carousel
-     Architecture:
-       #projPinWrap  — tall element (100vh + travel px) that creates
-                       the scroll room. parent of sticky panel.
-       #projPinPanel — position:sticky, 100vh, clips overflow.
-                       Contains header + cards track.
-       #projCardsTrack — flex-row, driven by translateX via JS.
-  ══════════════════════════════════════════════════════ */
-
-  /* Override the generic `section { overflow:hidden }` which breaks sticky */
-  #projets-preview {
-    padding: 0 !important;
-    overflow: visible !important;
-    border-bottom: none !important;
-  }
-
-  /* Tall wrapper — height set by JS to 100vh + travel */
-  #projPinWrap {
-    position: relative;
-    width: 100%;
-    /* overflow must be visible so sticky works */
-    overflow: visible;
-  }
-
-  /* Sticky panel — fills the viewport while wrap is being scrolled */
-  #projPinPanel {
-    position: sticky;
-    top: var(--nav-h);
-    height: calc(100svh - var(--nav-h));
-    width: 100%;
-    overflow: hidden;
-    background: var(--bg);
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    /* NO transform/will-change — avoids stacking context that can trap fixed elements on iOS */
-  }
-
-  /* Title row — inherits global design system, no size overrides */
-  .proj-header-row {
-    flex-shrink: 0;
-    padding: 14px 20px 10px;
-    margin-bottom: 0;
-  }
+  #projets-preview { padding: 0 !important; overflow: visible !important; border-bottom: none !important; }
+  #projPinWrap { position: relative; width: 100%; overflow: visible; }
+  #projPinPanel { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); width: 100%; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; box-sizing: border-box; }
+  .proj-header-row { flex-shrink: 0; padding: 14px 20px 10px; margin-bottom: 0; }
   .proj-header-row .section-label { margin-bottom: 4px; }
-  /* .section-title inherits global clamp(36px,5vw,72px) — no override */
-
-  /* Cards track
-     - gap:16px MUST match JS GAP = 16
-     - Symmetric: padding-left = padding-right = 20px for equal visual margins.
-       The JS cardW() = innerWidth - 40 already accounts for this (20+20=40).
-       So the last card's right edge lands exactly 20px from viewport right — symmetric. */
-  #projCardsTrack {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 32px;
-    /* gap=32px: with P=20 and C=W-52, card2 is exactly hidden at rest (0px bleed)
-       and hidden by 4px at scroll end. Right space = 24px. Clean framing both ends. */
-    padding: 6px 0 6px 20px;
-    will-change: transform;
-    align-items: flex-start;
-    backface-visibility: hidden;
-  }
-
-  /* Card dimensions:
-     width = calc(100vw - 40px) → matches JS cardW() = innerWidth - 40 exactly.
-     height = stable fixed value to avoid layout reflow during scroll.
-     Use calc() so it adapts to dvh on mobile, avoiding address-bar jitter. */
-  .proj-card-preview {
-    /* W-44: with P=20 and gap=16, this ensures card2 is hidden by 4px at scroll end.
-       JS uses cardW=W-40 for translation distance — CSS width is independent. */
-    flex: 0 0 calc(100vw - 52px);
-    width: calc(100vw - 52px);
-    min-width: calc(100vw - 52px);
-    max-width: calc(100vw - 52px);
-    /* Panel = 100svh - nav-h. Card = panel - header(~84px) - view-all(~72px) - track-padding(~24px) */
-    height: calc(100svh - var(--nav-h) - 230px); /* header~76px + viewall~78px + paddings~76px = 230px */
-    aspect-ratio: unset;
-    flex-shrink: 0;
-  }
-
-  /* Always show button on touch */
-  .proj-btn-preview {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    border-color: rgba(237,172,255,.3) !important;
-  }
-
-  /* View-all button — inside panel, compact */
-  .proj-view-all-btn {
-    flex-shrink: 0;
-    padding: 10px 20px 12px;
-    text-align: center;
-  }
+  #projCardsTrack { flex: 1; min-height: 0; display: flex; flex-direction: row; gap: 32px; padding: 6px 0 6px 20px; will-change: transform; align-items: flex-start; backface-visibility: hidden; }
+  .proj-card-preview { flex: 0 0 calc(100vw - 52px); width: calc(100vw - 52px); min-width: calc(100vw - 52px); max-width: calc(100vw - 52px); height: calc(100svh - var(--nav-h) - 230px); aspect-ratio: unset; flex-shrink: 0; }
+  .proj-btn-preview { opacity: 1 !important; transform: translateY(0) !important; border-color: rgba(237,172,255,.3) !important; }
+  .proj-view-all-btn { flex-shrink: 0; padding: 10px 20px 12px; text-align: center; }
 
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
-
   nav { padding:16px 20px; }
-  .nav-logo img { height: 28px; }
+  .nav-logo img { height: 34px; }
   .nav-hamburger { display:flex; }
-  .nav-links { display:none; } /* links are in overlay on mobile */
+  .nav-links { display:none; }
 
   #hero { padding:0 0 60px; }
   .hero-content { margin-left:20px;margin-right:20px; }
@@ -622,58 +359,49 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .btn-primary,.btn-ghost { padding:12px 24px;font-size:11px; }
   .hero-scroll-hint { display:none; }
   .orb1{width:260px;height:260px}.orb2{width:210px;height:210px}.orb3{width:170px;height:170px}
-
   .marquee-item { font-size:10px;padding:0 20px; }
-
   section { padding:72px 20px; }
   .section-title { font-size:clamp(26px,8vw,44px); }
 
-  #events { padding:60px 0; }
-  .events-header { grid-template-columns:1fr;margin:0 20px 28px;gap:12px; }
-  .events-header>div:last-child { display:none; }
-  .events-grid { grid-template-columns:1fr;margin:0 20px;gap:2px; }
-  .event-card { aspect-ratio:4/3; }
-  .event-name { font-size:22px; }
-  /* Always show event button on touch — no hover state */
-  .event-btn { opacity:1;transform:translateY(0);border-color:rgba(237,172,255,.25); }
-  .stats-row { grid-template-columns:repeat(2,1fr);margin:36px 20px 0; }
+  #events { padding:60px 0; scroll-margin-top: 76px; }
+  .events-header-new { grid-template-columns:1fr;margin:0 20px 28px;gap:12px; }
+  .events-header-new>div:last-child { display:none; }
+  .events-timeline { margin:0 20px; }
+  .events-timeline::before { left: 20px; top:32px; }
+  .ev-row { grid-template-columns:44px 1fr; gap:12px; }
+  .ev-dot { padding-top:22px; }
+  .ev-card-new { padding:20px; }
+  .ev-row--first .ev-card-new { padding:24px 20px; }
+  .ev-name-new { font-size:20px; }
+  .ev-row--first .ev-name-new { font-size:24px; }
+  .ev-meta-row { gap:16px; }
+  .events-view-all-wrap { margin:24px 20px 0; }
+
+  .stats-row { grid-template-columns:repeat(2,1fr);margin:36px 20px 0;padding-bottom:0; }
   .stat-box { padding:22px 16px; }
   .stat-num { font-size:36px; }
-
   .gallery-strip { padding:28px 0 44px; }
   .gallery-strip-header { padding:0 20px 24px;flex-direction:column;align-items:flex-start;gap:10px; }
   .gallery-item { width:200px;height:280px; }
-  .gallery-arrow { display:none; } /* swipe works on mobile */
+  .gallery-arrow { display:none; }
 
   #about { padding:72px 20px;overflow:clip; }
   .about-grid { grid-template-columns:1fr;gap:0;margin-top:36px; }
   .about-visual { position:static;order:-1;margin-bottom:36px; }
-  .about-logo-banner {
-      padding: 24px 0 28px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-    .about-logo-banner img {
-      max-width: 280px;
-      margin: 0 auto;
-    }
+  .about-logo-banner { padding: 24px 0 28px; margin-bottom: 24px; display: flex; justify-content: center; width: 100%; }
+  .about-logo-banner img { max-width: 280px; margin: 0 auto; }
   .about-quote { font-size:20px;padding-left:18px;margin:24px 0; }
   .about-text p { font-size:12px; }
   .team-section { margin-top:48px; }
   .team-grid { grid-template-columns:1fr;gap:10px; }
   .team-avatar { width:60px;height:60px; }
   .team-name { font-size:15px; }
-
   #merch { padding:72px 20px; }
   .merch-grid { grid-template-columns:1fr;gap:16px; }
   .merch-img { aspect-ratio:4/3; }
-
   .partners-section { padding:40px 20px; }
   .partners-row { gap:24px; }
   .partner-item { font-size:14px; }
-
   #contact { padding:72px 20px; }
   .contact-grid { grid-template-columns:1fr;gap:48px;margin-top:36px; }
   .contact-intro { font-size:20px; }
@@ -682,7 +410,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .newsletter-row { flex-direction:column;gap:10px; }
   .newsletter-row .form-input { border-right:1px solid rgba(237,172,255,.15); }
   .newsletter-row .form-submit { align-self:flex-start; }
-
   footer { padding:44px 20px 32px; }
   .footer-top { grid-template-columns:1fr;gap:32px; }
   .footer-bottom { flex-direction:column;gap:16px;text-align:center; }
@@ -693,68 +420,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 @media (max-width:390px) {
   .hero-title { font-size:clamp(34px,14vw,52px); }
   .gallery-item { width:180px;height:256px; }
-  .events-grid { margin:0 16px; }
-  .events-header { margin:0 16px 24px; }
+  .events-timeline { margin:0 16px; }
+  .events-header-new { margin:0 16px 24px; }
   .stats-row { margin:28px 16px 0; }
 }
-
-/* ─── PROJECTS PREVIEW ─── */
-
-/* ── DESKTOP (≥1024px): simple 3-col layout, no JS ── */
-#projets-preview {
-  background: var(--bg);
-  border-top: 1px solid rgba(237,172,255,.06);
-  padding: 60px 48px 80px;
-  overflow: visible; /* NEVER overflow:hidden — breaks sticky */
-}
-#projPinWrap, #projPinPanel { /* transparent on desktop */ }
-.proj-header-row { margin-bottom: 28px; }
-
-#projCardsTrack {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* ── Card styles (shared) ── */
-.proj-card-preview {
-  position:relative; overflow:hidden; aspect-ratio:3/4;
-  background:#1a1a1a; cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-.proj-card-bg-preview {
-  position:absolute; inset:0;
-  background-size:cover; background-position:center;
-  transition:transform .6s ease,filter .6s ease; will-change:transform;
-}
-.pp1{background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d);}
-.pp2{background:linear-gradient(145deg,#0a1408,#38050e,#141414);}
-.pp3{background:linear-gradient(145deg,#1a0d38,#2d1a00,#141414);}
-.proj-card-bg-preview svg{position:absolute;inset:0;width:100%;height:100%;}
-.proj-card-preview:hover .proj-card-bg-preview{transform:scale(1.06);filter:blur(6px) brightness(.5);}
-.proj-card-inner-preview{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:32px 28px;
-  background:linear-gradient(to top,rgba(20,20,20,.96) 0%,transparent 55%);
-  z-index:2;
-}
-.proj-tag-preview{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
-.proj-name-preview{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:8px;color:var(--cream);}
-.proj-name-preview em{font-style:italic;color:var(--mauve);}
-.proj-sub-preview{font-size:9px;letter-spacing:.15em;color:rgba(255,251,219,.4);}
-.proj-btn-preview{
-  margin-top:20px;display:inline-block;
-  border:1.5px solid rgba(237,172,255,.3);padding:8px 18px;
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cream);text-decoration:none;
-  opacity:0;transform:translateY(8px);
-  transition:opacity .3s,transform .3s,border-color .3s,color .3s;
-}
-.proj-card-preview:hover .proj-btn-preview{opacity:1;transform:translateY(0);border-color:var(--mauve);}
-.proj-card-preview:hover .proj-btn-preview:hover{border-color:var(--orange);color:var(--orange);}
-.proj-view-all-btn{margin-top:40px;text-align:center;padding-bottom:16px;}
 </style>
 </head>
 <body>
@@ -762,37 +431,37 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav id="mainNav">
-  <a href="#hero" class="nav-logo" aria-label="Collectif Jardin — Accueil">
+  <a href="index.html" class="nav-logo" aria-label="Collectif Jardin — Accueil">
     <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
   </a>
   <ul class="nav-links">
+    <li><a href="index.html" class="active">Accueil</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="projets.html">Projets</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#merch">Objets</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false"
-          onclick="toggleNav()">
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile overlay — separate element, never inside overflow:hidden -->
 <div class="nav-overlay" id="navOverlay">
   <div class="nav-overlay-logo">
     <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
   </div>
+  <a href="index.html" onclick="closeNav()">Accueil</a>
   <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="projets.html" onclick="closeNav()">Projets</a>
-  <a href="#about"   onclick="closeNav()">À propos</a>
-  <a href="#merch"   onclick="closeNav()">Objets</a>
+  <a href="#about" onclick="closeNav()">À propos</a>
+  <a href="#merch" onclick="closeNav()">Objets</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
     <div class="hero-orb orb1"></div>
@@ -805,13 +474,13 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <p class="hero-sub">Un collectif qui cultive des espaces<br>de musique, de nature et de communauté.<br>House. Organique. Underground.</p>
     <div class="hero-btns">
       <a href="#events" class="btn-primary">Prochains Événements</a>
-      <a href="#about"  class="btn-ghost">Notre Écosystème</a>
+      <a href="#about" class="btn-ghost">Notre Écosystème</a>
     </div>
   </div>
   <div class="hero-scroll-hint"><div class="scroll-line"></div>Défiler</div>
 </section>
 
-<!-- ─── MARQUEE ─── -->
+<!-- MARQUEE -->
 <div class="marquee-section"><div class="marquee-track">
   <span class="marquee-item">Collectif Jardin</span><span class="marquee-item marquee-dot">✦</span>
   <span class="marquee-item">House Organique</span><span class="marquee-item marquee-dot">✦</span>
@@ -829,33 +498,205 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <span class="marquee-item">Expériences Immersives</span><span class="marquee-item marquee-dot">✦</span>
 </div></div>
 
-<!-- ─── EVENTS ─── -->
+<!-- EVENTS — TIMELINE -->
 <section id="events">
   <div class="big-num" style="right:-40px;top:-60px;">01</div>
-  <div class="events-header reveal">
+
+  <div class="events-header-new reveal">
     <div>
-      <div class="section-label">Nos séries d'événements</div>
-      <h2 class="section-title">Trois univers,<br><em>une communauté</em></h2>
+      <div class="section-label">Prochains événements</div>
+      <h2 class="section-title">Ce qui s'en <em>vient</em></h2>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
-      <p>Des séries d'événements récurrents pensés autour de nos lieux et de notre vision.</p>
-      <a href="evenements.html" class="view-all-link">Calendrier 2026</a>
+      <p>Les prochaines dates — cliquez sur un événement pour les détails.</p>
+      <a href="evenements.html#calendrier" class="view-all-link">Voir tout le calendrier</a>
     </div>
   </div>
-  <div class="events-grid reveal">
-    <div class="event-card"><div class="event-card-bg card-grad-1" onclick="openImageLightbox('Image-Events/BainPublic X CollectifJardin1.png')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série régulière</span><div class="event-name">Bain Public<br>× Collectif Jardin</div><div class="event-date">Rimouski — Salle culturelle</div><div class="event-location">Événements tout au long de l'année</div><a href="evenements.html#bain-public" class="event-btn">Plus de détails</a></div></div>
-    <div class="event-card"><div class="event-card-bg card-grad-3" onclick="openImageLightbox('Image-Events/BIRDVIEW-BRISE-LAME-2025.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Série estivale</span><div class="event-name">Saison<br>Brise-Lames</div><div class="event-date">Juin · Juillet · Août · Septembre</div><div class="event-location">Brise-Lames, Rimouski</div><a href="evenements.html#brise-lames" class="event-btn">Plus de détails</a></div></div>
-    <div class="event-card"><div class="event-card-bg card-grad-2" onclick="openImageLightbox('Image-Events/Jardin - Invertus 2025.jpg')" style="cursor:zoom-in;"></div><div class="event-card-inner"><span class="event-tag">✦ Classique annuel</span><div class="event-name">Nuit<br>Halloween</div><div class="event-date">31 octobre — Chaque année</div><div class="event-location">Rimouski</div><a href="evenements.html#halloween" class="event-btn">Plus de détails</a></div></div>
+
+  <div class="events-timeline reveal">
+
+    <!-- PROCHAIN -->
+    <div class="ev-row ev-row--first">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" onclick="openEvDetail('Open Deck — Féminin + Queer','Bain Public × Collectif Jardin','20 mars 2026 — 21h → 3h','Bain Public, Rimouski','Soirée dédiée aux artistes féminines et à la communauté queer de Rimouski. Format open deck — tou·te·s peuvent s\'inscrire pour jouer. Ambiance house organique dans la salle intimiste du Bain Public.','#')">
+        <div class="ev-card-top">
+          <div class="ev-badges">
+            <span class="ev-badge-prochain">✦ Prochain</span>
+            <span class="ev-badge-cat">Bain Public × CJ</span>
+          </div>
+        </div>
+        <div class="ev-name-new">Open Deck <em style="font-style:italic;color:var(--mauve)">Féminin + Queer</em></div>
+        <div class="ev-meta-row">
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">20 mars 2026</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">21h → 3h</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bain Public, Rimouski</span></div>
+        </div>
+        <div class="ev-actions" onclick="event.stopPropagation()">
+          <a href="#" class="ev-btn-billets" target="_blank" rel="noopener">Billets</a>
+          <button class="ev-btn-details" onclick="openEvDetail('Open Deck — Féminin + Queer','Bain Public × Collectif Jardin','20 mars 2026 — 21h → 3h','Bain Public, Rimouski','Soirée dédiée aux artistes féminines et à la communauté queer de Rimouski. Format open deck — tou·te·s peuvent s\'inscrire pour jouer. Ambiance house organique dans la salle intimiste du Bain Public.','#')">Détails</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT 2 -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" onclick="openEvDetail('Open Deck Mixte','Bain Public × Collectif Jardin','18 avril 2026 — 21h → 3h','Bain Public, Rimouski','Soirée open deck ouverte à tou·te·s les artistes. Première occasion de la saison 2026 pour les nouveaux DJs de monter sur scène dans un cadre bienveillant et festif.','#')">
+        <div class="ev-card-top">
+          <div class="ev-badges"><span class="ev-badge-cat">Bain Public × CJ</span></div>
+        </div>
+        <div class="ev-name-new">Open Deck <em style="font-style:italic;color:var(--mauve)">Mixte</em></div>
+        <div class="ev-meta-row">
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">18 avril 2026</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">21h → 3h</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bain Public, Rimouski</span></div>
+        </div>
+        <div class="ev-actions" onclick="event.stopPropagation()">
+          <a href="#" class="ev-btn-billets" target="_blank" rel="noopener">Billets</a>
+          <button class="ev-btn-details" onclick="openEvDetail('Open Deck Mixte','Bain Public × Collectif Jardin','18 avril 2026 — 21h → 3h','Bain Public, Rimouski','Soirée open deck ouverte à tou·te·s les artistes. Première occasion de la saison 2026 pour les nouveaux DJs de monter sur scène dans un cadre bienveillant et festif.','#')">Détails</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT 3 -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" onclick="openEvDetail('Open Deck — Clôture de saison','Bain Public × Collectif Jardin','15 mai 2026 — 21h → 3h','Bain Public, Rimouski','La dernière édition Bain Public avant la saison estivale. Soirée de célébration pour clore l\'année en salle avec toute la communauté avant les grandes soirées plein air du Brise-Lames.','#')">
+        <div class="ev-card-top">
+          <div class="ev-badges"><span class="ev-badge-cat">Bain Public × CJ</span></div>
+        </div>
+        <div class="ev-name-new">Open Deck <em style="font-style:italic;color:var(--mauve)">Clôture de saison</em></div>
+        <div class="ev-meta-row">
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">15 mai 2026</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">21h → 3h</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bain Public, Rimouski</span></div>
+        </div>
+        <div class="ev-actions" onclick="event.stopPropagation()">
+          <a href="#" class="ev-btn-billets" target="_blank" rel="noopener">Billets</a>
+          <button class="ev-btn-details" onclick="openEvDetail('Open Deck — Clôture de saison','Bain Public × Collectif Jardin','15 mai 2026 — 21h → 3h','Bain Public, Rimouski','La dernière édition Bain Public avant la saison estivale. Soirée de célébration pour clore l\'année en salle avec toute la communauté avant les grandes soirées plein air du Brise-Lames.','#')">Détails</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.events-timeline -->
+
+  <div class="events-view-all-wrap reveal">
+    <a href="evenements.html#calendrier" class="btn-ghost">Voir tout le calendrier 2026 →</a>
   </div>
-  <div class="stats-row reveal">
-    <div class="stat-box"><div class="stat-num">47</div><div class="stat-label">Événements organisés</div></div>
-    <div class="stat-box"><div class="stat-num">8k</div><div class="stat-label">Participants</div></div>
-    <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Années d'existence</div></div>
-    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
+
+</section>
+
+<!-- GALLERY -->
+<div class="gallery-strip" id="galleryStrip">
+  <div class="gallery-strip-header reveal">
+    <div>
+      <div class="section-label">Moments capturés</div>
+      <h3 class="section-title" style="font-size:clamp(26px,3.5vw,48px);">La communauté <em>en images</em></h3>
+    </div>
+  </div>
+  <button class="gallery-arrow left" id="galleryPrev" aria-label="Précédent">‹</button>
+  <button class="gallery-arrow right" id="galleryNext" aria-label="Suivant">›</button>
+  <div class="gallery-viewport">
+    <div class="gallery-scroll-track" id="galleryTrack">
+      <div class="gallery-item"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(45 70 90)"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/><line x1="70" y1="20" x2="70" y2="160" stroke="#fd2f00" stroke-width=".4"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="40" stroke="#edacff" stroke-width=".5" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="12" stroke="#fd2f00" stroke-width=".4" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(60 70 90)"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/><line x1="70" y1="10" x2="70" y2="170" stroke="#edacff" stroke-width=".3"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="15" stroke="#fd2f00" stroke-width=".5" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
+      <div class="gallery-item"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/><ellipse cx="70" cy="90" rx="35" ry="50" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(25 70 90)"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
+      <!-- clones -->
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
+      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJETS PREVIEW -->
+<section id="projets-preview">
+  <div id="projPinWrap">
+    <div id="projPinPanel">
+      <div class="proj-header-row">
+        <div class="section-label">Nos projets</div>
+        <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
+      </div>
+      <div id="projCardsTrack">
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/><circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/><circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/><circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/><path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/></svg></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div><a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a></div>
+        </div>
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/><circle cx="68" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><line x1="150" y1="145" x2="68" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/><line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/></svg></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div><a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a></div>
+        </div>
+        <div class="proj-card-preview">
+          <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none"><line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/><path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/><line x1="75" y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/><circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/></svg></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>& Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div><a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a></div>
+        </div>
+      </div>
+      <div class="proj-view-all-btn">
+        <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:10px;">Collaborations passées, projets en cours et à venir</p>
+        <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ─── PARTNERS ─── -->
+<!-- STATS -->
+<div class="stats-row reveal" style="margin:0 48px;">
+  <div class="stat-box"><div class="stat-num">47</div><div class="stat-label">Événements organisés</div></div>
+  <div class="stat-box"><div class="stat-num">8k</div><div class="stat-label">Participants</div></div>
+  <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Années d'existence</div></div>
+  <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <svg class="flora-bg-el" style="top:8%;right:4%;width:240px;" viewBox="0 0 300 400" fill="none"><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width="1" fill="none"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(30 150 200)"/><circle cx="150" cy="200" r="20" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg>
+  <div class="big-num" style="left:-20px;top:-40px;">02</div>
+  <div class="section-label reveal">Notre univers</div>
+  <h2 class="section-title reveal">Qui cultive<br><em>ce jardin</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="about-quote reveal">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
+      <p class="reveal">Collectif Jardin est né d'une conviction simple et profonde : <strong>contribuer bénévolement à la culture</strong>, avec le respect et l'inclusivité comme valeurs fondatrices.</p>
+      <p class="reveal reveal-delay-1">Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <strong>espaces de musique, de nature et de communauté</strong>.</p>
+      <p class="reveal reveal-delay-2">Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales.</p>
+      <div class="timeline reveal reveal-delay-3">
+        <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-text">Fondation du collectif. Premières soirées expérimentales à Rimouski.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-text">Lancement de la série Open Deck au Bain Public — scène ouverte, format inclusif.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-text">Première édition Brise-Lames en plein air face au Saint-Laurent.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-text">Expansion des collaborations. Halloween devient un classique annuel.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-text">La saison Brise-Lames atteint 4 éditions. Début des démarches OBNL.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-text">Lancement du sociofinancement pour le système de son maison.</div></div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-logo-banner">
+        <img src="Image-About/Jardin - logo officiel orange no BG.png" alt="Collectif Jardin — Logo officiel">
+      </div>
+      <div class="team-section">
+        <div class="team-grid">
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div></div>
+          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Gestion artistique</div></div></div>
+          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Michael</div><div class="team-role">Logistique & opérations</div></div></div>
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Développement durable & admin.</div></div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Coordonnateur & développement</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
 <div class="partners-section">
   <div class="partners-label">Ils poussent avec nous</div>
   <div class="partners-row">
@@ -865,178 +706,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </div>
 
-
-
-<!-- ─── PROJETS PREVIEW ─── -->
-<section id="projets-preview">
-
-  <!-- The pin-wrapper: on mobile this becomes the tall scroll driver.
-       On desktop it's just a normal section container. -->
-  <div id="projPinWrap">
-    <div id="projPinPanel">
-      <div class="proj-header-row">
-        <div class="section-label">Nos projets</div>
-        <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
-      </div>
-      <div id="projCardsTrack">
-
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/>
-              <circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/>
-              <circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/>
-              <circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/>
-              <path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
-              <path d="M232 100 Q275 170 232 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-              <path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/>
-              <path d="M68 100 Q25 170 68 240" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-              <path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/>
-            </svg></div>
-          <div class="proj-card-inner-preview">
-            <span class="proj-tag-preview">✦ En développement</span>
-            <div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div>
-            <div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div>
-            <a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a>
-          </div>
-        </div>
-
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/>
-              <circle cx="68"  cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
-              <circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/>
-              <circle cx="105" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
-              <circle cx="195" cy="310" r="9"  stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/>
-              <circle cx="55"  cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
-              <circle cx="245" cy="110" r="7"  stroke="#edacff" stroke-width=".5" fill="none" opacity=".22"/>
-              <line x1="150" y1="145" x2="68"  y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
-              <line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/>
-              <line x1="68"  y1="225" x2="105" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
-              <line x1="232" y1="225" x2="195" y2="310" stroke="#fd2f00" stroke-width=".4" opacity=".18"/>
-              <line x1="150" y1="145" x2="55"  y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
-              <line x1="150" y1="145" x2="245" y2="110" stroke="#edacff" stroke-width=".4" opacity=".15"/>
-              <line x1="68"  y1="225" x2="195" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
-              <line x1="232" y1="225" x2="105" y2="310" stroke="#edacff" stroke-width=".3" opacity=".1"/>
-            </svg></div>
-          <div class="proj-card-inner-preview">
-            <span class="proj-tag-preview">✦ En expansion</span>
-            <div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div>
-            <div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div>
-            <a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a>
-          </div>
-        </div>
-
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/>
-              <line x1="150" y1="278" x2="88"  y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
-              <line x1="150" y1="278" x2="212" y2="345" stroke="#fd2f00" stroke-width=".6" opacity=".18"/>
-              <line x1="150" y1="312" x2="55"  y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
-              <line x1="150" y1="312" x2="245" y2="365" stroke="#fd2f00" stroke-width=".4" opacity=".12"/>
-              <path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/>
-              <path d="M98 195 L150 100 L202 195 Z" stroke="#edacff" stroke-width=".5" fill="none" opacity=".18"/>
-              <line x1="75"  y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/>
-              <line x1="92"  y1="165" x2="208" y2="165" stroke="#edacff" stroke-width=".4" opacity=".16"/>
-              <line x1="112" y1="135" x2="188" y2="135" stroke="#edacff" stroke-width=".3" opacity=".12"/>
-              <circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/>
-            </svg></div>
-          <div class="proj-card-inner-preview">
-            <span class="proj-tag-preview">✦ Structuration 2026</span>
-            <div class="proj-name-preview">Économie Sociale<br><em>& Vie en OBNL</em></div>
-            <div class="proj-sub-preview">Gouvernance · Pérennité</div>
-            <a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a>
-          </div>
-        </div>
-
-        <!-- No spacer: JS totalTravel + card geometry gives clean viewport stop -->
-            </div><!-- /#projCardsTrack -->
-      <div class="proj-view-all-btn">
-        <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:10px;">Collaborations passées, projets en cours et à venir</p>
-        <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
-      </div>
-    </div><!-- /#projPinPanel -->
-  </div><!-- /#projPinWrap -->
-</section>
-
-
-<!-- ─── GALLERY ─── -->
-<div class="gallery-strip" id="galleryStrip">
-  <div class="gallery-strip-header reveal">
-    <div>
-      <div class="section-label">Moments capturés</div>
-      <h3 class="section-title" style="font-size:clamp(26px,3.5vw,48px);">La communauté <em>en images</em></h3>
-    </div>
-  </div>
-  <button class="gallery-arrow left"  id="galleryPrev" aria-label="Précédent">‹</button>
-  <button class="gallery-arrow right" id="galleryNext" aria-label="Suivant">›</button>
-  <div class="gallery-viewport">
-    <div class="gallery-scroll-track" id="galleryTrack">
-      <!-- 8 originals -->
-      <div class="gallery-item"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(45 70 90)"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(90 70 90)"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/><path d="M70 40 Q100 65 100 90 Q100 120 70 145 Q40 120 40 90 Q40 65 70 40Z" stroke="#fd2f00" stroke-width=".5" fill="none"/><line x1="70" y1="20" x2="70" y2="160" stroke="#fd2f00" stroke-width=".4"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="40" stroke="#edacff" stroke-width=".5" fill="none"/><circle cx="70" cy="90" r="20" stroke="#edacff" stroke-width=".4" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="12" stroke="#fd2f00" stroke-width=".4" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(30 70 90)"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(60 70 90)"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(90 70 90)"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/><line x1="70" y1="10" x2="70" y2="170" stroke="#edacff" stroke-width=".3"/><line x1="10" y1="90" x2="130" y2="90" stroke="#edacff" stroke-width=".3"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="15" stroke="#fd2f00" stroke-width=".5" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/><ellipse cx="70" cy="90" rx="35" ry="50" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(25 70 90)"/><ellipse cx="70" cy="90" rx="15" ry="30" stroke="#edacff" stroke-width=".4" fill="none" transform="rotate(50 70 90)"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
-      <!-- 8 clones (aria-hidden) -->
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(45 70 90)"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/><line x1="70" y1="20" x2="70" y2="160" stroke="#fd2f00" stroke-width=".4"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(60 70 90)"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="15" stroke="#fd2f00" stroke-width=".5" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
-      <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/><ellipse cx="70" cy="90" rx="35" ry="50" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(25 70 90)"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- ─── ABOUT ─── -->
-<section id="about">
-  <svg class="flora-bg-el" style="top:8%;right:4%;width:240px;" viewBox="0 0 300 400" fill="none"><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width="1" fill="none"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(30 150 200)"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(60 150 200)"/><circle cx="150" cy="200" r="20" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg>
-  <div class="big-num" style="left:-20px;top:-40px;">02</div>
-  <div class="section-label reveal">Notre univers</div>
-  <h2 class="section-title reveal">Qui cultive<br><em>ce jardin</em></h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <div class="about-quote reveal">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
-      <p class="reveal">Collectif Jardin est né d'une conviction simple et profonde : <strong>contribuer bénévolement à la culture</strong>, avec le respect et l'inclusivité comme valeurs fondatrices. Un groupe de passionné·e·s qui a décidé de faire pousser quelque chose de beau dans leur ville.</p>
-      <p class="reveal reveal-delay-1">Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <strong>espaces de musique, de nature et de communauté</strong>. Chaque événement est pensé pour rassembler et inclure.</p>
-      <p class="reveal reveal-delay-2">Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales. On ne fait pas "juste une fête". On cultive un jardin vivant, ancré dans le Bas-du-Fleuve.</p>
-      <div class="timeline reveal reveal-delay-3">
-        <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-text">Fondation du collectif. Premières soirées expérimentales à Rimouski avec une poignée de passionné·e·s.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-text">Lancement de la série Open Deck au Bain Public — scène ouverte, format inclusif.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-text">Première édition Brise-Lames en plein air face au Saint-Laurent. Le collectif s'ancre dans son territoire.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-text">Expansion des collaborations culturelles régionales. Halloween devient un classique annuel.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-text">La saison Brise-Lames atteint 4 éditions. Début des démarches de structuration en OBNL.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-text">Lancement du sociofinancement pour le système de son maison. Nouvelle ambition, mêmes valeurs.</div></div>
-      </div>
-    </div>
-    <div class="about-visual reveal">
-      <div class="about-logo-banner">
-        <img src="Image-About/Jardin - logo officiel orange no BG.png" alt="Collectif Jardin — Logo officiel">
-      </div>
-      <div class="team-section">
-        <div class="team-grid">
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div>
-          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Julie</div><div class="team-role">Gestion artistique</div></div>
-          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Michael</div><div class="team-role">Logistique & opérations terrain</div></div>
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Alexis</div><div class="team-role">Développement durable & admin.</div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div class="team-name">Samuel</div><div class="team-role">Coordonnateur & développement</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ─── MERCH ─── -->
+<!-- MERCH -->
 <section id="merch">
   <div class="big-num" style="right:-20px;bottom:-60px;opacity:.025;">03</div>
   <div class="section-label reveal">La boutique</div>
@@ -1052,10 +722,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </section>
 
-
-
-
-<!-- ─── CONTACT ─── -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="big-num" style="right:-20px;bottom:-60px;opacity:.025;">04</div>
   <div class="section-label reveal">Nous rejoindre</div>
@@ -1064,10 +731,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div>
       <p class="contact-intro reveal">Vous avez un projet, une idée, une <em>vision</em> qui s'aligne avec la nôtre ?</p>
       <div class="contact-links reveal">
-        <a href="/cdn-cgi/l/email-protection#9af8f5f4f0f5efe8daf9f5f6f6fff9eef3fcf0fbe8fef3f4b4f9fb" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="7c1e13121613090e3c1f131010191f08151a161d0e181512521f1d">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="mailto:collectifjardin@gmail.com" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email">collectifjardin@gmail.com</span><span class="contact-link-arrow">→</span></a>
         <a href="#" class="contact-link-item"><span class="contact-link-label">Instagram</span><span class="contact-link-email">@collectifjardin</span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#8ce3eee6e9f8ffccefe3e0e0e9eff8e5eae6edfee8e5e2a2efed" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="3758555d5243447754585b5b5254435e515d5645535e59195456">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#e2929087919187a2818d8e8e8781968b84888390868b8ccc8183" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="6f1f1d0a1c1c0a2f0c0003030a0c1b0609050e1d0b0601410c0e">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="mailto:lost@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email">lost@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
+        <a href="mailto:booking@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email">booking@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
       </div>
       <div class="newsletter-box reveal">
         <div class="section-label" style="margin-bottom:8px;">Infolettre</div>
@@ -1088,14 +755,18 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </section>
 
-
-
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2026 Collectif Jardin</p></div>
-    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links"><li><a href="evenements.html">Événements</a></li>
-    <li><a href="projets.html">Projets</a></li><li><a href="#about">À propos</a></li><li><a href="#merch">Objets promo</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="evenements.html">Événements</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#merch">Objets promo</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="#" class="social-link">Instagram</a><a href="#" class="social-link">Facebook</a><a href="#" class="social-link">SoundCloud</a><a href="#" class="social-link">ResidentAdvisor</a><a href="#" class="social-link">Bandcamp</a></div></div>
   </div>
   <div class="footer-bottom">
@@ -1104,13 +775,21 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- MINI LIGHTBOX détail événement -->
+<div id="ev-detail-lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;align-items:center;justify-content:center;" onclick="closeEvDetail()">
+  <div id="ev-detail-panel" onclick="event.stopPropagation()" style="background:#181818;border:1px solid rgba(237,172,255,.15);max-width:540px;width:90vw;padding:40px;position:relative;max-height:88vh;overflow-y:auto;">
+    <button onclick="closeEvDetail()" style="position:absolute;top:14px;right:14px;background:none;border:none;color:var(--mauve);font-size:24px;cursor:pointer;line-height:1;padding:4px;" aria-label="Fermer">✕</button>
+    <div id="ev-detail-content"></div>
+  </div>
+</div>
+
+<script>
 (function(){
 'use strict';
 
-/* ── 1. CURSOR — desktop pointer only ── */
+/* CURSOR */
 var isPointer = window.matchMedia('(pointer:fine)').matches;
-var cur  = document.getElementById('cursor');
+var cur = document.getElementById('cursor');
 var ring = document.getElementById('cursorRing');
 if(isPointer){
   document.body.style.cursor='none';
@@ -1118,33 +797,24 @@ if(isPointer){
   var mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
   (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
-  document.querySelectorAll('a,button,.event-card,.gallery-item,.merch-card').forEach(function(el){
+  document.querySelectorAll('a,button,.ev-card-new,.gallery-item,.merch-card').forEach(function(el){
     el.addEventListener('mouseenter',function(){cur.style.width=cur.style.height='16px';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='.8';ring.style.borderColor='var(--orange)';});
     el.addEventListener('mouseleave',function(){cur.style.width=cur.style.height='8px';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.5';ring.style.borderColor='var(--mauve)';});
   });
 }
 
-/* ── 2. NAV scroll ── */
+/* NAV */
 var nav=document.getElementById('mainNav');
 window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
 
-/* ── 3. MOBILE NAV
-   iOS fix: body position:fixed trick instead of overflow:hidden
-   overflow:hidden on body causes viewport jump on iOS ── */
 window.toggleNav=function(){
   var ov=document.getElementById('navOverlay');
   var btn=document.getElementById('navHamburger');
   var open=ov.classList.toggle('open');
   btn.classList.toggle('open',open);
   btn.setAttribute('aria-expanded',open);
-  if(open){
-    document.body.dataset.sy=window.scrollY;
-    document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
-  } else {
-    var sy=parseInt(document.body.dataset.sy||0);
-    document.body.style.cssText='';
-    window.scrollTo(0,sy);
-  }
+  if(open){document.body.dataset.sy=window.scrollY;document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';}
+  else{var sy=parseInt(document.body.dataset.sy||0);document.body.style.cssText='';window.scrollTo(0,sy);}
 };
 window.closeNav=function(){
   var ov=document.getElementById('navOverlay');
@@ -1158,236 +828,81 @@ window.closeNav=function(){
 };
 document.getElementById('navOverlay').addEventListener('click',function(e){if(e.target===this)closeNav();});
 
-/* ── 4. REVEAL ── */
+/* REVEAL */
 var revEls=document.querySelectorAll('.reveal');
 if('IntersectionObserver' in window){
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
   revEls.forEach(function(el){io.observe(el);});
 }else{revEls.forEach(function(el){el.classList.add('visible');});}
 
-/* ── 5. GALLERY — CSS animation-delay seek technique
-   
-   The track plays @keyframes infiniteScroll (0 → -50%) at 28s.
-   To "move" the carousel with arrows:
-     1. Read current transform matrix to find position in px
-     2. Convert px → fraction of the 50% total distance
-     3. Set animation-delay = -(fraction * duration) to seek
-     4. Force reflow, then resume — instant, no scrollLeft, iOS safe
-──────────────────────────────────────────────── */
-var track  = document.getElementById('galleryTrack');
-var btnL   = document.getElementById('galleryPrev');
-var btnR   = document.getElementById('galleryNext');
+/* MINI LIGHTBOX */
+window.openEvDetail=function(name,cat,date,location,desc,ticketUrl){
+  var lb=document.getElementById('ev-detail-lb');
+  var content=document.getElementById('ev-detail-content');
+  content.innerHTML=
+    '<div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">'+cat+'</div>'
+    +'<h2 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:20px;">'+name+'</h2>'
+    +'<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">'
+    +'<div style="font-size:10px;letter-spacing:.15em;color:rgba(255,251,219,.5);">'+date+'</div>'
+    +'<div style="font-size:10px;letter-spacing:.12em;color:var(--mauve);">'+location+'</div>'
+    +'</div>'
+    +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
+    +'<p style="font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;margin-bottom:28px;">'+desc+'</p>'
+    +(ticketUrl?'<a href="'+ticketUrl+'" style="display:inline-block;background:var(--orange);color:#141414;padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Acheter les billets →</a>':'');
+  lb.style.display='flex';
+  document.body.dataset.lbSy=window.scrollY;
+  document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+};
+window.closeEvDetail=function(){
+  var lb=document.getElementById('ev-detail-lb');
+  lb.style.display='none';
+  var sy=parseInt(document.body.dataset.lbSy||0);
+  document.body.style.cssText='';
+  window.scrollTo(0,sy);
+};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeEvDetail();});
 
-if(track && btnL && btnR){
-  var DUR    = 60000; // ms — must match CSS
-  var STEP   = 300;   // px per click
-
-  function getX(){
-    var m=new DOMMatrix(window.getComputedStyle(track).transform);
-    return -m.m41; // positive px scrolled
-  }
-  function halfW(){ return track.scrollWidth/2; }
-
-  function seekTo(px){
-    var h=halfW();
-    if(h<=0)return;
-    // keep px within [0, h)
-    px=((px%h)+h)%h;
-    var delay=-(px/h)*DUR;
-    track.style.animationPlayState='paused';
-    track.style.animationDelay=delay+'ms';
-    void track.offsetHeight; // force reflow — critical for Safari
-    track.style.animationPlayState='running';
-  }
-
+/* GALLERY */
+var track=document.getElementById('galleryTrack');
+var btnL=document.getElementById('galleryPrev');
+var btnR=document.getElementById('galleryNext');
+if(track&&btnL&&btnR){
+  var DUR=60000,STEP=300;
+  function getX(){var m=new DOMMatrix(window.getComputedStyle(track).transform);return -m.m41;}
+  function halfW(){return track.scrollWidth/2;}
+  function seekTo(px){var h=halfW();if(h<=0)return;px=((px%h)+h)%h;var delay=-(px/h)*DUR;track.style.animationPlayState='paused';track.style.animationDelay=delay+'ms';void track.offsetHeight;track.style.animationPlayState='running';}
   btnL.addEventListener('click',function(){seekTo(getX()+STEP);});
   btnR.addEventListener('click',function(){seekTo(getX()-STEP);});
-
-  // Pause on hover
   var vp=track.parentElement;
-  if(vp){
-    vp.addEventListener('mouseenter',function(){track.style.animationPlayState='paused';});
-    vp.addEventListener('mouseleave',function(){track.style.animationPlayState='running';});
-  }
-
-  // Touch swipe
-  var tx0=0, td0=0;
-  track.addEventListener('touchstart',function(e){
-    tx0=e.touches[0].clientX;
-    td0=parseFloat(track.style.animationDelay)||0;
-    track.style.animationPlayState='paused';
-  },{passive:true});
-  track.addEventListener('touchmove',function(e){
-    var dx=e.touches[0].clientX-tx0;
-    var h=halfW();
-    if(h<=0)return;
-    var newDelay=td0+(dx/h)*DUR;
-    track.style.animationDelay=newDelay+'ms';
-  },{passive:true});
-  track.addEventListener('touchend',function(){
-    setTimeout(function(){track.style.animationPlayState='running';},600);
-  },{passive:true});
+  if(vp){vp.addEventListener('mouseenter',function(){track.style.animationPlayState='paused';});vp.addEventListener('mouseleave',function(){track.style.animationPlayState='running';});}
+  var tx0=0,td0=0;
+  track.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;td0=parseFloat(track.style.animationDelay)||0;track.style.animationPlayState='paused';},{passive:true});
+  track.addEventListener('touchmove',function(e){var dx=e.touches[0].clientX-tx0;var h=halfW();if(h<=0)return;track.style.animationDelay=(td0+(dx/h)*DUR)+'ms';},{passive:true});
+  track.addEventListener('touchend',function(){setTimeout(function(){track.style.animationPlayState='running';},600);},{passive:true});
 }
-document.querySelectorAll('.gallery-item').forEach(function(item){
-  item.addEventListener('click',function(){
-    var lb=document.getElementById('lightbox');
-    var inner=item.querySelector('.gallery-item-inner');
-    var content=inner.cloneNode(true);
-    content.style.cssText='width:70vw;height:70vh;max-width:600px;max-height:600px;display:flex;align-items:center;justify-content:center;';
-    var lbContent=document.getElementById('lightbox-content');
-    lbContent.innerHTML='';
-    lbContent.appendChild(content);
-    lb.style.display='flex';
-  });
-});
 
-/* ── IMAGE LIGHTBOX (event/project card posters) ── */
-window.openImageLightbox=function(src){
-  var lb=document.getElementById('lightbox');
-  var lbContent=document.getElementById('lightbox-content');
-  lbContent.innerHTML='<img src="'+src+'" style="max-width:90vw;max-height:85vh;object-fit:contain;display:block;box-shadow:0 0 80px rgba(0,0,0,0.8);" alt="Affiche">';
-  lb.style.display='flex';
-};
-
-/* ── CLOSE LIGHTBOX ── */
-window.closeLightbox=function(){
-  var lb=document.getElementById('lightbox');
-  if(lb) lb.style.display='none';
-};
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape') window.closeLightbox();
-});
-
-/* ══════════════════════════════════════════════════════════
-   PROJECTS: scroll-driven horizontal carousel
-   
-   HOW IT WORKS:
-   1. JS sets #projPinWrap height = 100vh + totalTravel px.
-      This creates real scroll room in the document.
-   2. #projPinPanel is position:sticky;top:0;height:100vh
-      so it stays pinned to viewport while wrap is scrolling.
-   3. On each scroll event, we read how far the wrap's top
-      has gone above the viewport (= scrollProgress).
-      This maps directly to translateX on the cards track.
-   4. No touch interception needed — the browser's native
-      scroll drives the animation. Zero conflict.
-   5. Desktop: wrap height reset to auto, no translateX.
-   ══════════════════════════════════════════════════════════ */
-(function () {
-  'use strict';
-
-  var BREAKPOINT = 1024; /* mobile below this width */
-  var CARDS      = 3;
-  var GAP        = 16;   /* matches CSS gap on #projCardsTrack */
-
-  var wrap  = document.getElementById('projPinWrap');
-  var track = document.getElementById('projCardsTrack');
-  if (!wrap || !track) return;
-
-  /* matchMedia query — triggers on breakpoint cross */
-  var mq = window.matchMedia('(max-width: ' + (BREAKPOINT - 1) + 'px)');
-
-  function isMobile() { return mq.matches; }
-
-  /* Card width = viewport width - 40px (20px padding each side) */
-  function cardW()     { return window.innerWidth - 40; }
-
-  /* Total horizontal distance to travel (card 1 → card 3) */
-  function totalTravel() { return (cardW() + GAP) * (CARDS - 1); }
-
-  /* ─────────────────────────────────────────────
-     SETUP: set wrap height so the sticky panel
-     has enough vertical scroll room to map to
-     the full horizontal travel distance.
-  ───────────────────────────────────────────── */
-  function setup() {
-    if (isMobile()) {
-      var h = window.innerHeight + totalTravel();
-      wrap.style.height = h + 'px';
-    } else {
-      /* Desktop: reset everything */
-      wrap.style.height = '';
-      track.style.transform = '';
-    }
-  }
-
-  /* ─────────────────────────────────────────────
-     UPDATE: called on every scroll event.
-     Maps scroll progress → translateX.
-  ───────────────────────────────────────────── */
-  var raf = false;
-
-  function update() {
-    raf = false;
-    if (!isMobile()) return;
-
-    /* wrapRect.top = distance from wrap's top edge to viewport top.
-       When negative, the wrap has scrolled above the viewport —
-       that's our scroll progress into the section. */
-    var wrapTop  = wrap.getBoundingClientRect().top;
-    var progress = -wrapTop; /* 0 at entry, grows as user scrolls */
-
-    if (progress < 0)              progress = 0;
-    if (progress > totalTravel())  progress = totalTravel();
-
-    track.style.transform = 'translateX(-' + progress.toFixed(1) + 'px)';
-  }
-
-  /* ─────────────────────────────────────────────
-     SCROLL LISTENER
-  ───────────────────────────────────────────── */
-  window.addEventListener('scroll', function () {
-    if (!raf) {
-      raf = true;
-      requestAnimationFrame(update);
-    }
-  }, { passive: true });
-
-  /* ─────────────────────────────────────────────
-     RESIZE / BREAKPOINT CHANGE
-  ───────────────────────────────────────────── */
-  var resizeTimer;
-  function onResize() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      setup();
-      update();
-    }, 100);
-  }
-
-  window.addEventListener('resize', onResize);
-  mq.addEventListener('change', onResize);
-
-  /* ─────────────────────────────────────────────
-     INIT
-  ───────────────────────────────────────────── */
-  function init() {
-    setup();
-    update();
-  }
-
-  if (document.readyState === 'complete') {
-    init();
-  } else {
-    window.addEventListener('load', init);
-  }
-
+/* PROJECTS CAROUSEL */
+(function(){
+  var BREAKPOINT=1024,CARDS=3,GAP=16;
+  var wrap=document.getElementById('projPinWrap');
+  var track=document.getElementById('projCardsTrack');
+  if(!wrap||!track)return;
+  var mq=window.matchMedia('(max-width:'+(BREAKPOINT-1)+'px)');
+  function isMobile(){return mq.matches;}
+  function cardW(){return window.innerWidth-40;}
+  function totalTravel(){return(cardW()+GAP)*(CARDS-1);}
+  function setup(){if(isMobile()){wrap.style.height=(window.innerHeight+totalTravel())+'px';}else{wrap.style.height='';track.style.transform='';}}
+  var raf=false;
+  function update(){raf=false;if(!isMobile())return;var wrapTop=wrap.getBoundingClientRect().top;var progress=-wrapTop;if(progress<0)progress=0;if(progress>totalTravel())progress=totalTravel();track.style.transform='translateX(-'+progress.toFixed(1)+'px)';}
+  window.addEventListener('scroll',function(){if(!raf){raf=true;requestAnimationFrame(update);}},{passive:true});
+  var rt;function onResize(){clearTimeout(rt);rt=setTimeout(function(){setup();update();},100);}
+  window.addEventListener('resize',onResize);mq.addEventListener('change',onResize);
+  function init(){setup();update();}
+  if(document.readyState==='complete'){init();}else{window.addEventListener('load',init);}
 })();
 
 })();
 </script>
-
-<!-- ─── LIGHTBOX ─── -->
-<div id="lightbox"
-     onclick="closeLightbox()"
-     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9000;align-items:center;justify-content:center;cursor:pointer;">
-  <button onclick="closeLightbox()"
-          style="position:absolute;top:20px;right:24px;background:none;border:none;color:#edacff;font-size:40px;line-height:1;cursor:pointer;z-index:9001;padding:8px;-webkit-tap-highlight-color:transparent;"
-          aria-label="Fermer">✕</button>
-  <div id="lightbox-content"
-       onclick="event.stopPropagation()"
-       style="max-width:92vw;max-height:88vh;display:flex;align-items:center;justify-content:center;cursor:default;"></div>
-</div>
 
 </body>
 </html>
