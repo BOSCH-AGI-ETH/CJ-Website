@@ -61,15 +61,15 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 /* ─── MAIN CONTENT ─── */
 .ev-main{padding:72px 48px 120px;}
 .cat-block{display:none;}
-.cat-block.visible{display:block;}
+.cat-block.visible{display:block;scroll-margin-top:150px;}
 
 /* ─── CATEGORY DESCRIPTION BLOCK ─── */
 .cat-desc-block{
-  display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start;
+  display:block;
   padding-bottom:48px;margin-bottom:60px;
   border-bottom:1px solid rgba(237,172,255,.07);
 }
-.cat-num{font-family:'Cormorant Garamond',serif;font-size:90px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.12);line-height:1;letter-spacing:-.05em;user-select:none;padding-top:4px;}
+.cat-num{display:none;}
 .cat-info{}
 .cat-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
 .cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
@@ -259,7 +259,6 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   .page-hero{padding:96px 32px 44px;}
   .cat-nav{padding:0 32px;top:84px;}
   .ev-main{padding:60px 32px 80px;}
-  .cat-num{font-size:64px;}
   .cat-desc-block{gap:24px;}
   .flyer-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
   footer{padding:40px 32px 28px;}
@@ -280,7 +279,6 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   .cat-tab{padding:12px 16px;font-size:8px;letter-spacing:.18em;}
   .ev-main{padding:36px 20px 80px;}
   .cat-desc-block{grid-template-columns:1fr;gap:12px;}
-  .cat-num{font-size:52px;}
   .cat-meta{gap:20px;}
   .year-label{font-size:26px;}
   .flyer-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
@@ -984,6 +982,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
       <a href="index.html#merch">Objets</a>
       <a href="index.html#contact">Contact</a>
     </div>
+    <div class="footer-links-sm">
+      <a href="#">Instagram</a>
+      <a href="#">Page Facebook</a>
+      <a href="#">Communauté Facebook</a>
+    </div>
   </div>
   <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour &amp; pollen.</div>
 </footer>
@@ -1051,7 +1054,12 @@ window.showCat = function(id, btn){
   var target = document.getElementById(id);
   if(target){
     target.classList.add('visible');
-    window.scrollTo({top: document.querySelector('.cat-nav').offsetTop - 10, behavior:'smooth'});
+    // Scroll so page-hero top is at viewport top (navbar height offset)
+    // The cat-nav is sticky so it will naturally lock under the navbar — no cumulative drift
+    var navHeight = document.getElementById('mainNav').offsetHeight;
+    var pageHero = document.querySelector('.page-hero');
+    var heroTop = pageHero ? pageHero.getBoundingClientRect().top + window.scrollY : 0;
+    window.scrollTo({top: heroTop, behavior:'smooth'});
     // Re-trigger reveals
     target.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('visible'); });
     setTimeout(function(){

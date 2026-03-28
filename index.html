@@ -50,32 +50,32 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .nav-overlay .nav-cta { border: 1.5px solid var(--orange); color: var(--orange) !important; padding: 12px 28px; opacity: 1 !important; }
 
 /* HERO */
-#hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; align-items: flex-end; padding: 0 0 80px; overflow: hidden; }
+#hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; will-change: transform; }
 .orb1 { width:555px;height:555px;background:var(--mauve);top:-100px;right:-100px;animation-delay:1s; }
-.orb2 { width:444px;height:444px;background:var(--orange);bottom:10px;left:30%;animation-delay:2s; }
+.orb2 { width:444px;height:444px;background:var(--orange);bottom:60px;left:30%;animation-delay:2s; }
 .orb3 { width:333px;height:333px;background:var(--burgundy);top:20%;left:-20px; }
 @keyframes drift { 0%{transform:translate(0,0) scale(1);} 25%{transform:translate(40px,-20px) scale(1.1);} 50%{transform:translate(20px,40px) scale(1.2);} 75%{transform:translate(-30px,20px) scale(1.1);} 100%{transform:translate(0,0) scale(1);} }
-.hero-content { position:relative;z-index:1;max-width:800px;margin-left:48px;margin-right:24px; }
-.hero-label { font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-top:24px;margin-bottom:40px;opacity:0;animation:fadeUp 1s .3s ease forwards; }
+.hero-content { position:relative;z-index:1;max-width:800px;margin-left:48px;margin-right:24px;padding-top:100px;padding-bottom:80px;flex:1;display:flex;flex-direction:column;justify-content:flex-end; }
+.hero-label { font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:32px;opacity:0;animation:fadeUp 1s .3s ease forwards; }
 .hero-title { font-family:'Cormorant Garamond',serif;font-size:clamp(54px,9vw,130px);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:32px;opacity:0;animation:fadeUp 1s .5s ease forwards; }
 .hero-title em { font-style:italic;color:var(--mauve); }
 .hero-title .line2 { display:block;padding-left:35px; }
 .hero-sub { font-size:13px;letter-spacing:.1em;color:rgba(255,251,219,.55);max-width:340px;margin-bottom:20px;opacity:0;animation:fadeUp 1s .7s ease forwards;line-height:1.9; }
-.hero-btns { display:flex;gap:20px;flex-wrap:wrap;opacity:0;animation:fadeUp 1s .9s ease forwards; }
+.hero-btns { display:flex;gap:20px;flex-wrap:wrap;opacity:0;animation:fadeUp 1s .9s ease forwards;margin-bottom:0; }
 .btn-primary { background:var(--orange);color:var(--bg);padding:14px 36px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:transform .3s,box-shadow .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation; }
 .btn-primary:hover { transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.35); }
 .btn-ghost { border:1px solid rgba(255,251,219,.25);color:var(--cream);padding:14px 36px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color .3s,color .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation; }
 .btn-ghost:hover { border-color:var(--orange);color:var(--orange); }
-.hero-scroll-hint { position:absolute;bottom:40px;right:48px;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.3);z-index:2;opacity:0;animation:fadeUp 1s 1.3s ease forwards; }
+.hero-scroll-hint { position:absolute;bottom:72px;right:48px;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.3);z-index:2;opacity:0;animation:fadeUp 1s 1.3s ease forwards; }
 .scroll-line { width:100px;height:1px;background:rgba(255,251,219,.2);position:relative;overflow:hidden; }
 .scroll-line::after { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--mauve);animation:scrollLine 4s ease infinite; }
 @keyframes scrollLine { to { left:100%; } }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-/* MARQUEE */
-.marquee-section { overflow:hidden;border-top:.66px solid var(--mauve);border-bottom:.66px solid var(--mauve);padding:16px 0;background:rgba(128,0,32,.075); }
+/* MARQUEE — inside hero, pinned to bottom with breathing room */
+.marquee-section { overflow:hidden;border-top:.66px solid var(--mauve);border-bottom:.66px solid var(--mauve);padding:16px 0;background:rgba(128,0,32,.075);position:relative;z-index:2;margin-top:48px; }
 .marquee-track { display:flex;animation:marquee 60s linear infinite;width:max-content;will-change:transform; }
 .marquee-item { white-space:nowrap;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mauve);padding:0 40px; }
 .marquee-dot { color:var(--orange); }
@@ -90,7 +90,10 @@ section { padding:120px 48px;position:relative; }
 /* ═══════════════════════════════════
    EVENTS — NOUVELLE VERSION TIMELINE
 ═══════════════════════════════════ */
-#events { padding: 80px 0; scroll-margin-top: 108px; }
+#events { padding: 80px 0; scroll-margin-top: 120px; }
+
+/* Hide decorative big numbers */
+.big-num { display: none !important; }
 
 .events-header-new {
   display: grid; grid-template-columns: 1fr auto; align-items: end;
@@ -153,9 +156,19 @@ section { padding:120px 48px;position:relative; }
 .events-view-all-wrap::before { content: ''; flex: 0 0 56px; height: 1px; background: rgba(237,172,255,.12); }
 
 /* Stats */
-.stats-row { display:grid;grid-template-columns:repeat(4,1fr);margin:80px 48px 0;border:1px solid rgba(237,172,255,.06); padding-bottom: 80px; }
-.stat-box { padding:36px 28px;text-align:center;border-right:1px solid rgba(237,172,255,.06); }
-.stat-box:last-child { border-right:none; }
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  margin: 80px 48px 18px;
+  border: 1px solid rgba(237,172,255,.1);
+}
+.stat-box {
+  padding: 48px 28px;
+  text-align: center;
+  border-right: 1px solid rgba(237,172,255,.1);
+  position: relative;
+}
+.stat-box:last-child { border-right: none; }
 .stat-num { font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--mauve);line-height:1;margin-bottom:8px; }
 .stat-label { font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,251,219,.25); }
 
@@ -207,7 +220,7 @@ section { padding:120px 48px;position:relative; }
 .timeline-text { font-size:12px;color:rgba(255,251,219,.55);line-height:1.8; }
 
 /* MERCH */
-#merch { background:var(--bg);border-top:1px solid rgba(237,172,255,.06); }
+#merch { background:var(--burgundy);border-top:1px solid rgba(237,172,255,.06); }
 .merch-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:60px; }
 .merch-card { border:1px solid rgba(237,172,255,.08);overflow:hidden;transition:border-color .3s; }
 .merch-card:hover { border-color:rgba(237,172,255,.3); }
@@ -223,7 +236,7 @@ section { padding:120px 48px;position:relative; }
 .merch-tag { font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.3); }
 
 /* PARTNERS */
-.partners-section { padding:60px 48px;background:var(--burgundy);border-top:1px solid rgba(237,172,255,.08); }
+.partners-section { padding:60px 48px;background:var(--bg);border-top:1px solid rgba(237,172,255,.08);border-bottom:1px solid rgba(237,172,255,.08); }
 .partners-label { font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,251,219,.3);text-align:center;margin-bottom:36px; }
 .partners-row { display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap; }
 .partner-item { font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,251,219,.25);transition:color .3s;cursor:default; }
@@ -282,7 +295,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 .reveal-delay-3 { transition-delay:.36s; }
 .reveal-delay-4 { transition-delay:.48s; }
 
-.big-num { font-family:'Cormorant Garamond',serif;font-size:200px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(237,172,255,.05);position:absolute;pointer-events:none;line-height:1;letter-spacing:-.05em; }
+.big-num { display: none !important; }
 .flora-bg-el { position:absolute;pointer-events:none;opacity:.04; }
 
 /* PROJECTS PREVIEW */
@@ -350,8 +363,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .nav-hamburger { display:flex; }
   .nav-links { display:none; }
 
-  #hero { padding:0 0 60px; }
-  .hero-content { margin-left:20px;margin-right:20px; }
+  #hero { padding:0 0 0; }
+  .hero-content { margin-left:20px;margin-right:20px;padding-top:80px;padding-bottom:52px; }
   .hero-title { font-size:clamp(40px,13vw,68px);line-height:.95; }
   .hero-title .line2 { padding-left:16px; }
   .hero-sub { font-size:12px;max-width:100%; }
@@ -363,7 +376,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   section { padding:72px 20px; }
   .section-title { font-size:clamp(26px,8vw,44px); }
 
-  #events { padding:60px 0; scroll-margin-top: 76px; }
+  #events { padding:60px 0; scroll-margin-top: 86px; }
   .events-header-new { grid-template-columns:1fr;margin:0 20px 28px;gap:12px; }
   .events-header-new>div:last-child { display:none; }
   .events-timeline { margin:0 20px; }
@@ -377,7 +390,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .ev-meta-row { gap:16px; }
   .events-view-all-wrap { margin:24px 20px 0; }
 
-  .stats-row { grid-template-columns:repeat(2,1fr);margin:36px 20px 0;padding-bottom:0; }
+  .stats-row { grid-template-columns:repeat(2,1fr);margin:40px 20px 18px; }
   .stat-box { padding:22px 16px; }
   .stat-num { font-size:36px; }
   .gallery-strip { padding:28px 0 44px; }
@@ -477,30 +490,27 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <a href="#about" class="btn-ghost">Notre Écosystème</a>
     </div>
   </div>
+  <div class="marquee-section"><div class="marquee-track">
+    <span class="marquee-item">Collectif Jardin</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">House Organique</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Rimouski</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Underground</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Communauté</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Nature & Fête</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Expériences Immersives</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Collectif Jardin</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">House Organique</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Rimouski</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Underground</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Communauté</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Nature & Fête</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Expériences Immersives</span><span class="marquee-item marquee-dot">✦</span>
+  </div></div>
   <div class="hero-scroll-hint"><div class="scroll-line"></div>Défiler</div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-section"><div class="marquee-track">
-  <span class="marquee-item">Collectif Jardin</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">House Organique</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Rimouski</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Underground</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Communauté</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Nature & Fête</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Expériences Immersives</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Collectif Jardin</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">House Organique</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Rimouski</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Underground</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Communauté</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Nature & Fête</span><span class="marquee-item marquee-dot">✦</span>
-  <span class="marquee-item">Expériences Immersives</span><span class="marquee-item marquee-dot">✦</span>
-</div></div>
-
 <!-- EVENTS — TIMELINE -->
 <section id="events">
-  <div class="big-num" style="right:-40px;top:-60px;">01</div>
 
   <div class="events-header-new reveal">
     <div>
@@ -659,8 +669,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- ABOUT -->
 <section id="about">
-  <svg class="flora-bg-el" style="top:8%;right:4%;width:240px;" viewBox="0 0 300 400" fill="none"><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width="1" fill="none"/><ellipse cx="150" cy="200" rx="100" ry="180" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(30 150 200)"/><circle cx="150" cy="200" r="20" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg>
-  <div class="big-num" style="left:-20px;top:-40px;">02</div>
   <div class="section-label reveal">Notre univers</div>
   <h2 class="section-title reveal">Qui cultive<br><em>ce jardin</em></h2>
   <div class="about-grid">
@@ -684,12 +692,11 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       </div>
       <div class="team-section">
         <div class="team-grid">
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Relations publiques & comm.</div></div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Infrastructure & technique</div></div></div>
-          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Gestion artistique</div></div></div>
-          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Michael</div><div class="team-role">Logistique & opérations</div></div></div>
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Développement durable & admin.</div></div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Coordonnateur & développement</div></div></div>
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Direction Artistique & Développement Partenarial</div></div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Production & Opération</div></div></div>
+          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Direction Visuelle & Graphisme</div></div></div>
+          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Administration & Finance</div></div></div>
+          <div class="team-card reveal reveal-delay-4" style="transition-delay:.56s"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement & Marketing</div></div></div>
         </div>
       </div>
     </div>
@@ -708,7 +715,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- MERCH -->
 <section id="merch">
-  <div class="big-num" style="right:-20px;bottom:-60px;opacity:.025;">03</div>
   <div class="section-label reveal">La boutique</div>
   <h2 class="section-title reveal">Porter le <em>jardin</em></h2>
   <div class="merch-grid">
@@ -724,7 +730,6 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="big-num" style="right:-20px;bottom:-60px;opacity:.025;">04</div>
   <div class="section-label reveal">Nous rejoindre</div>
   <h2 class="section-title reveal">Plantez une <em>graine</em><br>avec nous</h2>
   <div class="contact-grid">
@@ -767,7 +772,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <li><a href="#merch">Objets promo</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul></div>
-    <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="#" class="social-link">Instagram</a><a href="#" class="social-link">Facebook</a><a href="#" class="social-link">SoundCloud</a><a href="#" class="social-link">ResidentAdvisor</a><a href="#" class="social-link">Bandcamp</a></div></div>
+    <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="#" class="social-link">Instagram</a><a href="#" class="social-link">Page Facebook</a><a href="#" class="social-link">Communauté Facebook</a></div></div>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">Fait avec amour & pollen à Rimouski</div>

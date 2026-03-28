@@ -60,7 +60,7 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 
 /* MAIN */
 .proj-main{padding:72px 48px 120px;}
-.year-block{display:none;margin-bottom:100px;}
+.year-block{display:none;margin-bottom:100px;scroll-margin-top:150px;}
 .year-block.visible{display:block;}
 
 /* YEAR HEADER */
@@ -645,6 +645,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
       <a href="index.html#merch">Objets</a>
       <a href="index.html#contact">Contact</a>
     </div>
+    <div class="footer-links-sm">
+      <a href="#">Instagram</a>
+      <a href="#">Page Facebook</a>
+      <a href="#">Communauté Facebook</a>
+    </div>
   </div>
   <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour &amp; pollen.</div>
 </footer>
@@ -718,7 +723,11 @@ window.showYear = function(id, btn){
   var target = document.getElementById(id);
   if(target){
     target.classList.add('visible');
-    window.scrollTo({top: document.querySelector('.year-nav').offsetTop - 10, behavior:'smooth'});
+    // Scroll to page top (hero) — year-nav is sticky so it locks naturally under navbar
+    // This prevents cumulative offset drift on repeated clicks
+    var pageHero = document.querySelector('.page-hero');
+    var heroTop = pageHero ? pageHero.getBoundingClientRect().top + window.scrollY : 0;
+    window.scrollTo({top: heroTop, behavior:'smooth'});
     // Retrigger reveals for newly visible block
     target.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('visible'); });
     setTimeout(function(){
