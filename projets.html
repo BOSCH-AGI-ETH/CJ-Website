@@ -111,6 +111,44 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .proj-meta-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.8;}
 .proj-meta-val{font-size:12px;color:rgba(255,251,219,.75);letter-spacing:.05em;line-height:1.6;}
 
+/* Responsable meta — enhanced hierarchy */
+.proj-meta-item--responsable .proj-meta-lbl {
+  color: var(--mauve);
+  opacity: 1;
+  letter-spacing: .32em;
+}
+.proj-meta-item--responsable .proj-meta-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.4;
+  letter-spacing: .04em;
+}
+.proj-meta-responsable-name {
+  display: block;
+  font-size: 17px;
+  color: var(--cream);
+  margin-bottom: 2px;
+}
+.proj-meta-responsable-role {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  opacity: .7;
+}
+
+/* Partenariats desc — width-limited, improved readability */
+.proj-featured-desc {
+  font-size: 13px; color: rgba(255,251,219,.65); line-height: 2.1;
+  letter-spacing: .04em; max-width: 640px; margin-bottom: 32px;
+}
+.proj-featured-desc--wide {
+  max-width: 780px;
+}
+
 /* Progress bar */
 .proj-progress{margin-bottom:32px;}
 .proj-progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
@@ -361,11 +399,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <span class="proj-featured-badge">✦ En expansion — Continu</span>
     <h2 class="proj-featured-title">Partenariats<br><em>Culturels Régionaux</em></h2>
     <div class="proj-featured-subtitle">Collaborations · Réseau · Bas-du-Fleuve</div>
-    <p class="proj-featured-desc">
-      Le Collectif Jardin développe activement un réseau de collaborations avec les acteurs culturels du Bas-du-Fleuve et de la région de Rimouski. Galeries d'art, festivals, organismes communautaires, centres culturels — nous croyons que la force d'une scène underground repose sur sa capacité à s'ancrer dans son milieu et à tisser des liens durables avec l'ensemble de l'écosystème culturel local.
+    <p class="proj-featured-desc proj-featured-desc--wide">
+      Le Collectif Jardin développe activement un réseau de collaborations avec les acteurs culturels du Bas-du-Fleuve et de la région de Rimouski. Lieux de diffusion, espaces créatifs, cafés, restaurants, sites de plein air, festivals, organismes communautaires — nous privilégions des environnements qui partagent une sensibilité pour la musique, la nature, l’inclusivité et l’expérience humaine. Nous croyons que la force d’une scène underground repose sur sa capacité à s’ancrer dans son milieu et à créer des connexions durables avec un écosystème culturel vivant et diversifié.
     </p>
-    <p class="proj-featured-desc">
-      Ces partenariats nous permettent d'élargir notre programmation, de rejoindre de nouveaux publics, de participer à des événements hors de notre série habituelle, et de contribuer concrètement à la vitalité culturelle de notre région. Chaque collaboration est une graine plantée dans un jardin qui grandit.
+    <p class="proj-featured-desc proj-featured-desc--wide">
+      Ces partenariats nous permettent d’élargir notre programmation, de rejoindre de nouveaux publics et de proposer des événements dans des contextes uniques — du coucher de soleil en bord de mer à des espaces immersifs en nature. Chaque collaboration est réfléchie pour s’aligner avec notre vision et contribuer concrètement à la vitalité culturelle de la région.
     </p>
     <div class="proj-featured-meta">
       <div class="proj-meta-item">
@@ -378,11 +416,14 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
       </div>
       <div class="proj-meta-item">
         <span class="proj-meta-lbl">Types</span>
-        <span class="proj-meta-val">Galeries · Festivals · OBNL</span>
+        <span class="proj-meta-val">Espaces culturels · Lieux de vie · Expériences plein air · Festivals · OBNL</span>
       </div>
-      <div class="proj-meta-item">
+      <div class="proj-meta-item proj-meta-item--responsable">
         <span class="proj-meta-lbl">Responsable</span>
-        <span class="proj-meta-val">Gabriel — Relations publiques</span>
+        <span class="proj-meta-val">
+          <span class="proj-meta-responsable-name">Gabriel</span>
+          <span class="proj-meta-responsable-role">Développement Partenarial</span>
+        </span>
       </div>
     </div>
     <div class="proj-ctas">
@@ -396,7 +437,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <h2 class="proj-featured-title">Économie Sociale<br><em>&amp; Vie en OBNL</em></h2>
     <div class="proj-featured-subtitle">Gouvernance · Financement culturel · Pérennité</div>
     <p class="proj-featured-desc">
-      Depuis sa fondation, le Collectif Jardin fonctionne sur la base du bénévolat et de la passion partagée. En 2026, nous entamons les démarches de formalisation de notre collectif en organisme à but non lucratif (OBNL). Ce changement structurel nous permettra d'accéder à des programmes de financement culturel provincial et fédéral, de sécuriser nos activités sur le long terme et de renforcer notre légitimité institutionnelle.
+      Né d’une initiative bénévole et d’une passion commune pour la culture, le Collectif Jardin a évolué au fil du temps pour devenir un organisme à but non lucratif. Cette transition marque une volonté claire de structurer notre démarche et de renforcer notre impact dans la communauté.<br><br>Aujourd’hui, le collectif continue d’évoluer avec une structure plus claire, qui nous permet de mieux organiser nos projets et de porter notre vision plus loin. Ce qui reste au centre, c’est la culture, la communauté et l’envie de créer des espaces qui rassemblent.
     </p>
     <p class="proj-featured-desc">
       En adoptant un modèle d'économie sociale, nous souhaitons maintenir nos valeurs fondatrices — inclusivité, bénévolat, communauté — tout en nous donnant les moyens d'avoir un impact culturel plus grand et plus durable dans le Bas-du-Fleuve. Ce n'est pas une corporatisation : c'est une structuration au service de notre mission.
@@ -414,13 +455,12 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
         <span class="proj-meta-lbl">Impact visé</span>
         <span class="proj-meta-val">Financement culturel public</span>
       </div>
-      <div class="proj-meta-item">
+      <div class="proj-meta-item proj-meta-item--responsable">
         <span class="proj-meta-lbl">Responsable</span>
-        <span class="proj-meta-val">Alexis — Développement durable</span>
-      </div>
-      <div class="proj-meta-item">
-        <span class="proj-meta-lbl">Samuel</span>
-        <span class="proj-meta-val">Coordination générale</span>
+        <span class="proj-meta-val">
+          <span class="proj-meta-responsable-name">Alexis</span>
+          <span class="proj-meta-responsable-role">Administration &amp; Finances</span>
+        </span>
       </div>
     </div>
     <div class="proj-ctas">

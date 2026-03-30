@@ -180,7 +180,8 @@ section { padding:120px 48px;position:relative; }
 .gallery-arrow.left { left:16px; }
 .gallery-arrow.right { right:16px; }
 .gallery-viewport { overflow:hidden;width:100%; }
-.gallery-scroll-track { display:flex; gap:8px; width:max-content; animation:infiniteScroll 60s linear infinite; will-change:transform; }
+/* 2x speed: 30s instead of 60s */
+.gallery-scroll-track { display:flex; gap:8px; width:max-content; animation:infiniteScroll 30s linear infinite; will-change:transform; }
 @keyframes infiniteScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 .gallery-item { width:280px;height:380px;flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent; }
 .gallery-item-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s ease;will-change:transform; }
@@ -191,6 +192,48 @@ section { padding:120px 48px;position:relative; }
 .gi4{background:#2d1a00}.gi5{background:#0a1220}.gi6{background:#1a1a38}
 .gi7{background:#200a2d}.gi8{background:#0a200d}
 #lightbox-content svg, #lightbox-content img { max-width:90vw; max-height:85vh; }
+
+/* GALLERY IMAGE MODAL */
+.gallery-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 9500;
+  background: rgba(0,0,0,.93);
+  align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.gallery-modal.open { display: flex; }
+.gallery-modal-inner {
+  position: relative;
+  max-width: 90vw; max-height: 88vh;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default;
+}
+.gallery-modal-inner svg,
+.gallery-modal-inner img {
+  max-width: 88vw; max-height: 84vh;
+  object-fit: contain; display: block;
+  border: 1px solid rgba(237,172,255,.12);
+}
+.gallery-modal-label {
+  position: absolute; bottom: -32px; left: 0; right: 0;
+  text-align: center;
+  font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(255,251,219,.4);
+}
+.gallery-modal-close {
+  position: fixed; top: 20px; right: 24px; z-index: 9501;
+  width: 44px; height: 44px;
+  background: rgba(20,20,20,.9); border: 1px solid rgba(237,172,255,.2);
+  color: var(--mauve); font-size: 22px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border-radius: 0;
+  transition: background .2s, border-color .2s, color .2s;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.gallery-modal-close:hover, .gallery-modal-close:active {
+  background: var(--orange); border-color: var(--orange); color: #fff;
+}
 
 /* ABOUT */
 #about { background:var(--burgundy);position:relative;overflow:clip;padding:120px 48px; }
@@ -234,6 +277,28 @@ section { padding:120px 48px;position:relative; }
 .merch-name { font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-bottom:6px; }
 .merch-price { font-size:10px;letter-spacing:.2em;color:var(--mauve);display:flex;justify-content:space-between;align-items:center; }
 .merch-tag { font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.3); }
+/* Shop notice — no button */
+.merch-notice {
+  text-align: center;
+  margin-top: 56px;
+  padding: 32px 48px;
+  border-top: 1px solid rgba(237,172,255,.08);
+}
+.merch-notice-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255,251,219,.75);
+  letter-spacing: .02em;
+  margin-bottom: 14px;
+}
+.merch-notice-sub {
+  font-size: 11px;
+  letter-spacing: .15em;
+  color: rgba(255,251,219,.35);
+  line-height: 1.8;
+}
 
 /* PARTNERS */
 .partners-section { padding:60px 48px;background:var(--bg);border-top:1px solid rgba(237,172,255,.08);border-bottom:1px solid rgba(237,172,255,.08); }
@@ -608,14 +673,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <button class="gallery-arrow right" id="galleryNext" aria-label="Suivant">›</button>
   <div class="gallery-viewport">
     <div class="gallery-scroll-track" id="galleryTrack">
-      <div class="gallery-item"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(45 70 90)"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/><line x1="70" y1="20" x2="70" y2="160" stroke="#fd2f00" stroke-width=".4"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="40" stroke="#edacff" stroke-width=".5" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="12" stroke="#fd2f00" stroke-width=".4" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(60 70 90)"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/><line x1="70" y1="10" x2="70" y2="170" stroke="#edacff" stroke-width=".3"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="15" stroke="#fd2f00" stroke-width=".5" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
-      <div class="gallery-item"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/><ellipse cx="70" cy="90" rx="35" ry="50" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(25 70 90)"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(45 70 90)"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/><line x1="70" y1="20" x2="70" y2="160" stroke="#fd2f00" stroke-width=".4"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi3"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><circle cx="70" cy="90" r="60" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="40" stroke="#edacff" stroke-width=".5" fill="none"/><circle cx="70" cy="90" r="5" fill="#edacff" opacity=".5"/></svg></div><div class="gallery-item-label">Sève vol. 3</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi4"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 30 L85 75 L130 75 L95 100 L110 145 L70 120 L30 145 L45 100 L10 75 L55 75 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="12" stroke="#fd2f00" stroke-width=".4" fill="none"/></svg></div><div class="gallery-item-label">Floraison 2023</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi5"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".6" fill="none"/><ellipse cx="70" cy="90" rx="50" ry="30" stroke="#fd2f00" stroke-width=".4" fill="none" transform="rotate(60 70 90)"/></svg></div><div class="gallery-item-label">Éclore en plein air</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi6"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><path d="M70 10 C100 10 130 40 130 70 C130 110 100 150 70 170 C40 150 10 110 10 70 C10 40 40 10 70 10Z" stroke="#edacff" stroke-width=".7" fill="none"/><line x1="70" y1="10" x2="70" y2="170" stroke="#edacff" stroke-width=".3"/></svg></div><div class="gallery-item-label">Collectif Sessions</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi7"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 15 L80 60 L125 65 L90 95 L100 140 L70 115 L40 140 L50 95 L15 65 L60 60 Z" stroke="#edacff" stroke-width=".6" fill="none"/><circle cx="70" cy="90" r="15" stroke="#fd2f00" stroke-width=".5" fill="none"/></svg></div><div class="gallery-item-label">Nuit Botanique</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner gi8"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".3"><ellipse cx="70" cy="90" rx="55" ry="70" stroke="#edacff" stroke-width=".7" fill="none"/><ellipse cx="70" cy="90" rx="35" ry="50" stroke="#edacff" stroke-width=".5" fill="none" transform="rotate(25 70 90)"/></svg></div><div class="gallery-item-label">Jardin Secret</div></div>
       <!-- clones -->
       <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi1"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><ellipse cx="70" cy="90" rx="40" ry="75" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="70" cy="90" r="10" fill="none" stroke="#fd2f00" stroke-width=".6"/></svg></div><div class="gallery-item-label">Solstice 2024</div></div>
       <div class="gallery-item" aria-hidden="true"><div class="gallery-item-inner gi2"><svg width="140" height="180" viewBox="0 0 140 180" fill="none" opacity=".35"><path d="M70 20 Q110 60 110 90 Q110 130 70 160 Q30 130 30 90 Q30 60 70 20Z" stroke="#fd2f00" stroke-width=".8" fill="none"/></svg></div><div class="gallery-item-label">Racines Profondes</div></div>
@@ -722,9 +787,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div class="merch-card reveal reveal-delay-1"><div class="merch-img mc2"><div class="merch-img-inner"><svg width="120" height="120" viewBox="0 0 120 120" fill="none"><rect x="30" y="45" width="60" height="65" rx="2" stroke="#edacff" stroke-width=".8" fill="none" opacity=".5"/><path d="M45 45 Q45 28 60 28 Q75 28 75 45" stroke="#edacff" stroke-width=".8" fill="none" opacity=".5"/><circle cx="60" cy="72" r="16" stroke="#fd2f00" stroke-width=".5" fill="none" opacity=".5"/></svg></div></div><div class="merch-info"><div class="merch-name">Tote Bag Jardin</div><div class="merch-price">22 CAD <span class="merch-tag">Toile</span></div></div></div>
     <div class="merch-card reveal reveal-delay-2"><div class="merch-img mc3"><div class="merch-img-inner"><svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="40" stroke="#edacff" stroke-width=".8" fill="none" opacity=".5"/><circle cx="60" cy="60" r="25" stroke="#edacff" stroke-width=".4" fill="none" opacity=".3"/><circle cx="60" cy="60" r="4" fill="#edacff" opacity=".4"/></svg></div></div><div class="merch-info"><div class="merch-name">Affiche Sérigraphiée</div><div class="merch-price">45 CAD <span class="merch-tag">Édition limitée</span></div></div></div>
   </div>
-  <div style="text-align:center;margin-top:40px;" class="reveal">
-    <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:16px;">Boutique complète bientôt disponible</p>
-    <a href="#contact" class="btn-ghost">Être notifié</a>
+  <div class="merch-notice reveal">
+    <p class="merch-notice-text">Nos articles sont disponibles en quantité limitée lors de nos événements.<br>Viens nous rencontrer sur place pour les découvrir.</p>
+    <p class="merch-notice-sub">Prochaines disponibilités annoncées sur nos réseaux — suivez-nous pour ne rien manquer.</p>
   </div>
 </section>
 
@@ -736,10 +801,10 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div>
       <p class="contact-intro reveal">Vous avez un projet, une idée, une <em>vision</em> qui s'aligne avec la nôtre ?</p>
       <div class="contact-links reveal">
-        <a href="mailto:collectifjardin@gmail.com" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email">collectifjardin@gmail.com</span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#ddbeb2b1b1b8bea9b4bbb7bcafb9b4b39dbab0bcb4b1f3beb2b0" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="b1d2deddddd4d2c5d8d7dbd0c3d5d8dff1d6dcd0d8dd9fd2dedc">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
         <a href="#" class="contact-link-item"><span class="contact-link-label">Instagram</span><span class="contact-link-email">@collectifjardin</span><span class="contact-link-arrow">→</span></a>
-        <a href="mailto:lost@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email">lost@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
-        <a href="mailto:booking@collectifjardin.ca" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email">booking@collectifjardin.ca</span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#563a3925221635393a3a3335223f303c3724323f38783537" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="7b1714080f3b181417171e180f121d111a091f121555181a">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
+        <a href="/cdn-cgi/l/email-protection#c8aaa7a7a3a1a6af88aba7a4a4adabbca1aea2a9baaca1a6e6aba9" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="274548484c4e49406744484b4b4244534e414d4655434e49094446">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
       </div>
       <div class="newsletter-box reveal">
         <div class="section-label" style="margin-bottom:8px;">Infolettre</div>
@@ -780,6 +845,14 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </footer>
 
+<!-- GALLERY IMAGE MODAL -->
+<div class="gallery-modal" id="galleryModal" onclick="closeGalleryModal()">
+  <button class="gallery-modal-close" onclick="closeGalleryModal()" aria-label="Fermer">✕</button>
+  <div class="gallery-modal-inner" onclick="event.stopPropagation()" id="galleryModalInner">
+    <!-- filled by openGalleryModal -->
+  </div>
+</div>
+
 <!-- MINI LIGHTBOX détail événement -->
 <div id="ev-detail-lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;align-items:center;justify-content:center;" onclick="closeEvDetail()">
   <div id="ev-detail-panel" onclick="event.stopPropagation()" style="background:#181818;border:1px solid rgba(237,172,255,.15);max-width:540px;width:90vw;padding:40px;position:relative;max-height:88vh;overflow-y:auto;">
@@ -788,7 +861,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 'use strict';
 
@@ -905,6 +978,39 @@ if(track&&btnL&&btnR){
   function init(){setup();update();}
   if(document.readyState==='complete'){init();}else{window.addEventListener('load',init);}
 })();
+
+/* GALLERY MODAL */
+window.openGalleryModal=function(item){
+  var inner=item.querySelector('.gallery-item-inner');
+  var label=item.querySelector('.gallery-item-label');
+  var modal=document.getElementById('galleryModal');
+  var modalInner=document.getElementById('galleryModalInner');
+  if(!modal||!modalInner||!inner)return;
+  var clone=inner.cloneNode(true);
+  clone.style.cssText='width:min(480px,88vw);height:min(640px,80vh);display:flex;align-items:center;justify-content:center;';
+  var svgEl=clone.querySelector('svg');
+  if(svgEl){svgEl.removeAttribute('width');svgEl.removeAttribute('height');svgEl.style.cssText='width:100%;height:100%;';}
+  var imgEl=clone.querySelector('img');
+  if(imgEl){imgEl.style.cssText='max-width:100%;max-height:100%;object-fit:contain;display:block;';}
+  modalInner.innerHTML='';
+  modalInner.appendChild(clone);
+  var lbl=document.createElement('div');
+  lbl.className='gallery-modal-label';
+  lbl.textContent=label?label.textContent:'';
+  modalInner.appendChild(lbl);
+  modal.classList.add('open');
+  document.body.dataset.gmSy=window.scrollY;
+  document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+};
+window.closeGalleryModal=function(){
+  var modal=document.getElementById('galleryModal');
+  if(!modal)return;
+  modal.classList.remove('open');
+  var sy=parseInt(document.body.dataset.gmSy||0);
+  document.body.style.cssText='';
+  window.scrollTo(0,sy);
+};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGalleryModal();});
 
 })();
 </script>

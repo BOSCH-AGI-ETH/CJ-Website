@@ -66,25 +66,25 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 /* ─── CATEGORY DESCRIPTION BLOCK ─── */
 .cat-desc-block{
   display:block;
-  padding-bottom:48px;margin-bottom:60px;
-  border-bottom:1px solid rgba(237,172,255,.07);
+  padding-bottom:56px;margin-bottom:64px;
+  border-bottom:1px solid rgba(237,172,255,.08);
 }
 .cat-num{display:none;}
 .cat-info{}
-.cat-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
-.cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
+.cat-label{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;display:block;}
+.cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,58px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:20px;}
 .cat-title em{font-style:italic;color:var(--mauve);}
-.cat-desc{font-size:13px;color:rgba(255,251,219,.55);line-height:2;letter-spacing:.04em;max-width:580px;margin-bottom:20px;}
-.cat-meta{display:flex;gap:32px;flex-wrap:wrap;}
-.cat-meta-item{display:flex;flex-direction:column;gap:4px;}
-.cat-meta-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.7;}
-.cat-meta-val{font-size:11px;color:rgba(255,251,219,.65);letter-spacing:.06em;}
+.cat-desc{font-size:13px;color:rgba(255,251,219,.6);line-height:2.1;letter-spacing:.04em;max-width:620px;margin-bottom:28px;}
+.cat-meta{display:flex;gap:40px;flex-wrap:wrap;padding:24px 0 0;border-top:1px solid rgba(237,172,255,.06);}
+.cat-meta-item{display:flex;flex-direction:column;gap:6px;}
+.cat-meta-lbl{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);opacity:.8;}
+.cat-meta-val{font-size:12px;color:rgba(255,251,219,.75);letter-spacing:.06em;}
 
 /* ─── YEAR SECTION ─── */
-.year-section{margin-bottom:64px;}
-.year-header{display:flex;align-items:center;gap:20px;margin-bottom:28px;}
-.year-label{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--cream);letter-spacing:-.02em;}
-.year-line{flex:1;height:1px;background:rgba(237,172,255,.07);}
+.year-section{margin-bottom:72px;}
+.year-header{display:flex;align-items:center;gap:20px;margin-bottom:32px;}
+.year-label{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--cream);letter-spacing:-.02em;}
+.year-line{flex:1;height:1px;background:rgba(237,172,255,.08);}
 
 /* ─── FLYER GRID ─── */
 .flyer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
@@ -294,22 +294,22 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 #calendrier { }
 
 .cal-intro {
-  padding: 48px 48px 40px;
-  border-bottom: 1px solid rgba(237,172,255,.07);
+  padding: 52px 48px 44px;
+  border-bottom: 1px solid rgba(237,172,255,.08);
 }
 .cal-intro-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 3.5vw, 48px);
+  font-size: clamp(30px, 3.5vw, 52px);
   font-weight: 300; line-height: 1.05; letter-spacing: -.02em;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .cal-intro-title em { font-style: italic; color: var(--mauve); }
 .cal-intro-sub {
-  font-size: 12px; color: rgba(255,251,219,.4);
-  letter-spacing: .08em; line-height: 1.8;
+  font-size: 12px; color: rgba(255,251,219,.45);
+  letter-spacing: .1em; line-height: 1.9;
 }
 
-.cal-list { padding: 0 48px 80px; display: flex; flex-direction: column; gap: 2px; margin-top: 0; }
+.cal-list { padding: 0 48px 80px; display: flex; flex-direction: column; gap: 0; margin-top: 0; }
 
 /* Row */
 .cal-row {
@@ -317,58 +317,60 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   grid-template-columns: 140px 1fr auto;
   align-items: center;
   gap: 32px;
-  padding: 24px 0;
-  border-bottom: 1px solid rgba(237,172,255,.06);
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(237,172,255,.07);
   transition: background .2s;
 }
+.cal-row:hover { background: rgba(237,172,255,.02); }
 .cal-row--next {
-  background: linear-gradient(90deg, rgba(237,172,255,.04) 0%, transparent 100%);
-  border-bottom-color: rgba(237,172,255,.14);
-  padding: 28px 20px;
-  margin: 0 -20px;
+  background: linear-gradient(90deg, rgba(237,172,255,.05) 0%, transparent 100%);
+  border-bottom-color: rgba(237,172,255,.18);
+  border-top: 1px solid rgba(237,172,255,.1);
+  padding: 32px 24px;
+  margin: 0 -24px;
 }
 
 /* Date block */
-.cal-date-block { display: flex; flex-direction: column; gap: 3px; }
-.cal-date-day { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; line-height: 1; color: var(--cream); }
-.cal-row--next .cal-date-day { color: var(--mauve); font-size: 36px; }
-.cal-date-month { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,251,219,.4); }
+.cal-date-block { display: flex; flex-direction: column; gap: 4px; }
+.cal-date-day { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; line-height: 1; color: var(--cream); }
+.cal-row--next .cal-date-day { color: var(--mauve); font-size: 42px; }
+.cal-date-month { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,251,219,.45); margin-top: 2px; }
 .cal-date-year { font-size: 9px; letter-spacing: .2em; color: rgba(255,251,219,.25); }
 
 /* Info block */
-.cal-info { display: flex; flex-direction: column; gap: 6px; }
-.cal-info-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cal-info { display: flex; flex-direction: column; gap: 8px; }
+.cal-info-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 2px; }
 .cal-badge-next {
   font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
-  background: var(--mauve); color: var(--bg); padding: 3px 10px;
+  background: var(--mauve); color: var(--bg); padding: 4px 12px;
   font-family: 'Space Mono', monospace;
 }
 .cal-badge-cat {
   font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--orange); border: 1px solid rgba(253,47,0,.25); padding: 3px 9px;
+  color: var(--orange); border: 1px solid rgba(253,47,0,.3); padding: 4px 10px;
 }
 .cal-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; font-weight: 300; line-height: 1.1; color: var(--cream);
+  font-size: 24px; font-weight: 300; line-height: 1.1; color: var(--cream);
 }
-.cal-row--next .cal-name { font-size: 26px; }
+.cal-row--next .cal-name { font-size: 28px; }
 .cal-name em { font-style: italic; color: var(--mauve); }
-.cal-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-.cal-meta-item { font-size: 10px; color: rgba(255,251,219,.45); letter-spacing: .06em; }
-.cal-meta-item.loc { color: var(--mauve); opacity: .75; }
+.cal-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.cal-meta-item { font-size: 10px; color: rgba(255,251,219,.5); letter-spacing: .06em; }
+.cal-meta-item.loc { color: var(--mauve); opacity: .8; }
 
 /* CTA */
 .cal-cta-col { display: flex; justify-content: flex-end; }
 .cal-btn-billets {
   display: inline-block; background: var(--orange); color: var(--bg);
-  padding: 10px 22px; font-family: 'Space Mono', monospace;
+  padding: 11px 24px; font-family: 'Space Mono', monospace;
   font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
   text-decoration: none; white-space: nowrap;
   transition: transform .2s, box-shadow .2s;
   -webkit-tap-highlight-color: transparent; touch-action: manipulation;
 }
 .cal-btn-billets:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(253,47,0,.4); }
-.cal-row--next .cal-btn-billets { padding: 12px 28px; font-size: 11px; }
+.cal-row--next .cal-btn-billets { padding: 13px 30px; font-size: 11px; }
 
 /* Mobile calendrier */
 @media (max-width:768px) {
@@ -378,17 +380,14 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     grid-template-columns: 72px 1fr;
     grid-template-rows: auto auto;
     gap: 12px 16px;
-    padding: 20px 0;
+    padding: 22px 0;
   }
   .cal-cta-col { grid-column: 1 / -1; justify-content: flex-start; }
-  .cal-row--next { padding: 20px 16px; margin: 0 -16px; }
-  .cal-date-day { font-size: 26px; }
-  .cal-row--next .cal-date-day { font-size: 30px; }
-  .cal-name { font-size: 18px; }
-  .cal-row--next .cal-name { font-size: 21px; }
-}
-@media (max-width:768px) {
-  .cal-intro { padding: 32px 20px 28px; }
+  .cal-row--next { padding: 22px 16px; margin: 0 -16px; }
+  .cal-date-day { font-size: 28px; }
+  .cal-row--next .cal-date-day { font-size: 34px; }
+  .cal-name { font-size: 20px; }
+  .cal-row--next .cal-name { font-size: 23px; }
 }
 </style>
 </head>
@@ -439,7 +438,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 <!-- CATEGORY TABS -->
 <nav class="cat-nav" aria-label="Catégories d'événements">
   <button class="cat-tab active" onclick="showCat('calendrier',this)" id="tab-calendrier">Calendrier</button>
-  <button class="cat-tab" onclick="showCat('bain-public',this)" id="tab-bain-public">Bain Public × CJ</button>
+  <button class="cat-tab" onclick="showCat('bain-public',this)" id="tab-bain-public">Bain Public × Collectif Jardin</button>
   <button class="cat-tab" onclick="showCat('brise-lames',this)" id="tab-brise-lames">Saison Brise-Lames</button>
   <button class="cat-tab" onclick="showCat('hors-serie',this)" id="tab-hors-serie">Hors série</button>
   <button class="cat-tab" onclick="showCat('halloween',this)" id="tab-halloween">Halloween</button>
@@ -469,7 +468,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
       <div class="cal-info">
         <div class="cal-info-top">
           <span class="cal-badge-next">✦ Prochain</span>
-          <span class="cal-badge-cat">Bain Public × CJ</span>
+          <span class="cal-badge-cat">Bain Public × Collectif Jardin</span>
         </div>
         <div class="cal-name">Open Deck <em>Féminin + Queer</em></div>
         <div class="cal-meta">
@@ -635,11 +634,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <div class="cat-info">
       <div class="cat-label">Partenariat — Salle culturelle</div>
       <h2 class="cat-title">Bain Public<br><em>× Collectif Jardin</em></h2>
-      <p class="cat-desc">En collaboration avec la salle culturelle du Bain Public à Rimouski, notre série Open Deck ouvre la scène à tou·te·s les artistes locaux·les. Format inclusif et communautaire — chaque édition célèbre une identité différente : queer, féminin, mixte. La musique électronique comme espace de liberté, de découverte et d'appartenance.</p>
+      <p class="cat-desc">Le Collectif Jardin collabore avec le Bain Public de Rimouski pour créer des événements ouverts, inclusifs et sans barrières, où chacun·e peut être soi-même. Ce lieu, comme nous, valorise le respect, l’ouverture, la créativité et la qualité de l’expérience, en laissant place à toutes les formes d’art et à une culture musicale vivante.<br><br>On y propose deux types d’événements.<br>La première, ce sont des soirées complètes signées Collectif Jardin, avec des thèmes qui évoluent selon les envies et les saisons.<br>La deuxième, ce sont des aftershows, qui prolongent les performances des artistes invité·e·s au Bain Public dans une ambiance plus libre et rassembleuse.</p>
       <div class="cat-meta">
         <div class="cat-meta-item"><span class="cat-meta-lbl">Lieu</span><span class="cat-meta-val">Bain Public, Rimouski</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">21h → 3h</span></div>
-        <div class="cat-meta-item"><span class="cat-meta-lbl">Saison</span><span class="cat-meta-val">Automne · Hiver · Printemps</span></div>
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Saison</span><span class="cat-meta-val">Automne · Hiver · Printemps · Été</span></div>
       </div>
     </div>
   </div>
@@ -794,7 +793,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <div class="cat-info">
       <div class="cat-label">Série estivale — Plein air</div>
       <h2 class="cat-title">Saison<br><em>Brise-Lames</em></h2>
-      <p class="cat-desc">De juin à septembre, nous investissons le Brise-Lames de Rimouski pour une journée de musique électronique en plein air, face au Saint-Laurent. Chaque édition mensuelle est un chapitre de l'été — du solstice à la récolte. Quatre événements, quatre atmosphères, une seule communauté qui grandit saison après saison.</p>
+      <p class="cat-desc">De juin à septembre, nous investissons le Brise-Lames de Rimouski pour une journée de musique électronique en plein air, face au Saint-Laurent. Chaque édition mensuelle est un chapitre de l'été — du solstice jusqu'à l'équinoxe. Quatre événements, quatre atmosphères, une seule communauté qui grandit saison après saison.</p>
       <div class="cat-meta">
         <div class="cat-meta-item"><span class="cat-meta-lbl">Lieu</span><span class="cat-meta-val">Brise-Lames, Rimouski</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">15h → 23h — Plein air</span></div>
@@ -922,9 +921,9 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <div class="cat-info">
       <div class="cat-label">Classique annuel — 31 octobre</div>
       <h2 class="cat-title">Soirée<br><em>Halloween</em></h2>
-      <p class="cat-desc">Chaque 31 octobre, le Collectif Jardin transforme un lieu de Rimouski en terrain de jeu pour la nuit la plus sombre de l'année. Costumes exigés. Musique sombre, hypnotique, organique. Scénographie immersive pensée pour l'occasion. Notre événement le plus mystérieux et le plus attendu — une tradition qui s'affirme et évolue à chaque édition.</p>
+      <p class="cat-desc">Chaque année, le Collectif Jardin présente son événement Halloween à Rimouski. Costumes encouragés. Une nuit de musique électronique sombre et immersive, entre house, techno mélodique et vibes underground.<br>Scénographie soignée et ambiance inspirée des grands classiques de l’Halloween, avec des thématiques qui évoluent à chaque édition et influencent les décors comme les costumes. Une expérience unique à vivre chaque année.</p>
       <div class="cat-meta">
-        <div class="cat-meta-item"><span class="cat-meta-lbl">Date</span><span class="cat-meta-val">31 octobre — Chaque année</span></div>
+        <div class="cat-meta-item"><span class="cat-meta-lbl">Date</span><span class="cat-meta-val">Fin Octobre — Chaque année</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Format</span><span class="cat-meta-val">21h → 3h</span></div>
         <div class="cat-meta-item"><span class="cat-meta-lbl">Lieu</span><span class="cat-meta-val">Rimouski (variable)</span></div>
       </div>
