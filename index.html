@@ -120,8 +120,8 @@ section { padding:120px 48px;position:relative; }
 .ev-row--first .ev-dot-inner { width: 14px; height: 14px; background: var(--mauve); box-shadow: 0 0 14px rgba(237,172,255,.5), 0 0 0 1px var(--mauve); }
 
 /* Carte */
-.ev-card-new { background: #1a1a1a; border: 1px solid rgba(237,172,255,.08); padding: 28px 32px; transition: border-color .3s; cursor: pointer; position: relative; overflow: hidden; }
-.ev-card-new:hover { border-color: rgba(237,172,255,.22); }
+.ev-card-new { background: #1a1a1a; border: 1px solid rgba(237,172,255,.08); padding: 28px 32px; transition: border-color .3s, background .3s; cursor: pointer; position: relative; overflow: hidden; }
+.ev-card-new:hover { border-color: rgba(237,172,255,.22); background: linear-gradient(135deg, #1e1220, #1a1010, #1a1a1a); }
 
 /* Premier événement */
 .ev-row--first .ev-card-new { background: linear-gradient(135deg, #1e1220, #1a1010, #1a1a1a); border-color: rgba(237,172,255,.2); padding: 36px 40px; }
@@ -159,8 +159,14 @@ section { padding:120px 48px;position:relative; }
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4,1fr);
-  margin: 80px 48px 18px;
+  margin: 80px 48px 0;
   border: 1px solid rgba(237,172,255,.1);
+}
+/* Dark transition zone below stats, before About */
+.stats-transition {
+  margin: 0 48px;
+  height: 80px;
+  background: var(--bg);
 }
 .stat-box {
   padding: 48px 28px;
@@ -268,9 +274,9 @@ section { padding:120px 48px;position:relative; }
 .merch-card { border:1px solid rgba(237,172,255,.08);overflow:hidden;transition:border-color .3s; }
 .merch-card:hover { border-color:rgba(237,172,255,.3); }
 .merch-img { aspect-ratio:1;position:relative;overflow:hidden; }
-.mc1{background:linear-gradient(135deg,#141414,#38050e,#1a0d38)}
-.mc2{background:linear-gradient(135deg,#0a1408,#141414,#2d1a00)}
-.mc3{background:linear-gradient(135deg,#1a0d38,#0e0a1e,#38050e)}
+.mc1{background:var(--bg)}
+.mc2{background:var(--bg)}
+.mc3{background:var(--bg)}
 .merch-img-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s; }
 .merch-card:hover .merch-img-inner { transform:scale(1.04); }
 .merch-info { padding:20px 24px;border-top:1px solid rgba(237,172,255,.08); }
@@ -289,15 +295,9 @@ section { padding:120px 48px;position:relative; }
   font-size: clamp(18px, 2vw, 24px);
   font-weight: 300;
   line-height: 1.6;
-  color: rgba(255,251,219,.75);
+  color: var(--cream);
   letter-spacing: .02em;
-  margin-bottom: 14px;
-}
-.merch-notice-sub {
-  font-size: 11px;
-  letter-spacing: .15em;
-  color: rgba(255,251,219,.35);
-  line-height: 1.8;
+  margin-bottom: 0;
 }
 
 /* PARTNERS */
@@ -392,6 +392,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .events-timeline { margin:0 32px; }
   .events-view-all-wrap { margin:28px 32px 0; }
   .stats-row { margin:60px 32px 0; }
+  .stats-transition { margin:0 32px; height:60px; }
   .gallery-strip-header { padding:0 32px 36px; }
   #about { padding:100px 32px; }
   .about-grid { gap:48px; }
@@ -455,7 +456,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .ev-meta-row { gap:16px; }
   .events-view-all-wrap { margin:24px 20px 0; }
 
-  .stats-row { grid-template-columns:repeat(2,1fr);margin:40px 20px 18px; }
+  .stats-row { grid-template-columns:repeat(2,1fr);margin:40px 20px 0; }
+  .stats-transition { margin:0 20px; height:48px; }
   .stat-box { padding:22px 16px; }
   .stat-num { font-size:36px; }
   .gallery-strip { padding:28px 0 44px; }
@@ -731,6 +733,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Années d'existence</div></div>
   <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
 </div>
+<div class="stats-transition"></div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -788,8 +791,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div class="merch-card reveal reveal-delay-2"><div class="merch-img mc3"><div class="merch-img-inner"><svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="40" stroke="#edacff" stroke-width=".8" fill="none" opacity=".5"/><circle cx="60" cy="60" r="25" stroke="#edacff" stroke-width=".4" fill="none" opacity=".3"/><circle cx="60" cy="60" r="4" fill="#edacff" opacity=".4"/></svg></div></div><div class="merch-info"><div class="merch-name">Affiche Sérigraphiée</div><div class="merch-price">45 CAD <span class="merch-tag">Édition limitée</span></div></div></div>
   </div>
   <div class="merch-notice reveal">
-    <p class="merch-notice-text">Nos articles sont disponibles en quantité limitée lors de nos événements.<br>Viens nous rencontrer sur place pour les découvrir.</p>
-    <p class="merch-notice-sub">Prochaines disponibilités annoncées sur nos réseaux — suivez-nous pour ne rien manquer.</p>
+    <p class="merch-notice-text">Nos articles sont disponibles en quantité limitée lors de nos événements et nos rencontres sur place pour les découvrir.</p>
   </div>
 </section>
 
