@@ -722,7 +722,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 </section>
 
 <!-- STATS -->
-<div class="stats-row reveal" style="margin:0 48px;">
+<div class="stats-row" style="margin:0 48px;">
   <div class="stat-box"><div class="stat-num">+50</div><div class="stat-label">Événements organisés</div></div>
   <div class="stat-box"><div class="stat-num">+5k</div><div class="stat-label">Participants</div></div>
   <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Années d'expérience</div></div>
@@ -1015,10 +1015,38 @@ if(track&&btnL&&btnR){
   function isMobile(){return mq.matches;}
   function cardW(){return window.innerWidth-40;}
   function totalTravel(){return(cardW()+GAP)*(CARDS-1);}
-  function setup(){if(isMobile()){wrap.style.height=(window.innerHeight+totalTravel())+'px';}else{wrap.style.height='';track.style.transform='';}}
+
+  var wrapTop=0; // absolute page offset — measured once in setup, stable
+  function getWrapTop(){
+    var el=wrap,t=0;
+    while(el){t+=el.offsetTop;el=el.offsetParent;}
+    return t;
+  }
+
+  function setup(){
+    if(isMobile()){
+      wrap.style.height=(window.innerHeight+totalTravel())+'px';
+      wrapTop=getWrapTop(); // measure after height is set
+    }else{
+      wrap.style.height='';
+      track.style.transform='';
+    }
+  }
+
   var raf=false;
-  function update(){raf=false;if(!isMobile())return;var wrapTop=wrap.getBoundingClientRect().top;var progress=-wrapTop;if(progress<0)progress=0;if(progress>totalTravel())progress=totalTravel();track.style.transform='translateX(-'+progress.toFixed(1)+'px)';}
-  window.addEventListener('scroll',function(){if(!raf){raf=true;requestAnimationFrame(update);}},{passive:true});
+  function update(){
+    raf=false;
+    if(!isMobile())return;
+    var progress=window.scrollY-wrapTop;
+    if(progress<0)progress=0;
+    if(progress>totalTravel())progress=totalTravel();
+    track.style.transform='translateX(-'+progress.toFixed(1)+'px)';
+  }
+
+  window.addEventListener('scroll',function(){
+    if(!raf){raf=true;requestAnimationFrame(update);}
+  },{passive:true});
+
   var rt;function onResize(){clearTimeout(rt);rt=setTimeout(function(){setup();update();},100);}
   window.addEventListener('resize',onResize);mq.addEventListener('change',onResize);
   function init(){setup();update();}
