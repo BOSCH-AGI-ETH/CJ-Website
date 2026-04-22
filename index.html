@@ -295,26 +295,26 @@ section { padding:120px 48px;position:relative; }
 
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:clip; }
+/* Two-column grid on desktop: newsletter left, contact form right */
 .contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:64px; }
 .contact-intro { font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.5;color:rgba(255,251,219,.75);margin-bottom:40px; }
 .contact-intro em { font-style:italic;color:var(--mauve); }
-.contact-links { display:flex;flex-direction:column; }
-.contact-link-item { display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(237,172,255,.08);text-decoration:none;color:var(--cream);transition:gap .3s,color .3s;-webkit-tap-highlight-color:transparent; }
-.contact-link-item:hover { gap:24px;color:var(--mauve); }
-.contact-link-label { font-size:9px;letter-spacing:.3em;text-transform:uppercase;min-width:120px; }
-.contact-link-email { font-size:11px;color:rgba(255,251,219,.5); }
-.contact-link-arrow { margin-left:auto;color:var(--orange);font-size:16px; }
-.contact-form { display:flex;flex-direction:column;gap:24px; }
+.contact-form { display:flex;flex-direction:column;gap:20px; }
 .form-group { display:flex;flex-direction:column;gap:8px; }
 .form-label { font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,251,219,.35); }
-.form-input,.form-textarea,.form-select { background:transparent;border:none;border-bottom:1px solid rgba(237,172,255,.15);padding:10px 0;font-family:'Space Mono',monospace;font-size:12px;color:var(--cream);letter-spacing:.05em;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;width:100%;border-radius:0; }
-.form-select { background:transparent;cursor:pointer; }
-.form-select option { background:#1a1a1a; }
-.form-input:focus,.form-textarea:focus,.form-select:focus { border-bottom-color:var(--mauve); }
+.form-input,.form-textarea { background:transparent;border:none;border-bottom:1px solid rgba(237,172,255,.15);padding:10px 0;font-family:'Space Mono',monospace;font-size:12px;color:var(--cream);letter-spacing:.05em;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none;width:100%;border-radius:0; }
+.form-input:focus,.form-textarea:focus { border-bottom-color:var(--mauve); }
 .form-textarea { resize:none;height:100px; }
-.form-submit { border:none;background:var(--orange);color:var(--bg);padding:16px 40px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:transform .3s,box-shadow .3s;align-self:flex-start;border-radius:0;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent; }
-.form-submit:hover { transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.3); }
-.newsletter-box { margin-top:48px;padding:28px;border:1px solid rgba(237,172,255,.1); }
+/* Submit button with loading state */
+.form-submit { border:none;background:var(--orange);color:var(--bg);padding:16px 40px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:transform .3s,box-shadow .3s,opacity .2s;align-self:flex-start;border-radius:0;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent; }
+.form-submit:hover:not(:disabled) { transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,47,0,.3); }
+.form-submit:disabled { opacity:.5;cursor:not-allowed; }
+/* Inline feedback messages */
+.form-feedback { font-size:10px;letter-spacing:.08em;min-height:1.2em;margin-top:-8px; }
+.form-feedback.success { color:#6ecf8a; }
+.form-feedback.error   { color:#e07070; }
+/* Newsletter box — left column on desktop */
+.newsletter-box { padding:28px;border:1px solid rgba(237,172,255,.1); }
 .newsletter-row { display:flex;gap:0;margin-top:16px; }
 .newsletter-row .form-input { border-right:none;flex:1; }
 .newsletter-row .form-submit { margin:0;padding:10px 24px;align-self:auto; }
@@ -475,10 +475,12 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .partner-logo { padding:18px 10px;gap:10px; }
   .partner-logo-name { font-size:11px;letter-spacing:.12em; }
   #contact { padding:72px 20px; }
-  .contact-grid { grid-template-columns:1fr;gap:48px;margin-top:36px; }
+  /* Single column on mobile */
+  .contact-grid { grid-template-columns:1fr;gap:40px;margin-top:36px; }
   .contact-intro { font-size:20px; }
-  .contact-link-label { min-width:80px;font-size:8px; }
-  .contact-link-email { font-size:10px; }
+  /* Newsletter moves ABOVE contact form on mobile only */
+  .contact-grid .newsletter-col { order:-1; }
+  .contact-grid .contactform-col { order:1; }
   .newsletter-row { flex-direction:column;gap:10px; }
   .newsletter-row .form-input { border-right:1px solid rgba(237,172,255,.15); }
   .newsletter-row .form-submit { align-self:flex-start; }
@@ -824,30 +826,56 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   <div class="section-label reveal">Nous rejoindre</div>
   <h2 class="section-title reveal">Plantez une <em>graine</em><br>avec nous</h2>
   <div class="contact-grid">
-    <div>
+
+    <!-- LEFT COL: intro text + newsletter (moves to top on mobile) -->
+    <div class="newsletter-col">
       <p class="contact-intro reveal">Vous avez un projet, une idée, une <em>vision</em> qui s'aligne avec la nôtre ?</p>
-      <div class="contact-links reveal">
-        <a href="/cdn-cgi/l/email-protection#ddbeb2b1b1b8bea9b4bbb7bcafb9b4b39dbab0bcb4b1f3beb2b0" class="contact-link-item"><span class="contact-link-label">Email général</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="b1d2deddddd4d2c5d8d7dbd0c3d5d8dff1d6dcd0d8dd9fd2dedc">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
-        <a href="#" class="contact-link-item"><span class="contact-link-label">Instagram</span><span class="contact-link-email">@collectifjardin</span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#563a3925221635393a3a3335223f303c3724323f38783537" class="contact-link-item"><span class="contact-link-label">Objets perdus</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="7b1714080f3b181417171e180f121d111a091f121555181a">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
-        <a href="/cdn-cgi/l/email-protection#c8aaa7a7a3a1a6af88aba7a4a4adabbca1aea2a9baaca1a6e6aba9" class="contact-link-item"><span class="contact-link-label">Presse & bookings</span><span class="contact-link-email"><span class="__cf_email__" data-cfemail="274548484c4e49406744484b4b4244534e414d4655434e49094446">[email&#160;protected]</span></span><span class="contact-link-arrow">→</span></a>
-      </div>
+
+      <!-- Newsletter box -->
       <div class="newsletter-box reveal">
         <div class="section-label" style="margin-bottom:8px;">Infolettre</div>
         <p style="font-size:11px;color:rgba(255,251,219,.4);line-height:1.8;">Soyez les premiers informés des prochaines dates.</p>
-        <div class="newsletter-row"><input type="email" class="form-input" placeholder="votre@email.ca"><button class="form-submit">→</button></div>
+        <div class="newsletter-row" style="margin-top:16px;">
+          <input type="email" id="newsletterEmail" class="form-input" placeholder="votre@email.ca" autocomplete="email" aria-label="Adresse courriel">
+          <button class="form-submit" id="newsletterBtn" onclick="submitNewsletter()" type="button">
+            <span class="btn-text">S'inscrire</span><span class="btn-loading" hidden>…</span>
+          </button>
+        </div>
+        <div id="newsletterFeedback" class="form-feedback" role="alert" aria-live="polite"></div>
       </div>
     </div>
-    <div class="reveal">
-      <div class="section-label" style="margin-bottom:24px;">Proposer un projet</div>
+
+    <!-- RIGHT COL: unified contact form -->
+    <div class="contactform-col reveal">
+      <div class="section-label" style="margin-bottom:24px;">Nous contacter</div>
       <div class="contact-form">
-        <div class="form-group"><label class="form-label">Votre nom</label><input type="text" class="form-input" placeholder="Prénom Nom"></div>
-        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="votre@email.ca"></div>
-        <div class="form-group"><label class="form-label">Type de projet</label><select class="form-select"><option value="">Sélectionner...</option><option>Proposition artistique</option><option>Partenariat</option><option>Participation bénévole</option><option>Collaboration visuelle</option><option>Autre</option></select></div>
-        <div class="form-group"><label class="form-label">Votre message</label><textarea class="form-textarea" placeholder="Décrivez votre projet, votre vision..."></textarea></div>
-        <button class="form-submit">Envoyer →</button>
+        <!-- Name — optional -->
+        <div class="form-group">
+          <label class="form-label" for="contactName">Nom <span style="opacity:.5;text-transform:none;font-size:.9em;">(facultatif)</span></label>
+          <input type="text" id="contactName" class="form-input" placeholder="Prénom Nom" autocomplete="name">
+        </div>
+        <!-- Email — required -->
+        <div class="form-group">
+          <label class="form-label" for="contactEmail">Courriel <span style="color:var(--orange)">*</span></label>
+          <input type="email" id="contactEmail" class="form-input" placeholder="votre@email.ca" autocomplete="email" required>
+        </div>
+        <!-- Subject — optional -->
+        <div class="form-group">
+          <label class="form-label" for="contactSubject">Sujet <span style="opacity:.5;text-transform:none;font-size:.9em;">(facultatif)</span></label>
+          <input type="text" id="contactSubject" class="form-input" placeholder="Sujet de votre message">
+        </div>
+        <!-- Message — required -->
+        <div class="form-group">
+          <label class="form-label" for="contactMessage">Message <span style="color:var(--orange)">*</span></label>
+          <textarea id="contactMessage" class="form-textarea" placeholder="Décrivez votre projet, votre vision…" required></textarea>
+        </div>
+        <button class="form-submit" id="contactBtn" onclick="submitContact()" type="button">
+          <span class="btn-text">Envoyer →</span><span class="btn-loading" hidden>…</span>
+        </button>
+        <div id="contactFeedback" class="form-feedback" role="alert" aria-live="polite"></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1154,6 +1182,45 @@ if(track&&btnL&&btnR){
     else if(e.key==='ArrowRight')galleryModalStep(1);
     else if(e.key==='Escape')closeGalleryModal();
   });
+
+  /* ── CONTACT + NEWSLETTER ─────────────────────────────────── */
+  function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((e||'').trim());}
+  function showFb(id,msg,type){var el=document.getElementById(id);if(!el)return;el.textContent=msg;el.className='form-feedback '+(type||'');}
+  function setLoading(btnId,loading){var btn=document.getElementById(btnId);if(!btn)return;var txt=btn.querySelector('.btn-text');var spin=btn.querySelector('.btn-loading');btn.disabled=loading;if(txt)txt.hidden=loading;if(spin)spin.hidden=!loading;}
+
+  window.submitContact=function(){
+    var email=((document.getElementById('contactEmail')||{}).value||'').trim();
+    var message=((document.getElementById('contactMessage')||{}).value||'').trim();
+    var name=((document.getElementById('contactName')||{}).value||'').trim();
+    var subject=((document.getElementById('contactSubject')||{}).value||'').trim();
+    if(!isValidEmail(email)){showFb('contactFeedback','Veuillez entrer un courriel valide.','error');return;}
+    if(!message){showFb('contactFeedback','Le message ne peut pas être vide.','error');return;}
+    setLoading('contactBtn',true);showFb('contactFeedback','','');
+    fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,subject:subject,message:message})})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,data:d};});})
+      .then(function(res){
+        if(res.ok){showFb('contactFeedback','✓ Message envoyé ! Nous vous répondrons bientôt.','success');['contactName','contactEmail','contactSubject','contactMessage'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});}
+        else{showFb('contactFeedback',res.data.error||'Une erreur est survenue. Réessayez.','error');}
+      }).catch(function(){showFb('contactFeedback','Impossible d\'envoyer. Vérifiez votre connexion.','error');})
+      .finally(function(){setLoading('contactBtn',false);});
+  };
+
+  window.submitNewsletter=function(){
+    var email=((document.getElementById('newsletterEmail')||{}).value||'').trim();
+    if(!isValidEmail(email)){showFb('newsletterFeedback','Veuillez entrer un courriel valide.','error');return;}
+    setLoading('newsletterBtn',true);showFb('newsletterFeedback','','');
+    fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,data:d};});})
+      .then(function(res){
+        if(res.ok){showFb('newsletterFeedback','✓ Vous êtes inscrit·e à l\'infolettre !','success');var el=document.getElementById('newsletterEmail');if(el)el.value='';}
+        else{showFb('newsletterFeedback',res.data.error||'Une erreur est survenue.','error');}
+      }).catch(function(){showFb('newsletterFeedback','Impossible de s\'inscrire. Vérifiez votre connexion.','error');})
+      .finally(function(){setLoading('newsletterBtn',false);});
+  };
+
+  var nlInput=document.getElementById('newsletterEmail');
+  if(nlInput)nlInput.addEventListener('keydown',function(e){if(e.key==='Enter')submitNewsletter();});
+  /* ── END CONTACT + NEWSLETTER ─────────────────────────────── */
 
   // Swipe in modal (mobile)
   (function(){
