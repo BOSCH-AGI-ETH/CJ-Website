@@ -274,135 +274,86 @@ section { padding:120px 48px;position:relative; }
 .ta4{background:linear-gradient(135deg,#2d1a00,rgba(253,47,0,.2))}
 .team-name { font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;margin-bottom:2px;line-height:1.2; }
 .team-role { font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--mauve);opacity:.7; }
-/* ── NARRATIVE TIMELINE ──────────────────────────────────────
-   Full-width phase-based history block, lives inside #about.
-   Replaces the old compact .timeline / .timeline-item system.
+/* ── TIMELINE ACCORDÉON ──────────────────────────────────────
+   Compact par défaut : étiquette + titre seulement.
+   Sous-titre + description révélés au clic.
    ─────────────────────────────────────────────────────────── */
-.cj-timeline {
-  position: relative;
-  margin-top: 56px;
-  padding-left: 0;
-}
+.cj-timeline { position:relative; margin-top:36px; }
 
-/* Vertical spine */
+/* Spine verticale */
 .cj-timeline::before {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 12px;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(
-    to bottom,
-    var(--orange) 0%,
-    rgba(237,172,255,.35) 45%,
-    rgba(237,172,255,.08) 100%
-  );
+  content:''; position:absolute;
+  left:3px; top:14px; bottom:14px; width:1px;
+  background:linear-gradient(to bottom,var(--orange),rgba(237,172,255,.15),transparent);
+  pointer-events:none;
 }
 
-/* ── Phase block ── */
+/* Bloc phase */
 .cj-phase {
-  position: relative;
-  padding-left: 36px;
-  padding-bottom: 44px;
+  position:relative;
+  padding-left:28px;
+  border-bottom:1px solid rgba(237,172,255,.05);
 }
-.cj-phase:last-child { padding-bottom: 0; }
+.cj-phase:last-child { border-bottom:none; }
 
-/* Dot on the spine */
+/* Dot */
 .cj-phase::before {
-  content: '';
-  position: absolute;
-  left: -1px;
-  top: 10px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1.5px solid var(--orange);
-  transition: background .3s, border-color .3s;
+  content:''; position:absolute;
+  left:-1px; top:16px;
+  width:8px; height:8px; border-radius:50%;
+  background:var(--bg); border:1.5px solid var(--orange);
+  transition:background .2s; z-index:1;
 }
-.cj-phase:hover::before {
-  background: var(--orange);
-}
+.cj-phase.open::before { background:var(--orange); }
 
-/* Phase header row */
-.cj-phase-header {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+/* Trigger — toujours visible */
+.cj-phase-trigger {
+  display:flex; align-items:baseline; gap:14px;
+  width:100%; background:none; border:none;
+  padding:11px 0; cursor:pointer; text-align:left;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
 }
-
 .cj-phase-period {
-  font-size: 9px;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: var(--orange);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-size:8px; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--orange); white-space:nowrap; flex-shrink:0; min-width:96px;
 }
-
 .cj-phase-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--cream);
-  letter-spacing: .01em;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px; font-weight:300; line-height:1.2;
+  color:rgba(255,251,219,.5); letter-spacing:.01em;
+  transition:color .2s; flex:1;
 }
-.cj-phase-title em {
-  font-style: italic;
-  color: var(--mauve);
-}
+.cj-phase-title em { font-style:italic; color:rgba(237,172,255,.55); transition:color .2s; }
+.cj-phase.open .cj-phase-title,
+.cj-phase-trigger:hover .cj-phase-title { color:var(--cream); }
+.cj-phase.open .cj-phase-title em,
+.cj-phase-trigger:hover .cj-phase-title em { color:var(--mauve); }
 
-/* Subtitle — one-line descriptor */
-.cj-phase-sub {
-  font-size: 9px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(237,172,255,.45);
-  margin-bottom: 12px;
+/* + indicateur */
+.cj-phase-icon {
+  font-size:14px; line-height:1; color:rgba(237,172,255,.2);
+  flex-shrink:0; transition:transform .28s, color .2s;
+  font-style:normal; margin-left:auto; padding-left:8px;
 }
+.cj-phase.open .cj-phase-icon { transform:rotate(45deg); color:var(--mauve); }
 
-/* Body text */
+/* Corps — caché par défaut */
 .cj-phase-body {
-  font-size: 11.5px;
-  color: rgba(255,251,219,.48);
-  line-height: 1.9;
-  max-width: 520px;
+  max-height:0; overflow:hidden;
+  transition:max-height .35s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+  opacity:0;
 }
-.cj-phase-body strong {
-  color: rgba(255,251,219,.72);
-  font-weight: 400;
-}
+.cj-phase.open .cj-phase-body { max-height:240px; opacity:1; }
 
-/* Future link — subtle arrow, no nav yet */
-.cj-phase-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  font-size: 9px;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: rgba(237,172,255,.3);
-  text-decoration: none;
-  transition: color .25s, gap .25s;
-  pointer-events: none; /* enable once pages exist */
+.cj-phase-body-inner { padding:0 0 14px; }
+.cj-phase-sub {
+  font-size:8px; letter-spacing:.28em; text-transform:uppercase;
+  color:rgba(237,172,255,.35); margin-bottom:7px;
 }
-.cj-phase-link::after { content: '→'; }
-.cj-phase-link.active-link {
-  pointer-events: auto;
-  color: rgba(237,172,255,.55);
+.cj-phase-desc {
+  font-size:11px; color:rgba(255,251,219,.42); line-height:1.85; max-width:480px;
 }
-.cj-phase-link.active-link:hover {
-  color: var(--mauve);
-  gap: 12px;
-}
-
-/* Keep old .timeline class mapped to new so nothing else breaks */
-.timeline { display: none; }
+.cj-phase-desc strong { color:rgba(255,251,219,.65); font-weight:400; }
 
 
 /* PARTNERS */
@@ -856,95 +807,102 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <p class="reveal reveal-delay-2">Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales.</p>
       <div class="cj-timeline reveal reveal-delay-3">
 
-        <!-- ① PHASE — Printemps 2023 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">Printemps 2023</span>
             <span class="cj-phase-title">Lancement <em>public</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Naissance officielle du collectif</div>
+              <p class="cj-phase-desc">Collectif Jardin prend racine à Rimouski avec une conviction simple : <strong>contribuer bénévolement à la culture</strong>, loin des formules commerciales. Les premières soirées réunissent une communauté naissante autour de la musique électronique, de l'inclusivité et du partage.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Naissance officielle du collectif</div>
-          <p class="cj-phase-body">
-            Collectif Jardin prend racine à Rimouski avec une conviction claire : <strong>créer des espaces sonores ancrés dans le milieu local</strong>, loin des formules commerciales. Les premières soirées réunissent une communauté naissante autour de la musique électronique, de l'inclusivité et du partage. Le ton est posé — intime, sérieux, bienveillant.
-          </p>
-          <a href="evenements.html" class="cj-phase-link">Voir les événements</a>
         </div>
 
-        <!-- ② PHASE — Été 2023 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">Été 2023</span>
             <span class="cj-phase-title">Activation <em>du territoire</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Les premiers rassemblements en plein air</div>
+              <p class="cj-phase-desc"><strong>Le fleuve devient décor et complice</strong> — les premières éditions de Brise-Lames s'installent face au Saint-Laurent. Des afters intimes prolongent les nuits dans des lieux partenaires. La communauté grossit, portée par le bouche-à-oreille.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Les premiers rassemblements en plein air</div>
-          <p class="cj-phase-body">
-            Le collectif sort des quatre murs. <strong>Le fleuve devient décor et complice</strong> — les premières éditions de Brise-Lames s'installent face au Saint-Laurent, transformant des espaces naturels en scènes éphémères. En parallèle, des afters intimes prolongent les nuits dans des lieux partenaires de la ville. La communauté grossit, portée par le bouche-à-oreille.
-          </p>
-          <a href="evenements.html" class="cj-phase-link">Voir les événements</a>
         </div>
 
-        <!-- ③ PHASE — Automne 2023 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">Automne 2023</span>
             <span class="cj-phase-title">Structure <em>&amp; identité</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Le collectif se consolide</div>
+              <p class="cj-phase-desc">L'identité visuelle s'affine, les rôles se définissent. Premières collaborations formelles avec le <strong>Bain Public</strong> — la série Open Deck, scène ouverte pensée pour les artistes locaux en développement.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Le collectif se consolide</div>
-          <p class="cj-phase-body">
-            La saison chaude terminée, le travail de fond commence. <strong>L'identité visuelle s'affine, les rôles se définissent</strong>, et les premières collaborations formelles voient le jour — notamment avec le <strong>Bain Public</strong> pour la série Open Deck, format de scène ouverte pensé pour les artistes locaux en développement. Chaque soirée devient une répétition générale vers quelque chose de plus grand.
-          </p>
-          <a href="projets.html" class="cj-phase-link">Voir les projets</a>
         </div>
 
-        <!-- ④ PHASE — 2024 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">2024</span>
             <span class="cj-phase-title">Consolidation <em>&amp; partenariats</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Les alliances culturelles se nouent</div>
+              <p class="cj-phase-desc">Liens avec <strong>Distillerie du St-Laurent, Brasserie Octant, Quoi Vivre Rimouski</strong> et <strong>Alimentation Coop Rimouski</strong>. Halloween s'installe comme rendez-vous annuel. Soirées immersives, nuits à thème et événements extérieurs coexistent.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Les alliances culturelles se nouent</div>
-          <p class="cj-phase-body">
-            L'année charnière. Collectif Jardin tisse des liens durables avec des acteurs culturels et commerciaux rimouskois : <strong>Distillerie du St-Laurent, Brasserie Octant, Quoi Vivre Rimouski</strong> et <strong>Alimentation Coop Rimouski</strong> rejoignent l'écosystème. Halloween s'installe comme rendez-vous annuel incontournable. Les formats se diversifient — soirées immersives, nuits à thème, événements en salle et dehors coexistent dans une même programmation cohérente.
-          </p>
-          <a href="projets.html" class="cj-phase-link">Voir les projets</a>
         </div>
 
-        <!-- ⑤ PHASE — 2024–2025 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">2024 — 2025</span>
             <span class="cj-phase-title">Expansion <em>artistique</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Nouveaux formats, nouveaux espaces</div>
+              <p class="cj-phase-desc">Brise-Lames atteint sa quatrième édition. La <strong>Pointe à Pouliot</strong> et le <strong>Théâtre du Bic</strong> ouvrent leurs espaces à des collaborations inédites — musique électronique, nature et patrimoine régional entremêlés.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Nouveaux formats, nouveaux espaces</div>
-          <p class="cj-phase-body">
-            Brise-Lames atteint sa quatrième édition et confirme son statut de signature estivale du collectif. La <strong>Pointe à Pouliot</strong> et le <strong>Théâtre du Bic</strong> ouvrent leurs espaces à des collaborations inédites — mêlant musique électronique, nature et patrimoine régional. Le collectif expérimente de nouveaux formats immersifs où le lieu n'est plus simplement une salle, mais une dramaturgie à part entière.
-          </p>
-          <a href="evenements.html" class="cj-phase-link">Voir les événements</a>
         </div>
 
-        <!-- ⑥ PHASE — 2025 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">2025</span>
             <span class="cj-phase-title">Impact <em>culturel</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">Le collectif rayonne au-delà de Rimouski</div>
+              <p class="cj-phase-desc">Les démarches de structuration en <strong>OBNL</strong> avancent. Artistes extérieurs, projets interdisciplinaires, présence croissante dans les conversations culturelles régionales.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">Le collectif rayonne au-delà de Rimouski</div>
-          <p class="cj-phase-body">
-            Les démarches de structuration en <strong>OBNL</strong> avancent, ancrant le projet dans une vision à long terme. Les collaborations dépassent le cadre local — artistes extérieurs, projets interdisciplinaires, et une présence croissante dans les conversations culturelles régionales. Chaque événement porte désormais une intention double : célébrer le moment et construire quelque chose qui dure.
-          </p>
-          <a href="projets.html" class="cj-phase-link">Voir les projets</a>
         </div>
 
-        <!-- ⑦ PHASE — 2026 -->
         <div class="cj-phase">
-          <div class="cj-phase-header">
+          <button class="cj-phase-trigger" onclick="cjTl(this)" aria-expanded="false">
             <span class="cj-phase-period">2026</span>
             <span class="cj-phase-title">Expansion <em>numérique</em></span>
+            <span class="cj-phase-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="cj-phase-body">
+            <div class="cj-phase-body-inner">
+              <div class="cj-phase-sub">La communauté prend racine en ligne</div>
+              <p class="cj-phase-desc">Lancement du sociofinancement pour un <strong>système de son maison</strong>. Archives, canaux communautaires et ce site deviennent des prolongements naturels de l'expérience physique.</p>
+            </div>
           </div>
-          <div class="cj-phase-sub">La communauté prend racine en ligne</div>
-          <p class="cj-phase-body">
-            Lancement du sociofinancement pour un <strong>système de son maison</strong> — étape symbolique vers l'autonomie technique du collectif. La présence numérique se structure : ce site, les archives, et les canaux communautaires deviennent des prolongements naturels de l'expérience physique. La communauté ne se rassemble plus seulement le soir d'un événement — elle existe entre les soirées.
-          </p>
-          <a href="evenements.html" class="cj-phase-link active-link">Voir les événements</a>
         </div>
 
       </div><!-- /.cj-timeline -->
@@ -1386,6 +1344,20 @@ if(track&&btnL&&btnR){
     },{passive:true});
   })();
 })();
+
+/* ── Timeline accordéon ── */
+function cjTl(btn) {
+  var phase = btn.closest('.cj-phase');
+  var isOpen = phase.classList.contains('open');
+  document.querySelectorAll('.cj-phase.open').forEach(function(el) {
+    el.classList.remove('open');
+    el.querySelector('.cj-phase-trigger').setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    phase.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
 
 })();
 </script>
