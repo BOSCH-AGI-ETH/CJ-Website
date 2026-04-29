@@ -44,7 +44,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(20,20,20,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 36px; z-index: 1050; opacity: 0; transition: opacity .3s ease; }
 .nav-overlay.open { display: flex; opacity: 1; }
 .nav-overlay-logo { margin-bottom: 8px; }
-.nav-overlay-logo img { height: 52px; width: auto; display: block; opacity: .9; }
+.nav-overlay-logo img { height: 68px; width: auto; display: block; opacity: .9; }
 .nav-overlay a { color: var(--cream); text-decoration: none; font-size: 20px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; transition: color .3s, opacity .3s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .nav-overlay a:active { opacity: 1; color: var(--orange); }
 .nav-overlay .nav-cta { border: 1.5px solid var(--orange); color: var(--orange) !important; padding: 12px 28px; opacity: 1 !important; }
@@ -335,22 +335,129 @@ section { padding:120px 48px;position:relative; }
 .cj-phase:hover .cj-phase-arrow { color:var(--mauve); transform:translateX(4px); }
 
 
-/* PARTNERS */
-.partners-section { padding:60px 0;background:var(--bg); }
-.partners-label { font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,251,219,.3);text-align:center;margin-bottom:44px; }
-.partners-carousel { overflow:hidden;width:100%;position:relative;cursor:grab; }
-.partners-carousel:active { cursor:grabbing; }
-.partners-carousel::before,.partners-carousel::after { content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none; }
-.partners-carousel::before { left:0;background:linear-gradient(to right,var(--bg),transparent); }
-.partners-carousel::after { right:0;background:linear-gradient(to left,var(--bg),transparent); }
-.partners-track { display:flex;gap:0;width:max-content;animation:partnersScroll 18s linear infinite;will-change:transform; }
-@keyframes partnersScroll { from{transform:translateX(0);}to{transform:translateX(-50%);} }
-.partner-logo { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 32px;border-right:1px solid rgba(237,172,255,.08);transition:border-color .3s,background .3s;flex-shrink:0;width:calc((100vw - 96px) / 3.2);box-sizing:border-box;touch-action:pan-x; }
-.partner-logo:hover { background:rgba(237,172,255,.03); }
-.partner-logo svg { display:block;opacity:.3;transition:opacity .3s;pointer-events:none; }
-.partner-logo:hover svg { opacity:.65; }
-.partner-logo-name { font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,251,219,.25);text-align:center;transition:color .3s;pointer-events:none; }
-.partner-logo:hover .partner-logo-name { color:rgba(237,172,255,.7); }
+/* ═══════════════════════════════════
+   PARTNERS — PREMIUM 2026 CAROUSEL
+═══════════════════════════════════ */
+.partners-section {
+  padding: 0;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.partners-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px 48px 24px;
+  position: relative;
+  z-index: 1;
+}
+.partners-header-left { display: flex; flex-direction: column; gap: 4px; }
+.partners-eyebrow { font-size: 9px; letter-spacing: .45em; text-transform: uppercase; color: var(--orange); opacity: .9; }
+.partners-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2vw, 28px); font-weight: 300; line-height: 1.1; letter-spacing: -.01em; color: var(--cream); }
+.partners-heading em { font-style: italic; color: var(--mauve); }
+.partners-count-badge { display: flex; align-items: center; gap: 10px; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,251,219,.35); }
+.partners-count-badge::before { content: ''; width: 40px; height: 1px; background: rgba(237,172,255,.3); display: block; }
+
+.partners-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  cursor: grab;
+  padding: 24px 0 32px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.partners-carousel:active { cursor: grabbing; }
+.partners-carousel::before,
+.partners-carousel::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+}
+.partners-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.partners-carousel::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+
+.partners-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: partnersScroll 28s linear infinite;
+  will-change: transform;
+}
+
+@keyframes partnersScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 52px;
+  flex-shrink: 0;
+  width: 280px;
+  height: 120px;
+  box-sizing: border-box;
+  touch-action: pan-x;
+  position: relative;
+  transition: background .4s ease;
+  border-right: 1px solid rgba(237,172,255,.1);
+  overflow: visible;
+  z-index: 0;
+}
+.partner-logo:hover {
+  background: rgba(237,172,255,.04);
+  z-index: 10;
+  position: relative;
+}
+
+.partner-logo-img-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.partner-logo-img-wrap img {
+  display: block;
+  max-width: 160px;
+  max-height: 72px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* Default: full color, slightly softened for visual rhythm */
+  filter: grayscale(15%) brightness(.88);
+  opacity: .82;
+  transition: filter .35s ease, opacity .35s ease, transform .3s ease;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.partner-logo:hover .partner-logo-img-wrap img {
+  filter: grayscale(0%) brightness(1.05);
+  opacity: 1;
+}
+.partner-logo:hover .logo-scale-bain,
+.partner-logo:hover .logo-scale-quoi,
+.partner-logo:hover .logo-scale-alim { filter: grayscale(0%) brightness(1.05); opacity: 1; }
+
+.partner-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Per-logo scale — transform doesn't affect layout, overflow:visible lets them breathe */
+.logo-scale-bain { transform: scale(1.8); transform-origin: center; }
+.logo-scale-quoi { transform: scale(1.4); transform-origin: center; }
+.logo-scale-alim { transform: scale(1.1); transform-origin: center; }
+.partner-logo:hover .logo-scale-bain { transform: scale(1.92); }
+.partner-logo:hover .logo-scale-quoi { transform: scale(1.52); }
+.partner-logo:hover .logo-scale-alim { transform: scale(1.18); }
 
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:clip; }
@@ -516,9 +623,12 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .cj-timeline { margin-top:40px; }
   .cj-phase { padding-left:28px; }
   .cj-phase-title { font-size:17px; }
-  .partners-section { padding:36px 20px; }
-  .partner-logo { padding:18px 16px;gap:10px;width:calc(100vw / 2.4); }
-  .partner-logo-name { font-size:11px;letter-spacing:.12em; }
+  .partners-section { padding:0; }
+  .partners-header { padding: 16px 20px 12px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .partners-count-badge { display: none; }
+  .partner-logo { width: 150px; height: 80px; padding: 0 24px; }
+  .partner-logo-img-wrap img { max-width: 100px; max-height: 44px; }
+  .partners-carousel::before, .partners-carousel::after { width: 60px; }
   #contact { padding:72px 20px; }
   .contact-body { grid-template-columns:1fr;gap:44px;margin-top:36px; }
   .contact-note { font-size:18px; }
@@ -863,57 +973,113 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 </section>
 
 <!-- PARTNERS -->
-<div class="partners-section">
-  <div class="partners-label">Ils poussent avec nous</div>
+<div class="partners-section" id="partners">
+
+  <!-- Top border line -->
+  <div style="width:100%;height:1px;background:linear-gradient(to right,transparent 0%,rgba(253,47,0,.15) 20%,rgba(237,172,255,.28) 50%,rgba(253,47,0,.15) 80%,transparent 100%);position:relative;z-index:1;"></div>
+
+  <!-- Section header -->
+  <div class="partners-header">
+    <div class="partners-header-left">
+      <span class="partners-eyebrow">Partenaires</span>
+      <h3 class="partners-heading">Ils poussent <em>avec nous</em></h3>
+    </div>
+    <div class="partners-count-badge">5 partenaires locaux</div>
+  </div>
+
+  <!-- Carousel -->
   <div class="partners-carousel">
     <div class="partners-track">
 
       <!-- SET 1 -->
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="8" y="8" width="48" height="24" rx="1" stroke="#edacff" stroke-width=".8"/><line x1="16" y1="20" x2="48" y2="20" stroke="#edacff" stroke-width=".6"/><circle cx="32" cy="20" r="5" stroke="#fd2f00" stroke-width=".7"/></svg>
-        <span class="partner-logo-name">Partenaire 1</span>
-      </div>
-      <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><polygon points="32,6 58,34 6,34" stroke="#edacff" stroke-width=".8" fill="none"/><line x1="32" y1="6" x2="32" y2="34" stroke="#fd2f00" stroke-width=".6" opacity=".6"/></svg>
-        <span class="partner-logo-name">Partenaire 2</span>
-      </div>
-      <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><circle cx="32" cy="20" r="14" stroke="#edacff" stroke-width=".8"/><circle cx="32" cy="20" r="7" stroke="#fd2f00" stroke-width=".6"/><circle cx="32" cy="20" r="2" fill="#edacff" opacity=".5"/></svg>
-        <span class="partner-logo-name">Partenaire 3</span>
-      </div>
-      <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="20" y="8" width="24" height="24" stroke="#edacff" stroke-width=".8" fill="none" transform="rotate(45 32 20)"/><rect x="26" y="14" width="12" height="12" stroke="#fd2f00" stroke-width=".6" fill="none" transform="rotate(45 32 20)" opacity=".7"/></svg>
-        <span class="partner-logo-name">Partenaire 4</span>
-      </div>
-      <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><path d="M12 28 Q22 8 32 20 Q42 32 52 12" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="12" cy="28" r="2.5" fill="#fd2f00" opacity=".6"/><circle cx="52" cy="12" r="2.5" fill="#fd2f00" opacity=".6"/></svg>
-        <span class="partner-logo-name">Partenaire 5</span>
+        <a href="https://quoivivrerimouski.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/Quoi-vivre-Rimouski.png" class="logo-scale-quoi" alt="Quoi vivre Rimouski">
+          </div>
+        </a>
       </div>
 
-      <!-- SET 2 — duplicate pour loop infini -->
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="8" y="8" width="48" height="24" rx="1" stroke="#edacff" stroke-width=".8"/><line x1="16" y1="20" x2="48" y2="20" stroke="#edacff" stroke-width=".6"/><circle cx="32" cy="20" r="5" stroke="#fd2f00" stroke-width=".7"/></svg>
-        <span class="partner-logo-name">Partenaire 1</span>
+        <a href="https://loctant-microbrasserie.com/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/loctant.png" alt="Loctant">
+          </div>
+        </a>
       </div>
+
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><polygon points="32,6 58,34 6,34" stroke="#edacff" stroke-width=".8" fill="none"/><line x1="32" y1="6" x2="32" y2="34" stroke="#fd2f00" stroke-width=".6" opacity=".6"/></svg>
-        <span class="partner-logo-name">Partenaire 2</span>
+        <a href="https://museerimouski.qc.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/musee-de-rimouski.png" alt="Musée de Rimouski">
+          </div>
+        </a>
       </div>
+
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><circle cx="32" cy="20" r="14" stroke="#edacff" stroke-width=".8"/><circle cx="32" cy="20" r="7" stroke="#fd2f00" stroke-width=".6"/><circle cx="32" cy="20" r="2" fill="#edacff" opacity=".5"/></svg>
-        <span class="partner-logo-name">Partenaire 3</span>
+        <a href="https://www.instagram.com/coop.bainspublics/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/bains-publics-logo-beige.png" class="logo-scale-bain" alt="Bains Publics">
+          </div>
+        </a>
       </div>
+
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="20" y="8" width="24" height="24" stroke="#edacff" stroke-width=".8" fill="none" transform="rotate(45 32 20)"/><rect x="26" y="14" width="12" height="12" stroke="#fd2f00" stroke-width=".6" fill="none" transform="rotate(45 32 20)" opacity=".7"/></svg>
-        <span class="partner-logo-name">Partenaire 4</span>
+        <a href="https://alimentationcooprimouski.com/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/alimentation-coop-rimouski.png" class="logo-scale-alim" alt="Coop Rimouski">
+          </div>
+        </a>
       </div>
+
+      <!-- SET 2 (duplicate pour loop infini) -->
       <div class="partner-logo">
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><path d="M12 28 Q22 8 32 20 Q42 32 52 12" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="12" cy="28" r="2.5" fill="#fd2f00" opacity=".6"/><circle cx="52" cy="12" r="2.5" fill="#fd2f00" opacity=".6"/></svg>
-        <span class="partner-logo-name">Partenaire 5</span>
+        <a href="https://quoivivrerimouski.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/Quoi-vivre-Rimouski.png" class="logo-scale-quoi" alt="Quoi vivre Rimouski">
+          </div>
+        </a>
       </div>
+
+      <div class="partner-logo">
+        <a href="https://loctant-microbrasserie.com/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/loctant.png" alt="Loctant">
+          </div>
+        </a>
+      </div>
+
+      <div class="partner-logo">
+        <a href="https://museerimouski.qc.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/musee-de-rimouski.png" alt="Musée de Rimouski">
+          </div>
+        </a>
+      </div>
+
+      <div class="partner-logo">
+        <a href="https://www.instagram.com/coop.bainspublics/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/bains-publics-logo-beige.png" class="logo-scale-bain" alt="Bains Publics">
+          </div>
+        </a>
+      </div>
+
+      <div class="partner-logo">
+        <a href="https://alimentationcooprimouski.com/" target="_blank" rel="noopener" class="partner-logo-link">
+          <div class="partner-logo-img-wrap">
+            <img src="Image-Sponsor/alimentation-coop-rimouski.png" class="logo-scale-alim" alt="Coop Rimouski">
+          </div>
+        </a>
+      </d
+
 
     </div>
   </div>
+
+  <!-- Bottom border line -->
+  <div style="width:100%;height:1px;background:linear-gradient(to right,transparent 0%,rgba(237,172,255,.12) 30%,rgba(237,172,255,.12) 70%,transparent 100%);position:relative;z-index:1;"></div>
+
 </div>
 
 
@@ -1358,7 +1524,7 @@ if(track&&btnL&&btnR){
     var x=getCurrentX();
     var half=getHalf();
     var pos=((-x)%half+half)%half;
-    var dur=18000;
+    var dur=14000;
     var delay=-(pos/half)*dur;
     // set animation before clearing transform to avoid flash
     track.style.animation='partnersScroll '+dur+'ms '+delay+'ms linear infinite';
