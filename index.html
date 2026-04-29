@@ -50,7 +50,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .nav-overlay .nav-cta { border: 1.5px solid var(--orange); color: var(--orange) !important; padding: 12px 28px; opacity: 1 !important; }
 
 /* HERO */
-#hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0; overflow: hidden; }
+#hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0; overflow: hidden; background: var(--bg); }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; will-change: transform; }
 .orb1 { width:555px;height:555px;background:var(--mauve);top:-100px;right:-100px;animation-delay:1s; }
@@ -90,7 +90,7 @@ section { padding:120px 48px;position:relative; }
 /* ═══════════════════════════════════
    EVENTS — NOUVELLE VERSION TIMELINE
 ═══════════════════════════════════ */
-#events { padding: 80px 0; scroll-margin-top: 120px; }
+#events { background: var(--bg); padding: 80px 0; scroll-margin-top: 120px; }
 
 /* Hide decorative big numbers */
 .big-num { display: none !important; }
@@ -161,6 +161,7 @@ section { padding:120px 48px;position:relative; }
   grid-template-columns: repeat(4,1fr);
   margin: 80px 48px 0;
   border: 1px solid rgba(237,172,255,.1);
+  background: var(--bg);
 }
 /* Dark transition zone below stats, before About */
 .stats-transition {
@@ -335,14 +336,20 @@ section { padding:120px 48px;position:relative; }
 
 
 /* PARTNERS */
-.partners-section { padding:60px 48px;background:var(--bg); }
+.partners-section { padding:60px 0;background:var(--bg); }
 .partners-label { font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,251,219,.3);text-align:center;margin-bottom:44px; }
-.partners-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:24px;max-width:960px;margin:0 auto; }
-.partner-logo { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 16px;border:1px solid rgba(237,172,255,.08);transition:border-color .3s,background .3s;cursor:default; }
-.partner-logo:hover { border-color:rgba(237,172,255,.22);background:rgba(237,172,255,.03); }
-.partner-logo svg { display:block;opacity:.3;transition:opacity .3s; }
+.partners-carousel { overflow:hidden;width:100%;position:relative;cursor:grab; }
+.partners-carousel:active { cursor:grabbing; }
+.partners-carousel::before,.partners-carousel::after { content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none; }
+.partners-carousel::before { left:0;background:linear-gradient(to right,var(--bg),transparent); }
+.partners-carousel::after { right:0;background:linear-gradient(to left,var(--bg),transparent); }
+.partners-track { display:flex;gap:0;width:max-content;animation:partnersScroll 18s linear infinite;will-change:transform; }
+@keyframes partnersScroll { from{transform:translateX(0);}to{transform:translateX(-50%);} }
+.partner-logo { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 32px;border-right:1px solid rgba(237,172,255,.08);transition:border-color .3s,background .3s;flex-shrink:0;width:calc((100vw - 96px) / 3.2);box-sizing:border-box;touch-action:pan-x; }
+.partner-logo:hover { background:rgba(237,172,255,.03); }
+.partner-logo svg { display:block;opacity:.3;transition:opacity .3s;pointer-events:none; }
 .partner-logo:hover svg { opacity:.65; }
-.partner-logo-name { font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,251,219,.25);text-align:center;transition:color .3s; }
+.partner-logo-name { font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,251,219,.25);text-align:center;transition:color .3s;pointer-events:none; }
 .partner-logo:hover .partner-logo-name { color:rgba(237,172,255,.7); }
 
 /* CONTACT */
@@ -380,12 +387,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 .footer-legal a:hover { color:rgba(237,172,255,.5); }
 
 /* REVEAL */
-.reveal { opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease; }
-.reveal.visible { opacity:1;transform:translateY(0); }
-.reveal-delay-1 { transition-delay:.12s; }
-.reveal-delay-2 { transition-delay:.24s; }
-.reveal-delay-3 { transition-delay:.36s; }
-.reveal-delay-4 { transition-delay:.48s; }
+
 
 .big-num { display: none !important; }
 .flora-bg-el { position:absolute;pointer-events:none;opacity:.04; }
@@ -393,7 +395,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 /* PROJECTS PREVIEW */
 #projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: 60px 48px 80px; overflow: visible; }
 .proj-header-row { margin-bottom: 28px; }
-#projCardsTrack { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+#projCardsTrack { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; max-width: 1400px; margin: 0 auto; }
 .proj-card-preview { position:relative; overflow:hidden; aspect-ratio:3/4; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .proj-card-bg-preview { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .6s ease,filter .6s ease; will-change:transform; }
 .pp1{background:linear-gradient(145deg,#0a1220,#1a0d38,#200a2d);}
@@ -435,7 +437,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
 /* MOBILE */
 @media (max-width:1024px) and (min-width:769px) {
-  .proj-grid-preview { grid-template-columns:repeat(3,1fr);gap:16px; }
+  #projCardsTrack { grid-template-columns:repeat(2,1fr);gap:16px; }
 }
 
 @media (max-width:768px) {
@@ -515,10 +517,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .cj-phase { padding-left:28px; }
   .cj-phase-title { font-size:17px; }
   .partners-section { padding:36px 20px; }
-  .partners-grid { grid-template-columns:repeat(3,1fr);gap:10px; }
-  .partners-grid .partner-logo:nth-child(4) { grid-column:1 / span 1; margin-left:calc(50% + 5px); }
-  .partners-grid .partner-logo:nth-child(5) { grid-column:2 / span 1; }
-  .partner-logo { padding:18px 10px;gap:10px; }
+  .partner-logo { padding:18px 16px;gap:10px;width:calc(100vw / 2.4); }
   .partner-logo-name { font-size:11px;letter-spacing:.12em; }
   #contact { padding:72px 20px; }
   .contact-body { grid-template-columns:1fr;gap:44px;margin-top:36px; }
@@ -553,8 +552,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   </a>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Accueil</a></li>
-    <li><a href="evenements.html">Événements</a></li>
-    <li><a href="projets.html">Projets</a></li>
+    <li><a href="#events">Événements</a></li>
+    <li><a href="#projets-preview">Projets</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -568,8 +567,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
   </div>
   <a href="index.html" onclick="closeNav()">Accueil</a>
-  <a href="evenements.html" onclick="closeNav()">Événements</a>
-  <a href="projets.html" onclick="closeNav()">Projets</a>
+  <a href="#events" onclick="closeNav()">Événements</a>
+  <a href="#projets-preview" onclick="closeNav()">Projets</a>
   <a href="#about" onclick="closeNav()">À propos</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
@@ -612,18 +611,18 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 <!-- EVENTS — TIMELINE -->
 <section id="events">
 
-  <div class="events-header-new reveal">
+  <div class="events-header-new">
     <div>
       <div class="section-label">Prochains événements</div>
       <h2 class="section-title">Ce qui s'en <em>vient</em></h2>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
       <p>Les prochaines dates — cliquez sur un événement pour les détails.</p>
-      <a href="evenements.html#calendrier" class="view-all-link">Voir tout le calendrier</a>
+      <a href="#events" class="view-all-link">Voir tout le calendrier</a>
     </div>
   </div>
 
-  <div class="events-timeline reveal">
+  <div class="events-timeline">
 
     <!-- PROCHAIN -->
     <div class="ev-row ev-row--first">
@@ -635,7 +634,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
             <span class="ev-badge-cat">Bain Public × Collectif Jardin</span>
           </div>
         </div>
-        <div class="ev-name-new">After RobertRobert <em style="font-style:italic;color:var(--mauve)">MÉTHOT &amp; SYNCHRONIC</em></div>
+        <div class="ev-name-new">After RobertRobert<br><em style="font-style:italic;color:var(--mauve)">MÉTHOT &amp; SYNCHRONIC</em></div>
         <div class="ev-meta-row">
           <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">25 avril 2026</span></div>
           <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h → 3h</span></div>
@@ -654,7 +653,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
         <div class="ev-card-top">
           <div class="ev-badges"><span class="ev-badge-cat">Bain Public × Collectif Jardin</span></div>
         </div>
-        <div class="ev-name-new">After ChassePareil <em style="font-style:italic;color:var(--mauve)">HOYA &amp; NOAH</em></div>
+        <div class="ev-name-new">After ChassePareil<br><em style="font-style:italic;color:var(--mauve)">HOYA &amp; NOAH</em></div>
         <div class="ev-meta-row">
           <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">22 mai 2026</span></div>
           <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h → 3h</span></div>
@@ -673,7 +672,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
         <div class="ev-card-top">
           <div class="ev-badges"><span class="ev-badge-cat">Collectif Jardin</span></div>
         </div>
-        <div class="ev-name-new">Brise-Lames <em style="font-style:italic;color:var(--mauve)">Solstice</em></div>
+        <div class="ev-name-new">Brise-Lames <em style="font-style:italic;color:var(--mauve)">SOLSTICE</em></div>
         <div class="ev-meta-row">
           <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">20 juin 2026</span></div>
           <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">15h → 23h</span></div>
@@ -687,15 +686,15 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
   </div><!-- /.events-timeline -->
 
-  <div class="events-view-all-wrap reveal">
-    <a href="evenements.html#calendrier" class="btn-ghost">Voir tout le calendrier 2026 →</a>
+  <div class="events-view-all-wrap">
+    <a href="#events" class="btn-ghost">Voir tout le calendrier 2026 →</a>
   </div>
 
 </section>
 
 <!-- GALLERY -->
 <div class="gallery-strip" id="galleryStrip">
-  <div class="gallery-strip-header reveal">
+  <div class="gallery-strip-header">
     <div>
       <div class="section-label">Moments capturés</div>
       <h3 class="section-title" style="font-size:clamp(26px,3.5vw,48px);">La communauté <em>en images</em></h3>
@@ -742,49 +741,51 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <div id="projCardsTrack">
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/><circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/><circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/><circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/><path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div><a href="projets.html#systeme-son" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/><circle cx="68" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><line x1="150" y1="145" x2="68" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/><line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div><a href="projets.html#partenariats-culturels" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none"><line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/><path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/><line x1="75" y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/><circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div><a href="projets.html#obnl" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp4"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="130" r="28" stroke="#edacff" stroke-width=".8" fill="none" opacity=".32"/><circle cx="72" cy="260" r="18" stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/><circle cx="228" cy="260" r="18" stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/><circle cx="150" cy="320" r="18" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><line x1="150" y1="158" x2="72" y2="242" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="150" y1="158" x2="228" y2="242" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="150" y1="158" x2="150" y2="302" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="72" y1="278" x2="150" y2="302" stroke="#fd2f00" stroke-width=".4" opacity=".15"/><line x1="228" y1="278" x2="150" y2="302" stroke="#fd2f00" stroke-width=".4" opacity=".15"/><circle cx="150" cy="130" r="6" fill="#edacff" opacity=".22"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Archives · Lien digital</div><a href="projets.html#expansion-numerique" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Archives · Lien digital</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
         </div>
       </div>
       <div class="proj-view-all-btn">
         <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:10px;">Collaborations passées, projets en cours et à venir</p>
-        <a href="projets.html" class="btn-ghost">Voir tous les projets →</a>
+        <a href="#projets-preview" class="btn-ghost">Voir tous les projets →</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- STATS -->
-<div class="stats-row" style="margin:0 48px;">
-  <div class="stat-box"><div class="stat-num">+50</div><div class="stat-label">Événements organisés</div></div>
-  <div class="stat-box"><div class="stat-num">+5k</div><div class="stat-label">Participants</div></div>
-  <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Années d'expérience</div></div>
-  <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
+<div style="background:var(--bg);padding:0 0 0 0;">
+  <div class="stats-row" style="margin:0 48px;">
+    <div class="stat-box"><div class="stat-num">+50</div><div class="stat-label">Événements organisés</div></div>
+    <div class="stat-box"><div class="stat-num">+5k</div><div class="stat-label">Participants</div></div>
+    <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Années d'expérience</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Moments partagés</div></div>
+  </div>
+  <div class="stats-transition"></div>
 </div>
-<div class="stats-transition"></div>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-label reveal">Notre univers</div>
-  <h2 class="section-title reveal">Qui cultive<br><em>ce jardin</em></h2>
+  <div class="section-label">Notre univers</div>
+  <h2 class="section-title">Qui cultive<br><em>ce jardin</em></h2>
   <div class="about-grid">
     <div class="about-text">
-      <div class="about-quote reveal">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
-      <p class="reveal">Collectif Jardin est né d'une conviction simple et profonde : <strong>contribuer bénévolement à la culture</strong>, avec le respect et l'inclusivité comme valeurs fondatrices.</p>
-      <p class="reveal reveal-delay-1">Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <strong>espaces de musique, de nature et de communauté</strong>.</p>
-      <p class="reveal reveal-delay-2">Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales.</p>
-      <div class="cj-timeline reveal reveal-delay-3">
+      <div class="about-quote">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
+      <p >Collectif Jardin est né d'une conviction simple et profonde : <strong>contribuer bénévolement à la culture</strong>, avec le respect et l'inclusivité comme valeurs fondatrices.</p>
+      <p >Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <strong>espaces de musique, de nature et de communauté</strong>.</p>
+      <p >Nous prônons la communauté et la nature dans chacun de nos projets — des soirées au Brise-Lames face au fleuve aux collaborations culturelles locales.</p>
+      <div class="cj-timeline">
 
         <div class="cj-phase" onclick="openCjDetail('Printemps 2023','Lancement public','Naissance officielle du collectif','Collectif Jardin prend racine à Rimouski avec une conviction simple : <strong>contribuer bénévolement à la culture</strong>, loin des formules commerciales. Les premières soirées réunissent une communauté naissante autour de la musique électronique, de l\'inclusivité et du partage.')">
           <div class="cj-phase-row">
@@ -844,17 +845,17 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 
       </div><!-- /.cj-timeline -->
     </div>
-    <div class="about-visual reveal">
+    <div class="about-visual">
       <div class="about-logo-banner">
         <img src="Image-About/Jardin - logo officiel orange no BG.png" alt="Collectif Jardin — Logo officiel">
       </div>
       <div class="team-section">
         <div class="team-grid">
-          <div class="team-card reveal reveal-delay-1"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Direction Artistique & Développement Partenarial</div></div></div>
-          <div class="team-card reveal reveal-delay-2"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Production & Opération</div></div></div>
-          <div class="team-card reveal reveal-delay-3"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Direction Visuelle & Graphisme</div></div></div>
-          <div class="team-card reveal reveal-delay-4"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Administration & Finance</div></div></div>
-          <div class="team-card reveal reveal-delay-4" style="transition-delay:.56s"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement de l'Écosystème & Communication</div></div></div>
+          <div class="team-card"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Direction Artistique & Développement Partenarial</div></div></div>
+          <div class="team-card"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Production & Opération</div></div></div>
+          <div class="team-card"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Direction Visuelle & Graphisme</div></div></div>
+          <div class="team-card"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Administration & Finance</div></div></div>
+          <div class="team-card" style="transition-delay:.56s"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement de l'Écosystème & Communication</div></div></div>
         </div>
       </div>
     </div>
@@ -864,73 +865,75 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 <!-- PARTNERS -->
 <div class="partners-section">
   <div class="partners-label">Ils poussent avec nous</div>
-  <div class="partners-grid">
+  <div class="partners-carousel">
+    <div class="partners-track">
 
-    <div class="partner-logo">
-      <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-        <rect x="8" y="8" width="48" height="24" rx="1" stroke="#edacff" stroke-width=".8"/>
-        <line x1="16" y1="20" x2="48" y2="20" stroke="#edacff" stroke-width=".6"/>
-        <circle cx="32" cy="20" r="5" stroke="#fd2f00" stroke-width=".7"/>
-      </svg>
-      <span class="partner-logo-name">Partenaire 1</span>
+      <!-- SET 1 -->
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="8" y="8" width="48" height="24" rx="1" stroke="#edacff" stroke-width=".8"/><line x1="16" y1="20" x2="48" y2="20" stroke="#edacff" stroke-width=".6"/><circle cx="32" cy="20" r="5" stroke="#fd2f00" stroke-width=".7"/></svg>
+        <span class="partner-logo-name">Partenaire 1</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><polygon points="32,6 58,34 6,34" stroke="#edacff" stroke-width=".8" fill="none"/><line x1="32" y1="6" x2="32" y2="34" stroke="#fd2f00" stroke-width=".6" opacity=".6"/></svg>
+        <span class="partner-logo-name">Partenaire 2</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><circle cx="32" cy="20" r="14" stroke="#edacff" stroke-width=".8"/><circle cx="32" cy="20" r="7" stroke="#fd2f00" stroke-width=".6"/><circle cx="32" cy="20" r="2" fill="#edacff" opacity=".5"/></svg>
+        <span class="partner-logo-name">Partenaire 3</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="20" y="8" width="24" height="24" stroke="#edacff" stroke-width=".8" fill="none" transform="rotate(45 32 20)"/><rect x="26" y="14" width="12" height="12" stroke="#fd2f00" stroke-width=".6" fill="none" transform="rotate(45 32 20)" opacity=".7"/></svg>
+        <span class="partner-logo-name">Partenaire 4</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><path d="M12 28 Q22 8 32 20 Q42 32 52 12" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="12" cy="28" r="2.5" fill="#fd2f00" opacity=".6"/><circle cx="52" cy="12" r="2.5" fill="#fd2f00" opacity=".6"/></svg>
+        <span class="partner-logo-name">Partenaire 5</span>
+      </div>
+
+      <!-- SET 2 — duplicate pour loop infini -->
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="8" y="8" width="48" height="24" rx="1" stroke="#edacff" stroke-width=".8"/><line x1="16" y1="20" x2="48" y2="20" stroke="#edacff" stroke-width=".6"/><circle cx="32" cy="20" r="5" stroke="#fd2f00" stroke-width=".7"/></svg>
+        <span class="partner-logo-name">Partenaire 1</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><polygon points="32,6 58,34 6,34" stroke="#edacff" stroke-width=".8" fill="none"/><line x1="32" y1="6" x2="32" y2="34" stroke="#fd2f00" stroke-width=".6" opacity=".6"/></svg>
+        <span class="partner-logo-name">Partenaire 2</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><circle cx="32" cy="20" r="14" stroke="#edacff" stroke-width=".8"/><circle cx="32" cy="20" r="7" stroke="#fd2f00" stroke-width=".6"/><circle cx="32" cy="20" r="2" fill="#edacff" opacity=".5"/></svg>
+        <span class="partner-logo-name">Partenaire 3</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><rect x="20" y="8" width="24" height="24" stroke="#edacff" stroke-width=".8" fill="none" transform="rotate(45 32 20)"/><rect x="26" y="14" width="12" height="12" stroke="#fd2f00" stroke-width=".6" fill="none" transform="rotate(45 32 20)" opacity=".7"/></svg>
+        <span class="partner-logo-name">Partenaire 4</span>
+      </div>
+      <div class="partner-logo">
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none"><path d="M12 28 Q22 8 32 20 Q42 32 52 12" stroke="#edacff" stroke-width=".8" fill="none"/><circle cx="12" cy="28" r="2.5" fill="#fd2f00" opacity=".6"/><circle cx="52" cy="12" r="2.5" fill="#fd2f00" opacity=".6"/></svg>
+        <span class="partner-logo-name">Partenaire 5</span>
+      </div>
+
     </div>
-
-    <div class="partner-logo">
-      <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-        <polygon points="32,6 58,34 6,34" stroke="#edacff" stroke-width=".8" fill="none"/>
-        <line x1="32" y1="6" x2="32" y2="34" stroke="#fd2f00" stroke-width=".6" opacity=".6"/>
-      </svg>
-      <span class="partner-logo-name">Partenaire 2</span>
-    </div>
-
-    <div class="partner-logo">
-      <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-        <circle cx="32" cy="20" r="14" stroke="#edacff" stroke-width=".8"/>
-        <circle cx="32" cy="20" r="7" stroke="#fd2f00" stroke-width=".6"/>
-        <circle cx="32" cy="20" r="2" fill="#edacff" opacity=".5"/>
-      </svg>
-      <span class="partner-logo-name">Partenaire 3</span>
-    </div>
-
-    <div class="partner-logo">
-      <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-        <rect x="14" y="12" width="16" height="16" stroke="#edacff" stroke-width=".8" fill="none"/>
-        <rect x="34" y="12" width="16" height="16" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".7"/>
-        <line x1="22" y1="12" x2="42" y2="28" stroke="#edacff" stroke-width=".5" opacity=".4"/>
-      </svg>
-      <span class="partner-logo-name">Partenaire 4</span>
-    </div>
-
-    <div class="partner-logo">
-      <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-        <path d="M12 28 Q22 8 32 20 Q42 32 52 12" stroke="#edacff" stroke-width=".8" fill="none"/>
-        <circle cx="12" cy="28" r="2.5" fill="#fd2f00" opacity=".6"/>
-        <circle cx="52" cy="12" r="2.5" fill="#fd2f00" opacity=".6"/>
-      </svg>
-      <span class="partner-logo-name">Partenaire 5</span>
-    </div>
-
   </div>
 </div>
 
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label reveal">Nous rejoindre</div>
-  <h2 class="section-title reveal">Plantez une <em>graine</em><br>avec nous</h2>
+  <div class="section-label">Nous rejoindre</div>
+  <h2 class="section-title">Plantez une <em>graine</em><br>avec nous</h2>
 
   <div class="contact-body">
 
     <!-- Left: context text -->
     <div>
-      <p class="contact-note reveal">
+      <p class="contact-note">
         Pour proposer une idée ou participer à l'évolution du collectif, rejoignez notre <em>communauté Facebook</em> — c'est là que ça se passe.<br><br>
         Pour toute <strong>collaboration, proposition de projet ou partenariat</strong>, écrivez-nous directement par courriel.
       </p>
     </div>
 
     <!-- Right: contact links -->
-    <div class="contact-links reveal">
+    <div class="contact-links">
       <a href="mailto:coll.jardin@gmail.com" class="contact-link-item">
         <span class="contact-link-label">Courriel</span>
         <span class="contact-link-value">coll.jardin@gmail.com</span>
@@ -962,8 +965,8 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2026 Collectif Jardin</p></div>
     <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="evenements.html">Événements</a></li>
-      <li><a href="projets.html">Projets</a></li>
+      <li><a href="#events">Événements</a></li>
+      <li><a href="#projets-preview">Projets</a></li>
       <li><a href="#about">À propos</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul></div>
@@ -1047,11 +1050,7 @@ window.closeNav=function(){
 document.getElementById('navOverlay').addEventListener('click',function(e){if(e.target===this)closeNav();});
 
 /* REVEAL */
-var revEls=document.querySelectorAll('.reveal');
-if('IntersectionObserver' in window){
-  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
-  revEls.forEach(function(el){io.observe(el);});
-}else{revEls.forEach(function(el){el.classList.add('visible');});}
+
 
 /* MINI LIGHTBOX */
 window.openEvDetail=function(name,cat,date,location,desc,ticketUrl){
@@ -1144,6 +1143,8 @@ if(track&&btnL&&btnR){
     setTimeout(function(){track.style.animationPlayState='running';},600);
   },{passive:true});
 }
+
+})();
 
 /* PROJECTS CAROUSEL */
 (function(){
@@ -1316,6 +1317,77 @@ if(track&&btnL&&btnR){
   })();
 })();
 
+/* PARTNERS CAROUSEL — drag/swipe */
+(function(){
+  var carousel=document.querySelector('.partners-carousel');
+  var track=document.querySelector('.partners-track');
+  if(!carousel||!track)return;
+
+  var startX=0,dragging=false,offset=0;
+
+  function getHalf(){ return track.scrollWidth/2; }
+
+  function getCurrentX(){
+    var st=window.getComputedStyle(track);
+    if(!st.transform||st.transform==='none')return 0;
+    return new DOMMatrix(st.transform).m41;
+  }
+
+  function startDrag(clientX){
+    dragging=true;
+    startX=clientX;
+    offset=getCurrentX();
+    track.style.animation='none';
+    track.style.transform='translateX('+offset+'px)';
+  }
+
+  function moveDrag(clientX){
+    if(!dragging)return;
+    var dx=clientX-startX;
+    // swipe right = dx positive = move track right = smaller negative X
+    var x=offset+dx;
+    var half=getHalf();
+    // keep x in range [-half, 0]
+    x=-(((- x)%half+half)%half);
+    track.style.transform='translateX('+x+'px)';
+  }
+
+  function endDrag(){
+    if(!dragging)return;
+    dragging=false;
+    var x=getCurrentX();
+    var half=getHalf();
+    var pos=((-x)%half+half)%half;
+    var dur=18000;
+    var delay=-(pos/half)*dur;
+    // set animation before clearing transform to avoid flash
+    track.style.animation='partnersScroll '+dur+'ms '+delay+'ms linear infinite';
+    void track.offsetHeight; // force reflow
+    track.style.transform='';
+  }
+
+  // Touch
+  carousel.addEventListener('touchstart',function(e){
+    startDrag(e.touches[0].clientX);
+  },{passive:true});
+  carousel.addEventListener('touchmove',function(e){
+    moveDrag(e.touches[0].clientX);
+  },{passive:true});
+  carousel.addEventListener('touchend',function(){
+    endDrag();
+  },{passive:true});
+
+  // Mouse
+  carousel.addEventListener('mousedown',function(e){
+    startDrag(e.clientX);
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove',function(e){
+    moveDrag(e.clientX);
+  });
+  window.addEventListener('mouseup',function(){
+    endDrag();
+  });
 })();
 </script>
 
