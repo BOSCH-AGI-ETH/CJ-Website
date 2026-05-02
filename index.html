@@ -21,8 +21,8 @@
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--cream); font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
 
-.cursor { position: fixed; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .2s; mix-blend-mode: difference; display: none; }
-.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform .15s ease, opacity .3s, border-color .3s; opacity: 0.5; display: none; }
+.cursor { position: fixed; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .2s; display: none; }
+.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: transform .15s ease, opacity .3s, border-color .3s; opacity: 0.5; display: none; }
 
 /* NAV */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; transition: background .4s ease; }
@@ -816,6 +816,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div class="gallery-scroll-track" id="galleryTrack">
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
@@ -828,16 +829,22 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smileee-Briselame2025.webp" alt="Smileee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smilee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
       <!-- clones for infinite scroll -->
      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
@@ -850,13 +857,18 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smileee-Briselame2025.webp" alt="Smileee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smilee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
     </div>
   </div>
 </div>
@@ -1445,13 +1457,7 @@ if(track&&btnL&&btnR){
     modalInner.appendChild(lbl);
     modalInner.style.opacity='1';
     modal.classList.add('open');
-    // Hide custom cursor so it never overlaps modal buttons on desktop
-    var cur=document.getElementById('cursor');
-    var ring=document.getElementById('cursorRing');
-    if(cur)cur.style.display='none';
-    if(ring)ring.style.display='none';
     document.body.dataset.gmSy=window.scrollY;
-    // Preserve cursor:none alongside scroll lock
     var cursorRule=isPointer?'cursor:none;':'';
     document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;'+cursorRule;
   };
@@ -1467,14 +1473,7 @@ if(track&&btnL&&btnR){
     if(!modal)return;
     modal.classList.remove('open');
     var sy=parseInt(document.body.dataset.gmSy||0);
-    // Restore cursor:none and custom cursor on desktop
-    if(isPointer){
-      document.body.style.cursor='none';
-      var cur=document.getElementById('cursor');
-      var ring=document.getElementById('cursorRing');
-      if(cur)cur.style.display='block';
-      if(ring)ring.style.display='block';
-    }
+    if(isPointer){ document.body.style.cursor='none'; }
     restoreScroll(sy);
   };
 
