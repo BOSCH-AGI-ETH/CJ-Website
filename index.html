@@ -148,6 +148,8 @@ section { padding:120px 48px;position:relative; }
 
 .ev-btn-details { display: inline-block; border: 1px solid rgba(237,172,255,.2); color: rgba(255,251,219,.5); padding: 10px 20px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: border-color .2s, color .2s; cursor: pointer; background: none; -webkit-tap-highlight-color: transparent; }
 .ev-btn-details:hover { border-color: rgba(237,172,255,.5); color: var(--cream); }
+.ev-btn-tickets { display: inline-block; border: 1px solid rgba(253,47,0,.35); color: var(--orange); padding: 10px 20px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: border-color .2s, background .2s, color .2s; cursor: pointer; background: rgba(253,47,0,.06); -webkit-tap-highlight-color: transparent; }
+.ev-btn-tickets:hover { border-color: var(--orange); background: rgba(253,47,0,.14); color: var(--cream); }
 
 .ev-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 
@@ -213,7 +215,7 @@ section { padding:120px 48px;position:relative; }
 .gallery-modal-inner {
   position: relative;
   max-width: 90vw; max-height: 88vh;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
   cursor: default;
 }
 .gallery-modal-inner svg,
@@ -223,8 +225,8 @@ section { padding:120px 48px;position:relative; }
   border: 1px solid rgba(237,172,255,.12);
 }
 .gallery-modal-label {
-  position: absolute; bottom: -32px; left: 0; right: 0;
-  text-align: center;
+  text-align: left;
+  margin-top: 12px;
   font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
   color: rgba(255,251,219,.4);
 }
@@ -313,8 +315,8 @@ section { padding:120px 48px;position:relative; }
   padding:11px 0; pointer-events:none;
 }
 .cj-phase-period {
-  font-size:8px; letter-spacing:.32em; text-transform:uppercase;
-  color:var(--orange); white-space:nowrap; flex-shrink:0; min-width:96px;
+  font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--orange); white-space:nowrap; flex-shrink:0; min-width:110px;
 }
 .cj-phase-title {
   font-family:'Cormorant Garamond',serif;
@@ -370,12 +372,6 @@ section { padding:120px 48px;position:relative; }
   -webkit-user-select: none;
 }
 .partners-carousel:active { cursor: grabbing; }
-.partners-carousel::before,
-.partners-carousel::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
-}
-.partners-carousel::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
-.partners-carousel::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
 
 .partners-track {
   display: flex;
@@ -480,7 +476,7 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 .footer-logo { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px; }
 .footer-logo span { color:var(--mauve); }
 .footer-tagline { font-size:10px;color:rgba(255,251,219,.3);letter-spacing:.12em;line-height:1.9; }
-.footer-nav-title { font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--orange);margin-bottom:20px; }
+.footer-nav-title { font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--orange);margin-bottom:20px; }
 .footer-nav-links { list-style:none;display:flex;flex-direction:column;gap:12px; }
 .footer-nav-links a { font-size:12px;color:rgba(255,251,219,.45);text-decoration:none;transition:color .3s; }
 .footer-nav-links a:hover { color:var(--mauve); }
@@ -602,6 +598,9 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
   .stats-row { grid-template-columns:repeat(2,1fr);margin:40px 20px 0; }
   .stats-transition { margin:0 20px; height:48px; }
   .stat-box { padding:22px 16px; }
+  .stat-box:nth-child(1),
+  .stat-box:nth-child(2) { border-bottom: 1px solid rgba(237,172,255,.1); }
+  .stat-box:nth-child(2) { border-right: none; }
   .stat-num { font-size:36px; }
   .gallery-strip { padding:28px 0 44px; }
   .gallery-strip-header { padding:0 20px 24px;flex-direction:column;align-items:flex-start;gap:10px; }
@@ -728,40 +727,20 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
       <p>Les prochaines dates — cliquez sur un événement pour les détails.</p>
-      <a href="#events" class="view-all-link">Voir tout le calendrier</a>
     </div>
   </div>
 
   <div class="events-timeline">
 
-    <!-- PROCHAIN -->
+    <!-- EVENT 1 — PROCHAIN -->
     <div class="ev-row ev-row--first">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" onclick="openEvDetail('After RobertRobert','Bain Public × Collectif Jardin','25 avril 2026 — 23h → 3h','Bain Public, Rimouski','After officiel de la soirée RobertRobert avec MÉTHOT &amp; SYNCHRONIC aux platines. Une nuit house organique dans la salle intimiste du Bain Public — la suite parfaite pour prolonger l\'énergie du show.','')">
+      <div class="ev-card-new" data-ticket="#" onclick="openEvDetail('After de ChassePareil','Bain Public × Collectif Jardin','22 mai 2026 — 23h → 3h','Bain Public, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NOAH. Sur la scène du Bain Public, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.',this.dataset.ticket)">
         <div class="ev-card-top">
           <div class="ev-badges">
             <span class="ev-badge-prochain">✦ Prochain</span>
             <span class="ev-badge-cat">Bain Public × Collectif Jardin</span>
           </div>
-        </div>
-        <div class="ev-name-new">After RobertRobert<br><em style="font-style:italic;color:var(--mauve)">MÉTHOT &amp; SYNCHRONIC</em></div>
-        <div class="ev-meta-row">
-          <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">25 avril 2026</span></div>
-          <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h → 3h</span></div>
-          <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bain Public, Rimouski</span></div>
-        </div>
-        <div class="ev-actions" onclick="event.stopPropagation()">
-          <button class="ev-btn-details" onclick="openEvDetail('After RobertRobert','Bain Public × Collectif Jardin','25 avril 2026 — 23h → 3h','Bain Public, Rimouski','After officiel de la soirée RobertRobert avec MÉTHOT &amp; SYNCHRONIC aux platines. Une nuit house organique dans la salle intimiste du Bain Public — la suite parfaite pour prolonger l\'énergie du show.','')">Détails</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- EVENT 2 -->
-    <div class="ev-row">
-      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" onclick="openEvDetail('After de ChassePareil','Bain Public × Collectif Jardin','22 mai 2026 — 23h → 3h','Bain Public, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NOAH. Sur la scène du Bain Public, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.','')">
-        <div class="ev-card-top">
-          <div class="ev-badges"><span class="ev-badge-cat">Bain Public × Collectif Jardin</span></div>
         </div>
         <div class="ev-name-new">After de ChassePareil<br><em style="font-style:italic;color:var(--mauve)">HOYA &amp; NOAH</em></div>
         <div class="ev-meta-row">
@@ -770,35 +749,55 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
           <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bain Public, Rimouski</span></div>
         </div>
         <div class="ev-actions" onclick="event.stopPropagation()">
-          <button class="ev-btn-details" onclick="openEvDetail('After de ChassePareil','Bain Public × Collectif Jardin','22 mai 2026 — 23h → 3h','Bain Public, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NOAH. Sur la scène du Bain Public, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.','')">Détails</button>
+          <button class="ev-btn-details" onclick="openEvDetail('After de ChassePareil','Bain Public × Collectif Jardin','22 mai 2026 — 23h → 3h','Bain Public, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NOAH. Sur la scène du Bain Public, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.',this.closest('.ev-card-new').dataset.ticket)">Détails</button>
+          <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener" onclick="var u=this.closest('.ev-card-new').dataset.ticket;if(!u||u==='#'){event.preventDefault();}else{this.href=u;}">Billetterie</a>
         </div>
       </div>
     </div>
 
-    <!-- EVENT 3 -->
+    <!-- EVENT 2 — Brise-Lames Solstice -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. Kora &amp;et plus encore qui assurent l\'ambiance face au fleuve pour une longue session jusqu\'au coucher de soleil — musique, nature, yoga et communauté réunis au bord du Saint-Laurent.','')">
+      <div class="ev-card-new" data-ticket="#" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. KORA et plus encore assurent l\'ambiance face au fleuve pour une longue après-midi jusqu\'au coucher de soleil — musique, nature et communauté réunis au bord du Saint-Laurent.','#')">
         <div class="ev-card-top">
           <div class="ev-badges"><span class="ev-badge-cat">Collectif Jardin</span></div>
         </div>
-        <div class="ev-name-new">Brise-Lames <em style="font-style:italic;color:var(--mauve)">SOLSTICE</em></div>
+        <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : SOLSTICE</span><br><em style="font-style:italic;color:var(--mauve)">KORA &amp; BODAISHIN</em></div>
         <div class="ev-meta-row">
           <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">20 juin 2026</span></div>
           <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">15h → 23h</span></div>
           <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
         </div>
         <div class="ev-actions" onclick="event.stopPropagation()">
-          <button class="ev-btn-details" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. Kora &amp; Family assurent l\'ambiance face au fleuve pour une longue après-midi jusqu\'au coucher de soleil — musique, nature et communauté réunis au bord du Saint-Laurent.','')">Détails</button>
+          <button class="ev-btn-details" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. KORA et plus encore assurent l\'ambiance face au fleuve pour une longue après-midi jusqu\'au coucher de soleil — musique, nature et communauté réunis au bord du Saint-Laurent.',this.closest('.ev-card-new').dataset.ticket)">Détails</button>
+          <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener" onclick="var u=this.closest('.ev-card-new').dataset.ticket;if(!u||u==='#'){event.preventDefault();}else{this.href=u;}">Billetterie</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT 3 — After Solstice au Musée -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" data-ticket="#" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.','#')">
+        <div class="ev-card-top">
+          <div class="ev-badges">
+            <span class="ev-badge-cat">Musée de Rimouski × Collectif Jardin</span>
+          </div>
+        </div>
+        <div class="ev-name-new">After Solstice<br><em style="font-style:italic;color:var(--mauve)">HOYA &amp; KORA</em></div>
+        <div class="ev-meta-row">
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">20 juin 2026</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h45 → 3h</span></div>
+          <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Musée de Rimouski</span></div>
+        </div>
+        <div class="ev-actions" onclick="event.stopPropagation()">
+          <button class="ev-btn-details" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.',this.closest('.ev-card-new').dataset.ticket)">Détails</button>
+          <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener" onclick="var u=this.closest('.ev-card-new').dataset.ticket;if(!u||u==='#'){event.preventDefault();}else{this.href=u;}">Billetterie</a>
         </div>
       </div>
     </div>
 
   </div><!-- /.events-timeline -->
-
-  <div class="events-view-all-wrap">
-    <a href="#events" class="btn-ghost">Voir tout le calendrier 2026 →</a>
-  </div>
 
 </section>
 
@@ -816,59 +815,59 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
     <div class="gallery-scroll-track" id="galleryTrack">
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Happyness-Briselame2025.webp" alt="Happyness Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Happyness · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Happyness-Briselame2025.webp" alt="Happyness Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Happyness · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/LancementCollectifJardin-BainPublic.webp" alt="Lancement Collectif Jardin — Bain Public" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Lancement · Bain Public</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/LetsDance-Briselame2025.webp" alt="Let's Dance Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Let's Dance · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meduse-Invertus2025.webp" alt="Méduse Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méduse · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smileee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/LetsDance-Briselame2025.webp" alt="Let's Dance Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Let's Dance · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Meduse-Invertus2025.webp" alt="Méduse Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méduse · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Smilee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
       <!-- clones for infinite scroll -->
      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Happyness-Briselame2025.webp" alt="Happyness Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Happyness · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Happyness-Briselame2025.webp" alt="Happyness Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Happyness · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/LancementCollectifJardin-BainPublic.webp" alt="Lancement Collectif Jardin — Bain Public" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Lancement · Bain Public</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/LetsDance-Briselame2025.webp" alt="Let's Dance Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Let's Dance · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meduse-Invertus2025.webp" alt="Méduse Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méduse · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Smileee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/LetsDance-Briselame2025.webp" alt="Let's Dance Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Let's Dance · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Meduse-Invertus2025.webp" alt="Méduse Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méduse · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Meetup-Solstice2025.webp" alt="Meetup Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Meetup · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Methot-Briselame2025.webp" alt="Méthot Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Méthot · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/NightCrowd-Briselame2025.webp" alt="Night Crowd Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Night Crowd · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Smilee-Briselame2025.webp" alt="Smilee Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Solstice-2025-Yule.webp" alt="Solstice 2025 Yule" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Solstice 2025 · Yule</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Sunsetvibe-Briselame2025.webp" alt="Sunset Vibe Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Sunset Vibe · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/TamTam-Briselame-2025.webp" alt="Tam Tam Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tam Tam · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Tartine-Invertus2025.webp" alt="Tartine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Tartine · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Vibran-Invertus2025.webp" alt="Vibran Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Vibran · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/yoga-solstice2025.webp" alt="Yoga Solstice 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Yoga · Solstice 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/RaveInvertus2025.webp" alt="Rave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Rave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/SmileeInvertus2025.webp" alt="Smilee Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Smilee · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/PinkWaveInvertus2025.webp" alt="Pink Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Pink Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/QueenMedusa2025.webp" alt="Queen Medusa 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Queen Medusa · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/CreatureMarineInvertus2025.webp" alt="Créature Marine Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Créature Marine · Invertus 2025</div></div>
     </div>
   </div>
 </div>
@@ -889,25 +888,22 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
       <div id="projCardsTrack">
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp1"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="170" r="85" stroke="#edacff" stroke-width=".8" fill="none" opacity=".22"/><circle cx="150" cy="170" r="58" stroke="#edacff" stroke-width=".6" fill="none" opacity=".18"/><circle cx="150" cy="170" r="30" stroke="#fd2f00" stroke-width=".8" fill="none" opacity=".28"/><circle cx="150" cy="170" r="10" fill="#fd2f00" opacity=".12"/><path d="M215 118 Q248 170 215 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M85 118 Q52 170 85 222" stroke="#edacff" stroke-width=".7" fill="none" opacity=".28"/><path d="M30 330 Q55 308 80 330 Q105 352 130 330 Q155 308 180 330 Q205 352 230 330 Q255 308 270 330" stroke="#fd2f00" stroke-width=".7" fill="none" opacity=".22"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp2"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="145" r="18" stroke="#edacff" stroke-width=".8" fill="none" opacity=".38"/><circle cx="68" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><circle cx="232" cy="225" r="12" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><line x1="150" y1="145" x2="68" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/><line x1="150" y1="145" x2="232" y2="225" stroke="#edacff" stroke-width=".5" opacity=".18"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp3"><svg viewBox="0 0 300 400" fill="none"><line x1="150" y1="195" x2="150" y2="345" stroke="#fd2f00" stroke-width=".8" opacity=".22"/><path d="M75 195 L150 72 L225 195 Z" stroke="#edacff" stroke-width=".8" fill="none" opacity=".28"/><line x1="75" y1="195" x2="225" y2="195" stroke="#edacff" stroke-width=".6" opacity=".22"/><circle cx="150" cy="72" r="6" fill="#edacff" opacity=".28"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
         </div>
         <div class="proj-card-preview">
           <div class="proj-card-bg-preview pp4"><svg viewBox="0 0 300 400" fill="none"><circle cx="150" cy="130" r="28" stroke="#edacff" stroke-width=".8" fill="none" opacity=".32"/><circle cx="72" cy="260" r="18" stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/><circle cx="228" cy="260" r="18" stroke="#fd2f00" stroke-width=".6" fill="none" opacity=".28"/><circle cx="150" cy="320" r="18" stroke="#edacff" stroke-width=".6" fill="none" opacity=".28"/><line x1="150" y1="158" x2="72" y2="242" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="150" y1="158" x2="228" y2="242" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="150" y1="158" x2="150" y2="302" stroke="#edacff" stroke-width=".5" opacity=".2"/><line x1="72" y1="278" x2="150" y2="302" stroke="#fd2f00" stroke-width=".4" opacity=".15"/><line x1="228" y1="278" x2="150" y2="302" stroke="#fd2f00" stroke-width=".4" opacity=".15"/><circle cx="150" cy="130" r="6" fill="#edacff" opacity=".22"/></svg></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Archives · Lien digital</div><a href="#projets-preview" class="proj-btn-preview">Plus de détails</a></div>
+          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Archives · Lien digital</div></div>
         </div>
       </div>
-      <div class="proj-view-all-btn">
-        <p style="font-size:11px;color:rgba(255,251,219,.3);letter-spacing:.12em;margin-bottom:10px;">Collaborations passées, projets en cours et à venir</p>
-        <a href="#projets-preview" class="btn-ghost">Voir tous les projets →</a>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1222,7 +1218,7 @@ if(isPointer){
   var mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
   (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
-  document.querySelectorAll('a,button,.ev-card-new,.gallery-item').forEach(function(el){
+  document.querySelectorAll('a,button,.ev-card-new,.gallery-item,.cj-phase').forEach(function(el){
     el.addEventListener('mouseenter',function(){cur.style.width=cur.style.height='16px';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='.8';ring.style.borderColor='var(--orange)';});
     el.addEventListener('mouseleave',function(){cur.style.width=cur.style.height='8px';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.5';ring.style.borderColor='var(--mauve)';});
   });
@@ -1269,7 +1265,9 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl){
     +'</div>'
     +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
     +'<p style="font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;margin-bottom:28px;">'+desc+'</p>'
-    +(ticketUrl?'<a href="'+ticketUrl+'" style="display:inline-block;background:var(--orange);color:#141414;padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Acheter les billets →</a>':'');
+    +(ticketUrl && ticketUrl!=='#'
+      ? '<a href="'+ticketUrl+'" style="display:inline-block;border:1px solid var(--orange);color:var(--orange);background:rgba(253,47,0,.06);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Billetterie →</a>'
+      : '<span style="display:inline-block;border:1px solid rgba(255,251,219,.1);color:rgba(255,251,219,.2);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:default;">Billetterie — À venir</span>');
   lb.style.display='flex';
   document.body.dataset.lbSy=window.scrollY;
   document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
@@ -1295,7 +1293,7 @@ window.openCjDetail=function(period,title,sub,desc){
   var lb=document.getElementById('cj-detail-lb');
   var content=document.getElementById('cj-detail-content');
   content.innerHTML=
-    '<div style="font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;">'+period+'</div>'
+    '<div style="font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;">'+period+'</div>'
     +'<h2 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:10px;">'+title+'</h2>'
     +'<div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(237,172,255,.45);margin-bottom:20px;">'+sub+'</div>'
     +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
@@ -1429,6 +1427,17 @@ if(track&&btnL&&btnR){
       lbl.className='gallery-modal-label';
       lbl.textContent=label?label.textContent:'';
       modalInner.appendChild(lbl);
+      var credit=item.dataset.credit;
+      var creditUrl=item.dataset.creditUrl;
+      if(credit){
+        var cr=document.createElement('a');
+        cr.href=creditUrl||'#'; cr.target='_blank'; cr.rel='noopener';
+        cr.textContent=credit;
+        cr.style.cssText='display:block;text-align:left;font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:.15em;color:rgba(255,251,219,.35);text-decoration:none;margin-top:6px;transition:color .2s;';
+        cr.addEventListener('mouseenter',function(){this.style.color='var(--mauve)';});
+        cr.addEventListener('mouseleave',function(){this.style.color='rgba(255,251,219,.35)';});
+        modalInner.appendChild(cr);
+      }
       modalInner.style.opacity='1';
     },180);
   }
@@ -1455,6 +1464,17 @@ if(track&&btnL&&btnR){
     lbl.className='gallery-modal-label';
     lbl.textContent=label?label.textContent:'';
     modalInner.appendChild(lbl);
+    var credit=item.dataset.credit;
+    var creditUrl=item.dataset.creditUrl;
+    if(credit){
+      var cr=document.createElement('a');
+      cr.href=creditUrl||'#'; cr.target='_blank'; cr.rel='noopener';
+      cr.textContent=credit;
+      cr.style.cssText='display:block;text-align:left;font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:.15em;color:rgba(255,251,219,.35);text-decoration:none;margin-top:6px;transition:color .2s;';
+      cr.addEventListener('mouseenter',function(){this.style.color='var(--mauve)';});
+      cr.addEventListener('mouseleave',function(){this.style.color='rgba(255,251,219,.35)';});
+      modalInner.appendChild(cr);
+    }
     modalInner.style.opacity='1';
     modal.classList.add('open');
     document.body.dataset.gmSy=window.scrollY;
