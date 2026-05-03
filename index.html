@@ -545,11 +545,12 @@ footer { background:var(--burgundy);padding:60px 48px 40px;border-top:1px solid 
 @media (max-width:768px) {
   #projets-preview { padding: 0 !important; overflow: visible !important; border-bottom: none !important; }
   #projPinWrap { position: relative; width: 100%; overflow: visible; }
-  #projPinPanel { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); width: 100%; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; box-sizing: border-box; }
+  #projPinPanel { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); width: 100%; overflow: visible; background: var(--bg); display: flex; flex-direction: column; box-sizing: border-box; }
   .proj-header-row { flex-shrink: 0; padding: 14px 20px 10px; margin-bottom: 0; }
   .proj-header-row .section-label { margin-bottom: 4px; }
-  #projCardsTrack { flex: 1; min-height: 0; display: flex; flex-direction: row; gap: 32px; padding: 6px 0 6px 20px; will-change: transform; align-items: flex-start; backface-visibility: hidden; }
-  .proj-card-preview { flex: 0 0 calc(100vw - 52px); width: calc(100vw - 52px); min-width: calc(100vw - 52px); max-width: calc(100vw - 52px); height: calc(100svh - var(--nav-h) - 230px); aspect-ratio: unset; flex-shrink: 0; }
+  #projCardsTrack { flex: 1; min-height: 0; display: flex; flex-direction: row; gap: 32px; padding: 6px 20px 24px 20px; will-change: transform; align-items: flex-start; backface-visibility: hidden; overflow: visible; }
+  .proj-card-preview { flex: 0 0 calc(100vw - 52px); width: calc(100vw - 52px); min-width: calc(100vw - 52px); max-width: calc(100vw - 52px); height: auto; aspect-ratio: unset; flex-shrink: 0; }
+  .proj-card-bg-preview { aspect-ratio: 4/3; max-height: 240px; }
   .proj-btn-preview { opacity: 1 !important; transform: translateY(0) !important; border-color: rgba(237,172,255,.3) !important; }
   .proj-view-all-btn { flex-shrink: 0; padding: 10px 20px 12px; text-align: center; }
   .proj-scroll-hint { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 12px 20px 8px; }
