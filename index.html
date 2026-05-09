@@ -6,8 +6,10 @@
 <meta name="theme-color" content="#141414">
 <title>Collectif Jardin — Musique Électronique</title>
 <link rel="icon" type="image/png" href="Image-Projet/FleurMauveCentreOrange.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap');
 
 :root {
   --nav-h: 92px;
@@ -1206,14 +1208,48 @@ if(isPointer){
 var nav=document.getElementById('mainNav');
 window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
 
+/* ── SCROLL LOCK UNIFIÉ ──────────────────────────────────────────────
+   Un seul gestionnaire pour nav, ev-detail, cj-detail et gallery-modal.
+   lock(key) mémorise la position et verrouille le body.
+   unlock(key) restaure uniquement si c'est le même appelant qui a verrouillé.
+   Si deux overlays s'ouvrent (rare), le deuxième lock() est ignoré —
+   la position sauvegardée par le premier est préservée.
+──────────────────────────────────────────────────────────────────── */
+var scrollLock = (function(){
+  var savedY = 0;
+  var owner = null; /* qui détient le lock */
+
+  function lock(key){
+    if(owner !== null) return; /* déjà verrouillé — ne pas écraser savedY */
+    owner = key;
+    savedY = window.scrollY;
+    var cursorRule = isPointer ? 'cursor:none;' : '';
+    document.body.style.cssText = 'position:fixed;top:-' + savedY + 'px;width:100%;overflow-y:scroll;' + cursorRule;
+  }
+
+  function unlock(key){
+    if(owner !== key) return; /* seul celui qui a verrouillé peut déverrouiller */
+    owner = null;
+    /* Coupe scroll-behavior smooth le temps d'un frame pour éviter le saut animé */
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.cssText = '';
+    window.scrollTo(0, savedY);
+    requestAnimationFrame(function(){
+      document.documentElement.style.scrollBehavior = '';
+    });
+  }
+
+  return { lock: lock, unlock: unlock };
+})();
+
 window.toggleNav=function(){
   var ov=document.getElementById('navOverlay');
   var btn=document.getElementById('navHamburger');
   var open=ov.classList.toggle('open');
   btn.classList.toggle('open',open);
   btn.setAttribute('aria-expanded',open);
-  if(open){document.body.dataset.sy=window.scrollY;document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';}
-  else{var sy=parseInt(document.body.dataset.sy||0);document.body.style.cssText='';window.scrollTo(0,sy);}
+  if(open){ scrollLock.lock('nav'); }
+  else{ scrollLock.unlock('nav'); }
 };
 window.closeNav=function(){
   var ov=document.getElementById('navOverlay');
@@ -1221,9 +1257,7 @@ window.closeNav=function(){
   ov.classList.remove('open');
   document.getElementById('navHamburger').classList.remove('open');
   document.getElementById('navHamburger').setAttribute('aria-expanded','false');
-  var sy=parseInt(document.body.dataset.sy||0);
-  document.body.style.cssText='';
-  window.scrollTo(0,sy);
+  scrollLock.unlock('nav');
 };
 document.getElementById('navOverlay').addEventListener('click',function(e){if(e.target===this)closeNav();});
 
@@ -1275,22 +1309,11 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl){
       ? '<a href="'+ticketUrl+'" style="display:inline-block;border:1px solid var(--orange);color:var(--orange);background:rgba(253,47,0,.06);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Billetterie →</a>'
       : '<span style="display:inline-block;border:1px solid rgba(255,251,219,.1);color:rgba(255,251,219,.2);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:default;">Billetterie — À venir</span>');
   lb.style.display='flex';
-  document.body.dataset.lbSy=window.scrollY;
-  document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+  scrollLock.lock('ev');
 };
-/* Restaure le scroll sans animation — coupe smooth le temps d'un frame */
-function restoreScroll(sy){
-  document.documentElement.style.scrollBehavior='auto';
-  document.body.style.cssText='';
-  window.scrollTo(0,sy);
-  requestAnimationFrame(function(){
-    document.documentElement.style.scrollBehavior='';
-  });
-}
-
 window.closeEvDetail=function(){
   document.getElementById('ev-detail-lb').style.display='none';
-  restoreScroll(parseInt(document.body.dataset.lbSy||0));
+  scrollLock.unlock('ev');
 };
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeEvDetail();});
 
@@ -1305,12 +1328,11 @@ window.openCjDetail=function(period,title,sub,desc){
     +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
     +'<p style="font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;">'+desc+'</p>';
   lb.style.display='flex';
-  document.body.dataset.cjSy=window.scrollY;
-  document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+  scrollLock.lock('cj');
 };
 window.closeCjDetail=function(){
   document.getElementById('cj-detail-lb').style.display='none';
-  restoreScroll(parseInt(document.body.dataset.cjSy||0));
+  scrollLock.unlock('cj');
 };
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeCjDetail();});
 
@@ -1558,9 +1580,7 @@ if(track&&btnL&&btnR){
     }
     modalInner.style.opacity='1';
     modal.classList.add('open');
-    document.body.dataset.gmSy=window.scrollY;
-    var cursorRule=isPointer?'cursor:none;':'';
-    document.body.style.cssText='position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;'+cursorRule;
+    scrollLock.lock('gallery');
   };
 
   window.galleryModalStep=function(dir){
@@ -1573,9 +1593,7 @@ if(track&&btnL&&btnR){
     var modal=document.getElementById('galleryModal');
     if(!modal)return;
     modal.classList.remove('open');
-    var sy=parseInt(document.body.dataset.gmSy||0);
-    if(isPointer){ document.body.style.cursor='none'; }
-    restoreScroll(sy);
+    scrollLock.unlock('gallery');
   };
 
   // Keyboard navigation
