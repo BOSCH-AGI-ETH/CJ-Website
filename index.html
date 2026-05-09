@@ -54,6 +54,41 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; }
 .section-title em { font-style: italic; color: var(--mauve); }
 
+/* Hint tactile — visible mobile uniquement */
+.events-tap-hint {
+  display: none;
+}
+@media (max-width:768px) {
+  .events-tap-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: .75;
+    margin-top: 12px;
+  }
+  .events-tap-hint::before {
+    content: '↓';
+    font-size: 14px;
+    opacity: 1;
+  }
+  /* Bordure basse sur les cartes pour signaler l'interactivité */
+  .ev-card-new::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--orange), transparent);
+    opacity: .35;
+  }
+  .ev-row--first .ev-card-new::after {
+    display: none; /* déjà le gradient top sur la première carte */
+  }
+}
+
 .cursor { position: fixed; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .2s; display: none; }
 .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: transform .15s ease, opacity .3s, border-color .3s; opacity: 0.5; display: none; }
 
@@ -294,6 +329,9 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .cj-phase:hover .cj-phase-title em { color:var(--mauve); }
 .cj-phase-arrow { font-size:12px; color:rgba(237,172,255,.2); flex-shrink:0; transition:color .2s, transform .2s; padding-top:4px; }
 .cj-phase:hover .cj-phase-arrow { color:var(--mauve); transform:translateX(4px); }
+@media (max-width:768px) {
+  .cj-phase-arrow { color:rgba(237,172,255,.6); font-size:16px; }
+}
 
 /* ═══════════════════════════════════
    PARTNERS
@@ -691,6 +729,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <div>
       <div class="section-label">Prochains événements</div>
       <h2 class="section-title">Ce qui s'en <em>vient</em></h2>
+      <p class="events-tap-hint">Appuyez sur un événement pour les détails</p>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
       <p>Les prochaines dates — cliquez sur un événement pour les détails.</p>
@@ -780,14 +819,14 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <button class="gallery-arrow right" id="galleryNext" aria-label="Suivant">›</button>
   <div class="gallery-viewport">
     <div class="gallery-scroll-track" id="galleryTrack">
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
-      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/Apero101.webp" alt="Apéro 101" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Apéro 101</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/BIRDVIEW-BRISE-LAME-2025.webp" alt="Birdview Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Birdview · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BlueWaveInvertus2025.webp" alt="Blue Wave Invertus 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Blue Wave · Invertus 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/BioQuake-Briselame2025.webp" alt="BioQuake Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">BioQuake · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Buisson-Briselame-2025.webp" alt="Buisson Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Buisson · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DJBooth-Briselame2025.webp" alt="DJ Booth Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">DJ Booth · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/DanceNight-Briselame2025.webp" alt="Dance Night Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Dance Night · Brise-Lame 2025</div></div>
+      <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/HOYA-SolsticeSUNSET-2025.webp" alt="HOYA Solstice Sunset 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">HOYA · Solstice Sunset 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/Happyness-Briselame2025.webp" alt="Happyness Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Happyness · Brise-Lame 2025</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)"><div class="gallery-item-inner"><img src="Image-Gallery/LancementCollectifJardin-BainPublic.webp" alt="Lancement Collectif Jardin — Bain Public" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Lancement · Bain Public</div></div>
       <div class="gallery-item" onclick="openGalleryModal(this)" data-credit="@ulysselachancelandreville" data-credit-url="https://www.instagram.com/ulysselachancelandreville/"><div class="gallery-item-inner"><img src="Image-Gallery/LetsDance-Briselame2025.webp" alt="Let's Dance Brise-Lame 2025" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div><div class="gallery-item-label">Let's Dance · Brise-Lame 2025</div></div>
