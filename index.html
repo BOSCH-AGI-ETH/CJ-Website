@@ -440,7 +440,6 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 .proj-card-bg-preview { width:100%; aspect-ratio:4/3; overflow:hidden; flex-shrink:0; }
 .proj-card-bg-preview img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease,filter .6s ease; }
 .proj-card-preview:hover .proj-card-bg-preview img { transform:scale(1.06); filter:brightness(.75); }
-.pp1{} .pp2{} .pp3{} .pp4{}
 .proj-card-bg-preview svg{width:100%;height:100%;}
 .proj-card-inner-preview { display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-md) var(--space-md) var(--space-lg); background:#1a1a1a; z-index:2; flex:1; border-top: 1px solid rgba(237,172,255,.08); }
 .proj-tag-preview { font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--orange);margin-bottom:var(--space-sm); }
@@ -452,6 +451,10 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 .proj-card-preview:hover .proj-btn-preview:hover{border-color:var(--orange);color:var(--orange);}
 .proj-view-all-btn{margin-top:var(--space-lg);text-align:center;padding-bottom:var(--space-sm);}
 .proj-scroll-hint { display: none; }
+
+/* Dots carrousel — masqués sur desktop */
+.proj-dots { display: none; }
+.proj-carousel-viewport { overflow: visible; }
 
 /* ═══════════════ TABLET ═══════════════ */
 @media (max-width:1024px) and (min-width:769px) {
@@ -488,27 +491,26 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     --nav-h: 66px;
   }
 
-  /* Projets sticky — inchangé */
-  #projets-preview { padding: 0 !important; overflow: visible !important; border-bottom: none !important; }
-  #projPinWrap { position: relative; width: 100%; overflow: visible; }
-  #projPinPanel { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); width: 100vw; max-width: 100vw; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; box-sizing: border-box; }
-  .proj-header-row { flex-shrink: 0; padding: var(--space-lg) var(--gutter) 10px; margin-bottom: 0; }
-  .proj-header-row .section-label { margin-bottom: 4px; }
-  #projCardsTrack { flex: 1; min-height: 0; display: flex; flex-direction: row; gap: var(--gutter); padding: 6px var(--gutter) var(--space-md); will-change: transform; align-items: stretch; backface-visibility: hidden; overflow: visible; }
-  .proj-card-preview { flex: 0 0 calc(100vw - 40px); width: calc(100vw - 40px); min-width: calc(100vw - 40px); max-width: calc(100vw - 40px); height: 100%; aspect-ratio: unset; flex-shrink: 0; display: flex; flex-direction: column; }
-  .proj-card-bg-preview { flex: 0 0 65%; min-height: 0; max-height: none; aspect-ratio: unset; overflow: hidden; }
-  .proj-card-bg-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .proj-card-inner-preview { flex: 0 0 35%; min-height: 0; overflow: hidden; padding: 16px 20px 20px; justify-content: center; }
-  .proj-btn-preview { opacity: 1 !important; transform: translateY(0) !important; border-color: rgba(237,172,255,.3) !important; }
-  .proj-view-all-btn { flex-shrink: 0; padding: 10px var(--gutter) 12px; text-align: center; }
-  .proj-scroll-hint { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 12px var(--gutter) 8px; }
-  .proj-scroll-hint-text { font-size: var(--text-sm); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--orange); }
-  .proj-scroll-hint-arrow { font-size: 22px; color: var(--orange); opacity: .9; line-height: 1; }
-  .proj-hint-up { animation: proj-hint-up 1.6s ease-in-out infinite; }
-  .proj-hint-down { animation: proj-hint-down 1.6s ease-in-out infinite; }
-  @keyframes proj-hint-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  @keyframes proj-hint-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  /* Projets — carrousel mobile */
+  #projets-preview { padding: var(--space-lg) 0 var(--space-lg) !important; overflow: hidden !important; border-bottom: none !important; }
+  #projPinWrap { position: relative; width: 100%; }
+  #projPinPanel { position: relative; width: 100%; background: var(--bg); display: flex; flex-direction: column; box-sizing: border-box; }
+  .proj-header-row { flex-shrink: 0; padding: var(--space-lg) var(--gutter) var(--space-md); margin-bottom: 0; }
 
+  .proj-carousel-viewport { overflow: hidden; width: 100%; }
+  #projCardsTrack { display: flex; flex-direction: row; gap: 0; width: max-content; transition: transform .38s cubic-bezier(.4,0,.2,1); will-change: transform; align-items: stretch; margin: 0; max-width: none; }
+  .proj-card-preview { flex: 0 0 calc(100vw - 40px); width: calc(100vw - 40px); min-width: calc(100vw - 40px); max-width: calc(100vw - 40px); margin: 0 20px 0 0; display: flex; flex-direction: column; }
+  .proj-card-preview:first-child { margin-left: 20px; }
+  .proj-card-bg-preview { flex: 0 0 58%; min-height: 0; max-height: none; aspect-ratio: unset; overflow: hidden; }
+  .proj-card-bg-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .proj-card-inner-preview { flex: 1; min-height: 0; overflow: hidden; padding: 16px 20px 20px; justify-content: center; }
+  .proj-btn-preview { opacity: 1 !important; transform: translateY(0) !important; border-color: rgba(237,172,255,.3) !important; }
+
+  /* Dots */
+  .proj-dots { display: flex; justify-content: center; gap: 8px; padding: 16px 0 8px; flex-shrink: 0; }
+  .proj-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(237,172,255,.2); transition: background .3s, transform .3s; }
+  .proj-dot--active { background: var(--orange); transform: scale(1.4); }
+  
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none !important; }
   nav { padding:16px var(--gutter); }
@@ -837,27 +839,33 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
         <div class="section-label">Nos projets</div>
         <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
       </div>
-      <div class="proj-scroll-hint" aria-hidden="true">
-        <span class="proj-scroll-hint-arrow proj-hint-up">↑</span>
-        <span class="proj-scroll-hint-text">Défiler pour naviguer</span>
-        <span class="proj-scroll-hint-arrow proj-hint-down">↓</span>
+
+      <!-- DOTS mobile uniquement -->
+      <div class="proj-dots" id="projDots" aria-hidden="true">
+        <span class="proj-dot proj-dot--active"></span>
+        <span class="proj-dot"></span>
+        <span class="proj-dot"></span>
+        <span class="proj-dot"></span>
       </div>
-      <div id="projCardsTrack">
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp1"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son"></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
-        </div>
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp2"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels"></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
-        </div>
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp3"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale"></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
-        </div>
-        <div class="proj-card-preview">
-          <div class="proj-card-bg-preview pp4"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique"></div>
-          <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Lien digital</div></div>
+
+      <div class="proj-carousel-viewport" id="projViewport">
+        <div id="projCardsTrack">
+          <div class="proj-card-preview">
+            <div class="proj-card-bg-preview pp1"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son"></div>
+            <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
+          </div>
+          <div class="proj-card-preview">
+            <div class="proj-card-bg-preview pp2"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels"></div>
+            <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
+          </div>
+          <div class="proj-card-preview">
+            <div class="proj-card-bg-preview pp3"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale"></div>
+            <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
+          </div>
+          <div class="proj-card-preview">
+            <div class="proj-card-bg-preview pp4"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique"></div>
+            <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Lien digital</div></div>
+          </div>
         </div>
       </div>
 
