@@ -58,7 +58,10 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
 .events-tap-hint {
   display: none;
 }
-@media (max-width:768px) {
+.events-desktop-hint {
+  display: block;
+}
+@media (max-width: 768px) {
   .events-tap-hint {
     display: flex;
     align-items: center;
@@ -75,6 +78,9 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
     font-size: 14px;
     opacity: 1;
   }
+  .events-desktop-hint {
+    display: none;
+  }
   /* Bordure basse sur les cartes pour signaler l'interactivité */
   .ev-card-new::after {
     content: '';
@@ -85,7 +91,7 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
     opacity: .35;
   }
   .ev-row--first .ev-card-new::after {
-    display: none; /* déjà le gradient top sur la première carte */
+    display: none;
   }
 }
 
@@ -329,9 +335,6 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .cj-phase:hover .cj-phase-title em { color:var(--mauve); }
 .cj-phase-arrow { font-size:12px; color:rgba(237,172,255,.2); flex-shrink:0; transition:color .2s, transform .2s; padding-top:4px; }
 .cj-phase:hover .cj-phase-arrow { color:var(--mauve); transform:translateX(4px); }
-@media (max-width:768px) {
-  .cj-phase-arrow { color:rgba(237,172,255,.6); font-size:16px; }
-}
 
 /* ═══════════════════════════════════
    PARTNERS
@@ -732,7 +735,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       <p class="events-tap-hint">Appuyez sur un événement pour les détails</p>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
-      <p>Les prochaines dates — cliquez sur un événement pour les détails.</p>
+      <p class="events-desktop-hint">Les prochaines dates — cliquez sur un événement pour les détails.</p>
     </div>
   </div>
 
