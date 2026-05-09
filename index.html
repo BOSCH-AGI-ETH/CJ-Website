@@ -86,7 +86,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 /* HERO */
 #hero { min-height: 100vh; min-height: 100dvh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 !important; overflow: hidden; background: var(--bg); }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; will-change: transform; }
+.hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; }
 .orb1 { width:555px;height:555px;background:var(--mauve);top:-100px;right:-100px;animation-delay:1s; }
 .orb2 { width:444px;height:444px;background:var(--orange);bottom:60px;left:30%;animation-delay:2s; }
 .orb3 { width:333px;height:333px;background:var(--burgundy);top:20%;left:-20px; }
@@ -110,7 +110,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 
 /* MARQUEE */
 .marquee-section { overflow:hidden;border-top:.66px solid var(--mauve);border-bottom:.66px solid var(--mauve);padding:16px 0;background:rgba(128,0,32,.075);position:relative;z-index:2;margin-top:48px; }
-.marquee-track { display:flex;animation:marquee 60s linear infinite;width:max-content;will-change:transform; }
+.marquee-track { display:flex;animation:marquee 60s linear infinite;width:max-content; }
 .marquee-item { white-space:nowrap;font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--mauve);padding:0 40px; }
 .marquee-dot { color:var(--orange); }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
@@ -191,10 +191,10 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .gallery-arrow.right { right:16px; }
 .gallery-viewport { overflow:hidden;width:100%; }
 /* 2x speed: 30s instead of 60s */
-.gallery-scroll-track { display:flex; gap:8px; width:max-content; animation:infiniteScroll 90s linear infinite; will-change:transform; }
+.gallery-scroll-track { display:flex; gap:8px; width:max-content; animation:infiniteScroll 90s linear infinite; }
 @keyframes infiniteScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 .gallery-item { width:280px;height:380px;flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent; }
-.gallery-item-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s ease;will-change:transform; }
+.gallery-item-inner { width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .5s ease; }
 .gallery-item:hover .gallery-item-inner { transform:scale(1.04); }
 .gallery-item-label { position:absolute;bottom:0;left:0;right:0;padding:40px 20px 18px;background:linear-gradient(to top,rgba(20,20,20,.9),transparent);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.6);opacity:0;transition:opacity .3s; }
 .gallery-item:hover .gallery-item-label { opacity:1; }
@@ -264,7 +264,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;margin-top:var(--space-lg); }
 .about-text p { font-size:var(--text-base);line-height:2;color:rgba(255,251,219,.65);letter-spacing:.03em;margin-bottom:var(--space-md); }
 .about-text p strong { color:var(--cream);font-weight:400; }
-.about-quote { font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.2vw,30px);font-weight:300;font-style:italic;line-height:1.45;color:var(--mauve);border-left:2px solid var(--orange);padding-left:var(--space-md);margin:var(--space-lg) 0; }
+.about-quote { font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.2vw,30px);font-weight:300;font-style:italic;line-height:1.45;color:var(--mauve);border-left:2px solid var(--orange);padding-left:var(--space-md);margin:var(--space-md) 0 var(--space-lg); }
 .about-visual { position:sticky;top:calc(var(--nav-h) + var(--space-md)); }
 .about-logo-banner { width:100%;display:flex;align-items:flex-start;justify-content:flex-start;padding:0;margin-bottom:16px; }
 .about-logo-banner img { width:auto;max-width:100%;height:auto;display:block;max-height:160px;opacity:.92; }
@@ -323,7 +323,6 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
   gap: 0;
   width: max-content;
   animation: partnersScroll 28s linear infinite;
-  will-change: transform;
 }
 
 @keyframes partnersScroll {
@@ -402,8 +401,11 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:clip; }
-.contact-body { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-lg);align-items:start; }
-.contact-note { font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.8vw,26px);font-weight:300;line-height:1.7;color:rgba(255,251,219,.65);margin-bottom:0; }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 var(--space-xl); align-items:start; }
+.contact-header { grid-column:1; grid-row:1; padding-bottom:var(--space-md); }
+.contact-note-col { grid-column:1; grid-row:2; }
+.contact-links-col { grid-column:2; grid-row:1 / 3; padding-top:calc(var(--text-xs) + var(--space-sm) + 4px); }
+.contact-note { font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.4vw,22px);font-weight:300;line-height:1.8;color:rgba(255,251,219,.65);margin-bottom:0; }
 .contact-note em { font-style:italic;color:var(--mauve); }
 .contact-note strong { font-weight:400;color:var(--cream); }
 .contact-links { display:flex;flex-direction:column; }
@@ -416,7 +418,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .contact-link-arrow { margin-left:auto;color:var(--orange);font-size:var(--text-md);flex-shrink:0; }
 
 /* FOOTER */
-footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--space-lg);border-top:1px solid rgba(237,172,255,.1); }
+footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--space-md);border-top:1px solid rgba(237,172,255,.1); }
 .footer-top { display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:var(--space-lg);margin-bottom:var(--space-lg); }
 .footer-logo { font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--space-sm); }
 .footer-logo span { color:var(--mauve); }
@@ -436,16 +438,16 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 .flora-bg-el { position:absolute;pointer-events:none;opacity:.04; }
 
 /* PROJECTS PREVIEW */
-#projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: var(--space-lg) var(--gutter) var(--space-2xl); overflow: hidden; }
+#projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: var(--space-lg) var(--gutter) var(--space-md); overflow: hidden; }
 .proj-header-row { margin-bottom: var(--space-md); }
 /* Desktop : grille 4 colonnes, max-width pour éviter l'étirement sur grands écrans */
 #projCardsTrack { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md); max-width: 1400px; margin: 0 auto; }
 .proj-card-preview { position:relative; overflow:hidden; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; display:flex; flex-direction:column; }
-.proj-card-bg-preview { width:100%; aspect-ratio:4/3; overflow:hidden; flex-shrink:0; }
-.proj-card-bg-preview img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease,filter .6s ease; }
-.proj-card-preview:hover .proj-card-bg-preview img { transform:scale(1.06); filter:brightness(.75); }
+.proj-card-bg-preview { width:100%; aspect-ratio:16/9; overflow:hidden; flex-shrink:0; position:relative; }
+.proj-card-bg-preview img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease,filter .6s ease; }
+.proj-card-preview:hover .proj-card-bg-preview img { transform:scale(1.03); filter:brightness(.75); }
 .proj-card-bg-preview svg { width:100%; height:100%; }
-.proj-card-inner-preview { display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-md) var(--space-md) var(--space-lg); background:#1a1a1a; z-index:2; flex:1; border-top: 1px solid rgba(237,172,255,.08); }
+.proj-card-inner-preview { display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-sm) var(--space-md) var(--space-md); background:#1a1a1a; z-index:2; flex-shrink:0; border-top: 1px solid rgba(237,172,255,.08); }
 .proj-tag-preview { font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--orange);margin-bottom:var(--space-sm); }
 .proj-name-preview { font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2vw,28px);font-weight:300;line-height:1.1;margin-bottom:var(--space-xs);color:var(--cream); }
 .proj-name-preview em { font-style:italic;color:var(--mauve); }
@@ -474,6 +476,9 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   footer { padding:var(--space-lg) var(--gutter) var(--space-md); }
   .footer-top { grid-template-columns:1fr 1fr;gap:var(--space-lg); }
   .footer-top>div:first-child { grid-column:span 2; }
+  /* Contact tablette : même 2 colonnes, gap réduit */
+  .contact-grid { gap:0 var(--space-lg); }
+  .contact-note { font-size:var(--text-base); }
   /* Tablette : grille 2×2 */
   #projets-preview { padding: var(--space-lg) var(--gutter) var(--space-xl); }
   #projCardsTrack { grid-template-columns: repeat(2,1fr); }
@@ -586,7 +591,10 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 
   /* CONTACT */
   #contact { padding:var(--space-lg) var(--gutter); }
-  .contact-body { grid-template-columns:1fr;gap:var(--space-xl);margin-top:var(--space-lg); }
+  .contact-grid { grid-template-columns:1fr; gap:var(--space-lg) 0; }
+  .contact-header { grid-column:1; grid-row:1; padding-bottom:0; }
+  .contact-note-col { grid-column:1; grid-row:2; }
+  .contact-links-col { grid-column:1; grid-row:3; padding-top:0; }
   .contact-note { font-size:var(--text-lg); }
   .contact-link-label { min-width:90px; }
   .contact-link-item { gap:var(--space-md); padding:var(--space-md) 0; }
@@ -1103,41 +1111,46 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">Nous rejoindre</div>
-  <h2 class="section-title">Faites <em>germer</em><br>vos idées avec nous</h2>
+  <div class="contact-grid">
 
-  <div class="contact-body">
+    <!-- Col 1 : titre -->
+    <div class="contact-header">
+      <div class="section-label">Nous rejoindre</div>
+      <h2 class="section-title">Faites <em>germer</em><br>vos idées avec nous</h2>
+    </div>
 
-    <!-- Left: context text -->
-    <div>
+    <!-- Col 2 : texte contextuel -->
+    <div class="contact-note-col">
       <p class="contact-note">
         Pour proposer une idée ou participer à l'évolution du collectif, rejoignez notre <em>communauté Facebook</em> — c'est là que ça se passe.<br><br>
         Pour toute <strong>collaboration, proposition de projet ou partenariat</strong>, écrivez-nous directement par courriel.
       </p>
     </div>
 
-    <!-- Right: contact links -->
-    <div class="contact-links">
-      <a href="mailto:coll.jardin@gmail.com" class="contact-link-item">
-        <span class="contact-link-label">Courriel</span>
-        <span class="contact-link-value">coll.jardin@gmail.com</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
-      <a href="https://www.instagram.com/collectif.jardin" target="_blank" rel="noopener" class="contact-link-item">
-        <span class="contact-link-label">Instagram</span>
-        <span class="contact-link-value">@collectif.jardin</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
-      <a href="https://www.facebook.com/coll.jardin" target="_blank" rel="noopener" class="contact-link-item">
-        <span class="contact-link-label">Facebook</span>
-        <span class="contact-link-value">Page officielle</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
-      <a href="https://www.facebook.com/groups/3893474290783193" target="_blank" rel="noopener" class="contact-link-item">
-        <span class="contact-link-label">Communauté</span>
-        <span class="contact-link-value">Groupe Facebook</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
+    <!-- Col 3 : liens -->
+    <div class="contact-links-col">
+      <div class="contact-links">
+        <a href="mailto:coll.jardin@gmail.com" class="contact-link-item">
+          <span class="contact-link-label">Courriel</span>
+          <span class="contact-link-value">coll.jardin@gmail.com</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.instagram.com/collectif.jardin" target="_blank" rel="noopener" class="contact-link-item">
+          <span class="contact-link-label">Instagram</span>
+          <span class="contact-link-value">@collectif.jardin</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.facebook.com/coll.jardin" target="_blank" rel="noopener" class="contact-link-item">
+          <span class="contact-link-label">Facebook</span>
+          <span class="contact-link-value">Page officielle</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.facebook.com/groups/3893474290783193" target="_blank" rel="noopener" class="contact-link-item">
+          <span class="contact-link-label">Communauté</span>
+          <span class="contact-link-value">Groupe Facebook</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -1335,6 +1348,39 @@ window.closeCjDetail=function(){
   scrollLock.unlock('cj');
 };
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeCjDetail();});
+
+/* ── ANIMATIONS HORS VIEWPORT ────────────────────────────────────────
+   IntersectionObserver sur chaque section animée.
+   Quand hors écran → animation-play-state:paused + will-change retiré
+   Quand visible   → running + will-change:transform restauré
+   Gain : zéro calcul GPU sur les sections non visibles.
+────────────────────────────────────────────────────────────────────── */
+(function(){
+  if(!window.IntersectionObserver) return; /* fallback gracieux */
+
+  function observeSection(sectionId, selector){
+    var section = document.getElementById(sectionId);
+    if(!section) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var els = Array.from(entry.target.querySelectorAll(selector));
+        var playing = entry.isIntersecting;
+        els.forEach(function(el){
+          el.style.animationPlayState = playing ? 'running' : 'paused';
+          el.style.willChange         = playing ? 'transform' : 'auto';
+        });
+      });
+    }, { threshold: 0 });
+    obs.observe(section);
+  }
+
+  /* Hero : orbes + marquee */
+  observeSection('hero', '.hero-orb, .marquee-track');
+  /* Galerie : scroll track */
+  observeSection('galleryStrip', '.gallery-scroll-track');
+  /* Partenaires : partners track */
+  observeSection('partners', '.partners-track');
+})();
 
 /* GALLERY */
 var track=document.getElementById('galleryTrack');
