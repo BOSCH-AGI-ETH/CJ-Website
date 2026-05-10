@@ -54,33 +54,7 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; }
 .section-title em { font-style: italic; color: var(--mauve); }
 
-/* Hint tactile — visible mobile uniquement */
-.events-tap-hint {
-  display: none;
-}
-.events-desktop-hint {
-  display: block;
-}
 @media (max-width: 768px) {
-  .events-tap-hint {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wider);
-    text-transform: uppercase;
-    color: var(--orange);
-    opacity: .75;
-    margin-top: 12px;
-  }
-  .events-tap-hint::before {
-    content: '↓';
-    font-size: 14px;
-    opacity: 1;
-  }
-  .events-desktop-hint {
-    display: none;
-  }
   /* Bordure basse sur les cartes pour signaler l'interactivité */
   .ev-card-new::after {
     content: '';
@@ -164,10 +138,8 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 .big-num { display: none !important; }
 
 .events-header-new {
-  display: grid; grid-template-columns: 1fr auto; align-items: end;
-  margin: 0 var(--gutter) var(--space-lg); gap: var(--space-md);
+  margin: 0 var(--gutter) var(--space-lg);
 }
-.events-header-new p { font-size: var(--text-sm); color: rgba(255,251,219,.4); max-width: 300px; line-height: 1.9; letter-spacing: .05em; margin: 0; }
 
 .view-all-link { font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--mauve);text-decoration:none;display:flex;align-items:center;gap:10px;white-space:nowrap;transition:gap .3s; }
 .view-all-link:hover { gap:22px; }
@@ -188,7 +160,7 @@ nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12
 
 .ev-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-sm); margin-bottom: var(--space-sm); flex-wrap: wrap; }
 .ev-badges { display: flex; gap: var(--space-xs); align-items: center; flex-wrap: wrap; }
-.ev-badge-prochain { font-size: var(--text-2xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; background: var(--mauve); color: var(--bg); padding: 5px 13px; font-family: 'Space Mono', monospace; }
+.ev-badge-prochain { font-size: var(--text-2xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; background: var(--cream); color: var(--bg); padding: 5px 13px; font-family: 'Space Mono', monospace; }
 .ev-badge-cat { font-size: var(--text-2xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--orange); border: 1px solid rgba(253,47,0,.3); padding: 4px 11px; }
 
 .ev-name-new { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; line-height: 1.1; margin-bottom: var(--space-sm); }
@@ -578,8 +550,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 
   /* EVENTS */
   #events { padding:var(--space-lg) 0; scroll-margin-top: var(--nav-h); }
-  .events-header-new { grid-template-columns:1fr;margin:0 var(--gutter) var(--space-md);gap:var(--space-sm); }
-  .events-header-new>div:last-child { display:none; }
+  .events-header-new { margin:0 var(--gutter) var(--space-md); }
   .events-timeline { margin:0 var(--gutter); gap:var(--space-xs); }
   .events-timeline::before { left: 20px; top:32px; }
   .ev-row { grid-template-columns:44px 1fr; gap:var(--space-sm); padding-bottom:var(--space-sm); }
@@ -732,10 +703,6 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <div>
       <div class="section-label">Prochains événements</div>
       <h2 class="section-title">Ce qui s'en <em>vient</em></h2>
-      <p class="events-tap-hint">Appuyez sur un événement pour les détails</p>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
-      <p class="events-desktop-hint">Les prochaines dates — cliquez sur un événement pour les détails.</p>
     </div>
   </div>
 
