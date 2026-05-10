@@ -56,7 +56,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { background: var(--bg); color: var(--cream); font-family: 'Space Mono', monospace; font-size: var(--text-base); line-height: 1.7; }
 #site-wrapper { overflow-x: clip; position: relative; }
 
@@ -1786,6 +1786,16 @@ if(track&&btnL&&btnR){
     endDrag();
   });
 })();
+
+/* Smooth scroll sur les clics de navigation uniquement — évite le conflit avec le momentum scroll natif iOS/Android */
+document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(link){
+  link.addEventListener('click', function(e){
+    var target = document.querySelector(this.getAttribute('href'));
+    if(!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
 </script>
 
 </body>
