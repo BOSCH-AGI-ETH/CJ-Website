@@ -86,7 +86,7 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
 
 /* NAV */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; transition: background .4s ease; }
-nav.scrolled { background: rgba(20,20,20,0.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(237,172,255,0.08); }
+nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(237,172,255,0.08); }
 .nav-logo { display: inline-flex; align-items: center; text-decoration: none; position: relative; z-index: 1100; line-height: 0; }
 .nav-logo img { height: 48px; width: auto; display: block; transition: opacity .3s; }
 .nav-logo:hover img { opacity: .75; }
@@ -1428,11 +1428,10 @@ if(track&&btnL&&btnR){
     var dy=e.touches[0].clientY-ty0;
     if(intentLocked===null){ intentLocked=Math.abs(dx)>Math.abs(dy)?'h':'v'; }
     if(intentLocked==='h'){
-      e.preventDefault();
       var h=halfW();if(h<=0)return;
       track.style.animationDelay=(td0+(dx/h)*DUR)+'ms';
     }
-  },{passive:false});
+  },{passive:true});
   track.addEventListener('touchend',function(){
     intentLocked=null;
     setTimeout(function(){track.style.animationPlayState='running';},600);
@@ -1516,8 +1515,7 @@ if(track&&btnL&&btnR){
       if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
       intentLocked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
     }
-    if (intentLocked === 'h') e.preventDefault();
-  }, { passive: false });
+  }, { passive: true });
 
   track.addEventListener('touchend', function(e){
     track.style.transition = 'transform .38s cubic-bezier(.4,0,.2,1)';
@@ -1562,6 +1560,14 @@ if(track&&btnL&&btnR){
 
   if (document.readyState === 'complete'){ init(); }
   else { window.addEventListener('load', init); }
+
+  var scrollPauseTimer;
+  window.addEventListener('scroll', function(){
+    if(!isMobile()) return;
+    stopAuto();
+    clearTimeout(scrollPauseTimer);
+    scrollPauseTimer = setTimeout(startAuto, 1500);
+  }, {passive: true});
 })();
 
 /* GALLERY MODAL — TASK 1: index tracking + nav + swipe */
@@ -1725,8 +1731,6 @@ if(track&&btnL&&btnR){
       intentLocked=Math.abs(dx)>Math.abs(dy)?'h':'v';
     }
     if(intentLocked==='v')return; /* laisser le scroll vertical se produire */
-    /* Intention horizontale confirmée */
-    if(e) e.preventDefault();
     if(!dragging){
       dragging=true;
       track.style.animation='none';
@@ -1758,8 +1762,8 @@ if(track&&btnL&&btnR){
   },{passive:true});
 
   carousel.addEventListener('touchmove',function(e){
-    moveDrag(e.touches[0].clientX,e.touches[0].clientY,e);
-  },{passive:false});
+    moveDrag(e.touches[0].clientX,e.touches[0].clientY);
+  },{passive:true});
 
   carousel.addEventListener('touchend',function(){
     endDrag();
