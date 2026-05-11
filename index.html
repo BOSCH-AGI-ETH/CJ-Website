@@ -66,7 +66,11 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
 .section-label { font-size: var(--text-xs); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--orange); margin-bottom: var(--space-sm); }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; cursor: default; }
 .section-title em { font-style: italic; color: var(--mauve); }
-.section-title:hover { animation: glitch-title .35s steps(1) 1; }
+.section-title:hover,
+.partners-heading:hover,
+.ev-card-new:hover .ev-name-new,
+.proj-card-preview:hover .proj-name-preview,
+.cj-phase:hover .cj-phase-title { animation: glitch-title .35s steps(1) 1; }
 @keyframes glitch-title {
   0%   { text-shadow: none; transform: none; }
   15%  { text-shadow: -3px 0 var(--orange), 3px 0 var(--mauve); transform: translateX(2px); }
@@ -76,7 +80,11 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
   100% { text-shadow: none; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .section-title:hover { animation: none; }
+  .section-title:hover,
+  .partners-heading:hover,
+  .ev-card-new:hover .ev-name-new,
+  .proj-card-preview:hover .proj-name-preview,
+  .cj-phase:hover .cj-phase-title { animation: none; }
 }
 
 @media (max-width: 768px) {
@@ -339,7 +347,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .partners-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg) var(--gutter) var(--space-md); position: relative; z-index: 1; }
 .partners-header-left { display: flex; flex-direction: column; gap: 6px; }
 .partners-eyebrow { font-size: var(--text-xs); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--orange); opacity: .9; }
-.partners-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 2vw, 32px); font-weight: 300; line-height: 1.1; letter-spacing: -.01em; color: var(--cream); }
+.partners-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; color: var(--cream); cursor: default; }
 .partners-heading em { font-style: italic; color: var(--mauve); }
 .partners-count-badge { display: flex; align-items: center; gap: 10px; font-size: var(--text-xs); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: rgba(255,251,219,.35); }
 .partners-count-badge::before { content: ''; width: 40px; height: 1px; background: rgba(237,172,255,.3); display: block; }
