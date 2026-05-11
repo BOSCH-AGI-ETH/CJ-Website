@@ -102,8 +102,8 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
   }
 }
 
-.cursor { position: fixed; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .2s; display: none; }
-.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: transform .15s ease, opacity .3s, border-color .3s; opacity: 0.5; display: none; }
+.cursor { position: fixed; left: 0; top: 0; width: 8px; height: 8px; background: var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99999; will-change: transform; transition: width .25s, height .25s, background .2s; display: none; }
+.cursor-ring { position: fixed; left: 0; top: 0; width: 36px; height: 36px; border: 1px solid var(--mauve); border-radius: 50%; pointer-events: none; z-index: 99998; will-change: transform; transition: opacity .3s, border-color .3s; opacity: 0.5; display: none; }
 
 /* NAV */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; transition: background .4s ease; }
@@ -1247,12 +1247,21 @@ var ring = document.getElementById('cursorRing');
 if(isPointer){
   document.body.style.cursor='none';
   cur.style.display=ring.style.display='block';
-  var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-  (function raf(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
+  var mx=0,my=0,rx=0,ry=0,rScale=1,rScaleTarget=1,rafId=null;
+  function animRing(){
+    var dx=mx-rx,dy=my-ry,ds=rScaleTarget-rScale;
+    rx+=dx*.12; ry+=dy*.12; rScale+=ds*.15;
+    ring.style.transform='translate3d('+(rx-18)+'px,'+(ry-18)+'px,0) scale('+rScale+')';
+    rafId=(Math.abs(dx)>.5||Math.abs(dy)>.5||Math.abs(ds)>.005)?requestAnimationFrame(animRing):null;
+  }
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX; my=e.clientY;
+    cur.style.transform='translate3d('+(mx-4)+'px,'+(my-4)+'px,0)';
+    if(!rafId) rafId=requestAnimationFrame(animRing);
+  });
   document.querySelectorAll('a,button,.ev-card-new,.gallery-item,.cj-phase,.partners-carousel').forEach(function(el){
-    el.addEventListener('mouseenter',function(){cur.style.width=cur.style.height='16px';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='.8';ring.style.borderColor='var(--orange)';});
-    el.addEventListener('mouseleave',function(){cur.style.width=cur.style.height='8px';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.5';ring.style.borderColor='var(--mauve)';});
+    el.addEventListener('mouseenter',function(){cur.style.width=cur.style.height='16px';ring.style.opacity='.8';ring.style.borderColor='var(--orange)';rScaleTarget=1.5;if(!rafId)rafId=requestAnimationFrame(animRing);});
+    el.addEventListener('mouseleave',function(){cur.style.width=cur.style.height='8px';ring.style.opacity='.5';ring.style.borderColor='var(--mauve)';rScaleTarget=1;if(!rafId)rafId=requestAnimationFrame(animRing);});
   });
 }
 
