@@ -194,8 +194,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 
 .ev-card-body { flex: 1; min-width: 0; padding: var(--space-md) var(--space-md); }
 .ev-row--first .ev-card-body { padding: 40px 44px; }
-.ev-card-img { width: 220px; flex-shrink: 0; overflow: hidden; }
-.ev-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ev-card-img { width: 220px; flex-shrink: 0; overflow: hidden; background: var(--bg); }
+.ev-card-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 .ev-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-sm); margin-bottom: var(--space-sm); flex-wrap: wrap; }
 .ev-badges { display: flex; gap: var(--space-xs); align-items: center; flex-wrap: wrap; }
@@ -739,7 +739,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <!-- EVENT 1 — PROCHAIN -->
     <div class="ev-row ev-row--first">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="https://quoivivrerimouski.ca/collectif-jardin-hoya-nuaj" data-img="Image-Events/evcard_HOYAxNUAJ.webp" onclick="openEvDetail('After de ChassePareil','Bains Publics × Collectif Jardin','22 mai 2026 — 23h → 3h','Bains Publics, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NUAJ. Sur la scène des Bains Publics, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.',this.dataset.ticket,this.dataset.img||'')">
+      <div class="ev-card-new" data-ticket="https://quoivivrerimouski.ca/collectif-jardin-hoya-nuaj" data-img="Image-Events/evcard_HOYAxNUAJ.webp" data-artists="HOYA &amp; NUAJ" onclick="openEvDetail('After de ChassePareil','Bains Publics × Collectif Jardin','22 mai 2026 — 23h → 3h','Bains Publics, Rimouski','After du spectacle de ChassePareil, le Collectif Jardin t\'invite sur sa piste de danse favorite. HOYA &amp; NUAJ enchaîneront une sélection pointue de beats deep, minimal, afro et électro house — un canal fréquentiel déployé avec caractère, qui saura te faire danser toute la nuit. Si tu ressens l\'appel de la boule disco, cette danse est pour toi.',this.dataset.ticket,this.dataset.img||'',this.dataset.artists||'')">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
@@ -754,7 +754,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bains Publics, Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <button class="ev-btn-details" onclick="openEvDetail('After de ChassePareil','Bains Publics × Collectif Jardin','22 mai 2026 — 23h → 3h','Bains Publics, Rimouski','After du spectacle de ChassePareil avec HOYA &amp; NUAJ. Sur la scène des Bains Publics, le Collectif Jardin prend le relais pour prolonger la nuit — sets électro, ambiance resserrée, communauté au rendez-vous.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'')">Détails</button>
+            <button class="ev-btn-details" onclick="openEvDetail('After de ChassePareil','Bains Publics × Collectif Jardin','22 mai 2026 — 23h → 3h','Bains Publics, Rimouski','After du spectacle de ChassePareil, le Collectif Jardin t\'invite sur sa piste de danse favorite. HOYA &amp; NUAJ enchaîneront une sélection pointue de beats deep, minimal, afro et électro house — un canal fréquentiel déployé avec caractère, qui saura te faire danser toute la nuit. Si tu ressens l\'appel de la boule disco, cette danse est pour toi.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'',this.closest('.ev-card-new').dataset.artists||'')">Détails</button>
             <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener">Billetterie — À venir</a>
           </div>
         </div>
@@ -765,7 +765,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <!-- EVENT 2 — Brise-Lames Solstice -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="https://quoivivrerimouski.ca/collectif-jardin-au-brise-lames-le-solstice-avec-kora-yoga-et-danse" data-img="Image-Events/evcard-Solstice2026-Publication-main.webp" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. KORA et plus encore assurent l\'ambiance face au fleuve pour une longue après-midi jusqu\'au coucher de soleil — musique, nature et communauté réunis au bord du Saint-Laurent.','https://quoivivrerimouski.ca/collectif-jardin-au-brise-lames-le-solstice-avec-kora-yoga-et-danse',this.dataset.img||'')">
+      <div class="ev-card-new" data-ticket="https://quoivivrerimouski.ca/collectif-jardin-au-brise-lames-le-solstice-avec-kora-yoga-et-danse" data-img="Image-Events/evcard-Solstice2026-Publication-main.webp" data-artists="KORA &amp; BODAISHIN" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice — une journée pour célébrer la plus longue de l\'année entre mouvement, musique et moment social, face au Saint-Laurent jusqu\'au coucher du soleil.<br><br><strong>15h · Yoga avec Tamara</strong><br>Séance de vinyasa accessible, guidée par Tamara, accompagnée par Kora en musique ambient en direct.<br><br><strong>16h · Dégustation</strong><br>Cacao et jus de fruits servis sur place.<br><br><strong>17h · Danse avec Kora</strong><br>Set DJ orienté deep, melodic et progressive. Service de bar et pizzas au four sur place.','https://quoivivrerimouski.ca/collectif-jardin-au-brise-lames-le-solstice-avec-kora-yoga-et-danse',this.dataset.img||'',this.dataset.artists||'')">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges"><span class="ev-badge-cat">Collectif Jardin</span></div>
@@ -777,7 +777,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <button class="ev-btn-details" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice. KORA et plus encore assurent l\'ambiance face au fleuve pour une longue après-midi jusqu\'au coucher de soleil — musique, nature et communauté réunis au bord du Saint-Laurent.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'')">Détails</button>
+            <button class="ev-btn-details" onclick="openEvDetail('Brise-Lames — Solstice','Événement Collectif Jardin','20 juin 2026 — 15h → 23h','Brise-Lames, Rimouski','La saison 3 du Brise-Lames s\'ouvre avec l\'édition Solstice — une journée pour célébrer la plus longue de l\'année entre mouvement, musique et moment social, face au Saint-Laurent jusqu\'au coucher du soleil.<br><br><strong>15h · Yoga avec Tamara</strong><br>Séance de vinyasa accessible, guidée par Tamara, accompagnée par Kora en musique ambient en direct.<br><br><strong>16h · Dégustation</strong><br>Cacao et jus de fruits servis sur place.<br><br><strong>17h · Danse avec Kora</strong><br>Set DJ orienté deep, melodic et progressive. Service de bar et pizzas au four sur place.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'',this.closest('.ev-card-new').dataset.artists||'')">Détails</button>
             <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener">Billetterie — À venir</a>
           </div>
         </div>
@@ -788,7 +788,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <!-- EVENT 3 — After Solstice au Musée -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="#" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.','#','')">
+      <div class="ev-card-new" data-ticket="#" data-artists="HOYA &amp; KORA" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.','#','',this.dataset.artists||'')">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
@@ -802,7 +802,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Musée de Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <button class="ev-btn-details" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.',this.closest('.ev-card-new').dataset.ticket,'')">Détails</button>
+            <button class="ev-btn-details" onclick="openEvDetail('After Solstice — Musée de Rimouski','Musée de Rimouski × Collectif Jardin','20 juin 2026 — 23h45 → 3h','Musée de Rimouski','Premier événement officiel né de la collaboration entre le Musée de Rimouski et le Collectif Jardin. Une nuit conçue pour prolonger la magie du solstice dans un cadre inédit — HOYA &amp; KORA aux platines, et la présence d\'un artiste visuel qui transforme les espaces du musée en une installation immersive, grandiose et enveloppante. Une expérience à la hauteur des couchers de soleil déjà vécus au Brise-Lames, cette fois portée à l\'intérieur par la lumière, la matière et le son.',this.closest('.ev-card-new').dataset.ticket,'',this.closest('.ev-card-new').dataset.artists||'')">Détails</button>
             <a class="ev-btn-tickets" href="#" target="_blank" rel="noopener">Billetterie — À venir</a>
           </div>
         </div>
@@ -1360,13 +1360,14 @@ if(document.readyState === 'loading'){
 }
 
 
-window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl){
+window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artists){
   var lb=document.getElementById('ev-detail-lb');
   var content=document.getElementById('ev-detail-content');
   content.innerHTML=
-    (imgUrl ? '<img src="'+imgUrl+'" style="width:100%;display:block;max-height:300px;object-fit:cover;margin-bottom:24px;">' : '')
+    (imgUrl ? '<img src="'+imgUrl+'" style="width:100%;height:auto;display:block;margin-bottom:24px;">' : '')
     +'<div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">'+cat+'</div>'
-    +'<h2 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:20px;">'+name+'</h2>'
+    +'<h2 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:'+(artists?'8px':'20px')+';">'+name+'</h2>'
+    +(artists?'<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:300;font-style:italic;color:var(--mauve);margin-bottom:20px;">'+artists+'</div>':'')
     +'<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">'
     +'<div style="font-size:10px;letter-spacing:.15em;color:rgba(255,251,219,.5);">'+date+'</div>'
     +'<div style="font-size:10px;letter-spacing:.12em;color:var(--mauve);">'+location+'</div>'
