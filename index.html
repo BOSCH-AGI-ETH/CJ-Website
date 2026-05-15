@@ -1434,7 +1434,6 @@ if(track&&btnL&&btnR){
   btnL.addEventListener('click',function(){seekTo(getX()+STEP);});
   btnR.addEventListener('click',function(){seekTo(getX()-STEP);});
   var vp=track.parentElement;
-  if(vp){vp.addEventListener('mouseenter',function(){track.style.animationPlayState='paused';});vp.addEventListener('mouseleave',function(){track.style.animationPlayState='running';});}
 
   /* TASK 2 — Fix scroll conflict: detect horizontal intent, block vertical only then */
   var tx0=0,ty0=0,td0=0,intentLocked=null;
