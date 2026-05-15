@@ -448,6 +448,28 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .partner-logo:hover .logo-scale-quoi { transform: scale(1.52); }
 .partner-logo:hover .logo-scale-alim { transform: scale(1.18); }
 
+/* DON */
+#don { background:var(--burgundy); border-top:1px solid rgba(237,172,255,.1); padding:var(--space-xl) var(--gutter); }
+.don-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); align-items:start; }
+.don-body p { font-size:var(--text-base); color:rgba(255,251,219,.6); line-height:2; margin-bottom:var(--space-md); }
+.don-body p.don-note { color:rgba(255,251,219,.35); font-size:var(--text-xs); letter-spacing:var(--tracking-wide); }
+.don-features { display:flex; flex-direction:column; gap:var(--space-md); margin-top:var(--space-lg); }
+.don-feature { display:flex; gap:var(--space-sm); align-items:flex-start; }
+.don-feature-icon { color:var(--orange); font-size:14px; flex-shrink:0; padding-top:2px; }
+.don-feature-title { font-size:var(--text-sm); color:var(--cream); margin-bottom:4px; }
+.don-feature-desc { font-size:var(--text-xs); color:rgba(255,251,219,.45); line-height:1.8; }
+.btn-benevole { display:inline-block; border:1px solid rgba(255,251,219,.25); color:rgba(255,251,219,.55); font-family:'Space Mono',monospace; font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:11px 24px; text-decoration:none; transition:border-color .2s,color .2s; margin-top:var(--space-lg); -webkit-tap-highlight-color:transparent; }
+.btn-benevole:hover { border-color:var(--mauve); color:var(--mauve); }
+.don-col-right { position:sticky; top:calc(var(--nav-h) + var(--space-md)); }
+.don-card { background:#1a1a1a; border:1px solid rgba(237,172,255,.15); padding:var(--space-xl) var(--space-lg); position:relative; overflow:hidden; }
+.don-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--orange),var(--mauve),transparent); }
+.don-card-label { font-size:var(--text-xs); letter-spacing:var(--tracking-widest); text-transform:uppercase; color:var(--orange); margin-bottom:var(--space-sm); }
+.don-card-title { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,2.5vw,38px); font-weight:300; line-height:1.1; margin-bottom:var(--space-md); }
+.don-card-sub { font-size:var(--text-sm); color:rgba(255,251,219,.5); line-height:1.9; margin-bottom:var(--space-lg); }
+.don-btn-main { display:block; text-align:center; background:var(--orange); color:var(--bg); padding:16px 36px; font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); text-decoration:none; margin-bottom:var(--space-sm); transition:transform .2s,box-shadow .2s; -webkit-tap-highlight-color:transparent; }
+.don-btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(253,47,0,.4); }
+.don-btn-note { font-size:10px; color:rgba(255,251,219,.25); text-align:center; line-height:1.6; }
+
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:hidden; }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 var(--space-xl); align-items:start; }
@@ -487,6 +509,9 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 /* PROJECTS PREVIEW */
 #projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: var(--space-lg) var(--gutter) var(--space-md); overflow: hidden; }
 .proj-header-row { margin-bottom: var(--space-md); }
+.proj-header-row { display:flex; justify-content:space-between; align-items:flex-end; gap:var(--space-md); }
+.btn-soutenir { display:inline-block; border:1px solid rgba(237,172,255,.25); color:rgba(237,172,255,.4); font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wider); text-transform:uppercase; padding:11px 24px; text-decoration:none; white-space:nowrap; cursor:default; pointer-events:none; }
+.don-btn-main { cursor:default; pointer-events:none; opacity:.5; }
 /* Desktop : grille 4 colonnes, max-width pour éviter l'étirement sur grands écrans */
 #projCardsTrack { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md); max-width: 1400px; margin: 0 auto; }
 .proj-card-preview { position:relative; overflow:hidden; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; display:flex; flex-direction:column; }
@@ -524,6 +549,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   /* Tablette : grille 2×2 */
   #projets-preview { padding: var(--space-lg) var(--gutter) var(--space-xl); }
   #projCardsTrack { grid-template-columns: repeat(2,1fr); }
+  .don-col-right { position:static; }
 }
 
 /* ═══════════════ MOBILE ═══════════════ */
@@ -545,6 +571,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   /* Projets — carrousel mobile */
   #projets-preview { padding: var(--space-lg) 0 var(--space-lg) !important; overflow: hidden !important; }
   .proj-header-row { flex-shrink: 0; padding: 0 var(--gutter) var(--space-md); margin-bottom: 0; }
+  .proj-header-row { flex-direction:column; align-items:flex-start; }
   .proj-header-row .section-label { margin-bottom: 4px; }
   .proj-carousel-viewport { overflow: hidden; width: 100%; }
   #projCardsTrack { display: flex; flex-direction: row; gap: 0; width: max-content; transition: transform .38s cubic-bezier(.4,0,.2,1); will-change: transform; align-items: stretch; margin: 0; max-width: none; grid-template-columns: none; }
@@ -629,6 +656,8 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   .partner-logo { width: 150px; height: 80px; padding: 0 24px; }
   .partner-logo-img-wrap img { max-width: 100px; max-height: 44px; }
 
+  .don-grid { grid-template-columns:1fr; }
+
   /* CONTACT */
   #contact { padding:var(--space-lg) var(--gutter); }
   .contact-grid { grid-template-columns:1fr; gap:var(--space-lg) 0; }
@@ -670,6 +699,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <li><a href="#events">Événements</a></li>
     <li><a href="#projets-preview">Projets</a></li>
     <li><a href="#about">À propos</a></li>
+    <li><a href="#don">Don</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
@@ -686,6 +716,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <a href="#events" onclick="closeNav()">Événements</a>
   <a href="#projets-preview" onclick="closeNav()">Projets</a>
   <a href="#about" onclick="closeNav()">À propos</a>
+  <a href="#don" onclick="closeNav()">Don</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
 
@@ -887,8 +918,11 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 <!-- PROJETS PREVIEW -->
 <section id="projets-preview">
   <div class="proj-header-row">
-    <div class="section-label">Nos projets</div>
-    <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
+    <div>
+      <div class="section-label">Nos projets</div>
+      <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
+    </div>
+    <span class="btn-soutenir">✦ Don — Bientôt disponible</span>
   </div>
 
   <!-- Dots navigation — visibles sur mobile uniquement -->
@@ -1154,6 +1188,52 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 </div>
 
 
+<!-- DON -->
+<section id="don">
+  <div class="don-grid">
+    <div class="don-body">
+      <div class="section-label">Faire un don</div>
+      <h2 class="section-title">Faire <em>pousser</em> quelque chose</h2>
+      <p><span style="color:var(--mauve)">Collectif Jardin</span> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <span style="color:var(--orange)">bénévolement, collectivement</span>, ici à Rimouski.</p>
+      <p>Si vous avez envie de <em style="color:var(--mauve)">faire partie de ce qui grandit</em>, une contribution — aussi petite soit-elle — soutient le matériel, les événements et le développement d'un collectif qui appartient à <span style="color:var(--mauve)">toute sa communauté</span>.</p>
+      <p class="don-note">Reçu fiscal disponible pour chaque don. Traitement sécurisé via <span style="color:var(--orange)">Zeffy</span>.</p>
+      <div class="don-features">
+        <div class="don-feature">
+          <span class="don-feature-icon">✦</span>
+          <div>
+            <div class="don-feature-title">Reçu fiscal disponible</div>
+            <div class="don-feature-desc">Zeffy génère et envoie automatiquement votre reçu par courriel après chaque don.</div>
+          </div>
+        </div>
+        <div class="don-feature">
+          <span class="don-feature-icon">✦</span>
+          <div>
+            <div class="don-feature-title">100 % à la cause</div>
+            <div class="don-feature-desc">Zeffy est une plateforme québécoise qui couvre ses frais autrement — zéro commission prélevée sur votre don.</div>
+          </div>
+        </div>
+        <div class="don-feature">
+          <span class="don-feature-icon">✦</span>
+          <div>
+            <div class="don-feature-title">Don ponctuel, impact durable</div>
+            <div class="don-feature-desc">Chaque contribution finance le matériel, les lieux et les artistes de notre communauté.</div>
+          </div>
+        </div>
+      </div>
+      <a href="mailto:coll.jardin@gmail.com?subject=Candidature%20bénévole%20—%20Collectif%20Jardin&body=Bonjour%2C%0A%0AJe%20souhaite%20m'impliquer%20comme%20bénévole%20au%20sein%20du%20Collectif%20Jardin.%0A%0AMon%20nom%20%3A%0ACe%20qui%20m'intéresse%20%3A%0AComment%20me%20joindre%20%3A" class="btn-benevole">Devenir bénévole</a>
+    </div>
+    <div class="don-col-right">
+      <div class="don-card">
+        <div class="don-card-label">Votre contribution</div>
+        <h3 class="don-card-title">Chaque dollar <em>pousse avec nous</em></h3>
+        <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
+        <span class="don-btn-main">Faire un don — Bientôt disponible</span>
+        <p class="don-btn-note">Plateforme de don en ligne — disponible sous peu</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-grid">
@@ -1210,6 +1290,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       <li><a href="#events">Événements</a></li>
       <li><a href="#projets-preview">Projets</a></li>
       <li><a href="#about">À propos</a></li>
+      <li><a href="#don">Don</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="https://www.instagram.com/collectif.jardin" class="social-link">Instagram</a><a href="https://www.facebook.com/coll.jardin" class="social-link">Page Facebook</a><a href="https://www.facebook.com/groups/3893474290783193" class="social-link">Communauté Facebook</a></div></div>
@@ -1474,17 +1555,22 @@ if(track&&btnL&&btnR){
   },{passive:true});
 }
 
-/* Préchargement galerie — 3 images d'avance */
+/* Préchargement galerie — 12 premières images dès le chargement, reste avant entrée */
 (function(){
-  var MARGIN=900;/* ≈ 3 × (280 + 8) px */
   var imgs=Array.from(document.querySelectorAll('#galleryTrack img[data-lazysrc]'));
   if(!imgs.length)return;
   function loadImg(img){if(img.dataset.lazysrc){img.src=img.dataset.lazysrc;delete img.dataset.lazysrc;}}
-  if(!('IntersectionObserver' in window)){imgs.forEach(loadImg);return;}
+  /* Charger les 12 premières immédiatement */
+  imgs.slice(0,12).forEach(loadImg);
+  var rest=imgs.slice(12);
+  if(!rest.length)return;
+  if(!('IntersectionObserver' in window)){rest.forEach(loadImg);return;}
+  var strip=document.getElementById('galleryStrip');
+  if(!strip){rest.forEach(loadImg);return;}
   var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){loadImg(e.target);obs.unobserve(e.target);}});
-  },{rootMargin:'0px '+MARGIN+'px 0px '+MARGIN+'px'});
-  imgs.forEach(function(img){obs.observe(img);});
+    if(entries[0].isIntersecting){rest.forEach(loadImg);obs.disconnect();}
+  },{rootMargin:'500px 0px 500px 0px'});
+  obs.observe(strip);
 })();
 
 })();
