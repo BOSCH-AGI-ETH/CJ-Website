@@ -453,7 +453,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .don-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); align-items:start; }
 .don-body .section-title { margin-bottom:var(--space-lg); }
 .don-body p { font-size:var(--text-base); color:rgba(255,251,219,.6); line-height:2; margin-bottom:var(--space-md); }
-.don-body p.don-note { color:rgba(255,251,219,.35); font-size:var(--text-xs); letter-spacing:var(--tracking-wide); }
+.don-body p.don-note { color:rgba(255,251,219,.65); font-size:var(--text-sm); letter-spacing:var(--tracking-wide); }
 .don-features { display:flex; flex-direction:column; gap:var(--space-md); margin-top:var(--space-lg); }
 .don-feature { display:flex; gap:var(--space-sm); align-items:flex-start; }
 .don-feature-icon { color:var(--orange); font-size:14px; flex-shrink:0; padding-top:2px; }
@@ -469,7 +469,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .don-card-sub { font-size:var(--text-sm); color:rgba(255,251,219,.5); line-height:1.9; margin-bottom:var(--space-lg); }
 .don-btn-main { display:block; text-align:center; background:var(--orange); color:var(--bg); padding:16px 36px; font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); text-decoration:none; margin-bottom:var(--space-sm); transition:transform .2s,box-shadow .2s; -webkit-tap-highlight-color:transparent; }
 .don-btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(253,47,0,.4); }
-.don-btn-note { font-size:10px; color:rgba(255,251,219,.25); text-align:center; line-height:1.6; }
+.don-btn-note { font-size:var(--text-xs); color:rgba(255,251,219,.55); text-align:center; line-height:1.6; }
 
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:hidden; }
@@ -701,7 +701,6 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <li><a href="#projets-preview">Projets</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#don">Don</a></li>
-    <li><a href="#jeu">Jeu</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
