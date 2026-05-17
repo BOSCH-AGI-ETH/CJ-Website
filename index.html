@@ -311,8 +311,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 #about { background:var(--burgundy);position:relative;padding:var(--space-lg) var(--gutter); }
 #about::before { content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(237,172,255,.06) 0%,transparent 70%);pointer-events:none; }
 .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;margin-top:var(--space-lg); }
-.about-text p { font-size:var(--text-base);line-height:2;color:rgba(255,251,219,.65);letter-spacing:.03em;margin-bottom:var(--space-md); }
-.about-text p strong { color:var(--cream);font-weight:400; }
+.about-text p { font-size:var(--text-md);line-height:2;color:rgba(255,251,219,.75);letter-spacing:.02em;margin-bottom:var(--space-md); }
+.about-text p strong { color:var(--cream);font-weight:700; }
 .about-quote { font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.2vw,30px);font-weight:300;font-style:italic;line-height:1.45;color:var(--mauve);border-left:2px solid var(--orange);padding-left:var(--space-md);margin:var(--space-md) 0 var(--space-lg); }
 .about-visual { position:sticky;top:calc(var(--nav-h) + var(--space-md)); }
 .about-logo-banner { width:100%;display:flex;align-items:flex-start;justify-content:flex-start;padding:0;margin-bottom:16px; }
@@ -452,8 +452,9 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 #don { background:var(--burgundy); border-top:1px solid rgba(237,172,255,.1); padding:var(--space-xl) var(--gutter); }
 .don-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); align-items:start; }
 .don-body .section-title { margin-bottom:var(--space-lg); }
-.don-body p { font-size:var(--text-base); color:rgba(255,251,219,.6); line-height:2; margin-bottom:var(--space-md); }
-.don-body p.don-note { color:var(--cream); font-size:var(--text-base); line-height:1.8; border-left:2px solid var(--orange); padding-left:var(--space-md); margin-top:var(--space-lg); letter-spacing:.02em; }
+.don-body p { font-size:var(--text-md); color:rgba(255,251,219,.75); line-height:2; margin-bottom:var(--space-md); }
+.don-body p strong { color:var(--cream); font-weight:700; }
+.don-body p.don-note { color:rgba(255,251,219,.85); font-size:var(--text-md); line-height:1.9; border-left:2px solid var(--orange); padding-left:var(--space-md); margin-top:var(--space-lg); }
 .don-features { display:flex; flex-direction:column; gap:var(--space-md); margin-top:var(--space-lg); }
 .don-feature { display:flex; gap:var(--space-sm); align-items:flex-start; }
 .don-feature-icon { color:var(--orange); font-size:14px; flex-shrink:0; padding-top:2px; }
@@ -974,9 +975,9 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <div class="about-grid">
     <div class="about-text">
       <div class="about-quote">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
-      <p><span style="color:var(--mauve)">Collectif Jardin</span> est né d'une conviction simple et profonde : contribuer <span style="color:var(--orange)">bénévolement</span> à la culture, avec le <span style="color:var(--mauve)">respect et l'inclusivité</span> comme valeurs fondatrices.</p>
-      <p>Basé à <span style="color:var(--orange)">Rimouski</span>, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <em style="color:var(--mauve)">espaces de musique, de nature et de communauté</em>.</p>
-      <p>Nous prônons la <span style="color:var(--mauve)">communauté</span> et la nature dans chacun de nos projets — des soirées au <span style="color:var(--orange)">Brise-Lames</span> face au fleuve aux collaborations culturelles locales.</p>
+      <p><strong>Collectif Jardin</strong> est né d'une conviction simple et profonde : contribuer <strong>bénévolement</strong> à la culture, avec le <strong>respect et l'inclusivité</strong> comme valeurs fondatrices.</p>
+      <p>Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <em>espaces de musique, de nature et de communauté</em>.</p>
+      <p>Nous prônons la <strong>communauté</strong> et la nature dans chacun de nos projets — des soirées au <strong>Brise-Lames</strong> face au fleuve aux collaborations culturelles locales.</p>
       <div class="cj-timeline">
 
         <div class="cj-phase" onclick="openCjDetail('Printemps 2023','Les premières racines','Naissance officielle du collectif','Collectif Jardin prend forme à Rimouski autour d\'une intention fondatrice : <strong>contribuer bénévolement au développement culturel local</strong>, en dehors des logiques commerciales. Le lancement officiel se tient au <strong>Bains Publics Cabaret culturel</strong>, où musique électronique, communauté et inclusivité se rencontrent pour la première fois sous le même toit. Dès ses débuts, le collectif ancre sa démarche dans le territoire — une co-création avec la <strong>Distillerie du St-Laurent</strong> et les premières éditions d\'Apéro 101 à la <strong>Pointe à Pouliot</strong> posent les jalons d\'une pratique résolument tournée vers les lieux et les gens qui font Rimouski.')">
@@ -1195,9 +1196,9 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <div class="don-body">
       <div class="section-label">Faire un don</div>
       <h2 class="section-title">Faire <em>pousser</em> quelque chose</h2>
-      <p><span style="color:var(--mauve)">Collectif Jardin</span> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <span style="color:var(--orange)">bénévolement, collectivement</span>, ici à Rimouski.</p>
-      <p>Si vous avez envie de <em style="color:var(--mauve)">faire partie de ce qui grandit</em>, une contribution — aussi petite soit-elle — soutient le matériel, les événements et le développement d'un collectif qui appartient à <span style="color:var(--mauve)">toute sa communauté</span>.</p>
-      <p class="don-note"><span style="color:var(--mauve)">Reçu fiscal automatique.</span> <span style="color:var(--orange)">Zéro commission.</span> Via <span style="color:var(--orange)">Zeffy</span> — plateforme québécoise à but non lucratif. <span style="color:var(--mauve)">100 % de votre don va au collectif.</span></p>
+      <p><strong>Collectif Jardin</strong> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <strong>bénévolement, collectivement</strong>, ici à Rimouski.</p>
+      <p>Si vous avez envie de <em>faire partie de ce qui grandit</em>, une contribution — aussi petite soit-elle — soutient le matériel, les événements et le développement d'un collectif qui appartient à <strong>toute sa communauté</strong>.</p>
+      <p class="don-note"><strong>Reçu fiscal automatique.</strong> <strong>Zéro commission.</strong> Via Zeffy — plateforme québécoise à but non lucratif. <strong>100 % de votre don va au collectif.</strong></p>
       <div class="don-features">
         <div class="don-feature">
           <span class="don-feature-icon">✦</span>
