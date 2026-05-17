@@ -128,8 +128,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-.nav-overlay { display: none; position: fixed; inset: 0; background: rgba(20,20,20,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 36px; z-index: 1050; opacity: 0; transition: opacity .3s ease; }
-.nav-overlay.open { display: flex; opacity: 1; }
+.nav-overlay { display: flex; position: fixed; inset: 0; background: rgba(20,20,20,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 36px; z-index: 1050; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, visibility 0s .3s; }
+.nav-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .3s ease, visibility 0s; }
 .nav-overlay-logo { margin-bottom: 8px; }
 .nav-overlay-logo img { height: 68px; width: auto; display: block; opacity: .9; }
 .nav-overlay a { color: var(--cream); text-decoration: none; font-size: 20px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; transition: color .3s, opacity .3s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -1703,8 +1703,9 @@ var scrollLock = (function(){
     if(owner !== null) return; /* déjà verrouillé — ne pas écraser savedY */
     owner = key;
     savedY = window.scrollY;
+    var sbWidth = window.innerWidth - document.documentElement.clientWidth;
     var cursorRule = isPointer ? 'cursor:none;' : '';
-    document.body.style.cssText = 'position:fixed;top:-' + savedY + 'px;width:100%;overflow-y:scroll;' + cursorRule;
+    document.body.style.cssText = 'position:fixed;top:-' + savedY + 'px;width:100%;' + (sbWidth ? 'padding-right:' + sbWidth + 'px;' : '') + cursorRule;
   }
 
   function unlock(key){
@@ -1740,6 +1741,7 @@ window.closeNav=function(){
   scrollLock.unlock('nav');
 };
 document.getElementById('navOverlay').addEventListener('click',function(e){if(e.target===this)closeNav();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});
 
 /* REVEAL */
 
