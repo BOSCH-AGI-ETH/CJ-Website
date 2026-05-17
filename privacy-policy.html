@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Politique de confidentialité | Collectif Jardin</title>
+<meta name="description" content="Politique de confidentialité de Collectif Jardin — vos données, vos droits, notre transparence. Conforme à la Loi 25 (Québec) et à la LPRPDE (Canada).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap">
+<style>
+:root{
+  --bg:#141414;--mauve:#edacff;--orange:#fd2f00;
+  --burgundy:#38050e;--cream:#fffbdb;
+  --gutter:48px;--space-sm:16px;--space-md:32px;--space-lg:64px;
+  --text-xs:11px;--text-sm:12px;--text-base:14px;--text-md:16px;
+  --tracking-wide:.1em;--tracking-wider:.15em;--tracking-widest:.2em;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;font-size:var(--text-base);line-height:1.8;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px var(--gutter);background:rgba(20,20,20,.97);border-bottom:1px solid rgba(237,172,255,.08);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);}
+.nav-logo span{color:var(--mauve);}
+.nav-back{font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:rgba(255,251,219,.4);text-decoration:none;transition:color .3s;}
+.nav-back:hover{color:var(--mauve);}
+
+/* LAYOUT */
+.legal-wrapper{max-width:760px;margin:0 auto;padding:calc(92px + var(--space-lg)) var(--gutter) var(--space-lg);}
+.legal-eyebrow{font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--orange);margin-bottom:var(--space-sm);}
+.legal-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,56px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:var(--space-md);}
+.legal-title em{font-style:italic;color:var(--mauve);}
+.legal-date{font-size:var(--text-xs);color:rgba(255,251,219,.35);letter-spacing:var(--tracking-wide);margin-bottom:var(--space-lg);padding-bottom:var(--space-lg);border-bottom:1px solid rgba(237,172,255,.08);}
+
+/* SECTIONS */
+.legal-section{margin-bottom:var(--space-lg);}
+.legal-section-num{font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.legal-section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);font-weight:300;margin-bottom:var(--space-md);color:var(--cream);}
+.legal-section p{font-size:var(--text-md);color:rgba(255,251,219,.75);line-height:2;margin-bottom:var(--space-sm);}
+.legal-section p strong{color:var(--cream);font-weight:700;}
+.legal-section a{color:var(--mauve);text-decoration:none;transition:opacity .2s;}
+.legal-section a:hover{opacity:.75;}
+.legal-divider{border:none;border-top:1px solid rgba(237,172,255,.06);margin-bottom:var(--space-lg);}
+
+/* BLOC OUTIL TIERS */
+.tool-block{background:#1a1a1a;border:1px solid rgba(237,172,255,.1);padding:var(--space-md);margin-bottom:var(--space-md);}
+.tool-block dt{font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+.tool-block dd{font-size:var(--text-base);color:rgba(255,251,219,.7);line-height:1.9;margin-bottom:12px;margin-left:0;}
+.tool-block dd:last-child{margin-bottom:0;}
+.tool-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--cream);margin-bottom:var(--space-sm);}
+
+/* FOOTER */
+footer{background:var(--burgundy);padding:var(--space-md) var(--gutter);border-top:1px solid rgba(237,172,255,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-logo-sm{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);}
+.footer-logo-sm span{color:var(--mauve);}
+.footer-links-sm{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links-sm a{font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:rgba(255,251,219,.35);text-decoration:none;transition:color .3s;}
+.footer-links-sm a:hover{color:var(--mauve);}
+.footer-copy-sm{width:100%;font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em;}
+
+@media(max-width:768px){
+  :root{--gutter:20px;}
+  nav{padding:18px var(--gutter);}
+  .legal-wrapper{padding-top:calc(80px + var(--space-md));}
+  footer{flex-direction:column;align-items:flex-start;gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Collectif<span>Jardin</span></a>
+  <a href="index.html" class="nav-back">← Retour</a>
+</nav>
+
+<main class="legal-wrapper">
+
+  <div class="legal-eyebrow">Conformité — Loi 25 &amp; LPRPDE</div>
+  <h1 class="legal-title">Politique de <em>confidentialité</em></h1>
+  <p class="legal-date">Dernière mise à jour : 17 mai 2026</p>
+
+  <!-- SECTION 1 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 01</div>
+    <h2 class="legal-section-title">Responsable du traitement</h2>
+    <p><strong>Collectif Jardin</strong><br>
+    Rimouski, Québec, Canada<br>
+    Courriel : <a href="mailto:Coll.jardin@gmail.com">Coll.jardin@gmail.com</a></p>
+    <p>Pour toute question relative à vos données personnelles, communiquez directement à l'adresse ci-dessus.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 2 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 02</div>
+    <h2 class="legal-section-title">Données collectées</h2>
+
+    <p>Ce site est un site vitrine statique hébergé sur <strong>GitHub Pages</strong>. Il ne dispose d'aucun système d'analyse comportementale, d'aucun pixel publicitaire et d'aucun formulaire de saisie de données personnelles.</p>
+
+    <p>Deux sources de traitement de données techniques existent :</p>
+
+    <div class="tool-block">
+      <p class="tool-name">Google Fonts</p>
+      <dl>
+        <dt>Données transmises</dt>
+        <dd>Adresse IP, en-têtes HTTP (navigateur, système d'exploitation, page référente) au moment du chargement des polices de caractères (Cormorant Garamond &amp; Space Mono).</dd>
+        <dt>Destination</dt>
+        <dd>Serveurs de Google LLC (États-Unis et Union européenne).</dd>
+        <dt>Finalité</dt>
+        <dd>Affichage des polices web sur le site.</dd>
+        <dt>Conservation</dt>
+        <dd>Selon la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">politique de confidentialité de Google</a>. Les journaux de requêtes sont typiquement conservés 9 mois.</dd>
+        <dt>Politique de l'outil</dt>
+        <dd><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></dd>
+      </dl>
+    </div>
+
+    <div class="tool-block">
+      <p class="tool-name">GitHub Pages (hébergeur)</p>
+      <dl>
+        <dt>Données transmises</dt>
+        <dd>Adresse IP, user-agent, pages visitées, horodatage — collectés automatiquement par l'infrastructure d'hébergement.</dd>
+        <dt>Destination</dt>
+        <dd>Serveurs de GitHub Inc. (Microsoft), États-Unis.</dd>
+        <dt>Finalité</dt>
+        <dd>Sécurité du site, performance, protection contre les abus.</dd>
+        <dt>Conservation</dt>
+        <dd>Maximum 30 jours selon la politique de GitHub. Non partagé à des tiers à des fins commerciales.</dd>
+        <dt>Politique de l'outil</dt>
+        <dd><a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Politique de confidentialité GitHub</a></dd>
+      </dl>
+    </div>
+
+    <p>Collectif Jardin <strong>ne collecte, ne stocke et ne traite</strong> aucune donnée personnelle de manière indépendante.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 3 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 03</div>
+    <h2 class="legal-section-title">Vos droits — Loi 25</h2>
+    <p>Conformément à la <strong>Loi 25 sur la protection des renseignements personnels dans le secteur privé</strong> (Québec), vous disposez des droits suivants :</p>
+    <p><strong>Droit d'accès</strong> — Vous pouvez demander à connaître les renseignements personnels que nous détenons à votre sujet.</p>
+    <p><strong>Droit de rectification</strong> — Vous pouvez demander la correction de toute information inexacte ou incomplète.</p>
+    <p><strong>Droit à la suppression</strong> — Vous pouvez demander l'effacement de vos données personnelles dans les limites permises par la loi.</p>
+    <p>Pour exercer ces droits, écrivez à : <a href="mailto:Coll.jardin@gmail.com">Coll.jardin@gmail.com</a><br>
+    Nous nous engageons à répondre dans un délai de <strong>30 jours</strong>.</p>
+    <p>Notez que les données traitées par des tiers (Google, GitHub) sont soumises à leurs propres politiques. Pour exercer vos droits auprès d'eux, référez-vous directement à leurs politiques respectives.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 4 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 04</div>
+    <h2 class="legal-section-title">Liens externes</h2>
+    <p>Ce site contient des liens vers des sites tiers (billetterie, partenaires, réseaux sociaux). Collectif Jardin <strong>n'est pas responsable</strong> des politiques de confidentialité ni des pratiques de collecte de données de ces sites. Nous vous encourageons à consulter leurs politiques avant de soumettre toute information.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 5 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 05</div>
+    <h2 class="legal-section-title">Conformité légale</h2>
+    <p>Cette politique est rédigée en conformité avec :</p>
+    <p><strong>Loi 25</strong> — Loi modernisant des dispositions législatives en matière de protection des renseignements personnels (Québec, L.Q. 2021, c. 25).</p>
+    <p><strong>LPRPDE</strong> — Loi sur la protection des renseignements personnels et les documents électroniques (Canada, L.C. 2000, ch. 5).</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 6 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 06</div>
+    <h2 class="legal-section-title">Cookies</h2>
+    <p>Ce site <strong>n'utilise aucun cookie de traçage analytique ou publicitaire</strong>.</p>
+    <p>Google Fonts peut déposer des cookies techniques sur le domaine <code style="color:var(--mauve);font-size:var(--text-sm);">fonts.gstatic.com</code> dans le cadre du chargement des polices (ex : cookie <code style="color:var(--mauve);font-size:var(--text-sm);">NID</code>, durée variable). Ces cookies sont gérés exclusivement par Google selon leur propre politique.</p>
+    <p>Le site utilise le <strong>stockage local (localStorage)</strong> uniquement pour mémoriser si vous avez fermé l'avis de confidentialité (clé : <code style="color:var(--mauve);font-size:var(--text-sm);">cj_notice_dismissed</code>). Aucune donnée personnelle n'est stockée dans ce mécanisme.</p>
+    <p>Vous pouvez désactiver les cookies de votre navigateur et effacer le stockage local à tout moment dans les paramètres de votre navigateur, sans impact sur la navigation.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 7 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 07</div>
+    <h2 class="legal-section-title">Formulaires</h2>
+    <p>Ce site <strong>ne contient aucun formulaire de collecte de données personnelles</strong>. Les liens de contact disponibles sont des liens <code style="color:var(--mauve);font-size:var(--text-sm);">mailto:</code> qui ouvrent votre client de messagerie personnel. Aucune donnée n'est transmise à nos serveurs via ces liens.</p>
+  </section>
+  <hr class="legal-divider">
+
+  <!-- SECTION 8 -->
+  <section class="legal-section">
+    <div class="legal-section-num">Section 08</div>
+    <h2 class="legal-section-title">Modifications</h2>
+    <p>Collectif Jardin se réserve le droit de modifier cette politique à tout moment. Les modifications entrent en vigueur dès leur publication sur cette page. La date de dernière mise à jour est indiquée en haut de ce document.</p>
+    <p>Pour toute question : <a href="mailto:Coll.jardin@gmail.com">Coll.jardin@gmail.com</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo-sm">Collectif<span>Jardin</span></a>
+  <div class="footer-links-sm">
+    <a href="index.html">Accueil</a>
+    <a href="terms.html">Conditions d'utilisation</a>
+    <a href="mailto:Coll.jardin@gmail.com">Contact</a>
+  </div>
+  <p class="footer-copy-sm">© 2025 Collectif Jardin — Tous droits réservés</p>
+</footer>
+
+<script src="js/notice.js"></script>
+</body>
+</html>

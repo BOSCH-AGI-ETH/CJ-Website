@@ -503,6 +503,11 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 .footer-social { display:flex;flex-direction:column;gap:var(--space-sm); }
 .social-link { font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:rgba(255,251,219,.35);text-decoration:none;transition:color .3s; }
 .social-link:hover { color:var(--mauve); }
+.footer-bottom { border-top:1px solid rgba(237,172,255,.06);margin-top:var(--space-md);padding-top:var(--space-md);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px; }
+.footer-bottom-copy { font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em; }
+.footer-legal-links { display:flex;gap:var(--space-md);flex-wrap:wrap; }
+.footer-legal-links a { font-size:var(--text-xs);color:rgba(255,251,219,.3);text-decoration:none;letter-spacing:var(--tracking-wide);transition:color .3s; }
+.footer-legal-links a:hover { color:var(--mauve); }
 
 /* REVEAL */
 
@@ -1647,6 +1652,13 @@ frame();
     </ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="https://www.instagram.com/collectif.jardin" class="social-link">Instagram</a><a href="https://www.facebook.com/coll.jardin" class="social-link">Page Facebook</a><a href="https://www.facebook.com/groups/3893474290783193" class="social-link">Communauté Facebook</a></div></div>
   </div>
+  <div class="footer-bottom">
+    <span class="footer-bottom-copy">© 2025 Collectif Jardin — Tous droits réservés</span>
+    <div class="footer-legal-links">
+      <a href="privacy-policy.html">Politique de confidentialité</a>
+      <a href="terms.html">Conditions d'utilisation</a>
+    </div>
+  </div>
 </footer>
 
 <!-- GALLERY IMAGE MODAL -->
@@ -2290,5 +2302,6 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(link)
 });
 </script>
 
+<script src="js/notice.js"></script>
 </body>
 </html>
