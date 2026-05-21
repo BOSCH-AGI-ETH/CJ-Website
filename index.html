@@ -518,8 +518,8 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 #projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: var(--space-lg) var(--gutter) var(--space-md); overflow: hidden; }
 .proj-header-row { margin-bottom: var(--space-md); }
 .proj-header-row { display:flex; justify-content:space-between; align-items:flex-end; gap:var(--space-md); }
-.btn-soutenir { display:inline-block; border:1px solid rgba(237,172,255,.25); color:rgba(237,172,255,.4); font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wider); text-transform:uppercase; padding:11px 24px; text-decoration:none; white-space:nowrap; cursor:default; pointer-events:none; }
-.don-btn-main { cursor:default; pointer-events:none; opacity:.5; }
+.btn-soutenir { display:inline-block; border:1px solid rgba(237,172,255,.25); color:rgba(237,172,255,.4); font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wider); text-transform:uppercase; padding:11px 24px; text-decoration:none; white-space:nowrap; transition:border-color .2s,color .2s; -webkit-tap-highlight-color:transparent; }
+.btn-soutenir:hover { border-color:var(--mauve); color:var(--mauve); }
 /* Desktop : grille 4 colonnes, max-width pour éviter l'étirement sur grands écrans */
 #projCardsTrack { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md); max-width: 1400px; margin: 0 auto; }
 .proj-card-preview { position:relative; overflow:hidden; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; display:flex; flex-direction:column; }
@@ -760,7 +760,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <p class="hero-sub">Un collectif qui cultive des espaces<br>de musique, de nature et de communauté.<br>House. Organique. Underground.</p>
     <div class="hero-btns">
       <a href="#events" class="btn-primary">Prochains Événements</a>
-      <a href="#about" class="btn-ghost">Notre Écosystème</a>
+      <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="btn-ghost">Faire un don</a>
     </div>
   </div>
   <div class="marquee-section"><div class="marquee-track">
@@ -949,7 +949,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       <div class="section-label">Nos projets</div>
       <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
     </div>
-    <span class="btn-soutenir">✦ Don — Bientôt disponible</span>
+    <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="btn-soutenir">✦ Faire un don</a>
   </div>
 
   <!-- Dots navigation — visibles sur mobile uniquement -->
@@ -1248,8 +1248,8 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
         <div class="don-card-label">Votre contribution</div>
         <h3 class="don-card-title">Chaque dollar <em>pousse avec nous</em></h3>
         <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
-        <span class="don-btn-main">Faire un don — Bientôt disponible</span>
-        <p class="don-btn-note">Plateforme de don en ligne — disponible sous peu</p>
+        <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="don-btn-main">Faire un don</a>
+        <p class="don-btn-note">Via Zeffy — zéro commission, 100&nbsp;% au collectif</p>
       </div>
     </div>
   </div>
