@@ -79,10 +79,43 @@ section { padding: var(--space-lg) var(--gutter); position: relative; }
   70%  { text-shadow: 1px 0 var(--orange); transform: translateX(-1px); }
   100% { text-shadow: none; transform: none; }
 }
+@keyframes glitch-border {
+  0%,100% { border-color: rgba(255,251,219,.1); }
+  12%  { border-color: var(--mauve); }
+  28%  { border-color: rgba(255,251,219,.04); }
+  45%  { border-color: var(--orange); }
+  60%  { border-color: rgba(255,251,219,.08); }
+  80%  { border-color: rgba(237,172,255,.55); }
+}
+@keyframes glitch-img {
+  0%,100% { transform: none; filter: none; }
+  10%  { transform: translateX(6px); filter: brightness(1.5) contrast(1.3); }
+  22%  { transform: translateX(-7px) skewY(1.5deg); filter: brightness(0.65); }
+  36%  { transform: translateX(5px) skewX(-2deg); filter: contrast(1.7) brightness(1.2); }
+  52%  { transform: translateX(-5px); filter: brightness(1.4) contrast(1.2); }
+  68%  { transform: translateX(6px) skewY(-1.5deg); filter: brightness(0.75); }
+  82%  { transform: translateX(-4px) skewX(1deg); filter: brightness(1.3); }
+  93%  { transform: translateX(2px); filter: none; }
+}
+@keyframes glitch-intense {
+  0%   { text-shadow: none; transform: none; }
+  8%   { text-shadow: -6px 0 var(--orange), 5px 0 var(--mauve); transform: translateX(5px) skewX(-4deg); }
+  20%  { text-shadow: 5px 0 var(--mauve), -4px 0 rgba(255,251,219,.7); transform: translateX(-5px); }
+  33%  { text-shadow: -4px 0 var(--orange), 3px 0 var(--mauve); transform: translateX(4px) skewX(3deg); }
+  47%  { text-shadow: 4px 0 var(--mauve), -5px 0 var(--orange); transform: translateX(-3px); }
+  62%  { text-shadow: -3px 0 rgba(255,251,219,.5), 4px 0 var(--orange); transform: translateX(3px) skewX(-2deg); }
+  78%  { text-shadow: 2px 0 var(--mauve); transform: translateX(-2px); }
+  90%  { text-shadow: -1px 0 var(--orange); transform: translateX(1px); }
+  100% { text-shadow: none; transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .section-title:hover,
   .partners-heading:hover,
   .ev-card-new:hover .ev-name-new,
+  .ev-card-new.ev-card--underground:hover,
+  .ev-card-new.ev-card--underground:hover .ev-card-img img,
+  .ev-card-new.ev-card--underground:hover .ev-badge-cat,
+  .ev-card-new.ev-card--underground:hover .ev-meta-val,
   .proj-card-preview:hover .proj-name-preview,
   .cj-phase:hover .cj-phase-title { animation: none; }
   /* Animations infinies — neutralisées pour confort visuel */
@@ -189,6 +222,11 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 
 .ev-card-new { background: #1a1a1a; border: 1px solid rgba(237,172,255,.08); display: flex; align-items: stretch; transition: border-color .3s, background .3s; cursor: pointer; position: relative; overflow: hidden; }
 .ev-card-new:hover { border-color: rgba(237,172,255,.22); background: linear-gradient(135deg, #1e1220, #1a1010, #1a1a1a); }
+.ev-card-new.ev-card--underground:hover { background: #1a1a1a; animation: glitch-border .45s steps(1) 1; }
+.ev-card-new.ev-card--underground:hover .ev-card-img img { animation: glitch-img .45s steps(1) 1; }
+.ev-card-new.ev-card--underground:hover .ev-name-new,
+.ev-card-new.ev-card--underground:hover .ev-badge-cat,
+.ev-card-new.ev-card--underground:hover .ev-meta-val { animation: glitch-intense .45s steps(1) 1; }
 .ev-row--first .ev-card-new { background: linear-gradient(135deg, #1e1220, #1a1010, #1a1a1a); border-color: rgba(237,172,255,.2); }
 .ev-row--first .ev-card-new::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--mauve), var(--orange), transparent); }
 
@@ -220,6 +258,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .ev-btn-tickets { display: inline-block; border: 1px solid rgba(255,251,219,.1); color: rgba(255,251,219,.25); padding: 11px 22px; font-family: 'Space Mono', monospace; font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; text-decoration: none; transition: none; cursor: default; background: none; -webkit-tap-highlight-color: transparent; pointer-events: none; }
 .ev-btn-tickets.active { border-color: rgba(253,47,0,.35); color: var(--orange); background: rgba(253,47,0,.06); cursor: pointer; pointer-events: auto; transition: border-color .2s, background .2s, color .2s; }
 .ev-btn-tickets.active:hover { border-color: var(--orange); background: rgba(253,47,0,.14); color: var(--cream); }
+.ev-btn-tickets--musee { display:inline-block; border: 3px dotted rgba(255,251,219,.45); color: rgba(255,251,219,.75); background: rgba(255,251,219,.03); padding:11px 22px; font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wide); text-transform:uppercase; text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent; transition: border-color .2s, background .2s, color .2s; }
+.ev-btn-tickets--musee:hover { border-color: rgba(255,251,219,.9); background: rgba(255,251,219,.07); color: var(--cream); }
 .ev-actions { display: flex; gap: var(--space-sm); align-items: center; flex-wrap: wrap; }
 
 /* STATS */
@@ -823,18 +863,23 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <!-- EVENT 2 — Première nuit au Musée -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="#" data-artists="HOYA &amp; KORA" onclick="openEvDetail('Musée de Rimouski','Collectif Jardin','20 juin 2026 — 23h45 → 3h','3e étage — Places limitées','—','#','',this.dataset.artists||'')">
+      <div class="ev-card-new ev-card--underground" data-ticket="https://www.zeffy.com/fr-CA/ticketing/la-nuit-au-musee" data-img="Image-Events/evcard-musee-nuit.png" data-artists="HOYA, KORA &amp; VINCENT EVANS" onclick="openEvDetail('Musée de Rimouski','Collectif Jardin','20 juin 2026 — 23h45 → 3h','3e étage — Places limitées','Une première. Une nuit pour prolonger le solstice là où ça se passe rarement — dans un musée, après minuit, entre gens qui savent pourquoi ils sont là.<br><br>HOYA et KORA aux platines. Vincent Evans qui prend possession de la salle d\'exposition en rave immersif — comme jamais fait à Rimouski.<br><br>Places limitées. Pas une de plus.<br>Attends pas. Invite ceux qui méritent d\'y être.','https://www.zeffy.com/fr-CA/ticketing/la-nuit-au-musee',this.dataset.img||'',this.dataset.artists||'',true)">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
               <span class="ev-badge-cat">Collectif Jardin</span>
+              <span class="ev-badge-cat">Musée de Rimouski</span>
             </div>
           </div>
-          <div class="ev-name-new">La nuit au Musée<br><em style="font-style:italic;color:var(--mauve)">HOYA &amp; KORA</em></div>
+          <div class="ev-name-new">La nuit au Musée<br><em style="font-style:italic;color:var(--mauve)">HOYA, KORA &amp; VINCENT EVANS</em></div>
           <div class="ev-meta-row">
             <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h45 → 3h</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">3e étage</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Places</span><span class="ev-meta-val">Limitées</span></div>
+          </div>
+          <div class="ev-actions" onclick="event.stopPropagation()">
+            <button class="ev-btn-details" onclick="openEvDetail('Musée de Rimouski','Collectif Jardin','20 juin 2026 — 23h45 → 3h','3e étage — Places limitées','Une première. Une nuit pour prolonger le solstice là où ça se passe rarement — dans un musée, après minuit, entre gens qui savent pourquoi ils sont là.<br><br>HOYA et KORA aux platines. Vincent Evans qui prend possession de la salle d\'exposition en rave immersif — comme jamais fait à Rimouski.<br><br>Places limitées. Pas une de plus.<br>Attends pas. Invite ceux qui méritent d\'y être.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'',this.closest('.ev-card-new').dataset.artists||'',true)">Détails</button>
+            <a class="ev-btn-tickets--musee" href="https://www.zeffy.com/fr-CA/ticketing/la-nuit-au-musee" target="_blank" rel="noopener">Billets</a>
           </div>
         </div>
         <div class="ev-card-img"><img src="Image-Events/evcard-musee-nuit.png" alt="La nuit au Musée" loading="lazy" width="220" height="275"></div>
@@ -1776,7 +1821,7 @@ if(document.readyState === 'loading'){
 }
 
 
-window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artists){
+window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artists,underground){
   var lb=document.getElementById('ev-detail-lb');
   var content=document.getElementById('ev-detail-content');
   content.innerHTML=
@@ -1791,7 +1836,9 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artist
     +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
     +'<p style="font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;margin-bottom:28px;">'+desc+'</p>'
     +(ticketUrl && ticketUrl!=='#'
-      ? '<a href="'+ticketUrl+'" style="display:inline-block;border:1px solid var(--orange);color:var(--orange);background:rgba(253,47,0,.06);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Billetterie →</a>'
+      ? (underground
+          ? '<a href="'+ticketUrl+'" style="display:inline-block;border:3px dotted rgba(255,251,219,.45);color:rgba(255,251,219,.75);background:rgba(255,251,219,.03);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Billetterie →</a>'
+          : '<a href="'+ticketUrl+'" style="display:inline-block;border:1px solid var(--orange);color:var(--orange);background:rgba(253,47,0,.06);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">Billetterie →</a>')
       : '<span style="display:inline-block;border:1px solid rgba(255,251,219,.1);color:rgba(255,251,219,.2);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:default;">Billetterie — À venir</span>');
   lb.style.display='flex';
   scrollLock.lock('ev');
