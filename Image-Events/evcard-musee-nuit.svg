@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 275" width="220" height="275">
+  <!-- C — Halftone dégradé : points qui s'estompent vers le centre -->
+  <defs>
+    <pattern id="hdots" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+      <circle cx="3.5" cy="3.5" r="2.1" fill="white"/>
+    </pattern>
+    <radialGradient id="rg" cx="110" cy="137" r="115" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="black" stop-opacity="1"/>
+      <stop offset="28%"  stop-color="black" stop-opacity="1"/>
+      <stop offset="58%"  stop-color="white" stop-opacity="1"/>
+      <stop offset="100%" stop-color="white" stop-opacity="1"/>
+    </radialGradient>
+    <mask id="grad-mask">
+      <rect width="220" height="275" fill="url(#rg)"/>
+    </mask>
+  </defs>
+
+  <rect width="220" height="275" fill="#141414"/>
+
+  <!-- Bras masqués par le dégradé radial -->
+  <g mask="url(#grad-mask)">
+    <polygon points="140,72  212,72  180,137  212,202  140,202" fill="url(#hdots)"/>
+    <polygon points="140,72  212,72  180,137  212,202  140,202" fill="url(#hdots)" transform="rotate(90,110,137)"/>
+    <polygon points="140,72  212,72  180,137  212,202  140,202" fill="url(#hdots)" transform="rotate(180,110,137)"/>
+    <polygon points="140,72  212,72  180,137  212,202  140,202" fill="url(#hdots)" transform="rotate(270,110,137)"/>
+  </g>
+
+  <!-- Fleur hors masque -->
+  <circle cx="110" cy="126" r="6" fill="white"/>
+  <circle cx="121" cy="134" r="6" fill="white"/>
+  <circle cx="117" cy="146" r="6" fill="white"/>
+  <circle cx="103" cy="146" r="6" fill="white"/>
+  <circle cx="99"  cy="134" r="6" fill="white"/>
+  <circle cx="110" cy="137" r="5" fill="#141414"/>
+</svg>
