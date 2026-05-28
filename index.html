@@ -736,11 +736,12 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   #jeu-wrap > div { padding-left:var(--gutter); padding-right:var(--gutter); }
 }
 /* PAGE LOADER */
-#pageLoader{position:fixed;inset:0;background:#141414;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .5s ease;}
+#pageLoader{position:fixed;inset:0;background:#141414;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .5s ease;}
 #pageLoader.fade{opacity:0;pointer-events:none;}
-#loaderLogo{width:140px;height:auto;opacity:.75;}
-#loaderBar{width:140px;height:1px;background:rgba(237,172,255,.15);}
-#loaderBarFill{height:100%;width:0%;background:var(--mauve);transition:width .15s ease;}
+#loaderLogo{width:min(380px,78vw);height:auto;opacity:.8;}
+#loaderBar{width:min(240px,60vw);height:1px;background:rgba(237,172,255,.15);overflow:hidden;}
+@keyframes loaderScan{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+#loaderBarFill{height:100%;width:40%;background:var(--mauve);animation:loaderScan 1.4s ease-in-out infinite;}
 </style>
 </head>
 <body>
@@ -1916,12 +1917,26 @@ var track=document.getElementById('galleryTrack');
 var btnL=document.getElementById('galleryPrev');
 var btnR=document.getElementById('galleryNext');
 if(track&&btnL&&btnR){
-  var DUR=60000,STEP=300;
+  var DUR=60000;
+  var trackedPx=null; /* position suivie — null = re-syncher depuis l'animation au prochain clic */
   function getX(){var m=new DOMMatrix(window.getComputedStyle(track).transform);return -m.m41;}
   function halfW(){return track.scrollWidth/2;}
-  function seekTo(px){var h=halfW();if(h<=0)return;px=((px%h)+h)%h;var delay=-(px/h)*DUR;track.style.animationPlayState='paused';track.style.animationDelay=delay+'ms';void track.offsetHeight;track.style.animationPlayState='running';}
-  btnL.addEventListener('click',function(){seekTo(getX()+STEP);});
-  btnR.addEventListener('click',function(){seekTo(getX()-STEP);});
+  function itemStep(){var item=track.querySelector('.gallery-item');return item?(item.offsetWidth+8):288;}
+  function seekTo(px){
+    var h=halfW();if(h<=0)return;
+    px=((px%h)+h)%h;
+    trackedPx=px;
+    var delay=-(px/h)*DUR;
+    track.style.animationPlayState='paused';
+    track.style.animationDelay=delay+'ms';
+    void track.offsetHeight;
+    track.style.animationPlayState='running';
+  }
+  function syncTracked(){
+    if(trackedPx===null){var h=halfW();trackedPx=((getX()%h)+h)%h;}
+  }
+  btnL.addEventListener('click',function(){syncTracked();var h=halfW();seekTo((trackedPx+itemStep())%h);});
+  btnR.addEventListener('click',function(){syncTracked();var h=halfW();seekTo(((trackedPx-itemStep())%h+h)%h);});
   var vp=track.parentElement;
 
   /* TASK 2 — Fix scroll conflict: detect horizontal intent, block vertical only then */
@@ -1938,11 +1953,12 @@ if(track&&btnL&&btnR){
     if(intentLocked===null){ intentLocked=Math.abs(dx)>Math.abs(dy)?'h':'v'; }
     if(intentLocked==='h'){
       var h=halfW();if(h<=0)return;
-      track.style.animationDelay=(td0+(dx/h)*DUR)+'ms';
+      track.style.animationDelay=(td0+(dx*2.5/h)*DUR)+'ms';
     }
   },{passive:true});
   track.addEventListener('touchend',function(){
     intentLocked=null;
+    trackedPx=null; /* re-syncher depuis la position du swipe au prochain clic flèche */
     setTimeout(function(){track.style.animationPlayState='running';},600);
   },{passive:true});
 }
@@ -1953,18 +1969,24 @@ if(track&&btnL&&btnR){
   var loader=document.getElementById('pageLoader');
   var fill=document.getElementById('loaderBarFill');
   function hideLoader(){
-    if(!loader)return;
-    loader.classList.add('fade');
-    setTimeout(function(){loader.style.display='none';},500);
+    if(!loader||loader._hiding)return;
+    loader._hiding=true;
+    /* double rAF : attendre que le navigateur peigne les images avant de retirer le loader */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        loader.classList.add('fade');
+        setTimeout(function(){loader.style.display='none';},500);
+      });
+    });
   }
   if(!imgs.length){hideLoader();return;}
   var total=imgs.length,done=0;
   function onDone(){
     done++;
-    if(fill)fill.style.width=Math.round((done/total)*100)+'%';
     if(done>=total)hideLoader();
   }
   imgs.forEach(function(img){
+    img.removeAttribute('loading');
     img.src=img.dataset.lazysrc;
     delete img.dataset.lazysrc;
     if(img.complete&&img.naturalWidth>0){onDone();}
