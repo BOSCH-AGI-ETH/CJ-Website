@@ -742,6 +742,269 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 #loaderBar{width:min(240px,60vw);height:1px;background:rgba(237,172,255,.15);overflow:hidden;}
 @keyframes loaderScan{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 #loaderBarFill{height:100%;width:40%;background:var(--mauve);animation:loaderScan 1.4s ease-in-out infinite;}
+
+/* ═══════════════════════════════════════
+   ÉCOSYSTÈME JARDIN — Newsletter
+═══════════════════════════════════════ */
+
+/* ─── Variables modulables ─── */
+:root {
+  --ecosys-name: 'Écosystème Jardin'; /* nom de la liste — changer ici */
+}
+
+/* ─── Section ─── */
+#ecosysteme {
+  background: var(--burgundy);
+  position: relative;
+  border-top: 1px solid rgba(237,172,255,.1);
+  overflow: hidden;
+  padding: var(--space-xl) var(--gutter);
+  scroll-margin-top: var(--nav-h);
+}
+.ecosys-body .section-title { margin-bottom: var(--space-md); }
+#ecosysteme::before {
+  content: '';
+  position: absolute;
+  bottom: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(253,47,0,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Layout 2 colonnes desktop ─── */
+.ecosys-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-xl);
+  align-items: start;
+}
+
+/* ─── Col gauche : texte ─── */
+.ecosys-body {}
+.ecosys-body p {
+  font-size: var(--text-md);
+  line-height: 2;
+  color: rgba(255,251,219,.7);
+  letter-spacing: .02em;
+  margin-bottom: var(--space-md);
+}
+.ecosys-body p strong { color: var(--cream); font-weight: 700; }
+.ecosys-body p em { font-style: italic; color: var(--mauve); }
+
+.ecosys-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: var(--space-md) 0 var(--space-lg);
+}
+.ecosys-pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: rgba(255,251,219,.55);
+  letter-spacing: .04em;
+  line-height: 1.6;
+}
+.ecosys-pillar-dot {
+  color: var(--orange);
+  font-size: var(--text-xs);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ─── Col droite : formulaire ─── */
+.ecosys-form-wrap {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--space-md));
+}
+.ecosys-card {
+  background: rgba(20,20,20,.6);
+  border: 1px solid rgba(237,172,255,.15);
+  padding: var(--space-xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+.ecosys-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--mauve), var(--orange), transparent);
+}
+
+.ecosys-card-label {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: var(--space-sm);
+}
+.ecosys-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  color: var(--cream);
+}
+.ecosys-card-title em {
+  font-style: italic;
+  color: var(--mauve);
+}
+
+/* ─── Champs du formulaire ─── */
+.ecosys-field {
+  margin-bottom: var(--space-sm);
+}
+.ecosys-field label {
+  display: block;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: rgba(255,251,219,.4);
+  margin-bottom: 8px;
+}
+.ecosys-input {
+  display: block;
+  width: 100%;
+  background: rgba(255,251,219,.04);
+  border: 1px solid rgba(237,172,255,.15);
+  color: var(--cream);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--text-sm);
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color .2s, background .2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.ecosys-input:focus {
+  border-color: rgba(237,172,255,.45);
+  background: rgba(255,251,219,.07);
+}
+.ecosys-input::placeholder {
+  color: rgba(255,251,219,.2);
+}
+
+/* ─── Consentement ─── */
+.ecosys-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: var(--space-md) 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ecosys-consent-box {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border: 1px solid rgba(237,172,255,.3);
+  background: rgba(255,251,219,.03);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .2s, background .2s;
+  margin-top: 1px;
+}
+.ecosys-consent-box.checked {
+  border-color: var(--orange);
+  background: rgba(253,47,0,.12);
+}
+.ecosys-consent-check {
+  color: var(--orange);
+  font-size: 12px;
+  line-height: 1;
+  display: none;
+}
+.ecosys-consent-box.checked .ecosys-consent-check { display: block; }
+.ecosys-consent-text {
+  font-size: var(--text-xs);
+  color: rgba(255,251,219,.45);
+  line-height: 1.7;
+  letter-spacing: .03em;
+}
+.ecosys-consent-text a {
+  color: rgba(237,172,255,.6);
+  text-decoration: none;
+  transition: color .2s;
+}
+.ecosys-consent-text a:hover { color: var(--mauve); }
+
+/* ─── Bouton soumettre ─── */
+.ecosys-btn {
+  display: block;
+  width: 100%;
+  background: var(--orange);
+  color: var(--bg);
+  border: none;
+  padding: 15px 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.ecosys-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(253,47,0,.4);
+}
+.ecosys-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ─── États de réponse ─── */
+.ecosys-feedback {
+  display: none;
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  font-size: var(--text-xs);
+  letter-spacing: .06em;
+  line-height: 1.8;
+  border-left: 2px solid var(--orange);
+}
+.ecosys-feedback.visible { display: block; }
+.ecosys-feedback.success {
+  border-color: var(--mauve);
+  color: rgba(255,251,219,.75);
+  background: rgba(237,172,255,.04);
+}
+.ecosys-feedback.error {
+  border-color: var(--orange);
+  color: rgba(255,251,219,.65);
+  background: rgba(253,47,0,.04);
+}
+.ecosys-feedback strong { color: var(--cream); }
+
+/* ─── Fréquence / note ─── */
+.ecosys-note {
+  font-size: var(--text-xs);
+  color: rgba(255,251,219,.3);
+  text-align: center;
+  margin-top: var(--space-sm);
+  letter-spacing: .06em;
+  line-height: 1.7;
+}
+
+/* ─── TABLET ─── */
+@media (max-width:1024px) and (min-width:769px) {
+  .ecosys-form-wrap { position: static; }
+  .ecosys-grid { gap: 0 var(--space-lg); }
+}
+
+/* ─── MOBILE ─── */
+@media (max-width:768px) {
+  #ecosysteme { padding: var(--space-lg) var(--gutter); scroll-margin-top: var(--nav-h); }
+  .ecosys-grid { grid-template-columns: 1fr; gap: var(--space-lg) 0; }
+  .ecosys-form-wrap { position: static; }
+  .ecosys-card { padding: var(--space-lg) var(--space-md); }
+  .ecosys-card-title { font-size: clamp(22px, 6vw, 28px); }
+  .ecosys-body p { font-size: var(--text-base); }
+}
 </style>
 </head>
 <body>
@@ -777,6 +1040,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <li><a href="#events">Événements</a></li>
     <li><a href="#projets-preview">Projets</a></li>
     <li><a href="#about">À propos</a></li>
+    <li><a href="#ecosysteme">Communauté</a></li>
     <li><a href="#don">Don</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -794,6 +1058,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <a href="#events" onclick="closeNav()">Événements</a>
   <a href="#projets-preview" onclick="closeNav()">Projets</a>
   <a href="#about" onclick="closeNav()">À propos</a>
+  <a href="#ecosysteme" onclick="closeNav()">Communauté</a>
   <a href="#don" onclick="closeNav()">Don</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
@@ -1612,6 +1877,218 @@ function draw(){
 
 function frame(){requestAnimationFrame(frame);update();draw();}
 frame();
+
+})();
+</script>
+
+<!-- ÉCOSYSTÈME JARDIN -->
+<section id="ecosysteme">
+  <div class="ecosys-grid">
+
+    <!-- Col gauche : texte -->
+    <div class="ecosys-body">
+      <div class="section-label">Appartenance</div>
+      <h2 class="section-title">Fais partie de <em>l'écosystème</em></h2>
+
+      <p>
+        Collectif Jardin existe grâce aux gens qui s'y impliquent, qui viennent aux événements,
+        qui passent le mot. <strong>La liste des Jardiniers</strong>, c'est notre façon de garder le contact —
+        en dehors des algorithmes et des réseaux sociaux.
+      </p>
+      <p>
+        Quelques fois par année, on envoie un courriel : prochains événements, nouvelles du collectif,
+        ce qui s'en vient. <strong>La liste des Jardiniers</strong>, c'est vous tous — gérée à l'interne
+        par les responsables de notre écosystème, et personne d'autre.
+      </p>
+
+      <div class="ecosys-pillars">
+        <div class="ecosys-pillar">
+          <span class="ecosys-pillar-dot">✦</span>
+          <span><strong style="color:var(--cream);">Événements en avant-première</strong> — infos et billets avant tout le monde</span>
+        </div>
+        <div class="ecosys-pillar">
+          <span class="ecosys-pillar-dot">✦</span>
+          <span><strong style="color:var(--cream);">Projets & coulisses</strong> — ce qui se passe entre les soirées</span>
+        </div>
+        <div class="ecosys-pillar">
+          <span class="ecosys-pillar-dot">✦</span>
+          <span><strong style="color:var(--cream);">Aucune donnée partagée</strong> — privé, souverain, équipe seulement</span>
+        </div>
+        <div class="ecosys-pillar">
+          <span class="ecosys-pillar-dot">✦</span>
+          <span><strong style="color:var(--cream);">Désabonnement libre</strong> — un lien dans chaque message, toujours</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Col droite : formulaire -->
+    <div class="ecosys-form-wrap">
+      <div class="ecosys-card">
+        <div class="ecosys-card-label">Inscription</div>
+        <h3 class="ecosys-card-title">Entrer dans<br><em>l'écosystème</em></h3>
+
+        <div id="ecosys-form-wrap">
+
+          <div class="ecosys-field">
+            <label for="ecosys-nom">Prénom (optionnel)</label>
+            <input
+              type="text"
+              id="ecosys-nom"
+              class="ecosys-input"
+              placeholder="Ton prénom"
+              autocomplete="given-name"
+              maxlength="80"
+            >
+          </div>
+
+          <div class="ecosys-field">
+            <label for="ecosys-email">Courriel <span style="color:var(--orange);">*</span></label>
+            <input
+              type="email"
+              id="ecosys-email"
+              class="ecosys-input"
+              placeholder="ton@courriel.com"
+              autocomplete="email"
+              required
+              maxlength="150"
+            >
+          </div>
+
+          <div class="ecosys-consent" id="ecosys-consent-wrap" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="ecosys-consent-box" id="ecosys-consent-box">
+              <span class="ecosys-consent-check">✓</span>
+            </div>
+            <span class="ecosys-consent-text">
+              J'accepte de recevoir des nouvelles du Collectif Jardin.
+              Aucune donnée partagée. Désabonnement possible à tout moment.
+            </span>
+          </div>
+
+          <button class="ecosys-btn" id="ecosys-submit" type="button" disabled>
+            Pousser dans le jardin ✦
+          </button>
+
+          <div class="ecosys-feedback" id="ecosys-feedback"></div>
+
+        </div><!-- /#ecosys-form-wrap -->
+
+        <p class="ecosys-note">Quelques messages par année · Courriel seulement · Zéro spam</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAk3czpz0kx1zpyyMP91Buhw79SihzrthMxHnH4BCspZWQnSXAtQVS-dQuOrcJipaL/exec';
+
+  var source   = 'site-web';
+  var consent  = false;
+
+  var emailInput   = document.getElementById('ecosys-email');
+  var nomInput     = document.getElementById('ecosys-nom');
+  var submitBtn    = document.getElementById('ecosys-submit');
+  var feedback     = document.getElementById('ecosys-feedback');
+  var consentWrap  = document.getElementById('ecosys-consent-wrap');
+  var consentBox   = document.getElementById('ecosys-consent-box');
+
+  window.ecosysSetSource = function(s){ source = String(s).substring(0, 80); };
+
+  function toggleConsent(){
+    consent = !consent;
+    consentBox.classList.toggle('checked', consent);
+    consentWrap.setAttribute('aria-checked', consent ? 'true' : 'false');
+    updateSubmitState();
+  }
+  consentWrap.addEventListener('click', toggleConsent);
+  consentWrap.addEventListener('keydown', function(e){
+    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleConsent(); }
+  });
+
+  function isValidEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+  function updateSubmitState(){
+    var emailOk = emailInput && isValidEmail(emailInput.value);
+    submitBtn.disabled = !(consent && emailOk);
+  }
+  if(emailInput) emailInput.addEventListener('input', updateSubmitState);
+
+  function showFeedback(type, html){
+    feedback.className = 'ecosys-feedback visible ' + type;
+    feedback.innerHTML = html;
+  }
+  function hideFeedback(){
+    feedback.className = 'ecosys-feedback';
+    feedback.innerHTML = '';
+  }
+
+  submitBtn.addEventListener('click', function(){
+    if(SCRIPT_URL === 'YOUR_SCRIPT_URL_HERE'){
+      showFeedback('error', '<strong>Configuration manquante</strong><br>Connecte le Google Apps Script — voir les instructions dans le fichier .gs');
+      return;
+    }
+
+    var email = emailInput ? emailInput.value.trim() : '';
+    var nom   = nomInput   ? nomInput.value.trim()   : '';
+
+    if(!isValidEmail(email)){
+      showFeedback('error', 'Courriel invalide. Vérifie le format.');
+      emailInput && emailInput.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Inscription en cours…';
+    hideFeedback();
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode:   'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nom:     nom,
+        email:   email,
+        source:  source,
+        consent: true
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.success){
+        var msg = data.status === 'already_subscribed'
+          ? '<strong>Tu es déjà dans l\'écosystème ✦</strong><br>Ton courriel est déjà inscrit.'
+          : data.status === 'reactivated'
+          ? '<strong>Bon retour dans le jardin ✦</strong><br>Ton inscription a été réactivée.'
+          : '<strong>Bienvenue dans l\'écosystème ✦</strong><br>Tu recevras nos prochaines nouvelles par courriel.';
+        showFeedback('success', msg);
+        if(emailInput) emailInput.value = '';
+        if(nomInput)   nomInput.value   = '';
+        consent = false;
+        consentBox.classList.remove('checked');
+        consentWrap.setAttribute('aria-checked', 'false');
+        submitBtn.textContent = 'Pousser dans le jardin ✦';
+        submitBtn.disabled = true;
+      } else {
+        var errMsg = {
+          'email_invalide':     'Courriel invalide.',
+          'consentement_requis':'Le consentement est requis.',
+          'server_error':       'Erreur serveur. Réessaie dans quelques instants.'
+        }[data.error] || 'Une erreur s\'est produite. Réessaie.';
+        showFeedback('error', errMsg);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Pousser dans le jardin ✦';
+      }
+    })
+    .catch(function(err){
+      showFeedback('error', 'Connexion impossible. Vérifie ta connexion internet et réessaie.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Pousser dans le jardin ✦';
+    });
+  });
 
 })();
 </script>
