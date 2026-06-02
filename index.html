@@ -1983,7 +1983,7 @@ frame();
 (function(){
   'use strict';
 
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAk3czpz0kx1zpyyMP91Buhw79SihzrthMxHnH4BCspZWQnSXAtQVS-dQuOrcJipaL/exec';
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
 
   var source   = 'site-web';
   var consent  = false;
@@ -2045,17 +2045,8 @@ frame();
     submitBtn.textContent = 'Inscription en cours…';
     hideFeedback();
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode:   'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nom:     nom,
-        email:   email,
-        source:  source,
-        consent: true
-      })
-    })
+    var params = new URLSearchParams({ action: 'subscribe', nom: nom, email: email, source: source, consent: 'true' });
+    fetch(SCRIPT_URL + '?' + params.toString())
     .then(function(r){ return r.json(); })
     .then(function(data){
       if(data.success){
