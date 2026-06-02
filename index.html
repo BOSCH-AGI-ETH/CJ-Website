@@ -2412,8 +2412,8 @@ if(track&&btnL&&btnR){
   function syncTracked(){
     if(trackedPx===null){var h=halfW();trackedPx=((getX()%h)+h)%h;}
   }
-  btnL.addEventListener('click',function(){syncTracked();var h=halfW();seekTo((trackedPx+itemStep())%h);});
-  btnR.addEventListener('click',function(){syncTracked();var h=halfW();seekTo(((trackedPx-itemStep())%h+h)%h);});
+  btnL.addEventListener('click',function(){syncTracked();var h=halfW();seekTo(((trackedPx-itemStep()*2)%h+h)%h);});
+  btnR.addEventListener('click',function(){syncTracked();var h=halfW();seekTo((trackedPx+itemStep()*2)%h);});
   var vp=track.parentElement;
 
   /* TASK 2 — Fix scroll conflict: detect horizontal intent, block vertical only then */
