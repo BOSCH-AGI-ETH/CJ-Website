@@ -489,7 +489,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .partner-logo:hover .logo-scale-alim { transform: scale(1.18); }
 
 /* DON */
-#don { background:var(--burgundy); border-top:1px solid rgba(237,172,255,.1); padding:var(--space-xl) var(--gutter); }
+#don { background:var(--bg); border-top:1px solid rgba(237,172,255,.08); padding:var(--space-xl) var(--gutter); }
 .don-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); align-items:start; }
 .don-body .section-title { margin-bottom:var(--space-lg); }
 .don-body p { font-size:var(--text-md); color:rgba(255,251,219,.75); line-height:2; margin-bottom:var(--space-md); }
@@ -563,8 +563,8 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 /* Desktop : grille 4 colonnes, max-width pour éviter l'étirement sur grands écrans */
 #projCardsTrack { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md); max-width: 1400px; margin: 0 auto; }
 .proj-card-preview { position:relative; overflow:hidden; background:#1a1a1a; cursor:pointer; -webkit-tap-highlight-color:transparent; display:flex; flex-direction:column; }
-.proj-card-bg-preview { width:100%; aspect-ratio:16/9; overflow:hidden; flex-shrink:0; position:relative; }
-.proj-card-bg-preview img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease,filter .6s ease; }
+.proj-card-bg-preview { width:100%; aspect-ratio:4/3; overflow:hidden; flex-shrink:0; display:flex; }
+.proj-card-bg-preview img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease,filter .6s ease; }
 .proj-card-preview:hover .proj-card-bg-preview img { transform:scale(1.03); filter:brightness(.75); }
 .proj-card-bg-preview svg { width:100%; height:100%; }
 .proj-card-inner-preview { display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-sm) var(--space-md) var(--space-md); background:#1a1a1a; z-index:2; flex-shrink:0; border-top: 1px solid rgba(237,172,255,.08); }
@@ -766,6 +766,20 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   content: '';
   position: absolute;
   bottom: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(253,47,0,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+#jeu {
+  background: var(--burgundy);
+  border-top: 1px solid rgba(237,172,255,.1);
+  position: relative;
+  scroll-margin-top: var(--nav-h);
+}
+#jeu::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
   width: 600px; height: 600px;
   background: radial-gradient(circle, rgba(253,47,0,.05) 0%, transparent 70%);
   pointer-events: none;
@@ -1040,7 +1054,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <li><a href="#events">Événements</a></li>
     <li><a href="#projets-preview">Projets</a></li>
     <li><a href="#about">À propos</a></li>
-    <li><a href="#ecosysteme">Communauté</a></li>
+    <li><a href="#jeu">Communauté</a></li>
     <li><a href="#don">Don</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -1058,7 +1072,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <a href="#events" onclick="closeNav()">Événements</a>
   <a href="#projets-preview" onclick="closeNav()">Projets</a>
   <a href="#about" onclick="closeNav()">À propos</a>
-  <a href="#ecosysteme" onclick="closeNav()">Communauté</a>
+  <a href="#jeu" onclick="closeNav()">Communauté</a>
   <a href="#don" onclick="closeNav()">Don</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
@@ -1121,7 +1135,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
               <span class="ev-badge-cat">Collectif Jardin</span>
             </div>
           </div>
-          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : SOLSTICE</span><br><em style="font-style:italic;color:var(--mauve)">KORA &amp; BODAISHIN</em></div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Le Solstice</span><br><em style="font-style:italic;color:var(--mauve)">Kora &amp; Bodaishin</em></div>
           <div class="ev-meta-row">
             <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">20 juin 2026</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">15h → 23h</span></div>
@@ -1147,7 +1161,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
               <span class="ev-badge-cat">Musée de Rimouski</span>
             </div>
           </div>
-          <div class="ev-name-new">afterparty du solstice<br><em style="font-style:italic;color:var(--mauve)">kora b2b hoya &nbsp;&nbsp;++&nbsp;&nbsp; vincent evans</em></div>
+          <div class="ev-name-new">After du Solstice<br><em style="font-style:italic;color:var(--mauve)">Kora b2b Hoya ++ Vincent Evans</em></div>
           <div class="ev-meta-row">
             <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">23h45 → 3h</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Musée de Rimouski, salle exposition #3</span></div>
@@ -1159,6 +1173,78 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
           </div>
         </div>
         <div class="ev-card-img"><img src="Image-Events/evcard-musee-nuit.webp" alt="La nuit au Musée" loading="lazy" width="220" height="275"></div>
+      </div>
+    </div>
+
+
+    <!-- EVENT 3 — Brise-Lames : Marée Montante -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
+        <div class="ev-card-body">
+          <div class="ev-card-top">
+            <div class="ev-badges">
+              <span class="ev-badge-cat">Collectif Jardin</span>
+            </div>
+          </div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Marée Montante</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-meta-row">
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">31 juillet 2026</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">15h → 21h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
+          </div>
+          <div class="ev-actions" onclick="event.stopPropagation()">
+            <a class="ev-btn-tickets"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- EVENT 4 — Brise-Lames : Racines -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
+        <div class="ev-card-body">
+          <div class="ev-card-top">
+            <div class="ev-badges">
+              <span class="ev-badge-cat">Collectif Jardin</span>
+            </div>
+          </div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Racines</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-meta-row">
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">29 août 2026</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">16h → 23h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
+          </div>
+          <div class="ev-actions" onclick="event.stopPropagation()">
+            <a class="ev-btn-tickets"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- EVENT 5 — Brise-Lames : Récoltes -->
+    <div class="ev-row">
+      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
+      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
+        <div class="ev-card-body">
+          <div class="ev-card-top">
+            <div class="ev-badges">
+              <span class="ev-badge-cat">Collectif Jardin</span>
+            </div>
+          </div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Récoltes</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-meta-row">
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">26 septembre 2026</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">16h → 23h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
+          </div>
+          <div class="ev-actions" onclick="event.stopPropagation()">
+            <a class="ev-btn-tickets"></a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1262,11 +1348,11 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
       </div>
       <div class="proj-card-preview">
-        <div class="proj-card-bg-preview"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels" width="1000" height="800" loading="lazy"></div>
+        <div class="proj-card-bg-preview"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
       </div>
       <div class="proj-card-preview">
-        <div class="proj-card-bg-preview"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale" width="1000" height="800" loading="lazy"></div>
+        <div class="proj-card-bg-preview"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
       </div>
       <div class="proj-card-preview">
@@ -1551,7 +1637,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 </section>
 
 <!-- JEU -->
-<section id="jeu" style="background:var(--bg);padding:var(--space-lg) var(--gutter);border-top:1px solid rgba(237,172,255,.08);overflow:hidden;">
+<section id="jeu" style="padding:var(--space-lg) var(--gutter);overflow:hidden;">
   <div style="margin-bottom:var(--space-lg);" id="jeu-header">
     <div class="section-label">Pause récréative</div>
     <h2 class="section-title">Le <em>Flappy</em><br>Jardinier</h2>
