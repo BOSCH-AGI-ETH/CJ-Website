@@ -322,6 +322,26 @@ function buildUnsubPage(result) {
     + '</div></body></html>';
 }
 
+// ─── UTILITAIRE — Générer les tokens manquants ─────────────────────
+// À exécuter UNE FOIS depuis l'éditeur Apps Script si des lignes
+// existantes n'ont pas encore de token de désabonnement.
+function genererTokensManquants() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet()
+                .getSheetByName(CONFIG.SHEET_NAME);
+  if (!sheet) { SpreadsheetApp.getUi().alert('Onglet "' + CONFIG.SHEET_NAME + '" introuvable.'); return; }
+  var data  = sheet.getDataRange().getValues();
+  var count = 0;
+  for (var i = 1; i < data.length; i++) {
+    var email = data[i][2]; // colonne C
+    var token = data[i][6]; // colonne G
+    if (email && !token) {
+      sheet.getRange(i + 1, 7).setValue(generateToken(email));
+      count++;
+    }
+  }
+  SpreadsheetApp.getUi().alert(count + ' token(s) généré(s) avec succès.');
+}
+
 // ─── TEST MANUEL (à utiliser depuis l'éditeur Apps Script) ─────────
 function testInscription() {
   var fakeEvent = {
