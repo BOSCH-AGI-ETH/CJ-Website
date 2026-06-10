@@ -2015,6 +2015,11 @@ frame();
 
         <div id="ecosys-form-wrap">
 
+          <!-- Honeypot anti-bot : doit rester vide ; caché hors écran (pas display:none) -->
+          <input type="text" name="website" id="ecosys-website" tabindex="-1"
+                 autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
           <div class="ecosys-field">
             <label for="ecosys-nom">Prénom (optionnel)</label>
             <input
@@ -2076,6 +2081,7 @@ frame();
 
   var emailInput   = document.getElementById('ecosys-email');
   var nomInput     = document.getElementById('ecosys-nom');
+  var hpInput      = document.getElementById('ecosys-website'); // honeypot anti-bot
   var submitBtn    = document.getElementById('ecosys-submit');
   var feedback     = document.getElementById('ecosys-feedback');
   var consentWrap  = document.getElementById('ecosys-consent-wrap');
@@ -2131,7 +2137,8 @@ frame();
     submitBtn.textContent = 'Inscription en cours…';
     hideFeedback();
 
-    var params = new URLSearchParams({ action: 'subscribe', nom: nom, email: email, source: source, consent: 'true' });
+    var website = hpInput ? hpInput.value : ''; // honeypot — vide si humain
+    var params = new URLSearchParams({ action: 'subscribe', nom: nom, email: email, source: source, consent: 'true', website: website });
     fetch(SCRIPT_URL + '?' + params.toString())
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -2153,6 +2160,7 @@ frame();
         var errMsg = {
           'email_invalide':     'Courriel invalide.',
           'consentement_requis':'Le consentement est requis.',
+          'rate_limited':       'Trop de tentatives. Réessaie dans une minute.',
           'server_error':       'Erreur serveur. Réessaie dans quelques instants.'
         }[data.error] || 'Une erreur s\'est produite. Réessaie.';
         showFeedback('error', errMsg);
