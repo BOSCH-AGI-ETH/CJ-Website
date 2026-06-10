@@ -1683,18 +1683,31 @@ function resize(){
 }
 
 var resizeTimer;
-window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,200);});
+window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){resize();if(rafId===null)draw();},200);});
 
 var logoImg=new Image();
 var logoReady=false;
-logoImg.onload=function(){logoReady=true;};
+logoImg.onload=function(){logoReady=true;if(rafId===null)draw();};
 logoImg.src='Image-Projet/FleurMauveCentreOrange.PNG';
 
 var S={IDLE:0,PLAY:1,DEAD:2};
 var state=S.IDLE,t=0,score=0,best=0;
 var P={x:100,y:150,vy:0,r:13};
 var pipes=[],parts=[];
+var rafId=null;        // id de la boucle rAF (null = arrêtée)
+var jeuVisible=true;   // section #jeu dans le viewport
+var pageVisible=true;  // onglet visible
 resize();
+
+// ─── CONTRÔLE DE LA BOUCLE rAF ─────────────────────────────────────
+function startLoop(){
+  if(rafId===null && jeuVisible && pageVisible){
+    rafId=requestAnimationFrame(frame);
+  }
+}
+function stopLoop(){
+  if(rafId!==null){ cancelAnimationFrame(rafId); rafId=null; }
+}
 
 function jump(){
   if(state===S.IDLE){start();return;}
@@ -1710,6 +1723,7 @@ function start(){
   state=S.PLAY;pipes=[];parts=[];score=0;
   P.y=H/2;P.vy=0;
   var sv=document.getElementById('fj-score-val');if(sv)sv.textContent='0';
+  startLoop();
 }
 function restart(){start();}
 
@@ -1961,8 +1975,33 @@ function draw(){
   if(state===S.PLAY)drawHUD();
 }
 
-function frame(){requestAnimationFrame(frame);update();draw();}
-frame();
+function frame(){
+  rafId=requestAnimationFrame(frame);
+  update();
+  draw();
+  // IDLE/DEAD : on rend une seule frame puis on fige (zéro CPU au repos)
+  if(state!==S.PLAY) stopLoop();
+}
+
+// Pause/reprise quand la section #jeu sort du viewport (uniquement en partie)
+var jeuSection=document.getElementById('jeu');
+if(window.IntersectionObserver && jeuSection){
+  new IntersectionObserver(function(entries){
+    jeuVisible=entries[0].isIntersecting;
+    if(!jeuVisible) stopLoop();
+    else if(state===S.PLAY) startLoop();
+  },{threshold:0}).observe(jeuSection);
+}
+
+// Pause/reprise quand l'onglet est masqué
+document.addEventListener('visibilitychange',function(){
+  pageVisible=!document.hidden;
+  if(!pageVisible) stopLoop();
+  else if(state===S.PLAY) startLoop();
+});
+
+// Frame statique initiale (écran IDLE) — la boucle ne démarre qu'au lancement
+draw();
 
 })();
 </script>
