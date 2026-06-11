@@ -191,7 +191,7 @@ function processUnsub(token) {
   if (!sheet) return { success: false, error: 'sheet_introuvable' };
 
   var data  = sheet.getDataRange().getValues();
-  var tokenCol = 6; // colonne G (index 0 = colonne A)
+  var tokenCol = 7; // colonne H (index 0 = colonne A)
 
   for (var i = 1; i < data.length; i++) {
     if (data[i][tokenCol] === token) {
