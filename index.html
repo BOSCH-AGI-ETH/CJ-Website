@@ -1667,6 +1667,22 @@ function resize(){
   var cont=canvas.parentElement;
   var cw=Math.min(cont.clientWidth,900);
   var ch=Math.round(cw*330/480);
+  // Mobile : exploiter plus d'espace vertical tout en gardant la section #jeu
+  // entièrement visible dans le viewport (sous la nav fixe).
+  if(window.matchMedia('(max-width:768px)').matches){
+    var section=document.getElementById('jeu');
+    var nav=document.querySelector('nav');
+    var csSec=getComputedStyle(section);
+    var padV=parseFloat(csSec.paddingTop)+parseFloat(csSec.paddingBottom);
+    var headerEl=document.getElementById('jeu-header');
+    var headerH=headerEl.offsetHeight+parseFloat(getComputedStyle(headerEl).marginBottom);
+    var ctrlH=0;
+    for(var i=0;i<cont.children.length;i++){if(cont.children[i]!==canvas)ctrlH+=cont.children[i].offsetHeight;}
+    ctrlH+=20; // marges-top cumulées des contrôles (12 + 8)
+    var navH=nav?nav.offsetHeight:0;
+    var avail=window.innerHeight-navH-padV-headerH-ctrlH-12;
+    if(avail>ch)ch=Math.min(avail,Math.round(cw*330/480*2.1));
+  }
   canvas.style.width=cw+'px';
   canvas.style.height=ch+'px';
   canvas.width=Math.round(cw*dpr);
