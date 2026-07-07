@@ -1124,53 +1124,39 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 
   <div class="events-timeline">
 
-    <!-- EVENT 1 — PROCHAIN -->
+    <!-- EVENT 1 — PROCHAIN : Brise-Lames : Marée Montante -->
     <div class="ev-row ev-row--first">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="https://www.zeffy.com/fr-CA/ticketing/session-rooftop-a-lunique-sushi" data-img="Image-Events/Publication-rooftop-hoya-methot-3-juillet-2026.webp" data-artists="Hoya &amp; Méthot" onclick="openEvDetail('Session Rooftop — L\'Unique Sushi','Événement Collectif Jardin','3 juillet 2026 — dès 20h','162 av. de la Cathédrale, Rimouski','La collaboration Collectif Jardin × L\'Unique Sushi refait surface. Après deux ans d\'absence, on retrouve la plus belle terrasse en ville pour une session musicale comme on les aime : système turbosound, beats bien gras, heureux humains, et nos jardiniers Hoya et Méthot derrière les platines.','https://www.zeffy.com/fr-CA/ticketing/session-rooftop-a-lunique-sushi',this.dataset.img||'',this.dataset.artists||'')">
+      <div class="ev-card-new"
+        data-name="Brise-Lames : Marée Montante"
+        data-cat="Événement Collectif Jardin"
+        data-date="31 juillet 2026 — 11h30 → 21h"
+        data-loc="Brise-Lames, Rimouski"
+        data-ticket="https://www.zeffy.com/fr-CA/ticketing/brise-lames-marree-montante--2026"
+        data-img="Image-Events/Brise-lame-MaréeMontante-Pub.webp"
+        data-artists="Davril · Hoya · Méthot · Nina Panini · R-One · Stoofles"
+        data-desc="Le Collectif Jardin présente <strong>Marée Montante</strong> au Brise-Lames : un événement extérieur qui conjugue mouvement, musique, arts, communauté et achat local. De la fin d'après-midi jusqu'au coucher du soleil — l'activité idéale pour profiter de l'une des journées les plus mouvementées de l'année à Rimouski, avec Milky Chance et Timbaland plus tard au Parc Beauséjour.<br><br><strong>Programmation</strong><br><strong>11h30</strong> — Nettoyage des berges. Mobilisons-nous pour offrir à notre environnement des berges plus propres.<br><strong>13h</strong> — Danse et début des DJ sets, mixés par notre belle brochette de DJs locaux. Des vibes ensoleillées et des sons allant du reggae au funk, de la deep aux mélodies enivrantes, jusqu'aux rythmes plus percussifs et énergiques.<br><em>Line-up (a-z) : Davril, Hoya, Méthot, Nina Panini, R-One, Stoofles.</em><br><strong>21h</strong> — Fin.<br><br>Service de bar et d'aliments frais offert par l'épicerie santé Gaïa.<br><br><strong>Admission</strong><br>Générale (13 ans et +) : 10 $. Enfants (12 ans et -) : gratuit.<br><br>On remercie chaleureusement nos précieux partenaires, sans qui rien de cela ne serait possible : Sonorisation PSL, Octant Microbrasserie, Ville de Rimouski, Alimentation Coop Rimouski, Gaïa Épicerie Santé et Amour Liquide."
+        onclick="openEvCard(this)">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
               <span class="ev-badge-prochain">✦ Prochain</span>
               <span class="ev-badge-cat">Collectif Jardin</span>
-              <span class="ev-badge-cat">L'Unique Sushi</span>
+              <span class="ev-badge-cat">Brise-Lames</span>
             </div>
           </div>
-          <div class="ev-name-new"><span style="color:var(--cream)">Session Rooftop — L'Unique Sushi</span><br><em style="font-style:italic;color:var(--mauve)">Hoya &amp; Méthot</em></div>
-          <div class="ev-meta-row">
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">3 juillet 2026</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">dès 20h</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">162 av. de la Cathédrale, Rimouski</span></div>
-          </div>
-          <div class="ev-actions" onclick="event.stopPropagation()">
-            <button class="ev-btn-details" onclick="openEvDetail('Session Rooftop — L\'Unique Sushi','Événement Collectif Jardin','3 juillet 2026 — dès 20h','162 av. de la Cathédrale, Rimouski','La collaboration Collectif Jardin × L\'Unique Sushi refait surface. Après deux ans d\'absence, on retrouve la plus belle terrasse en ville pour une session musicale comme on les aime : système turbosound, beats bien gras, heureux humains, et nos jardiniers Hoya et Méthot derrière les platines.',this.closest('.ev-card-new').dataset.ticket,this.closest('.ev-card-new').dataset.img||'',this.closest('.ev-card-new').dataset.artists||'')">Détails</button>
-            <a class="ev-btn-tickets" href="https://www.zeffy.com/fr-CA/ticketing/session-rooftop-a-lunique-sushi" target="_blank" rel="noopener">Billetterie</a>
-          </div>
-        </div>
-        <div class="ev-card-img"><img src="Image-Events/Publication-rooftop-hoya-methot-3-juillet-2026.webp" alt="Session Rooftop — L'Unique Sushi" loading="lazy" width="220" height="275"></div>
-      </div>
-    </div>
-
-    <!-- EVENT 2 — Brise-Lames : Marée Montante -->
-    <div class="ev-row">
-      <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
-        <div class="ev-card-body">
-          <div class="ev-card-top">
-            <div class="ev-badges">
-              <span class="ev-badge-cat">Collectif Jardin</span>
-            </div>
-          </div>
-          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Marée Montante</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Marée Montante</span><br><em style="font-style:italic;color:var(--mauve)">Davril · Hoya · Méthot · Nina Panini · R-One · Stoofles</em></div>
           <div class="ev-meta-row">
             <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">31 juillet 2026</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">15h → 21h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">11h30 → 21h</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <a class="ev-btn-tickets"></a>
+            <button class="ev-btn-details" onclick="openEvCard(this.closest('.ev-card-new'))">Détails</button>
+            <a class="ev-btn-tickets" href="https://www.zeffy.com/fr-CA/ticketing/brise-lames-marree-montante--2026" target="_blank" rel="noopener">Billetterie</a>
           </div>
         </div>
+        <div class="ev-card-img"><img src="Image-Events/Brise-lame-MaréeMontante-Pub.webp" alt="Brise-Lames : Marée Montante" loading="lazy" width="220" height="313"></div>
       </div>
     </div>
 
@@ -2717,6 +2703,11 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artist
       : '<span style="display:inline-block;border:1px solid rgba(255,251,219,.1);color:rgba(255,251,219,.2);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:default;">Billetterie — À venir</span>');
   lb.style.display='flex';
   scrollLock.lock('ev');
+};
+/* Ouvre le détail à partir des data-* de la carte (évite l'échappement des apostrophes dans les onclick) */
+window.openEvCard=function(el){
+  var d=el.dataset;
+  openEvDetail(d.name,d.cat,d.date,d.loc,d.desc,d.ticket||'',d.img||'',d.artists||'');
 };
 window.closeEvDetail=function(){
   document.getElementById('ev-detail-lb').style.display='none';
