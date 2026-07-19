@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141414">
+<title>Faire un don — Collectif Jardin</title>
+<link rel="icon" type="image/png" href="Image-Projet/FleurMauveCentreOrange.PNG">
+<link rel="apple-touch-icon" href="Image-Projet/FleurMauveCentreOrange.PNG">
+<meta name="description" content="Soutenez le Collectif Jardin — un don via Zeffy, zéro commission, 100 % à la mission culturelle. Devenez aussi bénévole. Musique électronique, nature et communauté à Rimouski.">
+<link rel="canonical" href="https://collectifjardin.org/don.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://collectifjardin.org/don.html">
+<meta property="og:title" content="Faire un don — Collectif Jardin">
+<meta property="og:description" content="Soutenez le Collectif Jardin — don via Zeffy, zéro commission, 100 % au collectif. Ou impliquez-vous comme bénévole.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:ital@0;1&display=swap');
+
+:root {
+  --nav-h: 92px;
+  --bg: #141414;
+  --mauve: #edacff;
+  --orange: #fd2f00;
+  --burgundy: #38050e;
+  --cream: #fffbdb;
+
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  32px;
+  --space-lg:  64px;
+  --space-xl:  96px;
+  --space-2xl: 140px;
+
+  --gutter: 48px;
+
+  --text-2xs: 9px;
+  --text-xs:  11px;
+  --text-sm:  12px;
+  --text-base: 14px;
+  --text-md:  16px;
+  --text-lg:  18px;
+
+  --tracking-wide:  .12em;
+  --tracking-wider: .22em;
+  --tracking-widest:.35em;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:'Space Mono',monospace;font-size:var(--text-base);line-height:1.7;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .4s ease;}
+nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(237,172,255,.08);}
+.nav-logo{display:inline-flex;align-items:center;text-decoration:none;position:relative;z-index:1100;line-height:0;}
+.nav-logo img{height:48px;width:auto;display:block;transition:opacity .3s;}
+.nav-logo:hover img{opacity:.75;}
+.nav-links{display:flex;gap:30px;list-style:none;}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.8;transition:opacity .3s,color .3s;}
+.nav-links a:hover{opacity:1;color:var(--orange);}
+.nav-links a.active{opacity:1;color:var(--mauve);}
+.nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:8px 16px;opacity:1!important;transition:background .3s,color .3s!important;}
+.nav-cta:hover{background:var(--orange)!important;color:var(--bg)!important;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:6px;background:none;border:none;cursor:pointer;padding:8px;z-index:1100;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--cream);transition:transform .3s ease,opacity .25s ease;transform-origin:center;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:1050;opacity:0;transition:opacity .3s ease;}
+.nav-overlay.open{display:flex;opacity:1;}
+.nav-overlay-logo{margin-bottom:8px;}
+.nav-overlay-logo img{height:52px;width:auto;display:block;opacity:.9;}
+.nav-overlay a{color:var(--cream);text-decoration:none;font-size:20px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;transition:color .3s,opacity .3s;-webkit-tap-highlight-color:transparent;}
+.nav-overlay a:active{opacity:1;color:var(--orange);}
+.nav-overlay .nav-cta{border:1.5px solid var(--orange);color:var(--orange)!important;padding:12px 28px;opacity:1!important;}
+
+/* PAGE HERO */
+.page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:112px 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
+.page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1a0524,#38050e,#141414);}
+.page-hero-orb{position:absolute;border-radius:77%;filter:blur(80px);opacity:.14;animation:drift 20s linear infinite;will-change:transform;}
+.orb-a{width:500px;height:500px;background:var(--orange);top:-160px;right:-60px;}
+.orb-b{width:360px;height:360px;background:var(--mauve);bottom:-80px;left:18%;animation-delay:5s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1);}25%{transform:translate(30px,-20px) scale(1.1);}50%{transform:translate(15px,35px) scale(1.15);}75%{transform:translate(-25px,15px) scale(1.1);}100%{transform:translate(0,0) scale(1);}}
+.page-hero-content{position:relative;z-index:1;max-width:700px;}
+.page-back{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.4);text-decoration:none;margin-bottom:28px;transition:color .3s,gap .3s;}
+.page-back:hover{color:var(--mauve);gap:16px;}
+.page-back::before{content:'←';}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,96px);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:18px;}
+.page-title em{font-style:italic;color:var(--mauve);}
+.page-subtitle{font-size:12px;color:rgba(255,251,219,.4);letter-spacing:.12em;line-height:1.9;}
+
+/* SECTION BASE */
+.section-label { font-size: var(--text-xs); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--orange); margin-bottom: var(--space-sm); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 5vw, 72px); font-weight: 300; line-height: 1.05; letter-spacing: -.02em; }
+.section-title em { font-style: italic; color: var(--mauve); }
+
+/* DON */
+#don { background:var(--bg); padding:var(--space-xl) var(--gutter); }
+.don-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); align-items:start; }
+.don-body .section-title { margin-bottom:var(--space-lg); }
+.don-body p { font-size:var(--text-md); color:rgba(255,251,219,.75); line-height:2; margin-bottom:var(--space-md); }
+.don-body p strong { color:var(--cream); font-weight:700; }
+.don-body p.don-note { color:rgba(255,251,219,.85); font-size:var(--text-md); line-height:1.9; border-left:2px solid var(--orange); padding-left:var(--space-md); margin-top:var(--space-lg); }
+.don-features { display:flex; flex-direction:column; gap:var(--space-md); margin-top:var(--space-lg); }
+.don-feature { display:flex; gap:var(--space-sm); align-items:flex-start; }
+.don-feature-icon { color:var(--orange); font-size:14px; flex-shrink:0; padding-top:2px; }
+.don-feature-title { font-size:var(--text-sm); color:var(--cream); margin-bottom:4px; }
+.don-feature-desc { font-size:var(--text-sm); color:rgba(255,251,219,.7); line-height:1.8; }
+.don-benevole-intro { font-size:var(--text-sm); color:rgba(255,251,219,.65); line-height:1.7; margin-top:var(--space-xl); margin-bottom:var(--space-sm); }
+.btn-benevole { display:inline-block; border:1px solid rgba(255,251,219,.25); color:rgba(255,251,219,.55); font-family:'Space Mono',monospace; font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:11px 24px; text-decoration:none; transition:border-color .2s,color .2s; margin-top:var(--space-lg); -webkit-tap-highlight-color:transparent; }
+.btn-benevole:hover { border-color:var(--mauve); color:var(--mauve); }
+.don-col-right { position:sticky; top:calc(var(--nav-h) + var(--space-md)); }
+.don-card { background:#1a1a1a; border:1px solid rgba(237,172,255,.15); padding:var(--space-xl) var(--space-lg); position:relative; overflow:hidden; }
+.don-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--orange),var(--mauve),transparent); }
+.don-card-label { font-size:var(--text-xs); letter-spacing:var(--tracking-widest); text-transform:uppercase; color:var(--orange); margin-bottom:var(--space-sm); }
+.don-card-title { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,2.5vw,38px); font-weight:300; line-height:1.1; margin-bottom:var(--space-md); }
+.don-card-sub { font-size:var(--text-sm); color:rgba(255,251,219,.5); line-height:1.9; margin-bottom:var(--space-lg); }
+.don-btn-main { display:block; text-align:center; background:var(--orange); color:var(--bg); padding:16px 36px; font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); text-decoration:none; margin-bottom:var(--space-sm); transition:transform .2s,box-shadow .2s; -webkit-tap-highlight-color:transparent; }
+.don-btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(253,47,0,.4); }
+.don-btn-note { font-size:var(--text-xs); color:rgba(255,251,219,.55); text-align:center; line-height:1.6; }
+
+/* FOOTER */
+footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rgba(237,172,255,.1);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid rgba(237,172,255,.08);}
+.footer-logo-sm{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--cream);}
+.footer-logo-sm span{color:var(--mauve);}
+.footer-links-sm{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links-sm a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.35);text-decoration:none;transition:color .3s;}
+.footer-links-sm a:hover{color:var(--mauve);}
+.footer-copy-sm{font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em;}
+
+/* RESPONSIVE */
+@media (max-width:1024px) and (min-width:769px) {
+  .page-hero{padding:96px 32px 44px;}
+  #don{padding:var(--space-xl) 32px;}
+  .don-col-right{position:static;}
+  footer{padding:40px 32px 28px;}
+}
+@media (max-width:768px) {
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  .page-hero{padding:82px 20px 40px;min-height:30vh;}
+  #don{padding:var(--space-lg) 20px;}
+  .don-grid{grid-template-columns:1fr;gap:var(--space-lg);}
+  .don-col-right{position:static;order:-1;}
+  footer{padding:36px 20px 24px;}
+  .footer-inner{flex-direction:column;align-items:flex-start;gap:16px;}
+  .footer-links-sm{gap:12px;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero-orb{animation:none;}
+}
+/* Sous-page sans hero : dégager la nav fixe */
+#don{padding-top:calc(var(--nav-h) + var(--space-md));}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo" aria-label="Collectif Jardin — Accueil">
+    <img src="Image-About/Jardin-logo-officiel-mauve-no-BG.png" alt="Collectif Jardin" width="513" height="225" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="index.html#jeu">Communauté</a></li>
+    <li><a href="don.html" class="active">Don</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-logo">
+    <img src="Image-About/Jardin-logo-officiel-mauve-no-BG.png" alt="Collectif Jardin" width="513" height="225" />
+  </div>
+  <a href="index.html" onclick="closeNav()">Accueil</a>
+  <a href="evenements.html" onclick="closeNav()">Événements</a>
+  <a href="projets.html" onclick="closeNav()">Projets</a>
+  <a href="a-propos.html" onclick="closeNav()">À propos</a>
+  <a href="index.html#jeu" onclick="closeNav()">Communauté</a>
+  <a href="don.html" onclick="closeNav()">Don</a>
+  <a href="index.html#contact" class="nav-cta" onclick="closeNav()">Contact</a>
+</div>
+
+<!-- DON -->
+<section id="don">
+  <div class="don-grid">
+    <div class="don-body">
+      <div class="section-label">Faire un don</div>
+      <h2 class="section-title">Faire <em>pousser</em> quelque chose</h2>
+      <p><strong>Collectif Jardin</strong> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <strong>bénévolement, collectivement</strong>, ici à Rimouski.</p>
+      <p>Si vous avez envie de <em>faire partie de ce qui grandit</em>, une contribution — aussi petite soit-elle — soutient le matériel, les événements et le développement d'un collectif qui appartient à <strong>toute sa communauté</strong>.</p>
+      <p class="don-note"><strong>Zéro commission.</strong> Via Zeffy — plateforme québécoise à but non lucratif. <strong>100 % de votre don va au collectif.</strong></p>
+      <div class="don-features">
+        <div class="don-feature">
+          <span class="don-feature-icon">✦</span>
+          <div>
+            <div class="don-feature-title">100 % à la cause</div>
+            <div class="don-feature-desc">Zeffy est une plateforme québécoise qui couvre ses frais autrement — zéro commission prélevée sur votre don.</div>
+          </div>
+        </div>
+        <div class="don-feature">
+          <span class="don-feature-icon">✦</span>
+          <div>
+            <div class="don-feature-title">Don ponctuel, impact durable</div>
+            <div class="don-feature-desc">Chaque contribution finance le matériel, les lieux et les artistes de notre communauté.</div>
+          </div>
+        </div>
+      </div>
+      <p class="don-benevole-intro">L'argent n'est pas le seul chemin. Si vous avez du temps, de l'énergie ou des compétences à offrir — on est toujours ouverts. Le collectif se construit avec les gens qui décident d'y mettre les mains.</p>
+      <a href="mailto:coll.jardin@gmail.com?subject=Candidature%20bénévole%20—%20Collectif%20Jardin&body=Bonjour%2C%0A%0AJe%20souhaite%20m'impliquer%20comme%20bénévole%20au%20sein%20du%20Collectif%20Jardin.%0A%0AMon%20nom%20%3A%0ACe%20qui%20m'intéresse%20%3A%0AComment%20me%20joindre%20%3A" class="btn-benevole">Devenir bénévole</a>
+    </div>
+    <div class="don-col-right">
+      <div class="don-card">
+        <div class="don-card-label">Votre contribution</div>
+        <h3 class="don-card-title">Chaque dollar <em>pousse avec nous</em></h3>
+        <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
+        <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="don-btn-main">Faire un don</a>
+        <p class="don-btn-note">Via Zeffy — zéro commission, 100&nbsp;% au collectif</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo-sm">Collectif<span>Jardin</span></a>
+    <div class="footer-links-sm">
+      <a href="evenements.html">Événements</a>
+      <a href="projets.html">Projets</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-links-sm">
+      <a href="https://www.instagram.com/collectif.jardin">Instagram</a>
+      <a href="https://www.facebook.com/coll.jardin">Page Facebook</a>
+      <a href="https://www.facebook.com/groups/3893474290783193">Communauté Facebook</a>
+    </div>
+  </div>
+  <div class="footer-copy-sm">© 2026 Collectif Jardin — Rimouski, Québec. Fait avec amour &amp; pollen.</div>
+  <div style="border-top:1px solid rgba(237,172,255,.06);margin-top:20px;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:9px;color:rgba(255,251,219,.2);letter-spacing:.1em;">© 2025 Collectif Jardin — Tous droits réservés</span>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="privacy-policy.html" style="font-size:10px;color:rgba(255,251,219,.3);text-decoration:none;letter-spacing:.1em;transition:color .3s;" onmouseover="this.style.color='#edacff'" onmouseout="this.style.color='rgba(255,251,219,.3)'">Politique de confidentialité</a>
+      <a href="terms.html" style="font-size:10px;color:rgba(255,251,219,.3);text-decoration:none;letter-spacing:.1em;transition:color .3s;" onmouseover="this.style.color='#edacff'" onmouseout="this.style.color='rgba(255,251,219,.3)'">Conditions d'utilisation</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+window.toggleNav = function(){
+  var ov = document.getElementById('navOverlay');
+  var btn = document.getElementById('navHamburger');
+  var open = ov.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+  if(open){
+    document.body.dataset.sy = window.scrollY;
+    document.body.style.cssText = 'position:fixed;top:-'+window.scrollY+'px;width:100%;overflow-y:scroll;';
+  } else {
+    var sy = parseInt(document.body.dataset.sy||0);
+    document.body.style.cssText = '';
+    window.scrollTo(0,sy);
+  }
+};
+window.closeNav = function(){
+  var ov = document.getElementById('navOverlay');
+  if(!ov.classList.contains('open')) return;
+  ov.classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.getElementById('navHamburger').setAttribute('aria-expanded','false');
+  var sy = parseInt(document.body.dataset.sy||0);
+  document.body.style.cssText = '';
+  window.scrollTo(0,sy);
+};
+document.getElementById('navOverlay').addEventListener('click', function(e){ if(e.target===this) closeNav(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+})();
+</script>
+<script src="js/notice.js"></script>
+</body>
+</html>

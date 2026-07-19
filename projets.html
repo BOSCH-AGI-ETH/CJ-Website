@@ -39,10 +39,10 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 
 /* PAGE HERO */
 .page-hero{min-height:36vh;position:relative;display:flex;align-items:flex-end;padding:112px 48px 52px;overflow:hidden;border-bottom:1px solid rgba(237,172,255,.07);}
-.page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#0a1820,#1a0524,#141414);}
+.page-hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1a0524,#38050e,#141414);}
 .page-hero-orb{position:absolute;border-radius:77%;filter:blur(80px);opacity:.13;animation:drift 20s linear infinite;will-change:transform;}
 .orb-a{width:500px;height:500px;background:var(--mauve);top:-160px;right:-60px;}
-.orb-b{width:360px;height:360px;background:#0066aa;bottom:-80px;left:18%;animation-delay:5s;}
+.orb-b{width:360px;height:360px;background:var(--orange);bottom:-80px;left:18%;animation-delay:5s;}
 @keyframes drift{0%{transform:translate(0,0) scale(1);}25%{transform:translate(30px,-20px) scale(1.1);}50%{transform:translate(15px,35px) scale(1.15);}75%{transform:translate(-25px,15px) scale(1.1);}100%{transform:translate(0,0) scale(1);}}
 .page-hero-content{position:relative;z-index:1;max-width:700px;}
 .page-back{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,251,219,.4);text-decoration:none;margin-bottom:28px;transition:color .3s,gap .3s;}
@@ -239,6 +239,8 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   .footer-inner{flex-direction:column;align-items:flex-start;gap:16px;}
   .footer-links-sm{gap:12px;}
 }
+/* Sous-page sans hero : dégager la nav fixe */
+body{padding-top:92px;}
 </style>
 </head>
 <body>
@@ -246,13 +248,15 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 <!-- NAV -->
 <nav id="mainNav">
   <a href="index.html" class="nav-logo" aria-label="Collectif Jardin — Accueil">
-    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+    <img src="Image-About/Jardin-logo-officiel-mauve-no-BG.png" alt="Collectif Jardin" />
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Accueil</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="projets.html" class="active">Projets</a></li>
-    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="index.html#jeu">Communauté</a></li>
+    <li><a href="don.html">Don</a></li>
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
@@ -261,26 +265,15 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 </nav>
 <div class="nav-overlay" id="navOverlay">
   <div class="nav-overlay-logo">
-    <img src="Image-About/Jardin - logo officiel mauve no BG.png" alt="Collectif Jardin" />
+    <img src="Image-About/Jardin-logo-officiel-mauve-no-BG.png" alt="Collectif Jardin" />
   </div>
   <a href="index.html" onclick="closeNav()">Accueil</a>
   <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="projets.html" onclick="closeNav()">Projets</a>
-  <a href="index.html#about" onclick="closeNav()">À propos</a>
+  <a href="a-propos.html" onclick="closeNav()">À propos</a>
+  <a href="index.html#jeu" onclick="closeNav()">Communauté</a>
+  <a href="don.html" onclick="closeNav()">Don</a>
   <a href="index.html#contact" class="nav-cta" onclick="closeNav()">Contact</a>
-</div>
-
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-hero-bg">
-    <div class="page-hero-orb orb-a"></div>
-    <div class="page-hero-orb orb-b"></div>
-  </div>
-  <div class="page-hero-content">
-    <a href="index.html" class="page-back">Retour à l'accueil</a>
-    <h1 class="page-title">Nos<br><em>Projets</em></h1>
-    <p class="page-subtitle">Collaborations · Participations · Développement<br>Rimouski, Bas-du-Fleuve.</p>
-  </div>
 </div>
 
 <!-- YEAR TABS -->
@@ -636,7 +629,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <div class="footer-links-sm">
       <a href="evenements.html">Événements</a>
       <a href="projets.html">Projets</a>
-      <a href="index.html#about">À propos</a>
+      <a href="a-propos.html">À propos</a>
       <a href="index.html#contact">Contact</a>
     </div>
     <div class="footer-links-sm">
