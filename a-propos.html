@@ -446,6 +446,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 
 /* Sous-page sans hero : dégager la nav fixe */
 #about{padding-top:calc(var(--nav-h) + var(--space-md));}
+/* ─── Devenir bénévole ─── */
+#benevoles { background: var(--bg); border-top: 1px solid rgba(237,172,255,.1); position: relative; padding: var(--space-xl) var(--gutter); overflow: hidden; }
+.ecosys-textarea { min-height: 92px; resize: vertical; line-height: 1.6; }
+@media (max-width:768px){ #benevoles { padding: var(--space-lg) var(--gutter); } }
+
 </style>
 </head>
 <body>
@@ -697,6 +702,63 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   </div>
 </section>
 
+
+<!-- DEVENIR BÉNÉVOLE -->
+<section id="benevoles">
+  <div class="ecosys-grid">
+
+    <div class="ecosys-body">
+      <div class="section-label">S'impliquer</div>
+      <h2 class="section-title">Devenir <em>bénévole</em></h2>
+      <p>L'argent n'est pas le seul chemin. Le <strong>Collectif Jardin</strong> se construit avec les gens qui décident d'y mettre les mains — un projet <strong>bénévole et collectif</strong>, porté par sa communauté.</p>
+      <p>Que tu aies du <em>temps</em>, de l'<em>énergie</em> ou des <em>compétences</em>, il y a une place pour toi. On cherche des mains, des idées et du cœur pour faire pousser le jardin.</p>
+      <div class="ecosys-pillars">
+        <div class="ecosys-pillar"><span class="ecosys-pillar-dot">✦</span><span><strong style="color:var(--cream);">Événements</strong> — montage, accueil, bar, présence bienveillante</span></div>
+        <div class="ecosys-pillar"><span class="ecosys-pillar-dot">✦</span><span><strong style="color:var(--cream);">Technique</strong> — son, lumière, scène, logistique</span></div>
+        <div class="ecosys-pillar"><span class="ecosys-pillar-dot">✦</span><span><strong style="color:var(--cream);">Création</strong> — graphisme, photo, vidéo, scénographie</span></div>
+        <div class="ecosys-pillar"><span class="ecosys-pillar-dot">✦</span><span><strong style="color:var(--cream);">Communauté</strong> — communications, partenariats, coordination</span></div>
+      </div>
+    </div>
+
+    <div class="ecosys-form-wrap">
+      <div class="ecosys-card">
+        <div class="ecosys-card-label">Candidature</div>
+        <h3 class="ecosys-card-title">Mettre les mains<br><em>dans la terre</em></h3>
+
+        <div id="benevole-form-wrap">
+          <input type="text" name="website" id="benevole-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+          <div class="ecosys-field">
+            <label for="benevole-nom">Prénom <span style="color:var(--orange);">*</span></label>
+            <input type="text" id="benevole-nom" class="ecosys-input" placeholder="Ton prénom" autocomplete="given-name" maxlength="80">
+          </div>
+
+          <div class="ecosys-field">
+            <label for="benevole-email">Courriel <span style="color:var(--orange);">*</span></label>
+            <input type="email" id="benevole-email" class="ecosys-input" placeholder="ton@courriel.com" autocomplete="email" maxlength="150">
+          </div>
+
+          <div class="ecosys-field">
+            <label for="benevole-interets">Ce qui t'intéresse / tes compétences</label>
+            <textarea id="benevole-interets" class="ecosys-input ecosys-textarea" placeholder="Ex. : son &amp; lumière, accueil, graphisme, dispo les fins de semaine…" maxlength="600" rows="3"></textarea>
+          </div>
+
+          <div class="ecosys-consent" id="benevole-consent-wrap" role="checkbox" aria-checked="false" tabindex="0">
+            <div class="ecosys-consent-box" id="benevole-consent-box"><span class="ecosys-consent-check">✓</span></div>
+            <span class="ecosys-consent-text">J'accepte d'être contacté·e par le Collectif Jardin au sujet du bénévolat. Aucune donnée partagée.</span>
+          </div>
+
+          <button class="ecosys-btn" id="benevole-submit" type="button" disabled>Rejoindre l'équipe ✦</button>
+          <div class="ecosys-feedback" id="benevole-feedback"></div>
+        </div>
+
+        <p class="ecosys-note">On te recontacte par courriel · Aucun engagement · À ton rythme</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -894,6 +956,57 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeCjD
     });
   });
 
+})();
+</script>
+
+
+<script>
+/* DEVENIR BÉNÉVOLE — écrit dans l'onglet « Bénévoles » du Sheet via Apps Script */
+(function(){
+  'use strict';
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
+  var nomI   = document.getElementById('benevole-nom');
+  var emailI = document.getElementById('benevole-email');
+  var interI = document.getElementById('benevole-interets');
+  var hpI    = document.getElementById('benevole-website');
+  var btn    = document.getElementById('benevole-submit');
+  var fb     = document.getElementById('benevole-feedback');
+  var cWrap  = document.getElementById('benevole-consent-wrap');
+  var cBox   = document.getElementById('benevole-consent-box');
+  if(!btn) return;
+  var consent = false;
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+  function update(){ btn.disabled = !(consent && nomI.value.trim() && validEmail(emailI.value)); }
+  function toggle(){ consent=!consent; cBox.classList.toggle('checked',consent); cWrap.setAttribute('aria-checked',consent?'true':'false'); update(); }
+  cWrap.addEventListener('click', toggle);
+  cWrap.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+  nomI.addEventListener('input', update);
+  emailI.addEventListener('input', update);
+
+  function show(type,html){ fb.className='ecosys-feedback visible '+type; fb.innerHTML=html; }
+
+  btn.addEventListener('click', function(){
+    var nom=nomI.value.trim(), email=emailI.value.trim();
+    if(!nom){ show('error','Indique ton prénom.'); nomI.focus(); return; }
+    if(!validEmail(email)){ show('error','Courriel invalide. Vérifie le format.'); emailI.focus(); return; }
+    btn.disabled=true; btn.textContent='Envoi en cours…'; fb.className='ecosys-feedback';
+    var params=new URLSearchParams({action:'benevole',nom:nom,email:email,interets:interI.value.trim(),source:'a-propos',consent:'true',website:hpI?hpI.value:''});
+    fetch(SCRIPT_URL+'?'+params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.success){
+        show('success','<strong>Bienvenue dans l\'équipe ✦</strong><br>Merci ! On te recontacte bientôt par courriel.');
+        nomI.value=''; emailI.value=''; interI.value=''; consent=false;
+        cBox.classList.remove('checked'); cWrap.setAttribute('aria-checked','false');
+        btn.textContent='Rejoindre l\'équipe ✦'; btn.disabled=true;
+      } else {
+        var m={'nom_requis':'Indique ton prénom.','email_invalide':'Courriel invalide.','consentement_requis':'Le consentement est requis.','rate_limited':'Trop de tentatives. Réessaie dans une minute.','server_error':'Erreur serveur. Réessaie.'}[d.error]||'Une erreur s\'est produite. Réessaie.';
+        show('error',m); btn.disabled=false; btn.textContent='Rejoindre l\'équipe ✦';
+      }
+    })
+    .catch(function(){ show('error','Connexion impossible. Vérifie ta connexion et réessaie.'); btn.disabled=false; btn.textContent='Rejoindre l\'équipe ✦'; });
+  });
 })();
 </script>
 
