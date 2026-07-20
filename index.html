@@ -279,6 +279,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .stat-label { font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:rgba(255,251,219,.35);line-height:1.5;text-align:center; }
 
 /* GALLERY */
+#communaute { scroll-margin-top: var(--nav-h); }
 .gallery-strip { padding: var(--space-lg) 0 var(--space-md); position:relative; background:var(--burgundy); border-top:1px solid rgba(237,172,255,.08); overflow:hidden; touch-action: pan-y; scroll-margin-top: var(--nav-h); }
 .gallery-strip-header { padding: 0 var(--gutter) var(--space-lg); display:flex;align-items:flex-start;justify-content:space-between; }
 .gallery-arrow { position:absolute; top:50%; transform:translateY(20%); z-index:20; background:rgba(20,20,20,.92); border:1px solid rgba(237,172,255,.25); color:var(--mauve); font-size:28px; line-height:1; width:52px; height:52px; display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:background .2s,border-color .2s,color .2s; }
@@ -1139,7 +1140,7 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="projets.html">Projets</a></li>
     <li><a href="a-propos.html">À propos</a></li>
-    <li><a href="#galleryStrip">Communauté</a></li>
+    <li><a href="#communaute">Communauté</a></li>
     <li><a href="#don">Don</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -1157,7 +1158,7 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   <a href="evenements.html" onclick="closeNav()">Événements</a>
   <a href="projets.html" onclick="closeNav()">Projets</a>
   <a href="a-propos.html" onclick="closeNav()">À propos</a>
-  <a href="#galleryStrip" onclick="closeNav()">Communauté</a>
+  <a href="#communaute" onclick="closeNav()">Communauté</a>
   <a href="#don" onclick="closeNav()">Don</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
@@ -1251,7 +1252,10 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
 
 </section>
 
-<!-- GALLERY -->
+<!-- COMMUNAUTÉ — galerie « en images » + jeu réunis en une seule section -->
+<section id="communaute">
+
+<!-- Galerie -->
 <div class="gallery-strip" id="galleryStrip">
   <div class="gallery-strip-header">
     <div>
@@ -1322,8 +1326,8 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   </div>
 </div>
 
-<!-- JEU -->
-<section id="jeu">
+<!-- Jeu -->
+<div id="jeu">
   <div id="jeu-header">
     <div class="section-label">Pause récréative</div>
     <h2 class="section-title">Le <em>Flappy</em><br>Jardinier</h2>
@@ -1336,7 +1340,11 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
       <span>MEILLEUR <span id="fj-best-val">0</span></span>
     </div>
   </div>
+</div>
+<!-- /Jeu -->
+
 </section>
+<!-- /Communauté -->
 
 <!-- PROJETS PREVIEW -->
 <section id="projets-preview">
