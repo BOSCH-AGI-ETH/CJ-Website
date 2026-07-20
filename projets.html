@@ -67,19 +67,20 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 
 /* ── FEATURED PROJECT (Système de son) ── */
 .proj-featured{
+  display:grid;
+  grid-template-columns:1fr minmax(260px,38%);
+  align-items:stretch;
   background:#1a1a1a;
   border:1px solid rgba(237,172,255,.08);
-  padding:48px;
   margin-bottom:48px;
   position:relative;
   overflow:hidden;
 }
-/* Bandeau image — reprend le visuel des cartes projet de l'accueil */
+.proj-featured-body{ padding:48px; }
+/* Colonne image (droite sur desktop) — reprend le visuel des cartes de l'accueil */
 .proj-featured-media{
-  margin:-48px -48px 32px;
-  height:300px;
   overflow:hidden;
-  border-bottom:1px solid rgba(237,172,255,.15);
+  border-left:1px solid rgba(237,172,255,.1);
   position:relative;z-index:1;
 }
 .proj-featured-media img{
@@ -201,8 +202,8 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   nav{padding:20px 32px;}
   .page-hero{padding:96px 32px 44px;}
   .proj-main{padding:60px 32px 80px;}
-  .proj-featured{padding:36px;}
-  .proj-featured-media{margin:-36px -36px 28px;height:240px;}
+  .proj-featured{grid-template-columns:1fr 34%;}
+  .proj-featured-body{padding:36px;}
   .proj-featured-meta{grid-template-columns:repeat(2,1fr);}
   footer{padding:40px 32px 28px;}
 }
@@ -219,8 +220,11 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
   .proj-main{padding:36px 20px 80px;}
   .year-heading{flex-direction:column;align-items:flex-start;gap:12px;}
   .year-num{font-size:clamp(48px,12vw,72px);}
-  .proj-featured{padding:24px 20px;}
-  .proj-featured-media{margin:-24px -20px 24px;height:190px;}
+  /* Mobile : une seule colonne, image au-dessus et ENTIÈREMENT visible (pas de recadrage) */
+  .proj-featured{grid-template-columns:1fr;}
+  .proj-featured-body{padding:24px 20px;}
+  .proj-featured-media{order:-1;border-left:none;border-bottom:1px solid rgba(237,172,255,.1);}
+  .proj-featured-media img{height:auto;object-fit:contain;}
   .proj-featured-meta{grid-template-columns:1fr 1fr;gap:16px;padding:16px;}
   .proj-ctas{flex-direction:column;gap:12px;}
   .btn-primary,.btn-mauve{text-align:center;}
@@ -285,7 +289,7 @@ body{padding-top:92px;}
 
   <!-- ══ FEATURED: Système de son ══ -->
   <div class="proj-featured reveal" id="systeme-son">
-    <div class="proj-featured-media"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son" width="720" height="576" loading="lazy"></div>
+    <div class="proj-featured-body">
     <span class="proj-featured-badge">✦ Projet phare — En développement</span>
     <h2 class="proj-featured-title">Système de Son<br><em>Maison du Collectif</em></h2>
     <div class="proj-featured-subtitle">Infrastructure sonore · Expertise locale · Sociofinancement</div>
@@ -328,11 +332,13 @@ body{padding-top:92px;}
       <a href="#" class="btn-primary">Soutenir le projet →</a>
       <a href="index.html#contact" class="btn-mauve">Nous contacter</a>
     </div>
+    </div>
+    <div class="proj-featured-media"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son" width="720" height="576" loading="lazy"></div>
   </div>
 
   <!-- ══ Partenariats Culturels ══ -->
   <div class="proj-featured reveal" id="partenariats-culturels" style="margin-top:48px;">
-    <div class="proj-featured-media"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels Régionaux" width="720" height="576" loading="lazy"></div>
+    <div class="proj-featured-body">
     <span class="proj-featured-badge">✦ En expansion — Continu</span>
     <h2 class="proj-featured-title">Partenariats<br><em>Culturels Régionaux</em></h2>
     <div class="proj-featured-subtitle">Collaborations · Réseau · Bas-du-Fleuve</div>
@@ -359,11 +365,13 @@ body{padding-top:92px;}
     <div class="proj-ctas">
       <a href="index.html#contact" class="btn-mauve">Proposer une collaboration</a>
     </div>
+    </div>
+    <div class="proj-featured-media"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels Régionaux" width="720" height="576" loading="lazy"></div>
   </div>
 
   <!-- ══ OBNL ══ -->
   <div class="proj-featured reveal" id="obnl" style="margin-top:48px;">
-    <div class="proj-featured-media"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale &amp; Vie en OBNL" width="720" height="576" loading="lazy"></div>
+    <div class="proj-featured-body">
     <span class="proj-featured-badge">✦ Structuration — 2026</span>
     <h2 class="proj-featured-title">Économie Sociale<br><em>&amp; Vie en OBNL</em></h2>
     <div class="proj-featured-subtitle">Gouvernance · Financement culturel · Pérennité</div>
@@ -390,12 +398,14 @@ body{padding-top:92px;}
     <div class="proj-ctas">
       <a href="index.html#contact" class="btn-mauve">Nous contacter</a>
     </div>
+    </div>
+    <div class="proj-featured-media"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale &amp; Vie en OBNL" width="720" height="576" loading="lazy"></div>
   </div>
 
 
   <!-- ══ Expansion Numérique ══ -->
   <div class="proj-featured reveal" id="expansion-numerique" style="margin-top:48px;">
-    <div class="proj-featured-media"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique &amp; Communauté" width="720" height="576" loading="lazy"></div>
+    <div class="proj-featured-body">
     <span class="proj-featured-badge">✦ En cours — 2026</span>
     <h2 class="proj-featured-title">Expansion Numérique<br><em>&amp; Communauté</em></h2>
     <div class="proj-featured-subtitle">Plateformes · Lien digital · Communauté en ligne</div>
@@ -422,6 +432,8 @@ body{padding-top:92px;}
     <div class="proj-ctas">
       <a href="a-propos.html" class="btn-mauve">Rejoindre l'écosystème</a>
     </div>
+    </div>
+    <div class="proj-featured-media"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique &amp; Communauté" width="720" height="576" loading="lazy"></div>
   </div>
 
 
