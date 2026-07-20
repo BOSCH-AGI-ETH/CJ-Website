@@ -69,6 +69,8 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .nav-hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+/* Le hamburger prend le relais avant que la nav desktop (~915px) ne déborde */
+@media (max-width:1000px){ .nav-links{display:none;} .nav-hamburger{display:flex;} }
 .nav-overlay{display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:1050;opacity:0;transition:opacity .3s ease;}
 .nav-overlay.open{display:flex;opacity:1;}
 .nav-overlay-logo{margin-bottom:8px;}
