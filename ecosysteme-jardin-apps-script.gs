@@ -16,6 +16,7 @@
 var CONFIG = {
   SHEET_NAME:       'Membres',           // nom de l'onglet dans le Sheet
   UNSUB_SHEET_NAME: 'Désabonnements',    // onglet pour les désabonnements
+  BENEVOLE_SHEET_NAME: 'Bénévoles',      // onglet pour les candidatures bénévoles
   COLLECTIF_NAME:   'Collectif Jardin',  // nom modulable
   LIST_NAME:        'Écosystème Jardin', // nom de la liste — modulable
   CONTACT_EMAIL:    'coll.jardin@gmail.com',
@@ -165,6 +166,38 @@ function doGet(e) {
 
     } catch(err) {
       return respond({ success: false, error: 'server_error', detail: err.toString() }, {});
+    }
+  }
+
+  // Candidature bénévole
+  if (action === 'benevole') {
+    try {
+      if (honeypotFilled(e)) {
+        return respond({ success: true, status: 'recu' }, {});
+      }
+      var bNom      = sanitize(e.parameter.nom      || '');
+      var bEmail    = sanitize(e.parameter.email    || '');
+      var bInterets = sanitize(e.parameter.interets || '');
+      var bSource   = sanitize(e.parameter.source   || 'a-propos');
+      var bConsent  = e.parameter.consent === 'true';
+
+      if (!bNom)                            return respond({ success: false, error: 'nom_requis' }, {});
+      if (!bEmail || !isValidEmail(bEmail)) return respond({ success: false, error: 'email_invalide' }, {});
+      if (!bConsent)                        return respond({ success: false, error: 'consentement_requis' }, {});
+
+      var rlB = rateLimitExceeded();
+      if (rlB.limited) return respond({ success: false, error: 'rate_limited' }, {});
+
+      var ssB    = SpreadsheetApp.getActiveSpreadsheet();
+      var sheetB = getOrCreateSheet(ssB, CONFIG.BENEVOLE_SHEET_NAME, [
+        'Date', 'Prénom', 'Courriel', 'Intérêts / compétences', 'Source', 'Statut'
+      ]);
+      sheetB.appendRow([new Date(), bNom, bEmail, bInterets, bSource, 'nouveau']);
+      recordInsertion();
+      return respond({ success: true, status: 'recu' }, {});
+
+    } catch(errB) {
+      return respond({ success: false, error: 'server_error', detail: errB.toString() }, {});
     }
   }
 

@@ -161,6 +161,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+/* Le hamburger prend le relais avant que la nav desktop (~915px) ne déborde */
+@media (max-width:1000px){ .nav-links{display:none;} .nav-hamburger{display:flex;} }
 .nav-overlay { display: flex; position: fixed; inset: 0; background: rgba(20,20,20,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 36px; z-index: 1050; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, visibility 0s .3s; }
 .nav-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .3s ease, visibility 0s; }
 .nav-overlay-logo { margin-bottom: 8px; }
@@ -210,6 +212,11 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 
 .events-header-new {
   margin: 0 var(--gutter) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
 .events-timeline { position: relative; max-width: 860px; margin: 0 var(--gutter); display: flex; flex-direction: column; gap: var(--space-xs); }
@@ -272,7 +279,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .stat-label { font-size:var(--text-xs);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:rgba(255,251,219,.35);line-height:1.5;text-align:center; }
 
 /* GALLERY */
-.gallery-strip { padding: var(--space-lg) 0 var(--space-xl); position:relative; background:var(--burgundy); border-top:1px solid rgba(237,172,255,.08); border-bottom:1px solid rgba(237,172,255,.08); overflow:hidden; touch-action: pan-y; }
+#communaute { scroll-margin-top: var(--nav-h); }
+.gallery-strip { padding: var(--space-lg) 0 var(--space-md); position:relative; background:var(--burgundy); border-top:1px solid rgba(237,172,255,.08); overflow:hidden; touch-action: pan-y; scroll-margin-top: var(--nav-h); }
 .gallery-strip-header { padding: 0 var(--gutter) var(--space-lg); display:flex;align-items:flex-start;justify-content:space-between; }
 .gallery-arrow { position:absolute; top:50%; transform:translateY(20%); z-index:20; background:rgba(20,20,20,.92); border:1px solid rgba(237,172,255,.25); color:var(--mauve); font-size:28px; line-height:1; width:52px; height:52px; display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:background .2s,border-color .2s,color .2s; }
 .gallery-arrow:hover, .gallery-arrow:active { background:var(--orange);border-color:var(--orange);color:#fff; }
@@ -387,7 +395,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 /* ═══════════════════════════════════
    PARTNERS
 ═══════════════════════════════════ */
-.partners-section { padding: 0; background: var(--bg); position: relative; overflow: visible; }
+.partners-section { padding: 0; background: var(--burgundy); position: relative; overflow: visible; }
 .partners-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg) var(--gutter) var(--space-md); position: relative; z-index: 1; }
 .partners-header-left { display: flex; flex-direction: column; gap: 6px; }
 .partners-eyebrow { font-size: var(--text-xs); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--orange); opacity: .9; }
@@ -513,6 +521,29 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .don-btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(253,47,0,.4); }
 .don-btn-note { font-size:var(--text-xs); color:rgba(255,251,219,.55); text-align:center; line-height:1.6; }
 
+/* BOUTIQUE (teaser immersif plein-largeur — lien externe → Zeffy) */
+#boutique { padding:0; border-top:1px solid rgba(237,172,255,.08); border-bottom:1px solid rgba(237,172,255,.08); position:relative; overflow:hidden; }
+.boutique-media { position:relative; min-height:clamp(440px,58vh,600px); display:flex; align-items:center; }
+.boutique-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; }
+.boutique-overlay { position:absolute; inset:0; background:linear-gradient(95deg, rgba(20,20,20,.92) 0%, rgba(20,20,20,.8) 20%, rgba(56,5,14,.4) 42%, rgba(56,5,14,.1) 64%, rgba(20,20,20,0) 100%); }
+.boutique-content { position:relative; width:100%; max-width:1400px; margin:0 auto; padding:var(--space-xl) var(--gutter); }
+.boutique-inner { max-width:460px; }
+.boutique-inner .section-label { color:var(--mauve); text-shadow:0 1px 2px rgba(20,20,20,.9); }
+.boutique-title { font-family:'Cormorant Garamond',serif; font-size:clamp(34px,4.6vw,58px); font-weight:300; line-height:1.04; letter-spacing:-.02em; margin-bottom:var(--space-md); color:var(--cream); text-shadow:0 1px 3px rgba(20,20,20,.85), 0 2px 26px rgba(20,20,20,.6); }
+.boutique-title em { font-style:italic; color:var(--mauve); }
+.boutique-sub { font-size:var(--text-md); color:rgba(255,251,219,.95); line-height:1.9; margin-bottom:var(--space-lg); text-shadow:0 1px 2px rgba(20,20,20,.95), 0 2px 14px rgba(20,20,20,.8); }
+.boutique-sub strong { color:var(--cream); font-weight:700; }
+.boutique-btn { display:inline-block; border:1.5px solid var(--mauve); color:var(--mauve); background:rgba(20,20,20,.4); font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:14px 32px; text-decoration:none; transition:background .25s,color .25s,box-shadow .25s; -webkit-tap-highlight-color:transparent; }
+.boutique-btn:hover { background:var(--mauve); color:var(--bg); box-shadow:0 10px 34px rgba(237,172,255,.28); }
+.boutique-note { font-size:var(--text-xs); color:rgba(255,251,219,.72); margin-top:var(--space-sm); line-height:1.6; text-shadow:0 1px 2px rgba(20,20,20,.9); }
+@media (max-width:768px){
+  .boutique-media { min-height:520px; align-items:flex-end; }
+  .boutique-media img { object-position:center 30%; }
+  .boutique-overlay { background:linear-gradient(180deg, rgba(20,20,20,.15) 0%, rgba(20,20,20,.3) 30%, rgba(56,5,14,.8) 74%, rgba(20,20,20,.96) 100%); }
+  .boutique-content { padding:var(--space-xl) var(--gutter) var(--space-lg); }
+  .boutique-inner { max-width:100%; }
+}
+
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:hidden; }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 var(--space-xl); align-items:start; }
@@ -532,7 +563,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .contact-link-arrow { margin-left:auto;color:var(--orange);font-size:var(--text-md);flex-shrink:0; }
 
 /* FOOTER */
-footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--space-md);border-top:1px solid rgba(237,172,255,.1); }
+footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-md);border-top:1px solid rgba(237,172,255,.1); }
 .footer-top { display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:var(--space-lg);margin-bottom:var(--space-lg); }
 .footer-logo { font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--space-sm); }
 .footer-logo span { color:var(--mauve); }
@@ -555,7 +586,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 .flora-bg-el { position:absolute;pointer-events:none;opacity:.04; }
 
 /* PROJECTS PREVIEW */
-#projets-preview { background: var(--bg); border-top: 1px solid rgba(237,172,255,.08); padding: var(--space-lg) var(--gutter) var(--space-md); overflow: hidden; }
+#projets-preview { background: var(--bg); padding: var(--space-lg) var(--gutter) var(--space-md); overflow: hidden; }
 .proj-header-row { margin-bottom: var(--space-md); }
 .proj-header-row { display:flex; justify-content:space-between; align-items:flex-end; gap:var(--space-md); }
 .btn-soutenir { display:inline-block; border:1px solid rgba(237,172,255,.25); color:rgba(237,172,255,.4); font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wider); text-transform:uppercase; padding:11px 24px; text-decoration:none; white-space:nowrap; transition:border-color .2s,color .2s; -webkit-tap-highlight-color:transparent; }
@@ -676,7 +707,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   .stat-num { font-size:44px; }
 
   /* GALLERY */
-  .gallery-strip { padding: var(--space-lg) 0 var(--space-xl); }
+  .gallery-strip { padding: var(--space-lg) 0 var(--space-md); }
   .gallery-strip-header { padding: 0 var(--gutter) var(--space-md); flex-direction:column;align-items:flex-start;gap:var(--space-sm); }
   .gallery-item { width:200px;height:280px; }
   .gallery-arrow { display:none; }
@@ -730,10 +761,11 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   .stats-row { margin:var(--space-md) var(--space-sm) 0; }
 }
 @media (max-width:768px) {
-  #jeu { padding-left:0!important; padding-right:0!important; }
-  #jeu-header { padding-left:var(--gutter); padding-right:var(--gutter); }
-  #jeu-wrap { max-width:100%!important; }
-  #jeu-wrap > div { padding-left:var(--gutter); padding-right:var(--gutter); }
+  /* Sur petit écran, on réduit le fondu latéral pour préserver l'aire de jeu */
+  #fj-canvas {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+  }
 }
 /* PAGE LOADER */
 #pageLoader{position:fixed;inset:0;background:#141414;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .5s ease;}
@@ -771,18 +803,58 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   pointer-events: none;
 }
 #jeu {
-  background: var(--burgundy);
-  border-top: 1px solid rgba(237,172,255,.1);
+  background: var(--bg);
   position: relative;
   scroll-margin-top: var(--nav-h);
+  padding: var(--space-md) 0 var(--space-lg);
+  overflow: hidden;
 }
-#jeu::before {
-  content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(253,47,0,.05) 0%, transparent 70%);
-  pointer-events: none;
+#jeu-header {
+  margin-bottom: var(--space-md);
+  padding: 0 var(--gutter);
+}
+/* Canvas pleine largeur, fondu dans la page — aucune boîte, aucun cadre.
+   Le fond du jeu est transparent : la page (#141414) transparaît, et un
+   masque dégradé estompe les bords gauche/droite pour un rendu « imbriqué ». */
+#jeu-wrap {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+}
+#fj-canvas {
+  display: block;
+  width: 100%;
+  background: transparent;
+  touch-action: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+.fj-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 14px auto 0;
+  padding: 0 var(--gutter);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: rgba(255,251,219,.45);
+}
+.fj-controls #fj-score-val { color: var(--mauve); }
+.fj-controls #fj-best-val { color: var(--orange); }
+.fj-hint {
+  font-size: 9px;
+  letter-spacing: .18em;
+  color: rgba(255,251,219,.25);
+  text-align: center;
 }
 
 /* ─── Layout 2 colonnes desktop ─── */
@@ -1019,6 +1091,43 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   .ecosys-card-title { font-size: clamp(22px, 6vw, 28px); }
   .ecosys-body p { font-size: var(--text-base); }
 }
+
+/* ═══════════════ POPUP JARDINIERS ═══════════════ */
+.jpop-overlay{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,4,7,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease,visibility 0s .4s;}
+.jpop-overlay.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .4s ease,visibility 0s;}
+.jpop-card{position:relative;width:100%;max-width:440px;background:#181818;border:1px solid rgba(237,172,255,.16);padding:var(--space-xl) var(--space-lg) var(--space-lg);overflow-y:auto;max-height:92vh;transform:translateY(16px) scale(.98);transition:transform .4s cubic-bezier(.2,.8,.2,1);}
+.jpop-overlay.open .jpop-card{transform:none;}
+.jpop-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--mauve),var(--orange),transparent);}
+.jpop-close{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,251,219,.5);font-size:22px;line-height:1;cursor:pointer;padding:4px;-webkit-tap-highlight-color:transparent;transition:color .2s;}
+.jpop-close:hover{color:var(--mauve);}
+.jpop-label{font-size:var(--text-xs);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--orange);margin-bottom:var(--space-sm);}
+.jpop-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,34px);font-weight:300;line-height:1.1;margin-bottom:var(--space-sm);color:var(--cream);}
+.jpop-title em{font-style:italic;color:var(--mauve);}
+.jpop-text{font-size:var(--text-sm);color:rgba(255,251,219,.6);line-height:1.8;letter-spacing:.02em;margin-bottom:var(--space-md);}
+.jpop-input{display:block;width:100%;background:rgba(255,251,219,.04);border:1px solid rgba(237,172,255,.15);color:var(--cream);font-family:'Space Mono',monospace;font-size:var(--text-sm);padding:13px 16px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none;border-radius:0;margin-bottom:var(--space-sm);}
+.jpop-input:focus{border-color:rgba(237,172,255,.45);background:rgba(255,251,219,.07);}
+.jpop-input::placeholder{color:rgba(255,251,219,.2);}
+.jpop-consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 var(--space-md);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.jpop-consent-box{flex-shrink:0;width:18px;height:18px;border:1px solid rgba(237,172,255,.3);background:rgba(255,251,219,.03);display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s;margin-top:1px;}
+.jpop-consent-box.checked{border-color:var(--orange);background:rgba(253,47,0,.12);}
+.jpop-consent-check{color:var(--orange);font-size:12px;line-height:1;display:none;}
+.jpop-consent-box.checked .jpop-consent-check{display:block;}
+.jpop-consent-text{font-size:var(--text-2xs);color:rgba(255,251,219,.45);line-height:1.7;letter-spacing:.03em;}
+.jpop-consent-text a{color:rgba(237,172,255,.6);text-decoration:none;}
+.jpop-consent-text a:hover{color:var(--mauve);}
+.jpop-btn{display:block;width:100%;background:var(--orange);color:var(--bg);border:none;padding:15px 24px;font-family:'Space Mono',monospace;font-size:var(--text-sm);letter-spacing:var(--tracking-wide);text-transform:uppercase;cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.jpop-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 28px rgba(253,47,0,.4);}
+.jpop-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.jpop-feedback{display:none;margin-top:var(--space-md);padding:var(--space-md);font-size:var(--text-xs);letter-spacing:.06em;line-height:1.8;border-left:2px solid var(--orange);}
+.jpop-feedback.visible{display:block;}
+.jpop-feedback.success{border-color:var(--mauve);color:rgba(255,251,219,.75);background:rgba(237,172,255,.04);}
+.jpop-feedback.error{border-color:var(--orange);color:rgba(255,251,219,.65);background:rgba(253,47,0,.04);}
+.jpop-feedback strong{color:var(--cream);}
+.jpop-decline{display:block;width:100%;background:none;border:none;color:rgba(255,251,219,.4);font-family:'Space Mono',monospace;font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:14px 0 2px;margin-top:8px;transition:color .2s;-webkit-tap-highlight-color:transparent;}
+.jpop-decline:hover{color:rgba(255,251,219,.7);}
+@media (max-width:768px){ .jpop-card{padding:var(--space-lg) var(--space-md);} }
+@media (prefers-reduced-motion: reduce){ .jpop-overlay,.jpop-card{transition:opacity .2s ease;} .jpop-overlay.open .jpop-card{transform:none;} }
+
 </style>
 </head>
 <body>
@@ -1051,11 +1160,12 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   </a>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Accueil</a></li>
-    <li><a href="#events">Événements</a></li>
-    <li><a href="#projets-preview">Projets</a></li>
-    <li><a href="#about">À propos</a></li>
-    <li><a href="#jeu">Communauté</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="#communaute">Communauté</a></li>
     <li><a href="#don">Don</a></li>
+    <li><a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
@@ -1069,11 +1179,12 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
     <img src="Image-About/Jardin-logo-officiel-mauve-no-BG.png" alt="Collectif Jardin" width="513" height="225" />
   </div>
   <a href="index.html" onclick="closeNav()">Accueil</a>
-  <a href="#events" onclick="closeNav()">Événements</a>
-  <a href="#projets-preview" onclick="closeNav()">Projets</a>
-  <a href="#about" onclick="closeNav()">À propos</a>
-  <a href="#jeu" onclick="closeNav()">Communauté</a>
+  <a href="evenements.html" onclick="closeNav()">Événements</a>
+  <a href="projets.html" onclick="closeNav()">Projets</a>
+  <a href="a-propos.html" onclick="closeNav()">À propos</a>
+  <a href="#communaute" onclick="closeNav()">Communauté</a>
   <a href="#don" onclick="closeNav()">Don</a>
+  <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" onclick="closeNav()">Boutique ↗</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
 
@@ -1120,6 +1231,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       <div class="section-label">Prochains événements</div>
       <h2 class="section-title">Ce qui s'en <em>vient</em></h2>
     </div>
+    <a href="evenements.html" class="btn-soutenir">✦ Tous les événements →</a>
   </div>
 
   <div class="events-timeline">
@@ -1160,59 +1272,81 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       </div>
     </div>
 
-
-    <!-- EVENT 4 — Brise-Lames : Racines -->
+    <!-- EVENT 2 — After MDGTL Urbain : Buisson (7 août) -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
+      <div class="ev-card-new"
+        data-name="Buisson"
+        data-cat="After MDGTL Urbain · Bains Publics"
+        data-date="Vendredi 7 août 2026 — 00h → 03h"
+        data-loc="Bains Publics — Cabaret Culturel, Rimouski"
+        data-img="Image-Events/buisson_7aoutMDGTL2026.webp"
+        data-artists="After MDGTL Urbain"
+        data-desc="L'after du <strong>MDGTL Urbain</strong> se prolonge au Bains Publics — Cabaret Culturel. <strong>Buisson</strong> aux platines, de minuit à 3h."
+        onclick="openEvCard(this)">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
-              <span class="ev-badge-cat">Collectif Jardin</span>
+              <span class="ev-badge-cat">After MDGTL Urbain</span>
+              <span class="ev-badge-cat">Bains Publics</span>
             </div>
           </div>
-          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Racines</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Buisson</span><br><em style="font-style:italic;color:var(--mauve)">After MDGTL Urbain</em></div>
           <div class="ev-meta-row">
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">29 août 2026</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">16h → 23h</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">Ven. 7 août 2026</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">00h → 03h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bains Publics, Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <a class="ev-btn-tickets"></a>
+            <button class="ev-btn-details" onclick="openEvCard(this.closest('.ev-card-new'))">Détails</button>
           </div>
         </div>
+        <div class="ev-card-img"><img src="Image-Events/buisson_7aoutMDGTL2026.webp" alt="Buisson — After MDGTL Urbain, 7 août 2026" loading="lazy" width="220" height="217"></div>
       </div>
     </div>
 
-
-    <!-- EVENT 5 — Brise-Lames : Récoltes -->
+    <!-- EVENT 3 — After MDGTL Urbain : Hoya (8 août) -->
     <div class="ev-row">
       <div class="ev-dot"><div class="ev-dot-inner"></div></div>
-      <div class="ev-card-new" data-ticket="" data-img="" data-artists="Artiste TBA">
+      <div class="ev-card-new"
+        data-name="Hoya"
+        data-cat="After MDGTL Urbain · Bains Publics"
+        data-date="Samedi 8 août 2026 — 00h → 03h"
+        data-loc="Bains Publics — Cabaret Culturel, Rimouski"
+        data-img="Image-Events/hoya_8aoutMDGTL2026.webp"
+        data-artists="After MDGTL Urbain"
+        data-desc="Deuxième nuit de l'after <strong>MDGTL Urbain</strong> au Bains Publics — Cabaret Culturel. <strong>Hoya</strong> aux platines, de minuit à 3h."
+        onclick="openEvCard(this)">
         <div class="ev-card-body">
           <div class="ev-card-top">
             <div class="ev-badges">
-              <span class="ev-badge-cat">Collectif Jardin</span>
+              <span class="ev-badge-cat">After MDGTL Urbain</span>
+              <span class="ev-badge-cat">Bains Publics</span>
             </div>
           </div>
-          <div class="ev-name-new"><span style="color:var(--cream)">Brise-Lames : Récoltes</span><br><em style="font-style:italic;color:rgba(255,251,219,.35)">Artiste TBA</em></div>
+          <div class="ev-name-new"><span style="color:var(--cream)">Hoya</span><br><em style="font-style:italic;color:var(--mauve)">After MDGTL Urbain</em></div>
           <div class="ev-meta-row">
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">26 septembre 2026</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">16h → 23h</span></div>
-            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Brise-Lames, Rimouski</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Date</span><span class="ev-meta-val">Sam. 8 août 2026</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">00h → 03h</span></div>
+            <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Bains Publics, Rimouski</span></div>
           </div>
           <div class="ev-actions" onclick="event.stopPropagation()">
-            <a class="ev-btn-tickets"></a>
+            <button class="ev-btn-details" onclick="openEvCard(this.closest('.ev-card-new'))">Détails</button>
           </div>
         </div>
+        <div class="ev-card-img"><img src="Image-Events/hoya_8aoutMDGTL2026.webp" alt="Hoya — After MDGTL Urbain, 8 août 2026" loading="lazy" width="220" height="189"></div>
       </div>
     </div>
+
 
   </div><!-- /.events-timeline -->
 
 </section>
 
-<!-- GALLERY -->
+<!-- COMMUNAUTÉ — galerie « en images » + jeu réunis en une seule section -->
+<section id="communaute">
+
+<!-- Galerie -->
 <div class="gallery-strip" id="galleryStrip">
   <div class="gallery-strip-header">
     <div>
@@ -1283,6 +1417,26 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   </div>
 </div>
 
+<!-- Jeu -->
+<div id="jeu">
+  <div id="jeu-header">
+    <div class="section-label">Pause récréative</div>
+    <h2 class="section-title">Le <em>Flappy</em><br>Jardinier</h2>
+  </div>
+  <div id="jeu-wrap">
+    <canvas id="fj-canvas"></canvas>
+    <div class="fj-controls">
+      <span>SCORE <span id="fj-score-val">0</span></span>
+      <span class="fj-hint">ESPACE · CLIC · TAP POUR SAUTER</span>
+      <span>MEILLEUR <span id="fj-best-val">0</span></span>
+    </div>
+  </div>
+</div>
+<!-- /Jeu -->
+
+</section>
+<!-- /Communauté -->
+
 <!-- PROJETS PREVIEW -->
 <section id="projets-preview">
   <div class="proj-header-row">
@@ -1290,7 +1444,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
       <div class="section-label">Nos projets</div>
       <h2 class="section-title">Ce que nous <em>cultivons</em></h2>
     </div>
-    <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="btn-soutenir">✦ Faire un don</a>
+    <a href="projets.html" class="btn-soutenir">✦ Tous nos projets →</a>
   </div>
 
   <!-- Dots navigation — visibles sur mobile uniquement -->
@@ -1303,21 +1457,60 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 
   <div class="proj-carousel-viewport" id="projViewport">
     <div id="projCardsTrack">
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#systeme-son'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#partenariats-culturels'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#obnl'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#expansion-numerique'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Lien digital</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DON (teaser — page complète : don.html) -->
+<section id="don">
+  <div class="don-grid">
+    <div class="don-body">
+      <div class="section-label">Faire un don</div>
+      <h2 class="section-title" style="font-size:clamp(26px,3.5vw,48px);">Faire <em>pousser</em> quelque chose</h2>
+      <p><strong>Collectif Jardin</strong> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <strong>bénévolement, collectivement</strong>, ici à Rimouski.</p>
+      <p class="don-note"><strong>Zéro commission.</strong> Via Zeffy — plateforme québécoise à but non lucratif. <strong>100 % de votre don va au collectif.</strong></p>
+      <a href="don.html" class="btn-benevole">Comment contribuer &amp; devenir bénévole →</a>
+    </div>
+    <div class="don-col-right">
+      <div class="don-card">
+        <div class="don-card-label">Votre contribution</div>
+        <h3 class="don-card-title">Chaque dollar <em>pousse avec nous</em></h3>
+        <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
+        <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="don-btn-main">Faire un don</a>
+        <p class="don-btn-note">Via Zeffy — zéro commission, 100&nbsp;% au collectif</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOUTIQUE (teaser immersif — lien externe direct vers Zeffy, pas de sous-page) -->
+<section id="boutique">
+  <div class="boutique-media">
+    <img src="Image-Projet/Merch-CJ.webp" alt="Chandails, tuques et casquettes du Collectif Jardin" width="1482" height="1061" loading="lazy">
+    <div class="boutique-overlay"></div>
+    <div class="boutique-content">
+      <div class="boutique-inner">
+        <div class="section-label">La boutique</div>
+        <h2 class="boutique-title">Portez le <em>Collectif</em></h2>
+        <p class="boutique-sub">Chandails, tuques et casquettes à l'effigie du Jardin. <strong>Chaque achat soutient directement la mission culturelle.</strong></p>
+        <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" class="boutique-btn">Voir la boutique ↗</a>
+        <p class="boutique-note">Via Zeffy — boutique en ligne, nouvel onglet</p>
       </div>
     </div>
   </div>
@@ -1334,117 +1527,6 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
   <div class="stats-transition"></div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">Notre univers</div>
-  <h2 class="section-title">Qui cultive<br><em>ce jardin</em></h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <div class="about-quote">"Un espace où la musique pousse librement — nourri par le respect, l'inclusivité et l'amour de la communauté."</div>
-      <p><strong>Collectif Jardin</strong> est né d'une conviction simple et profonde : contribuer <strong>bénévolement</strong> à la culture, avec le <strong>respect et l'inclusivité</strong> comme valeurs fondatrices.</p>
-      <p>Basé à Rimouski, notre collectif rassemble des individus aux expertises complémentaires, uni·e·s par une même vision : créer des <em>espaces de musique, de nature et de communauté</em>.</p>
-      <p>Nous prônons la <strong>communauté</strong> et la nature dans chacun de nos projets — des soirées au <strong>Brise-Lames</strong> face au fleuve aux collaborations culturelles locales.</p>
-      <div class="cj-timeline">
-
-        <div class="cj-phase" onclick="openCjDetail('Printemps 2023','Les premières racines','Naissance officielle du collectif','Collectif Jardin prend forme à Rimouski autour d\'une intention fondatrice : <strong>contribuer bénévolement au développement culturel local</strong>, en dehors des logiques commerciales. Le lancement officiel se tient au <strong>Bains Publics Cabaret culturel</strong>, où musique électronique, communauté et inclusivité se rencontrent pour la première fois sous le même toit. Dès ses débuts, le collectif ancre sa démarche dans le territoire — une co-création avec la <strong>Distillerie du St-Laurent</strong> et les premières éditions d\'Apéro 101 à la <strong>Pointe à Pouliot</strong> posent les jalons d\'une pratique résolument tournée vers les lieux et les gens qui font Rimouski.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Printemps 2023</span>
-            <span class="cj-phase-title">Les premières <em>racines</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Été 2023','Premiers rassemblements en plein air','Activation du territoire','La belle saison révèle l\'appétit du collectif pour les espaces inattendus. Les rooftops de <strong>L\'Unique Sushi</strong> et de <strong>L\'Effet Mer</strong> deviennent des scènes suspendues entre le fleuve, la ville et la musique — en collaboration avec la <strong>Distillerie du St-Laurent</strong>. À la <strong>Pointe à Pouliot</strong>, Apéro 102 prolonge l\'exploration en nature entamée au printemps. Les soirées aux <strong>Bains Publics</strong> continuent d\'élargir une communauté naissante, portée par le bouche-à-oreille et la qualité de l\'expérience partagée.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Été 2023</span>
-            <span class="cj-phase-title">Premiers rassemblements <em>en plein air</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Automne 2023','Une identité qui se structure','Le collectif se consolide','Le collectif commence à occuper l\'espace public culturel rimouskois avec une légitimité croissante. Invité par la <strong>Ville de Rimouski</strong> à animer l\'inauguration d\'une murale au centre-ville, il fait une première apparition remarquée hors des espaces de diffusion habituels. Des événements au <strong>Cégep de Rimouski</strong> tissent un lien avec la communauté étudiante, tandis que les collaborations avec la <strong>Distillerie du St-Laurent</strong> et des lieux comme <strong>Riki Bloc</strong> se consolident. Le projet <strong>Invertus</strong> confirme la capacité du collectif à investir des espaces atypiques et à y créer des rendez-vous marquants. Les <strong>Bains Publics</strong> s\'affirment, saison après saison, comme son ancrage principal de diffusion.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Automne 2023</span>
-            <span class="cj-phase-title">Une identité qui <em>se structure</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Hiver 2023–2024','Nouvelles connexions artistiques','Le collectif s\'ouvre à de nouveaux réseaux','La fin d\'année ouvre une relation artistique appelée à durer. <strong>Just\'Jul</strong>, fondateur de <strong>Nebulah Radio</strong>, est invité à mixer lors de la dernière soirée de l\'année aux <strong>Bains Publics</strong> — une rencontre qui dépasse le cadre d\'une simple programmation et marque le début d\'une collaboration suivie. L\'hiver maintient la dynamique avec des soirées dansantes qui préservent un espace vivant et accessible au cœur de la saison froide rimouskoise, affirmant la volonté du collectif d\'être présent tout au long de l\'année.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Hiver 2023–2024</span>
-            <span class="cj-phase-title">Nouvelles connexions <em>artistiques</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Été 2024','Brise-Lames, première édition','Un tournant dans l\'envergure des projets','L\'été 2024 marque un tournant dans l\'envergure des projets. Les rooftops de <strong>L\'Unique Sushi</strong> et de <strong>L\'Effet Mer</strong> s\'imposent définitivement comme format signature, exploitant le dialogue entre ville, musique et horizon du fleuve. Le moment central de la saison est la première édition de <strong>Brise-Lames</strong> — développée en collaboration avec la <strong>Ville de Rimouski</strong>, la <strong>Brasserie Octant</strong>, <strong>Quoi Vivre Rimouski</strong>, <strong>Alimentation Coop Rimouski</strong> et <strong>Les Champs du Fleuve</strong>. Une collaboration s\'amorce également avec le <strong>Café du Hangar</strong> au site historique de <strong>Pointe-au-Père</strong>, ouvrant la voie vers des lieux à forte valeur patrimoniale et culturelle.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Été 2024</span>
-            <span class="cj-phase-title">Brise-Lames, <em>première édition</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Automne 2024','Rendez-vous immersifs et ancrages saisonniers','La programmation s\'intensifie','La programmation automnale aux <strong>Bains Publics</strong> s\'intensifie avec une série de soirées qui confirment le rôle du collectif dans la diffusion locale de la musique électronique. La période d\'Halloween révèle pleinement sa vocation pour les expériences immersives à thème : scénographie, ambiance et transformation de l\'espace convergent autour d\'un univers dédié aux <em>bestioles</em>. Cette édition s\'installe comme un rendez-vous annuel, ancré dans le calendrier culturel du territoire.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Automne 2024</span>
-            <span class="cj-phase-title">Rendez-vous immersifs <em>&amp; ancrages</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Hiver–Printemps 2025','Maturité artistique et préparation','La saison la plus ambitieuse se prépare','La période confirme la maturité artistique du collectif avec une programmation dense aux <strong>Bains Publics</strong> : afters, soirées house et accueil d\'invités internationaux dessinent une orientation résolument tournée vers l\'expérience dansante. Ces mois sont aussi ceux de la préparation — minutieuse et ambitieuse — de la saison à venir, construite autour de <strong>Brise-Lames</strong> : un rendez-vous en bord de fleuve au coucher du soleil, pensé comme une expérience immersive entre horizon du Saint-Laurent, musique et rassemblement collectif.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Hiver–Printemps 2025</span>
-            <span class="cj-phase-title">Maturité artistique <em>&amp; préparation</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Été 2025','Brise-Lames saison 2 et réseaux élargis','Rayonnement et ouverture des réseaux artistiques','La deuxième saison de <strong>Brise-Lames</strong> s\'ouvre avec le Solstice, moment central de rassemblement culturel en bord de fleuve. La collaboration avec la <strong>Brasserie Octant</strong> prend une nouvelle forme : des étiquettes de bière conçues spécifiquement pour les événements du site intègrent les partenaires directement dans l\'expérience du public. Une nuit électro en partenariat avec l\'<strong>Electhree Collective</strong>, collectif de la pointe gaspésienne, puis une activation avec <strong>RDGTL</strong> réunissant des artistes québécois à rayonnement international, marquent une ouverture significative des réseaux artistiques. <strong>Just\'Jul</strong> revient jouer à Rimouski — aux <strong>Bains Publics</strong> et lors de l\'ouverture de terrasse du <strong>Club Saint-Louis</strong> — poursuivant une collaboration artistique initiée avec <strong>Nebulah Radio</strong> et désormais bien enracinée.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Été 2025</span>
-            <span class="cj-phase-title">Brise-Lames saison 2 <em>&amp; réseaux élargis</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Automne 2025','Trois ans, nouveaux espaces, nouvelles voix','Nouveaux formats et intégration audiovisuelle','Un aftershow aux <strong>Bains Publics</strong> souligne trois années de présence continue du collectif dans ce lieu fondateur. La période d\'Halloween prend une dimension inédite avec <strong>Invertus</strong>, présenté au <strong>Hangar 14</strong> sur le site historique maritime de la <strong>Pointe-au-Père</strong>. L\'édition <em>Fond marin</em> déploie une scénographie immersive inspirée de l\'univers sous-marin, portée par une collaboration avec <strong>Milumix</strong> pour la direction des projections visuelles — une première dans l\'intégration audiovisuelle des événements du collectif. La saison marque également le lancement du format <strong>Open Deck</strong> aux Bains Publics, dédié à la découverte et à la mise en valeur des artistes émergents de la région.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Automne 2025</span>
-            <span class="cj-phase-title">Trois ans, nouveaux espaces, <em>nouvelles voix</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="cj-phase" onclick="openCjDetail('Hiver–Printemps 2026','Ouverture institutionnelle','Communauté, plateforme et vision élargie','La période hivernale et printanière amorce une étape structurante dans l\'histoire du collectif. Aux <strong>Bains Publics</strong>, les activations se succèdent : un after en collaboration avec <strong>Just\'Jul</strong>, une seconde édition <strong>Open Deck</strong> portée par une approche féminine et queer qui affirme les valeurs d\'inclusion fondatrices du collectif, et une soirée avec le DJ résident <strong>Méthot</strong>, ancrant la continuité artistique interne. En parallèle, une <strong>communauté en ligne</strong> voit le jour — espace ouvert de partage d\'idées, de musique et de collaborations entre artistes, partenaires et public. Le printemps 2026 marque une nouvelle étape avec le lancement du <strong>site web officiel</strong> : centraliser l\'information, les événements et les projets, et affirmer une vision élargie du collectif — au-delà de l\'événementiel — comme univers culturel dédié à la musique électronique, à l\'accessibilité des espaces de danse et au développement culturel du territoire, vers une structuration en <strong>OBNL</strong> fondée sur les collaborations régionales.')">
-          <div class="cj-phase-row">
-            <span class="cj-phase-period">Hiver–Printemps 2026</span>
-            <span class="cj-phase-title">Ouverture <em>institutionnelle</em></span>
-            <span class="cj-phase-arrow">→</span>
-          </div>
-        </div>
-
-      </div><!-- /.cj-timeline -->
-    </div>
-    <div class="about-visual">
-      <div class="about-logo-banner">
-        <img src="Image-About/Jardin-logo-officiel-orange-no-BG.png" alt="Collectif Jardin — Logo officiel" width="595" height="236">
-      </div>
-      <div class="team-section">
-        <div class="team-grid">
-          <div class="team-card"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Gabriel</div><div class="team-role">Développement Artistique & Partenarial</div></div></div>
-          <div class="team-card"><div class="team-avatar ta2"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Philippe</div><div class="team-role">Production & Opérations</div></div></div>
-          <div class="team-card"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Michael</div><div class="team-role">Administration & Montage</div></div></div>
-          <div class="team-card"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Artiste Visuelle & Graphisme</div></div></div>
-          <div class="team-card"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Administration & Finances</div></div></div>
-          <div class="team-card" style="transition-delay:.56s"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement de l'Écosystème & Communications</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PARTNERS -->
 <div class="partners-section" id="partners">
@@ -1556,62 +1638,7 @@ footer { background:var(--burgundy);padding:var(--space-lg) var(--gutter) var(--
 </div>
 
 
-<!-- DON -->
-<section id="don">
-  <div class="don-grid">
-    <div class="don-body">
-      <div class="section-label">Faire un don</div>
-      <h2 class="section-title">Faire <em>pousser</em> quelque chose</h2>
-      <p><strong>Collectif Jardin</strong> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <strong>bénévolement, collectivement</strong>, ici à Rimouski.</p>
-      <p>Si vous avez envie de <em>faire partie de ce qui grandit</em>, une contribution — aussi petite soit-elle — soutient le matériel, les événements et le développement d'un collectif qui appartient à <strong>toute sa communauté</strong>.</p>
-      <p class="don-note"><strong>Zéro commission.</strong> Via Zeffy — plateforme québécoise à but non lucratif. <strong>100 % de votre don va au collectif.</strong></p>
-      <div class="don-features">
-        <div class="don-feature">
-          <span class="don-feature-icon">✦</span>
-          <div>
-            <div class="don-feature-title">100 % à la cause</div>
-            <div class="don-feature-desc">Zeffy est une plateforme québécoise qui couvre ses frais autrement — zéro commission prélevée sur votre don.</div>
-          </div>
-        </div>
-        <div class="don-feature">
-          <span class="don-feature-icon">✦</span>
-          <div>
-            <div class="don-feature-title">Don ponctuel, impact durable</div>
-            <div class="don-feature-desc">Chaque contribution finance le matériel, les lieux et les artistes de notre communauté.</div>
-          </div>
-        </div>
-      </div>
-      <p class="don-benevole-intro">L'argent n'est pas le seul chemin. Si vous avez du temps, de l'énergie ou des compétences à offrir — on est toujours ouverts. Le collectif se construit avec les gens qui décident d'y mettre les mains.</p>
-      <a href="mailto:coll.jardin@gmail.com?subject=Candidature%20bénévole%20—%20Collectif%20Jardin&body=Bonjour%2C%0A%0AJe%20souhaite%20m'impliquer%20comme%20bénévole%20au%20sein%20du%20Collectif%20Jardin.%0A%0AMon%20nom%20%3A%0ACe%20qui%20m'intéresse%20%3A%0AComment%20me%20joindre%20%3A" class="btn-benevole">Devenir bénévole</a>
-    </div>
-    <div class="don-col-right">
-      <div class="don-card">
-        <div class="don-card-label">Votre contribution</div>
-        <h3 class="don-card-title">Chaque dollar <em>pousse avec nous</em></h3>
-        <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
-        <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="don-btn-main">Faire un don</a>
-        <p class="don-btn-note">Via Zeffy — zéro commission, 100&nbsp;% au collectif</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- JEU -->
-<section id="jeu" style="padding:var(--space-lg) var(--gutter);overflow:hidden;">
-  <div style="margin-bottom:var(--space-lg);" id="jeu-header">
-    <div class="section-label">Pause récréative</div>
-    <h2 class="section-title">Le <em>Flappy</em><br>Jardinier</h2>
-  </div>
-  <div id="jeu-wrap" style="max-width:900px;margin:0 auto;">
-    <canvas id="fj-canvas" style="display:block;width:100%;border:1px solid rgba(237,172,255,.12);touch-action:none;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;user-select:none;-webkit-user-select:none;"></canvas>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;color:rgba(255,251,219,.45);">
-      <span>SCORE <span id="fj-score-val" style="color:#edacff;">0</span></span>
-      <button id="fj-btn" style="border:1px solid rgba(237,172,255,.3);background:none;color:#edacff;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;cursor:pointer;-webkit-tap-highlight-color:transparent;">Jouer ✦</button>
-      <span>MEILLEUR <span id="fj-best-val" style="color:#fd2f00;">0</span></span>
-    </div>
-    <div style="text-align:center;margin-top:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;color:rgba(255,251,219,.2);">ESPACE · CLIC · TAP POUR SAUTER</div>
-  </div>
-</section>
 <script>
 (function(){ 'use strict';
 var canvas=document.getElementById('fj-canvas');
@@ -1635,23 +1662,17 @@ function initAmbient(){
 
 function resize(){
   var cont=canvas.parentElement;
-  var cw=Math.min(cont.clientWidth,900);
-  var ch=Math.round(cw*330/480);
-  // Mobile : exploiter plus d'espace vertical tout en gardant la section #jeu
-  // entièrement visible dans le viewport (sous la nav fixe).
-  if(window.matchMedia('(max-width:768px)').matches){
-    var section=document.getElementById('jeu');
-    var nav=document.querySelector('nav');
-    var csSec=getComputedStyle(section);
-    var padV=parseFloat(csSec.paddingTop)+parseFloat(csSec.paddingBottom);
-    var headerEl=document.getElementById('jeu-header');
-    var headerH=headerEl.offsetHeight+parseFloat(getComputedStyle(headerEl).marginBottom);
-    var ctrlH=0;
-    for(var i=0;i<cont.children.length;i++){if(cont.children[i]!==canvas)ctrlH+=cont.children[i].offsetHeight;}
-    ctrlH+=20; // marges-top cumulées des contrôles (12 + 8)
-    var navH=nav?nav.offsetHeight:0;
-    var avail=window.innerHeight-navH-padV-headerH-ctrlH-12;
-    if(avail>ch)ch=Math.min(avail,Math.round(cw*330/480*2.1));
+  var cw=cont.clientWidth;   // pleine largeur (100vw)
+  var isMobile=window.matchMedia('(max-width:768px)').matches;
+  var ch;
+  if(isMobile){
+    // Plus haut sur mobile : bande de jeu bien lisible, sans dépasser le viewport
+    ch=Math.round(Math.min(window.innerHeight*0.58, cw*1.25));
+    ch=Math.max(ch,360);
+  } else {
+    // Bande panoramique sur desktop, plafonnée pour rester « fondue » dans la page
+    ch=Math.round(Math.min(cw*0.40, window.innerHeight*0.62));
+    ch=Math.max(ch,360);
   }
   canvas.style.width=cw+'px';
   canvas.style.height=ch+'px';
@@ -1660,7 +1681,7 @@ function resize(){
   ctx.setTransform(1,0,0,1,0,0);
   ctx.scale(dpr,dpr);
   W=cw;H=ch;
-  if(typeof P!=='undefined'&&state===S.IDLE){P.y=H/2;P.x=Math.min(100,W*.21);}
+  if(typeof P!=='undefined'&&state===S.IDLE){P.y=H/2;P.x=Math.min(150,W*.16);}
   initAmbient();
 }
 
@@ -1699,14 +1720,12 @@ function jump(){
 }
 canvas.addEventListener('pointerdown',function(e){e.preventDefault();jump();});
 document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}});
-var fjBtn=document.getElementById('fj-btn');
-if(fjBtn)fjBtn.addEventListener('click',function(){jump();});
 
 
 function start(){
   state=S.PLAY;pipes=[];parts=[];seeds=[];cans=[];trail=[];floats=[];score=0;
   combo=0;invUntil=0;scorePulse=0;nextCan=8;nextPipe=60;
-  P.y=H/2;P.vy=0;
+  P.y=H/2;P.vy=0;P.x=Math.min(150,W*.16);
   var sv=document.getElementById('fj-score-val');if(sv)sv.textContent='0';
   startLoop();
 }
@@ -1749,8 +1768,10 @@ function update(){
   // Traînée derrière le jardinier
   trail.push({x:P.x,y:P.y});if(trail.length>34)trail.shift();
 
-  // Difficulté progressive : vitesse + trouée évoluent avec le score
-  var spd=2.2+Math.min(score,40)*.038;
+  // Difficulté progressive : vitesse + trouée évoluent avec le score.
+  // La vitesse horizontale suit la largeur du canvas (référence 900px, l'ancienne
+  // boîte) pour garder le même rythme de traversée en pleine largeur qu'avant.
+  var spd=(2.2+Math.min(score,40)*.038)*Math.max(.7,Math.min(1.9,W/900));
   var playH=H-30;
   var gap=playH*Math.max(.38,.52-Math.min(score,28)*.0052);
 
@@ -1814,9 +1835,8 @@ function update(){
 }
 
 function drawBg(){
-  var g=ctx.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,'#120818');g.addColorStop(.5,'#160a14');g.addColorStop(1,'#1e0c10');
-  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  // Fond volontairement transparent : la page (#141414) transparaît sous le canvas,
+  // ce qui fond le jeu dans la page (aucune boîte). On ne peint que les accents lumineux.
   var hl=ctx.createRadialGradient(70,H/2,0,70,H/2,170);
   hl.addColorStop(0,'rgba(237,172,255,.07)');hl.addColorStop(1,'transparent');
   ctx.fillStyle=hl;ctx.fillRect(0,0,W,H);
@@ -1886,7 +1906,7 @@ function drawFloor(){
   ctx.fillStyle='#38050e';ctx.fillRect(0,fy,W,30);
   ctx.strokeStyle='rgba(237,172,255,.15)';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(0,fy);ctx.lineTo(W,fy);ctx.stroke();
-  var spd=state===S.PLAY?2.2+Math.min(score,40)*.038:0;
+  var spd=state===S.PLAY?(2.2+Math.min(score,40)*.038)*Math.max(.7,Math.min(1.9,W/900)):0;
   grassBlades.forEach(function(b){
     var bx=((b.ox-t*spd)%(W+200)+W+200)%(W+200)-20;
     if(bx<-25||bx>W+25)return;
@@ -2255,216 +2275,6 @@ draw();
 })();
 </script>
 
-<!-- ÉCOSYSTÈME JARDIN -->
-<section id="ecosysteme">
-  <div class="ecosys-grid">
-
-    <!-- Col gauche : texte -->
-    <div class="ecosys-body">
-      <div class="section-label">Appartenance</div>
-      <h2 class="section-title">Fais partie de <em>l'écosystème</em></h2>
-
-      <p>
-        Collectif Jardin existe grâce aux gens qui s'y impliquent, qui viennent aux événements,
-        qui passent le mot. <strong>La liste des Jardiniers</strong>, c'est notre façon de garder le contact —
-        en dehors des algorithmes et des réseaux sociaux.
-      </p>
-      <p>
-        Quelques fois par année, on envoie un courriel : prochains événements, nouvelles du collectif,
-        ce qui s'en vient. <strong>La liste des Jardiniers</strong>, c'est vous tous — gérée à l'interne
-        par les responsables de notre écosystème, et personne d'autre.
-      </p>
-
-      <div class="ecosys-pillars">
-        <div class="ecosys-pillar">
-          <span class="ecosys-pillar-dot">✦</span>
-          <span><strong style="color:var(--cream);">Événements en avant-première</strong> — infos et billets avant tout le monde</span>
-        </div>
-        <div class="ecosys-pillar">
-          <span class="ecosys-pillar-dot">✦</span>
-          <span><strong style="color:var(--cream);">Projets & coulisses</strong> — ce qui se passe entre les soirées</span>
-        </div>
-        <div class="ecosys-pillar">
-          <span class="ecosys-pillar-dot">✦</span>
-          <span><strong style="color:var(--cream);">Aucune donnée partagée</strong> — privé, souverain, équipe seulement</span>
-        </div>
-        <div class="ecosys-pillar">
-          <span class="ecosys-pillar-dot">✦</span>
-          <span><strong style="color:var(--cream);">Désabonnement libre</strong> — un lien dans chaque message, toujours</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Col droite : formulaire -->
-    <div class="ecosys-form-wrap">
-      <div class="ecosys-card">
-        <div class="ecosys-card-label">Inscription</div>
-        <h3 class="ecosys-card-title">Entrer dans<br><em>l'écosystème</em></h3>
-
-        <div id="ecosys-form-wrap">
-
-          <!-- Honeypot anti-bot : doit rester vide ; caché hors écran (pas display:none) -->
-          <input type="text" name="website" id="ecosys-website" tabindex="-1"
-                 autocomplete="off" aria-hidden="true"
-                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
-
-          <div class="ecosys-field">
-            <label for="ecosys-nom">Prénom (optionnel)</label>
-            <input
-              type="text"
-              id="ecosys-nom"
-              class="ecosys-input"
-              placeholder="Ton prénom"
-              autocomplete="given-name"
-              maxlength="80"
-            >
-          </div>
-
-          <div class="ecosys-field">
-            <label for="ecosys-email">Courriel <span style="color:var(--orange);">*</span></label>
-            <input
-              type="email"
-              id="ecosys-email"
-              class="ecosys-input"
-              placeholder="ton@courriel.com"
-              autocomplete="email"
-              required
-              maxlength="150"
-            >
-          </div>
-
-          <div class="ecosys-consent" id="ecosys-consent-wrap" role="checkbox" aria-checked="false" tabindex="0">
-            <div class="ecosys-consent-box" id="ecosys-consent-box">
-              <span class="ecosys-consent-check">✓</span>
-            </div>
-            <span class="ecosys-consent-text">
-              J'accepte de recevoir des nouvelles du Collectif Jardin.
-              Aucune donnée partagée. Désabonnement possible à tout moment.
-            </span>
-          </div>
-
-          <button class="ecosys-btn" id="ecosys-submit" type="button" disabled>
-            Pousser dans le jardin ✦
-          </button>
-
-          <div class="ecosys-feedback" id="ecosys-feedback"></div>
-
-        </div><!-- /#ecosys-form-wrap -->
-
-        <p class="ecosys-note">Quelques messages par année · Courriel seulement · Zéro spam</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<script>
-(function(){
-  'use strict';
-
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
-
-  var source   = 'site-web';
-  var consent  = false;
-
-  var emailInput   = document.getElementById('ecosys-email');
-  var nomInput     = document.getElementById('ecosys-nom');
-  var hpInput      = document.getElementById('ecosys-website'); // honeypot anti-bot
-  var submitBtn    = document.getElementById('ecosys-submit');
-  var feedback     = document.getElementById('ecosys-feedback');
-  var consentWrap  = document.getElementById('ecosys-consent-wrap');
-  var consentBox   = document.getElementById('ecosys-consent-box');
-
-  window.ecosysSetSource = function(s){ source = String(s).substring(0, 80); };
-
-  function toggleConsent(){
-    consent = !consent;
-    consentBox.classList.toggle('checked', consent);
-    consentWrap.setAttribute('aria-checked', consent ? 'true' : 'false');
-    updateSubmitState();
-  }
-  consentWrap.addEventListener('click', toggleConsent);
-  consentWrap.addEventListener('keydown', function(e){
-    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleConsent(); }
-  });
-
-  function isValidEmail(v){
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-  }
-  function updateSubmitState(){
-    var emailOk = emailInput && isValidEmail(emailInput.value);
-    submitBtn.disabled = !(consent && emailOk);
-  }
-  if(emailInput) emailInput.addEventListener('input', updateSubmitState);
-
-  function showFeedback(type, html){
-    feedback.className = 'ecosys-feedback visible ' + type;
-    feedback.innerHTML = html;
-  }
-  function hideFeedback(){
-    feedback.className = 'ecosys-feedback';
-    feedback.innerHTML = '';
-  }
-
-  submitBtn.addEventListener('click', function(){
-    if(SCRIPT_URL === 'YOUR_SCRIPT_URL_HERE'){
-      showFeedback('error', '<strong>Configuration manquante</strong><br>Connecte le Google Apps Script — voir les instructions dans le fichier .gs');
-      return;
-    }
-
-    var email = emailInput ? emailInput.value.trim() : '';
-    var nom   = nomInput   ? nomInput.value.trim()   : '';
-
-    if(!isValidEmail(email)){
-      showFeedback('error', 'Courriel invalide. Vérifie le format.');
-      emailInput && emailInput.focus();
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Inscription en cours…';
-    hideFeedback();
-
-    var website = hpInput ? hpInput.value : ''; // honeypot — vide si humain
-    var params = new URLSearchParams({ action: 'subscribe', nom: nom, email: email, source: source, consent: 'true', website: website });
-    fetch(SCRIPT_URL + '?' + params.toString())
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(data.success){
-        var msg = data.status === 'already_subscribed'
-          ? '<strong>Tu es déjà dans l\'écosystème ✦</strong><br>Ton courriel est déjà inscrit.'
-          : data.status === 'reactivated'
-          ? '<strong>Bon retour dans le jardin ✦</strong><br>Ton inscription a été réactivée.'
-          : '<strong>Bienvenue dans l\'écosystème ✦</strong><br>Tu recevras nos prochaines nouvelles par courriel.';
-        showFeedback('success', msg);
-        if(emailInput) emailInput.value = '';
-        if(nomInput)   nomInput.value   = '';
-        consent = false;
-        consentBox.classList.remove('checked');
-        consentWrap.setAttribute('aria-checked', 'false');
-        submitBtn.textContent = 'Pousser dans le jardin ✦';
-        submitBtn.disabled = true;
-      } else {
-        var errMsg = {
-          'email_invalide':     'Courriel invalide.',
-          'consentement_requis':'Le consentement est requis.',
-          'rate_limited':       'Trop de tentatives. Réessaie dans une minute.',
-          'server_error':       'Erreur serveur. Réessaie dans quelques instants.'
-        }[data.error] || 'Une erreur s\'est produite. Réessaie.';
-        showFeedback('error', errMsg);
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Pousser dans le jardin ✦';
-      }
-    })
-    .catch(function(err){
-      showFeedback('error', 'Connexion impossible. Vérifie ta connexion internet et réessaie.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Pousser dans le jardin ✦';
-    });
-  });
-
-})();
-</script>
 
 <!-- CONTACT -->
 <section id="contact">
@@ -2513,16 +2323,42 @@ draw();
   </div>
 </section>
 
+
+<!-- POPUP JARDINIERS (inscription à l'arrivée) -->
+<div class="jpop-overlay" id="jardiniersPop" role="dialog" aria-modal="true" aria-labelledby="jpopTitle" aria-hidden="true">
+  <div class="jpop-card">
+    <button class="jpop-close" id="jpopClose" aria-label="Fermer">✕</button>
+    <div class="jpop-label">La liste des Jardiniers</div>
+    <h2 class="jpop-title" id="jpopTitle">Fais partie de <em>l'écosystème</em></h2>
+    <p class="jpop-text">Quelques courriels par année — événements en avant-première, nouvelles du collectif, en dehors des algorithmes. Aucune donnée partagée, désabonnement libre.</p>
+
+    <!-- Honeypot anti-bot -->
+    <input type="text" name="website" id="jpopHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+    <input type="email" id="jpopEmail" class="jpop-input" placeholder="ton@courriel.com" autocomplete="email" required maxlength="150" aria-label="Courriel">
+
+    <div class="jpop-consent" id="jpopConsent" role="checkbox" aria-checked="false" tabindex="0">
+      <div class="jpop-consent-box" id="jpopConsentBox"><span class="jpop-consent-check">✓</span></div>
+      <span class="jpop-consent-text">J'accepte de recevoir des nouvelles du Collectif Jardin. Aucune donnée partagée. <a href="privacy-policy.html">Confidentialité</a>.</span>
+    </div>
+
+    <button class="jpop-btn" id="jpopSubmit" type="button" disabled>Rejoindre les Jardiniers ✦</button>
+    <div class="jpop-feedback" id="jpopFeedback"></div>
+    <button class="jpop-decline" id="jpopDecline" type="button">Non merci, peut-être plus tard</button>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div><div class="footer-logo">Collectif<span>Jardin</span></div><p class="footer-tagline">Un espace de musique,<br>de nature et de communauté.<br>Rimouski, Québec.<br><br>© 2026 Collectif Jardin</p></div>
     <div><div class="footer-nav-title">Navigation</div><ul class="footer-nav-links">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="#events">Événements</a></li>
-      <li><a href="#projets-preview">Projets</a></li>
-      <li><a href="#about">À propos</a></li>
+      <li><a href="evenements.html">Événements</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
       <li><a href="#don">Don</a></li>
+      <li><a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="https://www.instagram.com/collectif.jardin" class="social-link">Instagram</a><a href="https://www.facebook.com/coll.jardin" class="social-link">Page Facebook</a><a href="https://www.facebook.com/groups/3893474290783193" class="social-link">Communauté Facebook</a></div></div>
@@ -3215,6 +3051,80 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(link)
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+</script>
+
+
+<script>
+/* POPUP JARDINIERS — une seule fois par session de navigateur (sessionStorage :
+   survit aux refresh et à la navigation entre pages ; repart à zéro sur un nouveau navigateur) */
+(function(){
+  'use strict';
+  var SESSION_KEY = 'cj_jardiniers_session';
+  try{ if(sessionStorage.getItem(SESSION_KEY)) return; }catch(e){}
+
+  var overlay = document.getElementById('jardiniersPop');
+  if(!overlay) return;
+
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
+  var email       = document.getElementById('jpopEmail');
+  var hp          = document.getElementById('jpopHp');
+  var submit      = document.getElementById('jpopSubmit');
+  var feedback    = document.getElementById('jpopFeedback');
+  var consentWrap = document.getElementById('jpopConsent');
+  var consentBox  = document.getElementById('jpopConsentBox');
+  var consent = false;
+
+  function openPop(){ try{ sessionStorage.setItem(SESSION_KEY,'1'); }catch(e){} overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
+  function closePop(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+
+  document.getElementById('jpopClose').addEventListener('click', closePop);
+  document.getElementById('jpopDecline').addEventListener('click', closePop);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closePop(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay.classList.contains('open')) closePop(); });
+
+  function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+  function updateState(){ submit.disabled = !(consent && isValidEmail(email.value)); }
+  function toggleConsent(){
+    consent = !consent;
+    consentBox.classList.toggle('checked', consent);
+    consentWrap.setAttribute('aria-checked', consent ? 'true' : 'false');
+    updateState();
+  }
+  consentWrap.addEventListener('click', toggleConsent);
+  consentWrap.addEventListener('keydown', function(e){ if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleConsent(); } });
+  email.addEventListener('input', updateState);
+
+  function fb(type, html){ feedback.className = 'jpop-feedback visible ' + type; feedback.innerHTML = html; }
+
+  submit.addEventListener('click', function(){
+    var val = email.value.trim();
+    if(!isValidEmail(val)){ fb('error','Courriel invalide. Vérifie le format.'); email.focus(); return; }
+    submit.disabled = true; submit.textContent = 'Inscription en cours…';
+    var params = new URLSearchParams({ action:'subscribe', nom:'', email:val, source:'popup-accueil', consent:'true', website: hp ? hp.value : '' });
+    fetch(SCRIPT_URL + '?' + params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.success){
+        var msg = data.status === 'already_subscribed'
+          ? '<strong>Tu es déjà dans l\'écosystème ✦</strong><br>Ton courriel est déjà inscrit.'
+          : data.status === 'reactivated'
+          ? '<strong>Bon retour dans le jardin ✦</strong><br>Ton inscription a été réactivée.'
+          : '<strong>Bienvenue dans l\'écosystème ✦</strong><br>Tu recevras nos prochaines nouvelles par courriel.';
+        fb('success', msg);
+        setTimeout(closePop, 2800);
+      } else {
+        var m = {'email_invalide':'Courriel invalide.','consentement_requis':'Le consentement est requis.','rate_limited':'Trop de tentatives. Réessaie dans une minute.','server_error':'Erreur serveur. Réessaie.'}[data.error] || 'Une erreur s\'est produite. Réessaie.';
+        fb('error', m); submit.disabled = false; submit.textContent = 'Rejoindre les Jardiniers ✦';
+      }
+    })
+    .catch(function(){ fb('error','Connexion impossible. Vérifie ta connexion et réessaie.'); submit.disabled = false; submit.textContent = 'Rejoindre les Jardiniers ✦'; });
+  });
+
+  /* Afficher après le loader, quelques secondes après l'arrivée */
+  function schedule(){ setTimeout(openPop, 3500); }
+  if(document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule);
+})();
 </script>
 
 <script src="js/notice.js"></script>
