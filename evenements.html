@@ -202,6 +202,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
     <li><a href="a-propos.html">À propos</a></li>
     <li><a href="index.html#communaute">Communauté</a></li>
     <li><a href="don.html">Don</a></li>
+    <li><a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a></li>
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
@@ -218,6 +219,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
   <a href="a-propos.html" onclick="closeNav()">À propos</a>
   <a href="index.html#communaute" onclick="closeNav()">Communauté</a>
   <a href="don.html" onclick="closeNav()">Don</a>
+  <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" onclick="closeNav()">Boutique ↗</a>
   <a href="index.html#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
 
@@ -338,6 +340,26 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
       <div class="arch-info"><div class="arch-date">22 mai 2026</div><div class="arch-name">After de ChassePareil</div><div class="arch-loc">Bains Publics, Rimouski</div></div>
     </div>
 
+    <div class="arch-card" data-name="After Robert Robert" data-cat="Bain Public × Collectif Jardin" data-date="25 avril 2026" data-loc="Bain Public, Rimouski" data-artists="Méthot &amp; Synchronic" data-img="Image-Events/JardinXBainpublic-After robert robert.webp" onclick="openArch(this)">
+      <div class="arch-flyer"><img src="Image-Events/JardinXBainpublic-After robert robert.webp" alt="After Robert Robert — Méthot &amp; Synchronic, 25 avril 2026" loading="lazy"></div>
+      <div class="arch-info"><div class="arch-date">25 avril 2026</div><div class="arch-name">After Robert Robert</div><div class="arch-loc">Bain Public, Rimouski</div></div>
+    </div>
+
+    <div class="arch-card" data-name="Open Deck — Féminin + Queer" data-date="21 mars 2026" data-loc="Bain Public, Rimouski" data-artists="" data-img="Image-Events/OPEN Deck Queer.jpeg" onclick="openArch(this)">
+      <div class="arch-flyer"><img src="Image-Events/OPEN Deck Queer.jpeg" alt="Open Deck Féminin + Queer 2026" loading="lazy"></div>
+      <div class="arch-info"><div class="arch-date">21 mars 2026</div><div class="arch-name">Open Deck — Féminin + Queer</div><div class="arch-loc">Bain Public, Rimouski</div></div>
+    </div>
+
+    <div class="arch-card" data-name="JustJul &amp; 2Tones" data-cat="Bain Public × Collectif Jardin" data-date="8 février 2026" data-loc="Bain Public, Rimouski" data-artists="JustJul &amp; 2Tones" data-img="Image-Events/JardinXBain-08fev2026JustJulet2tone-EditPubli.webp" onclick="openArch(this)">
+      <div class="arch-flyer"><img src="Image-Events/JardinXBain-08fev2026JustJulet2tone-EditPubli.webp" alt="JustJul &amp; 2Tones au Bain Public — 8 février 2026" loading="lazy"></div>
+      <div class="arch-info"><div class="arch-date">8 février 2026</div><div class="arch-name">JustJul &amp; 2Tones</div><div class="arch-loc">Bain Public, Rimouski</div></div>
+    </div>
+
+    <div class="arch-card" data-name="Hoya × Bain Public" data-cat="Bain Public × Collectif Jardin" data-date="24 janvier 2026" data-loc="Bain Public, Rimouski" data-artists="Hoya" data-img="Image-Events/JardinXBain-Hoya24jan-Publication.webp" onclick="openArch(this)">
+      <div class="arch-flyer"><img src="Image-Events/JardinXBain-Hoya24jan-Publication.webp" alt="Hoya au Bain Public — 24 janvier 2026" loading="lazy"></div>
+      <div class="arch-info"><div class="arch-date">24 janvier 2026</div><div class="arch-name">Hoya × Bain Public</div><div class="arch-loc">Bain Public, Rimouski</div></div>
+    </div>
+
     <div class="arch-card" data-name="Invertus — Fond marin" data-date="31 octobre 2025" data-loc="Hangar 14, Pointe-au-Père" data-artists="Halloween" data-img="Image-Events/Jardin - Invertus 2025.jpg" onclick="openArch(this)">
       <div class="arch-flyer"><img src="Image-Events/Jardin - Invertus 2025.jpg" alt="Invertus — Fond marin 2025" loading="lazy"></div>
       <div class="arch-info"><div class="arch-date">31 octobre 2025</div><div class="arch-name">Invertus — Fond marin</div><div class="arch-loc">Hangar 14, Pointe-au-Père</div></div>
@@ -351,11 +373,6 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
     <div class="arch-card" data-name="Solstice — Brise-Lames 2025" data-date="20 juin 2025" data-loc="Brise-Lames, Rimouski" data-artists="" data-img="Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png" onclick="openArch(this)">
       <div class="arch-flyer"><img src="Image-Events/Jardin - Solstice Brise-lames 2025 - Publication.png" alt="Solstice Brise-Lames 2025" loading="lazy"></div>
       <div class="arch-info"><div class="arch-date">20 juin 2025</div><div class="arch-name">Solstice — Brise-Lames</div><div class="arch-loc">Brise-Lames, Rimouski</div></div>
-    </div>
-
-    <div class="arch-card" data-name="Open Deck — Féminin + Queer" data-date="21 mars 2025" data-loc="Bain Public, Rimouski" data-artists="" data-img="Image-Events/OPEN Deck Queer.jpeg" onclick="openArch(this)">
-      <div class="arch-flyer"><img src="Image-Events/OPEN Deck Queer.jpeg" alt="Open Deck Féminin + Queer 2025" loading="lazy"></div>
-      <div class="arch-info"><div class="arch-date">21 mars 2025</div><div class="arch-name">Open Deck — Féminin + Queer</div><div class="arch-loc">Bain Public, Rimouski</div></div>
     </div>
 
     <div class="arch-card" data-name="Invertus III" data-date="31 octobre 2024" data-loc="Rimouski" data-artists="Halloween" data-img="Image-Events/Invertus III - 2024.jpg" onclick="openArch(this)">
@@ -397,6 +414,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
       <a href="projets.html">Projets</a>
       <a href="a-propos.html">À propos</a>
       <a href="don.html">Don</a>
+      <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a>
       <a href="index.html#contact">Contact</a>
     </div>
     <div class="footer-links-sm">

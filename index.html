@@ -521,6 +521,29 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .don-btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(253,47,0,.4); }
 .don-btn-note { font-size:var(--text-xs); color:rgba(255,251,219,.55); text-align:center; line-height:1.6; }
 
+/* BOUTIQUE (teaser immersif plein-largeur — lien externe → Zeffy) */
+#boutique { padding:0; border-top:1px solid rgba(237,172,255,.08); border-bottom:1px solid rgba(237,172,255,.08); position:relative; overflow:hidden; }
+.boutique-media { position:relative; min-height:clamp(440px,58vh,600px); display:flex; align-items:center; }
+.boutique-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; }
+.boutique-overlay { position:absolute; inset:0; background:linear-gradient(95deg, rgba(20,20,20,.92) 0%, rgba(20,20,20,.8) 20%, rgba(56,5,14,.4) 42%, rgba(56,5,14,.1) 64%, rgba(20,20,20,0) 100%); }
+.boutique-content { position:relative; width:100%; max-width:1400px; margin:0 auto; padding:var(--space-xl) var(--gutter); }
+.boutique-inner { max-width:460px; }
+.boutique-inner .section-label { color:var(--mauve); text-shadow:0 1px 2px rgba(20,20,20,.9); }
+.boutique-title { font-family:'Cormorant Garamond',serif; font-size:clamp(34px,4.6vw,58px); font-weight:300; line-height:1.04; letter-spacing:-.02em; margin-bottom:var(--space-md); color:var(--cream); text-shadow:0 1px 3px rgba(20,20,20,.85), 0 2px 26px rgba(20,20,20,.6); }
+.boutique-title em { font-style:italic; color:var(--mauve); }
+.boutique-sub { font-size:var(--text-md); color:rgba(255,251,219,.95); line-height:1.9; margin-bottom:var(--space-lg); text-shadow:0 1px 2px rgba(20,20,20,.95), 0 2px 14px rgba(20,20,20,.8); }
+.boutique-sub strong { color:var(--cream); font-weight:700; }
+.boutique-btn { display:inline-block; border:1.5px solid var(--mauve); color:var(--mauve); background:rgba(20,20,20,.4); font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:14px 32px; text-decoration:none; transition:background .25s,color .25s,box-shadow .25s; -webkit-tap-highlight-color:transparent; }
+.boutique-btn:hover { background:var(--mauve); color:var(--bg); box-shadow:0 10px 34px rgba(237,172,255,.28); }
+.boutique-note { font-size:var(--text-xs); color:rgba(255,251,219,.72); margin-top:var(--space-sm); line-height:1.6; text-shadow:0 1px 2px rgba(20,20,20,.9); }
+@media (max-width:768px){
+  .boutique-media { min-height:520px; align-items:flex-end; }
+  .boutique-media img { object-position:center 30%; }
+  .boutique-overlay { background:linear-gradient(180deg, rgba(20,20,20,.15) 0%, rgba(20,20,20,.3) 30%, rgba(56,5,14,.8) 74%, rgba(20,20,20,.96) 100%); }
+  .boutique-content { padding:var(--space-xl) var(--gutter) var(--space-lg); }
+  .boutique-inner { max-width:100%; }
+}
+
 /* CONTACT */
 #contact { background:var(--bg);position:relative;overflow:hidden; }
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 var(--space-xl); align-items:start; }
@@ -1142,6 +1165,7 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
     <li><a href="a-propos.html">À propos</a></li>
     <li><a href="#communaute">Communauté</a></li>
     <li><a href="#don">Don</a></li>
+    <li><a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false" onclick="toggleNav()">
@@ -1160,6 +1184,7 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   <a href="a-propos.html" onclick="closeNav()">À propos</a>
   <a href="#communaute" onclick="closeNav()">Communauté</a>
   <a href="#don" onclick="closeNav()">Don</a>
+  <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" onclick="closeNav()">Boutique ↗</a>
   <a href="#contact" class="nav-cta" onclick="closeNav()">Contact</a>
 </div>
 
@@ -1366,19 +1391,19 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
 
   <div class="proj-carousel-viewport" id="projViewport">
     <div id="projCardsTrack">
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#systeme-son'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/SoundsystemGrilleRetro.webp" alt="Système de Son" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En développement</span><div class="proj-name-preview">Système de Son<br><em>Maison du Collectif</em></div><div class="proj-sub-preview">Sociofinancement · Bas-du-Fleuve</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#partenariats-culturels'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/TiBonhommePartenariat.webp" alt="Partenariats Culturels" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En expansion</span><div class="proj-name-preview">Partenariats<br><em>Culturels Régionaux</em></div><div class="proj-sub-preview">Collaborations · Bas-du-Fleuve</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#obnl'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/OBNLMonstera.webp" alt="Économie Sociale" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ Structuration 2026</span><div class="proj-name-preview">Économie Sociale<br><em>&amp; Vie en OBNL</em></div><div class="proj-sub-preview">Gouvernance · Pérennité</div></div>
       </div>
-      <div class="proj-card-preview">
+      <div class="proj-card-preview" onclick="location.href='projets.html#expansion-numerique'">
         <div class="proj-card-bg-preview"><img src="Image-Projet/ExpensionNumeriqueSmileFace.webp" alt="Expansion Numérique" width="720" height="576" loading="lazy"></div>
         <div class="proj-card-inner-preview"><span class="proj-tag-preview">✦ En cours · 2026</span><div class="proj-name-preview">Expansion Numérique<br><em>&amp; Communauté</em></div><div class="proj-sub-preview">Plateformes · Lien digital</div></div>
       </div>
@@ -1403,6 +1428,23 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
         <p class="don-card-sub">Un son. Une lumière. <span style="color:var(--mauve)">Un espace pour danser.</span> C'est ce que votre don rend possible.</p>
         <a href="https://www.zeffy.com/fr-CA/donation-form/contribuer-a-la-mission-culturelle-du-collectif-jardin" target="_blank" rel="noopener" class="don-btn-main">Faire un don</a>
         <p class="don-btn-note">Via Zeffy — zéro commission, 100&nbsp;% au collectif</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOUTIQUE (teaser immersif — lien externe direct vers Zeffy, pas de sous-page) -->
+<section id="boutique">
+  <div class="boutique-media">
+    <img src="Image-Projet/Merch-CJ.webp" alt="Chandails, tuques et casquettes du Collectif Jardin" width="1482" height="1061" loading="lazy">
+    <div class="boutique-overlay"></div>
+    <div class="boutique-content">
+      <div class="boutique-inner">
+        <div class="section-label">La boutique</div>
+        <h2 class="boutique-title">Portez le <em>Collectif</em></h2>
+        <p class="boutique-sub">Chandails, tuques et casquettes à l'effigie du Jardin. <strong>Chaque achat soutient directement la mission culturelle.</strong></p>
+        <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" class="boutique-btn">Voir la boutique ↗</a>
+        <p class="boutique-note">Via Zeffy — boutique en ligne, nouvel onglet</p>
       </div>
     </div>
   </div>
@@ -2250,6 +2292,7 @@ draw();
       <li><a href="projets.html">Projets</a></li>
       <li><a href="a-propos.html">À propos</a></li>
       <li><a href="#don">Don</a></li>
+      <li><a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener">Boutique ↗</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul></div>
     <div><div class="footer-nav-title">Réseaux</div><div class="footer-social"><a href="https://www.instagram.com/collectif.jardin" class="social-link">Instagram</a><a href="https://www.facebook.com/coll.jardin" class="social-link">Page Facebook</a><a href="https://www.facebook.com/groups/3893474290783193" class="social-link">Communauté Facebook</a></div></div>
