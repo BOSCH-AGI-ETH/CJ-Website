@@ -280,7 +280,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 
 /* GALLERY */
 #communaute { scroll-margin-top: var(--nav-h); }
-.gallery-strip { padding: var(--space-lg) 0 var(--space-md); position:relative; background:var(--burgundy); border-top:1px solid rgba(237,172,255,.08); overflow:hidden; touch-action: pan-y; scroll-margin-top: var(--nav-h); }
+.gallery-strip { padding: var(--space-lg) 0 var(--space-md); margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); position:relative; background:var(--burgundy); border-top:1px solid rgba(237,172,255,.08); overflow:hidden; touch-action: pan-y; scroll-margin-top: var(--nav-h); }
 .gallery-strip-header { padding: 0 var(--gutter) var(--space-lg); display:flex;align-items:flex-start;justify-content:space-between; }
 .gallery-arrow { position:absolute; top:50%; transform:translateY(20%); z-index:20; background:rgba(20,20,20,.92); border:1px solid rgba(237,172,255,.25); color:var(--mauve); font-size:28px; line-height:1; width:52px; height:52px; display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition:background .2s,border-color .2s,color .2s; }
 .gallery-arrow:hover, .gallery-arrow:active { background:var(--orange);border-color:var(--orange);color:#fff; }
@@ -760,13 +760,6 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   .events-header-new { margin:0 var(--space-sm) var(--space-md); }
   .stats-row { margin:var(--space-md) var(--space-sm) 0; }
 }
-@media (max-width:768px) {
-  /* Sur petit écran, on réduit le fondu latéral pour préserver l'aire de jeu */
-  #fj-canvas {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-  }
-}
 /* PAGE LOADER */
 #pageLoader{position:fixed;inset:0;background:#141414;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transition:opacity .5s ease;}
 #pageLoader.fade{opacity:0;pointer-events:none;}
@@ -807,15 +800,14 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   position: relative;
   scroll-margin-top: var(--nav-h);
   padding: var(--space-md) 0 var(--space-lg);
-  overflow: hidden;
 }
 #jeu-header {
   margin-bottom: var(--space-md);
   padding: 0 var(--gutter);
 }
 /* Canvas pleine largeur, fondu dans la page — aucune boîte, aucun cadre.
-   Le fond du jeu est transparent : la page (#141414) transparaît, et un
-   masque dégradé estompe les bords gauche/droite pour un rendu « imbriqué ». */
+   Le fond du jeu est transparent : la page (#141414) transparaît. Le jeu
+   s'étend jusqu'aux bords de l'écran. */
 #jeu-wrap {
   position: relative;
   width: 100vw;
@@ -826,14 +818,12 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   display: block;
   width: 100%;
   background: transparent;
-  touch-action: none;
+  touch-action: pan-y;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   outline: none;
   user-select: none;
   -webkit-user-select: none;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
 }
 .fj-controls {
   display: flex;
@@ -1718,7 +1708,24 @@ function jump(){
   if(state===S.DEAD){restart();return;}
   P.vy=-4.2;
 }
-canvas.addEventListener('pointerdown',function(e){e.preventDefault();jump();});
+/* Souris : saut immédiat. Tactile : on distingue le tap (jouer) du
+   glissement (scroller la page) — le navigateur garde le scroll vertical
+   grâce à touch-action:pan-y, et on ne saute que sur un vrai tap. */
+var _tap={x:0,y:0,t:0,moved:false,active:false};
+canvas.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse'){ e.preventDefault(); jump(); return; }
+  _tap.x=e.clientX; _tap.y=e.clientY; _tap.t=Date.now(); _tap.moved=false; _tap.active=true;
+});
+canvas.addEventListener('pointermove',function(e){
+  if(!_tap.active) return;
+  if(Math.abs(e.clientX-_tap.x)>8 || Math.abs(e.clientY-_tap.y)>8){ _tap.moved=true; }
+});
+canvas.addEventListener('pointerup',function(e){
+  if(e.pointerType==='mouse') return;
+  if(_tap.active && !_tap.moved && (Date.now()-_tap.t)<300){ jump(); }
+  _tap.active=false;
+});
+canvas.addEventListener('pointercancel',function(){ _tap.active=false; });
 document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}});
 
 
