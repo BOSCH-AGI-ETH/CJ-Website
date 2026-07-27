@@ -537,6 +537,9 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .boutique-title em { font-style:italic; color:var(--mauve); }
 .boutique-sub { font-size:var(--text-md); color:rgba(255,251,219,.95); line-height:1.9; margin-bottom:var(--space-lg); text-shadow:0 1px 2px rgba(20,20,20,.95), 0 2px 14px rgba(20,20,20,.8); }
 .boutique-sub strong { color:var(--cream); font-weight:700; }
+.boutique-sub + .boutique-craft { margin-top:calc(var(--space-md) - var(--space-lg)); }
+.boutique-craft { font-size:var(--text-sm); color:rgba(255,251,219,.78); line-height:1.75; margin-bottom:var(--space-lg); padding-left:14px; border-left:2px solid rgba(237,172,255,.45); text-shadow:0 1px 2px rgba(20,20,20,.95); }
+.boutique-craft strong { color:var(--cream); font-weight:700; }
 .boutique-btn { display:inline-block; border:1.5px solid var(--mauve); color:var(--mauve); background:rgba(20,20,20,.4); font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:14px 32px; text-decoration:none; transition:background .25s,color .25s,box-shadow .25s; -webkit-tap-highlight-color:transparent; }
 .boutique-btn:hover { background:var(--mauve); color:var(--bg); box-shadow:0 10px 34px rgba(237,172,255,.28); }
 .boutique-note { font-size:var(--text-xs); color:rgba(255,251,219,.72); margin-top:var(--space-sm); line-height:1.6; text-shadow:0 1px 2px rgba(20,20,20,.9); }
@@ -1506,7 +1509,8 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
       <div class="boutique-inner">
         <div class="section-label">La boutique</div>
         <h2 class="boutique-title">Portez le <em>Collectif</em></h2>
-        <p class="boutique-sub">Chandails, tuques et casquettes à l'effigie du Jardin. <strong>Chaque achat soutient directement la mission culturelle.</strong></p>
+        <p class="boutique-sub">Chandails, tuques et casquettes à l'effigie du Jardin. <strong>Chaque achat soutient directement la mission culturelle du collectif.</strong></p>
+        <p class="boutique-craft">Confectionnés au Québec par <strong>up'n down</strong>, qui remet une partie de ses profits au regroupement pour la trisomie 21.</p>
         <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" class="boutique-btn">Voir la boutique ↗</a>
         <p class="boutique-note">Via Zeffy — boutique en ligne, nouvel onglet</p>
       </div>
