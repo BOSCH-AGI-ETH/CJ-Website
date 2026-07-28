@@ -2390,6 +2390,8 @@ draw();
     <!-- Honeypot anti-bot -->
     <input type="text" name="website" id="jpopHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
 
+    <input type="text" id="jpopNom" class="jpop-input" placeholder="Ton prénom (optionnel)" autocomplete="given-name" maxlength="80" aria-label="Prénom">
+
     <input type="email" id="jpopEmail" class="jpop-input" placeholder="ton@courriel.com" autocomplete="email" required maxlength="150" aria-label="Courriel">
 
     <div class="jpop-consent" id="jpopConsent" role="checkbox" aria-checked="false" tabindex="0">
@@ -3122,6 +3124,7 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(link)
 
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
   var email       = document.getElementById('jpopEmail');
+  var nom         = document.getElementById('jpopNom');
   var hp          = document.getElementById('jpopHp');
   var submit      = document.getElementById('jpopSubmit');
   var feedback    = document.getElementById('jpopFeedback');
@@ -3155,16 +3158,18 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(link)
     var val = email.value.trim();
     if(!isValidEmail(val)){ fb('error','Courriel invalide. Vérifie le format.'); email.focus(); return; }
     submit.disabled = true; submit.textContent = 'Inscription en cours…';
-    var params = new URLSearchParams({ action:'subscribe', nom:'', email:val, source:'popup-accueil', consent:'true', website: hp ? hp.value : '' });
+    var params = new URLSearchParams({ action:'subscribe', nom: nom ? nom.value.trim() : '', email:val, source:'popup-accueil', consent:'true', website: hp ? hp.value : '' });
     fetch(SCRIPT_URL + '?' + params.toString())
     .then(function(r){ return r.json(); })
     .then(function(data){
       if(data.success){
+        var prenom = nom ? nom.value.trim().replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }) : '';
+        var bienvenue = prenom ? prenom + ', bienvenue dans l\'écosystème ✦' : 'Bienvenue dans l\'écosystème ✦';
         var msg = data.status === 'already_subscribed'
           ? '<strong>Tu es déjà dans l\'écosystème ✦</strong><br>Ton courriel est déjà inscrit.'
           : data.status === 'reactivated'
           ? '<strong>Bon retour dans le jardin ✦</strong><br>Ton inscription a été réactivée.'
-          : '<strong>Bienvenue dans l\'écosystème ✦</strong><br>Tu recevras nos prochaines nouvelles par courriel.';
+          : '<strong>' + bienvenue + '</strong><br>Tu recevras nos prochaines nouvelles par courriel.';
         fb('success', msg);
         setTimeout(closePop, 2800);
       } else {
