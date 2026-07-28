@@ -1,22 +1,27 @@
 // ═══════════════════════════════════════════════════════════════════
 //  COLLECTIF JARDIN — Écosystème Jardin
-//  Google Apps Script · Version 1.0
+//  Google Apps Script · Version 1.1
+//
+//  ORDRE DES COLONNES (onglet « Membres ») — NE PAS RÉORGANISER
+//  sans mettre à jour ce script. Le code écrit par position :
+//    A Date · B Nom · C Email · D Source · E Consentement · F Statut
+//    · G Lot · H Token désabo · I Lien Désabonnement
+//  « Lot » = groupe de 150 membres (contourne la limite d'envoi Gmail).
 //
 //  INSTALLATION :
 //  1. Ouvrir Google Drive → Nouveau → Google Sheets → nommer "Écosystème Jardin"
 //  2. Extensions → Apps Script → coller ce code entier → Enregistrer
-//  3. Déployer → Nouvelle déploiement → Type : Application Web
+//  3. Déployer → Gérer les déploiements → ✏️ modifier → Nouvelle version → Déployer
 //     - Exécuter en tant que : Moi
 //     - Accès : Tout le monde
-//  4. Copier l'URL de déploiement → coller dans index.html (SCRIPT_URL)
-//  5. Autoriser les permissions Google au premier déploiement
+//     ⚠️ Garder le MÊME déploiement pour conserver l'URL (SCRIPT_URL du site)
+//  4. Autoriser les permissions Google au premier déploiement
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── CONFIGURATION — modifier ici uniquement ───────────────────────
 var CONFIG = {
   SHEET_NAME:       'Membres',           // nom de l'onglet dans le Sheet
   UNSUB_SHEET_NAME: 'Désabonnements',    // onglet pour les désabonnements
-  BENEVOLE_SHEET_NAME: 'Bénévoles',      // onglet pour les candidatures bénévoles
   COLLECTIF_NAME:   'Collectif Jardin',  // nom modulable
   LIST_NAME:        'Écosystème Jardin', // nom de la liste — modulable
   CONTACT_EMAIL:    'coll.jardin@gmail.com',
@@ -27,10 +32,17 @@ var CONFIG = {
     'null'                               // GitHub Pages preview
   ],
   HONEYPOT_FIELD:   'website',           // nom du champ piège (doit rester vide)
+  LOT_SIZE:         150,                 // taille d'un lot d'envoi (limite Gmail)
   MAX_PER_MINUTE:   5,                   // plafond anti-rafale (insertions/minute, global)
   MAX_PER_HOUR:     30                   // plafond horaire (insertions/heure, global)
 };
 // ───────────────────────────────────────────────────────────────────
+
+// En-tête de l'onglet « Membres » — ordre = ordre d'écriture des lignes.
+var MEMBRES_HEADERS = [
+  'Date', 'Nom', 'Email', 'Source', 'Consentement', 'Statut',
+  'Lot', 'Token désabo', 'Lien Désabonnement'
+];
 
 
 // ─── POINT D'ENTRÉE POST (inscription) ────────────────────────────
@@ -64,9 +76,7 @@ function doPost(e) {
     }
 
     var ss    = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = getOrCreateSheet(ss, CONFIG.SHEET_NAME, [
-      'Date', 'Nom', 'Email', 'Source', 'Consentement', 'Statut', 'Token désabo'
-    ]);
+    var sheet = getOrCreateSheet(ss, CONFIG.SHEET_NAME, MEMBRES_HEADERS);
 
     // Vérifier si l'email existe déjà
     var existingRow = findEmail(sheet, email);
@@ -91,16 +101,19 @@ function doPost(e) {
 
     // Générer un token unique pour le désabonnement
     var token = generateToken(email);
+    var lot   = currentLot(sheet);
 
-    // Ajouter la nouvelle ligne
+    // Ajouter la nouvelle ligne (ordre = MEMBRES_HEADERS)
     sheet.appendRow([
-      new Date(),          // Date
-      nom,                 // Nom
-      email,               // Email
-      source,              // Source (ex: site-web, brise-lames-2026, don-zeffy)
-      'oui',               // Consentement
-      'actif',             // Statut
-      token                // Token désabo
+      new Date(),          // A Date
+      nom,                 // B Nom
+      email,               // C Email
+      source,              // D Source (ex: site-web, brise-lames-2026, don-zeffy)
+      'oui',               // E Consentement
+      'actif',             // F Statut
+      lot,                 // G Lot (groupe de 150 — limite d'envoi Gmail)
+      token,               // H Token désabo
+      unsubLink(token)     // I Lien Désabonnement
     ]);
     recordInsertion();
 
@@ -137,9 +150,7 @@ function doGet(e) {
       }
 
       var ss    = SpreadsheetApp.getActiveSpreadsheet();
-      var sheet = getOrCreateSheet(ss, CONFIG.SHEET_NAME, [
-        'Date', 'Nom', 'Email', 'Source', 'Consentement', 'Statut', 'Token désabo'
-      ]);
+      var sheet = getOrCreateSheet(ss, CONFIG.SHEET_NAME, MEMBRES_HEADERS);
 
       var existingRow = findEmail(sheet, email);
       if (existingRow > 0) {
@@ -160,44 +171,13 @@ function doGet(e) {
       }
 
       var token = generateToken(email);
-      sheet.appendRow([new Date(), nom, email, source, 'oui', 'actif', token]);
+      var lot   = currentLot(sheet);
+      sheet.appendRow([new Date(), nom, email, source, 'oui', 'actif', lot, token, unsubLink(token)]);
       recordInsertion();
       return respond({ success: true, status: 'subscribed' }, {});
 
     } catch(err) {
       return respond({ success: false, error: 'server_error', detail: err.toString() }, {});
-    }
-  }
-
-  // Candidature bénévole
-  if (action === 'benevole') {
-    try {
-      if (honeypotFilled(e)) {
-        return respond({ success: true, status: 'recu' }, {});
-      }
-      var bNom      = sanitize(e.parameter.nom      || '');
-      var bEmail    = sanitize(e.parameter.email    || '');
-      var bInterets = sanitize(e.parameter.interets || '');
-      var bSource   = sanitize(e.parameter.source   || 'a-propos');
-      var bConsent  = e.parameter.consent === 'true';
-
-      if (!bNom)                            return respond({ success: false, error: 'nom_requis' }, {});
-      if (!bEmail || !isValidEmail(bEmail)) return respond({ success: false, error: 'email_invalide' }, {});
-      if (!bConsent)                        return respond({ success: false, error: 'consentement_requis' }, {});
-
-      var rlB = rateLimitExceeded();
-      if (rlB.limited) return respond({ success: false, error: 'rate_limited' }, {});
-
-      var ssB    = SpreadsheetApp.getActiveSpreadsheet();
-      var sheetB = getOrCreateSheet(ssB, CONFIG.BENEVOLE_SHEET_NAME, [
-        'Date', 'Prénom', 'Courriel', 'Intérêts / compétences', 'Source', 'Statut'
-      ]);
-      sheetB.appendRow([new Date(), bNom, bEmail, bInterets, bSource, 'nouveau']);
-      recordInsertion();
-      return respond({ success: true, status: 'recu' }, {});
-
-    } catch(errB) {
-      return respond({ success: false, error: 'server_error', detail: errB.toString() }, {});
     }
   }
 
@@ -224,7 +204,7 @@ function processUnsub(token) {
   if (!sheet) return { success: false, error: 'sheet_introuvable' };
 
   var data  = sheet.getDataRange().getValues();
-  var tokenCol = 7; // colonne H (index 0 = colonne A)
+  var tokenCol = 7; // index 0-based → colonne H = « Token désabo »
 
   for (var i = 1; i < data.length; i++) {
     if (data[i][tokenCol] === token) {
@@ -284,6 +264,18 @@ function recordInsertion() {
   var perHour = parseInt(cache.get('cj_count_hour') || '0', 10) + 1;
   cache.put('cj_count_min',  String(perMin),  60);    // fenêtre 1 minute
   cache.put('cj_count_hour', String(perHour), 3600);  // fenêtre 1 heure
+}
+
+// Lot d'envoi : groupe de CONFIG.LOT_SIZE membres (contourne la limite Gmail).
+// La prochaine ligne ajoutée sera à getLastRow()+1 ; l'en-tête occupe la ligne 1,
+// donc le rang du futur membre parmi les données = getLastRow().
+function currentLot(sheet) {
+  return Math.ceil(sheet.getLastRow() / CONFIG.LOT_SIZE);
+}
+
+// Lien de désabonnement personnalisé (URL du déploiement + token).
+function unsubLink(token) {
+  return ScriptApp.getService().getUrl() + '?action=unsub&token=' + token;
 }
 
 function generateToken(email) {
@@ -355,9 +347,9 @@ function buildUnsubPage(result) {
     + '</div></body></html>';
 }
 
-// ─── UTILITAIRE — Générer les tokens manquants ─────────────────────
-// À exécuter UNE FOIS depuis l'éditeur Apps Script si des lignes
-// existantes n'ont pas encore de token de désabonnement.
+// ─── UTILITAIRE — Réparer tokens + liens + lots manquants ──────────
+// À exécuter UNE FOIS depuis l'éditeur Apps Script pour combler les
+// lignes existantes sans token, sans lien, ou sans numéro de lot.
 function genererTokensManquants() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet()
                 .getSheetByName(CONFIG.SHEET_NAME);
@@ -365,14 +357,30 @@ function genererTokensManquants() {
   var data  = sheet.getDataRange().getValues();
   var count = 0;
   for (var i = 1; i < data.length; i++) {
-    var email = data[i][2]; // colonne C
-    var token = data[i][6]; // colonne G
-    if (email && !token) {
-      sheet.getRange(i + 1, 7).setValue(generateToken(email));
+    var email = data[i][2]; // C
+    var lot   = data[i][6]; // G
+    var token = data[i][7]; // H = Token désabo
+    var lien  = data[i][8]; // I = Lien Désabonnement
+    if (!email) continue;
+
+    // Numéro de lot manquant → calculé depuis la position de la ligne
+    if (!lot) {
+      sheet.getRange(i + 1, 7).setValue(Math.ceil(i / CONFIG.LOT_SIZE)); // i = rang du membre
+      count++;
+    }
+    // Token manquant → générer + poser le lien
+    if (!token) {
+      token = generateToken(email);
+      sheet.getRange(i + 1, 8).setValue(token);            // H
+      sheet.getRange(i + 1, 9).setValue(unsubLink(token)); // I
+      count++;
+    } else if (!lien) {
+      // Token présent mais lien vide → reconstruire le lien
+      sheet.getRange(i + 1, 9).setValue(unsubLink(token));
       count++;
     }
   }
-  SpreadsheetApp.getUi().alert(count + ' token(s) généré(s) avec succès.');
+  SpreadsheetApp.getUi().alert(count + ' correction(s) appliquée(s) avec succès.');
 }
 
 // ─── TEST MANUEL (à utiliser depuis l'éditeur Apps Script) ─────────

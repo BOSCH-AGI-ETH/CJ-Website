@@ -449,8 +449,16 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
 /* Sous-page sans hero : dégager la nav fixe */
 #about{padding-top:calc(var(--nav-h) + var(--space-md));}
 /* ─── Devenir bénévole ─── */
-#benevoles { background: var(--bg); border-top: 1px solid rgba(237,172,255,.1); position: relative; padding: var(--space-xl) var(--gutter); overflow: hidden; }
+#benevoles { background: var(--bg); border-top: 1px solid rgba(237,172,255,.1); position: relative; padding: var(--space-xl) var(--gutter); overflow: hidden; scroll-margin-top: var(--nav-h); }
 .ecosys-textarea { min-height: 92px; resize: vertical; line-height: 1.6; }
+
+/* Bénévole — cases à cocher (domaines) */
+.benevole-domaines { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-top: 6px; }
+.benevole-dom { display: flex; align-items: center; gap: 11px; font-family: 'Space Mono', monospace; font-size: var(--text-sm); letter-spacing: .02em; color: rgba(255,251,219,.82); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.benevole-dom input { appearance: none; -webkit-appearance: none; width: 17px; height: 17px; margin: 0; flex: 0 0 auto; border: 1.5px solid rgba(237,172,255,.4); background: transparent; cursor: pointer; position: relative; transition: border-color .2s, background .2s; }
+.benevole-dom input:checked { background: var(--mauve); border-color: var(--mauve); }
+.benevole-dom input:checked::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--bg); font-size: 12px; line-height: 1; }
+.benevole-dom input:focus-visible { outline: 2px solid var(--mauve); outline-offset: 2px; }
 @media (max-width:768px){ #benevoles { padding: var(--space-lg) var(--gutter); } }
 
 </style>
@@ -595,7 +603,7 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
           <div class="team-card"><div class="team-avatar ta3"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Michael</div><div class="team-role">Administration & Montage</div></div></div>
           <div class="team-card"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Julie</div><div class="team-role">Artiste Visuelle & Graphisme</div></div></div>
           <div class="team-card"><div class="team-avatar ta4"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Alexis</div><div class="team-role">Administration & Finances</div></div></div>
-          <div class="team-card"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement de l'Écosystème & Communications</div></div></div>
+          <div class="team-card"><div class="team-avatar ta1"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="14" stroke="#edacff" stroke-width=".6" fill="none"/><path d="M20 65 Q20 48 40 48 Q60 48 60 65" stroke="#edacff" stroke-width=".6" fill="none"/></svg></div><div><div class="team-name">Samuel</div><div class="team-role">Développement de l'Écosystème</div></div></div>
         </div>
       </div>
     </div>
@@ -727,36 +735,34 @@ footer{background:var(--burgundy);padding:48px 48px 32px;border-top:1px solid rg
     <div class="ecosys-form-wrap">
       <div class="ecosys-card">
         <div class="ecosys-card-label">Candidature</div>
-        <h3 class="ecosys-card-title">Mettre les mains<br><em>dans la terre</em></h3>
+        <h3 class="ecosys-card-title">Viens <em>Cultiver</em> avec nous</h3>
 
         <div id="benevole-form-wrap">
-          <input type="text" name="website" id="benevole-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
-
           <div class="ecosys-field">
             <label for="benevole-nom">Prénom <span style="color:var(--orange);">*</span></label>
             <input type="text" id="benevole-nom" class="ecosys-input" placeholder="Ton prénom" autocomplete="given-name" maxlength="80">
           </div>
 
           <div class="ecosys-field">
-            <label for="benevole-email">Courriel <span style="color:var(--orange);">*</span></label>
-            <input type="email" id="benevole-email" class="ecosys-input" placeholder="ton@courriel.com" autocomplete="email" maxlength="150">
+            <label>Ce qui t'intéresse</label>
+            <div class="benevole-domaines">
+              <label class="benevole-dom"><input type="checkbox" value="Événements"> Événements</label>
+              <label class="benevole-dom"><input type="checkbox" value="Technique"> Technique</label>
+              <label class="benevole-dom"><input type="checkbox" value="Création"> Création</label>
+              <label class="benevole-dom"><input type="checkbox" value="Communauté"> Communauté</label>
+            </div>
           </div>
 
           <div class="ecosys-field">
-            <label for="benevole-interets">Ce qui t'intéresse / tes compétences</label>
-            <textarea id="benevole-interets" class="ecosys-input ecosys-textarea" placeholder="Ex. : son &amp; lumière, accueil, graphisme, dispo les fins de semaine…" maxlength="600" rows="3"></textarea>
+            <label for="benevole-interets">Autre chose à ajouter ? <span style="opacity:.5;">(optionnel)</span></label>
+            <textarea id="benevole-interets" class="ecosys-input ecosys-textarea" placeholder="Ex. : dispo les fins de semaine, expérience en son &amp; lumière…" maxlength="600" rows="3"></textarea>
           </div>
 
-          <div class="ecosys-consent" id="benevole-consent-wrap" role="checkbox" aria-checked="false" tabindex="0">
-            <div class="ecosys-consent-box" id="benevole-consent-box"><span class="ecosys-consent-check">✓</span></div>
-            <span class="ecosys-consent-text">J'accepte d'être contacté·e par le Collectif Jardin au sujet du bénévolat. Aucune donnée partagée.</span>
-          </div>
-
-          <button class="ecosys-btn" id="benevole-submit" type="button" disabled>Rejoindre l'équipe ✦</button>
+          <button class="ecosys-btn" id="benevole-submit" type="button" disabled>Proposer ma candidature ✦</button>
           <div class="ecosys-feedback" id="benevole-feedback"></div>
         </div>
 
-        <p class="ecosys-note">On te recontacte par courriel · Aucun engagement · À ton rythme</p>
+        <p class="ecosys-note">Ça ouvre ton courriel déjà pré-rempli · Aucun engagement · À ton rythme</p>
       </div>
     </div>
 
@@ -966,51 +972,46 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeCjD
 
 
 <script>
-/* DEVENIR BÉNÉVOLE — écrit dans l'onglet « Bénévoles » du Sheet via Apps Script */
+/* DEVENIR BÉNÉVOLE — ouvre un courriel pré-rempli (mailto), aucun serveur */
 (function(){
   'use strict';
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2mXbSEq-Oyi5FZlxLmkfNI3ArnLqaaA8bXVgugQDgSnJI3MFAqQiqDfqGn42VZcVa/exec';
+  var CONTACT = 'coll.jardin@gmail.com';
   var nomI   = document.getElementById('benevole-nom');
-  var emailI = document.getElementById('benevole-email');
   var interI = document.getElementById('benevole-interets');
-  var hpI    = document.getElementById('benevole-website');
   var btn    = document.getElementById('benevole-submit');
   var fb     = document.getElementById('benevole-feedback');
-  var cWrap  = document.getElementById('benevole-consent-wrap');
-  var cBox   = document.getElementById('benevole-consent-box');
+  var checks = document.querySelectorAll('.benevole-dom input[type="checkbox"]');
   if(!btn) return;
-  var consent = false;
 
-  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
-  function update(){ btn.disabled = !(consent && nomI.value.trim() && validEmail(emailI.value)); }
-  function toggle(){ consent=!consent; cBox.classList.toggle('checked',consent); cWrap.setAttribute('aria-checked',consent?'true':'false'); update(); }
-  cWrap.addEventListener('click', toggle);
-  cWrap.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
-  nomI.addEventListener('input', update);
-  emailI.addEventListener('input', update);
-
+  function update(){ btn.disabled = !nomI.value.trim(); }
   function show(type,html){ fb.className='ecosys-feedback visible '+type; fb.innerHTML=html; }
+  nomI.addEventListener('input', update);
 
   btn.addEventListener('click', function(){
-    var nom=nomI.value.trim(), email=emailI.value.trim();
+    var nom = nomI.value.trim();
     if(!nom){ show('error','Indique ton prénom.'); nomI.focus(); return; }
-    if(!validEmail(email)){ show('error','Courriel invalide. Vérifie le format.'); emailI.focus(); return; }
-    btn.disabled=true; btn.textContent='Envoi en cours…'; fb.className='ecosys-feedback';
-    var params=new URLSearchParams({action:'benevole',nom:nom,email:email,interets:interI.value.trim(),source:'a-propos',consent:'true',website:hpI?hpI.value:''});
-    fetch(SCRIPT_URL+'?'+params.toString())
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(d.success){
-        show('success','<strong>Bienvenue dans l\'équipe ✦</strong><br>Merci ! On te recontacte bientôt par courriel.');
-        nomI.value=''; emailI.value=''; interI.value=''; consent=false;
-        cBox.classList.remove('checked'); cWrap.setAttribute('aria-checked','false');
-        btn.textContent='Rejoindre l\'équipe ✦'; btn.disabled=true;
-      } else {
-        var m={'nom_requis':'Indique ton prénom.','email_invalide':'Courriel invalide.','consentement_requis':'Le consentement est requis.','rate_limited':'Trop de tentatives. Réessaie dans une minute.','server_error':'Erreur serveur. Réessaie.'}[d.error]||'Une erreur s\'est produite. Réessaie.';
-        show('error',m); btn.disabled=false; btn.textContent='Rejoindre l\'équipe ✦';
-      }
-    })
-    .catch(function(){ show('error','Connexion impossible. Vérifie ta connexion et réessaie.'); btn.disabled=false; btn.textContent='Rejoindre l\'équipe ✦'; });
+
+    var domaines = [];
+    Array.prototype.forEach.call(checks, function(c){ if(c.checked) domaines.push(c.value); });
+
+    var lignes = [
+      'Bonjour Collectif Jardin,',
+      '',
+      'Je souhaite devenir bénévole.',
+      '',
+      'Prénom : ' + nom,
+      'Domaines qui m\'intéressent : ' + (domaines.length ? domaines.join(', ') : '(à préciser)')
+    ];
+    var texte = interI.value.trim();
+    if(texte){ lignes.push('', 'Note : ' + texte); }
+    lignes.push('', 'Merci !');
+
+    var sujet = 'Candidature bénévole — ' + nom;
+    var href = 'mailto:' + CONTACT
+      + '?subject=' + encodeURIComponent(sujet)
+      + '&body=' + encodeURIComponent(lignes.join('\n'));
+    window.location.href = href;
+    show('success','<strong>Ton courriel s\'ouvre ✦</strong><br>Vérifie qu\'il est bien pré-rempli, puis envoie-le.');
   });
 })();
 </script>

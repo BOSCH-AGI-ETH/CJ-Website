@@ -515,6 +515,8 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .don-benevole-intro { font-size:var(--text-sm); color:rgba(255,251,219,.65); line-height:1.7; margin-top:var(--space-xl); margin-bottom:var(--space-sm); }
 .btn-benevole { display:inline-block; border:1px solid rgba(255,251,219,.25); color:rgba(255,251,219,.55); font-family:'Space Mono',monospace; font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:11px 24px; text-decoration:none; transition:border-color .2s,color .2s; margin-top:var(--space-lg); -webkit-tap-highlight-color:transparent; }
 .btn-benevole:hover { border-color:var(--mauve); color:var(--mauve); }
+.don-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:var(--space-lg); }
+.don-actions .btn-benevole { margin-top:0; }
 .don-col-right { position:sticky; top:calc(var(--nav-h) + var(--space-md)); }
 .don-card { background:#1a1a1a; border:1px solid rgba(237,172,255,.15); padding:var(--space-xl) var(--space-lg); position:relative; overflow:hidden; }
 .don-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(to right,var(--orange),var(--mauve),transparent); }
@@ -537,8 +539,7 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 .boutique-title em { font-style:italic; color:var(--mauve); }
 .boutique-sub { font-size:var(--text-md); color:rgba(255,251,219,.95); line-height:1.9; margin-bottom:var(--space-lg); text-shadow:0 1px 2px rgba(20,20,20,.95), 0 2px 14px rgba(20,20,20,.8); }
 .boutique-sub strong { color:var(--cream); font-weight:700; }
-.boutique-sub + .boutique-craft { margin-top:calc(var(--space-md) - var(--space-lg)); }
-.boutique-craft { font-size:var(--text-sm); color:rgba(255,251,219,.78); line-height:1.75; margin-bottom:var(--space-lg); padding-left:14px; border-left:2px solid rgba(237,172,255,.45); text-shadow:0 1px 2px rgba(20,20,20,.95); }
+.boutique-craft { font-size:var(--text-sm); color:rgba(255,251,219,.78); line-height:1.75; margin-top:var(--space-md); padding-left:14px; border-left:2px solid rgba(237,172,255,.45); text-shadow:0 1px 2px rgba(20,20,20,.95); }
 .boutique-craft strong { color:var(--cream); font-weight:700; }
 .boutique-btn { display:inline-block; border:1.5px solid var(--mauve); color:var(--mauve); background:rgba(20,20,20,.4); font-family:'Space Mono',monospace; font-size:var(--text-sm); text-transform:uppercase; letter-spacing:var(--tracking-wide); padding:14px 32px; text-decoration:none; transition:background .25s,color .25s,box-shadow .25s; -webkit-tap-highlight-color:transparent; }
 .boutique-btn:hover { background:var(--mauve); color:var(--bg); box-shadow:0 10px 34px rgba(237,172,255,.28); }
@@ -1486,7 +1487,10 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
       <h2 class="section-title" style="font-size:clamp(26px,3.5vw,48px);">Faire <em>pousser</em> quelque chose</h2>
       <p><strong>Collectif Jardin</strong> existe parce que des gens ont décidé que la culture valait la peine d'être cultivée — <strong>bénévolement, collectivement</strong>, ici à Rimouski.</p>
       <p class="don-note"><strong>Zéro commission.</strong> Via Zeffy — plateforme québécoise à but non lucratif. <strong>100 % de votre don va au collectif.</strong></p>
-      <a href="don.html" class="btn-benevole">Comment contribuer &amp; devenir bénévole →</a>
+      <div class="don-actions">
+        <a href="don.html" class="btn-benevole">Comment faire un don →</a>
+        <a href="a-propos.html#benevoles" class="btn-benevole">Contribuer comme bénévole →</a>
+      </div>
     </div>
     <div class="don-col-right">
       <div class="don-card">
@@ -1510,9 +1514,9 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
         <div class="section-label">La boutique</div>
         <h2 class="boutique-title">Portez le <em>Collectif</em></h2>
         <p class="boutique-sub">Chandails, tuques et casquettes à l'effigie du Jardin. <strong>Chaque achat soutient directement la mission culturelle du collectif.</strong></p>
-        <p class="boutique-craft">Confectionnés au Québec par <strong>up'n down</strong>, qui remet une partie de ses profits au regroupement pour la trisomie 21.</p>
         <a href="https://www.zeffy.com/fr-CA/ticketing/articles-et-vetements" target="_blank" rel="noopener" class="boutique-btn">Voir la boutique ↗</a>
         <p class="boutique-note">Via Zeffy — boutique en ligne, nouvel onglet</p>
+        <p class="boutique-craft">Confectionnés au Québec par <strong>up'n down</strong>, qui remet une partie de ses profits au regroupement pour la trisomie 21.</p>
       </div>
     </div>
   </div>
