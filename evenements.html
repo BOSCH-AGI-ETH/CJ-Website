@@ -117,6 +117,8 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .arch-card:hover{border-color:rgba(237,172,255,.22);transform:translateY(-3px);}
 .arch-flyer{aspect-ratio:4/5;overflow:hidden;background:var(--burgundy);position:relative;}
 .arch-flyer img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+/* affiches dont le titre touche le bord gauche : on cale le cadrage à gauche */
+.arch-flyer--left img{object-position:left center;}
 .arch-card:hover .arch-flyer img{transform:scale(1.04);}
 .arch-info{padding:16px 18px 20px;}
 .arch-date{font-size:var(--text-2xs);letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
@@ -286,7 +288,8 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
       </div>
     </div>
 
-    <!-- Récoltes -->
+    <!-- Récoltes — EN ATTENTE : masqué du site à la demande de Samuel (2026-08-08).
+         Pour le réafficher, décommenter le bloc ci-dessous.
     <div class="up-card">
       <div class="up-flyer"><div class="up-flyer-ph"><svg width="34" height="34" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="2" stroke="#edacff" stroke-width="1"/><circle cx="12" cy="15" r="4" stroke="#fd2f00" stroke-width="1"/><path d="M3 27l9-7 7 5 6-5 8 6" stroke="#edacff" stroke-width="1" fill="none"/></svg><span>Affiche à venir</span></div></div>
       <div class="up-body">
@@ -301,6 +304,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
         <div class="up-actions"><span class="up-btn up-btn-soon">Détails à venir</span></div>
       </div>
     </div>
+    -->
 
   </div>
 </section>
@@ -316,7 +320,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
   <div class="arch-grid reveal">
 
     <div class="arch-card" data-name="Buisson — After MDGTL Urbain" data-cat="After MDGTL Urbain · Bains Publics" data-date="7 août 2026 — 00h → 03h" data-loc="Bains Publics — Cabaret Culturel, Rimouski" data-artists="Buisson" data-desc="Le Collectif Jardin présentait <strong>Buisson</strong>.<br><br><strong>Buisson</strong> (a.k.a. Guillaume Boulay) est un jeune artiste multidisciplinaire. Originaire de Sainte-Blandine, il a étudié la guitare au Conservatoire de musique de Rimouski puis le cinéma, avant de se mettre à produire et mixer de la musique électronique. Ses saveurs sonores vont du <strong>micro-house</strong> teinté de jazz et de funk jusqu'à une <strong>techno</strong> dub et vaporeuse.<br><br>Fervent de l'improvisation musicale et du médium du vinyle, Buisson a offert un set éclectique, risqué et bien ficelé, dans un univers enivrant où la lumière et l'obscurité dansaient en symbiose.<br><br>L'after du <strong>MDGTL Urbain</strong> se prolongeait au Bains Publics — Cabaret Culturel (Salle Batyscope), de minuit à 3h." data-img="Image-Events/buisson_7aoutMDGTL2026.webp" onclick="openArch(this)">
-      <div class="arch-flyer"><img src="Image-Events/buisson_7aoutMDGTL2026.webp" alt="Buisson — After MDGTL Urbain" loading="lazy"></div>
+      <div class="arch-flyer arch-flyer--left"><img src="Image-Events/buisson_7aoutMDGTL2026.webp" alt="Buisson — After MDGTL Urbain" loading="lazy"></div>
       <div class="arch-info"><div class="arch-date">7 août 2026</div><div class="arch-name">Buisson — After MDGTL Urbain</div><div class="arch-loc">Bains Publics, Rimouski</div></div>
     </div>
 
