@@ -176,6 +176,11 @@ nav.scrolled { background: rgba(20,20,20,0.97); border-bottom: 1px solid rgba(23
 #hero { min-height: 100vh; min-height: 100svh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 !important; overflow: hidden; background: var(--bg); }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-orb { position: absolute; border-radius: 77%; filter: blur(77px); opacity: .18; animation: drift 15s linear infinite; }
+/* ESSAI — affiche de l'événement en cours en fond du hero */
+.hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:28% center; opacity:.68; }
+.hero-veil { position:absolute; inset:0; background:
+  linear-gradient(100deg, rgba(20,20,20,.94) 0%, rgba(20,20,20,.82) 30%, rgba(20,20,20,.42) 64%, rgba(20,20,20,.2) 100%),
+  linear-gradient(to top, rgba(20,20,20,.82) 0%, rgba(20,20,20,.25) 40%, rgba(20,20,20,0) 75%); }
 .orb1 { width:555px;height:555px;background:var(--mauve);top:-100px;right:-100px;animation-delay:1s; }
 .orb2 { width:444px;height:444px;background:var(--orange);bottom:60px;left:30%;animation-delay:2s; }
 .orb3 { width:333px;height:333px;background:var(--burgundy);top:20%;left:-20px; }
@@ -680,6 +685,10 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
   .nav-links { display:none; }
 
   /* HERO */
+  /* en portrait, l'image est trop zoomee : on cadre sur la photo seule, hors du texte de l'affiche */
+  .hero-photo { object-position:93% center; opacity:.5; }
+  .hero-veil { background:
+    linear-gradient(to top, rgba(20,20,20,.97) 0%, rgba(20,20,20,.75) 46%, rgba(20,20,20,.35) 100%); }
   .hero-content { margin-left:var(--gutter);margin-right:var(--gutter);padding-top:80px;padding-bottom:48px; }
   .hero-title { font-size:clamp(40px,13vw,68px);line-height:.95; }
   .hero-title .line2 { padding-left:16px; }
@@ -1192,6 +1201,8 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
     <div class="hero-orb orb1"></div>
     <div class="hero-orb orb2"></div>
     <div class="hero-orb orb3"></div>
+    <img class="hero-photo" src="Image-Events/Brise-lames2026-Recoltes-Hero.webp" alt="" fetchpriority="high" decoding="async" width="1734" height="907">
+    <div class="hero-veil"></div>
   </div>
   <div class="hero-content">
     <div class="hero-label">Musique Électronique — Rimouski</div>
