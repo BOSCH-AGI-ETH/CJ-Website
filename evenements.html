@@ -134,6 +134,12 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .evm-card{background:#181818;border:1px solid rgba(237,172,255,.15);max-width:640px;width:100%;max-height:90vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;}
 .evm-close{position:absolute;top:12px;right:14px;z-index:3;background:rgba(20,20,20,.7);border:none;color:var(--mauve);font-size:22px;line-height:1;cursor:pointer;padding:6px 10px;-webkit-tap-highlight-color:transparent;}
 .evm-img{width:100%;max-height:340px;object-fit:contain;background:var(--bg);display:block;}
+/* Affiche format story (9:16) : carte remplie, fiche en deux colonnes */
+.up-flyer--story{width:300px;position:relative;min-height:400px;}
+.up-flyer--story img{position:absolute;inset:0;object-fit:cover;object-position:center top;}
+.evm-card.evm-story{max-width:980px;flex-direction:row;overflow:hidden;}
+.evm-story .evm-img{height:90vh;max-height:90vh;width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center top;flex-shrink:0;}
+.evm-story .evm-body{overflow-y:auto;max-height:90vh;padding:56px var(--space-lg) var(--space-lg);-webkit-overflow-scrolling:touch;}
 .evm-body{padding:var(--space-md) var(--space-lg) var(--space-lg);}
 .evm-cat{font-size:var(--text-2xs);letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
 .evm-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1.1;margin-bottom:6px;}
@@ -176,6 +182,11 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
   .up-card{flex-direction:column;}
   .up-flyer{width:100%;border-left:none;border-bottom:1px solid rgba(237,172,255,.1);}
   .up-flyer img{height:auto;max-height:72vh;}
+  .up-flyer--story{min-height:0;}
+  .up-flyer--story img{position:static;max-height:none;}
+  .evm-card.evm-story{flex-direction:column;overflow-y:auto;}
+  .evm-story .evm-img{width:100%;height:auto;max-height:none;}
+  .evm-story .evm-body{max-height:none;overflow:visible;padding:var(--space-md) var(--space-md) var(--space-lg);}
   .up-flyer-ph{min-height:200px;}
   .up-card--next .up-body{padding:var(--space-md);}
   .arch-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
@@ -237,29 +248,28 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
 
   <div class="up-list reveal">
 
-    <!-- Brise-Lames : Récoltes — 26 septembre — PROCHAIN -->
+    <!-- Invertus 5 — Les clowns — 30 octobre — PROCHAIN -->
     <div class="up-card up-card--next"
-      data-name="Brise-Lames : Récoltes"
-      data-cat="Événement Collectif Jardin"
-      data-date="Samedi 26 septembre 2026 — 15h → 22h"
-      data-loc="Brise-Lames, Rimouski"
-      data-artists="AGUSTIN FICARRA (ARG) · HOYA · METHOT"
-      data-img="Image-Events/Brise-lames2026-Recoltes-Public.webp"
-      data-ticket="https://www.zeffy.com/fr-CA/ticketing/brise-lames-recoltes--2026"
-      data-desc="Bienvenue au quatrième et dernier chapitre de notre saison estivale au Brise-Lames : <strong>Récoltes</strong>.<br><br>Après avoir planté nos premières graines, pris racine et grandi ensemble au fil de l'été, le moment est venu de récolter ce que nous avons cultivé — les rencontres, les souvenirs, les sourires, les nuits qui s'étirent et cette énergie particulière qui naît lorsque la musique rassemble autour d'une même fréquence.<br><br>Pour cette édition, on vous invite à célébrer l'abondance de l'été et tout ce que nous avons fait grandir ensemble : une dernière grande floraison avant que la saison change de rythme. Comme toujours, le Brise-Lames deviendra notre jardin pour une journée où musique électronique, communauté et plein air se rencontrent.<br><br><strong>Programmation</strong><br><strong>15h</strong> — Début des DJ sets.<br><em>Line-up (a-z) : AGUSTIN FICARRA (ARG), HOYA, METHOT.</em><br><strong>22h</strong> — Fin.<br><br>Service de bar et pizzas à Diwan en vente sur place.<br><br><strong>Billets</strong><br>Early bird : 10 $<br>Prévente : 15 $<br>À la porte : 20 $<br><br>L'after se poursuit au <strong>Bains Publics</strong> — 10 $.">
-      <div class="up-flyer"><img src="Image-Events/Brise-lames2026-Recoltes-Public.webp" alt="Brise-Lames : Récoltes — 26 septembre 2026" loading="lazy"></div>
+      data-name="Invertus 5 — Les clowns"
+      data-cat="Événement Collectif Jardin · Halloween"
+      data-date="Vendredi 30 octobre 2026 — 21h → 3h"
+      data-loc="Hangar 14, Pointe-au-Père"
+      data-artists="GUILLAUME MICHAUD · ELIO ELIA · CIRQUE COSMIC"
+      data-img="Image-Events/Invertus2026-Clown-Story.webp"
+      data-img-layout="story"
+      data-desc="Pour célébrer les <strong>5 ans d'Invertus</strong>, on a voulu rendre ça plus fou que les dernières fois : un genre de délirium qui ne veut plus jamais finir, pris en charge par une trâlée de clowns incapables de rester sérieux plus de deux secondes.<br><br>Ce n'est pas des farces. On a choisi les pires idées — mixées avec des roches à papier, tournées et virées sur les bords, crinquées et re-crinquées dans une boîte à manivelle — et ça donne un beau bordel pas mal le fun.<br><br>Alors, notre gang de clowns, venez goûter à cette belle accumulation d'idées burlesques, qu'on mijote depuis un bon bout déjà, dans le confort de notre joli carnaval.<br><br><strong>Programmation</strong><br><strong>21h</strong> — Début de la soirée.<br><em>DJ invités : GUILLAUME MICHAUD, ELIO ELIA, CIRQUE COSMIC.</em><br>+ performances d'art vivant.<br><strong>3h</strong> — Fin.<br><br><strong>Transport en navette</strong> depuis Rimouski et <strong>hébergement à bas prix</strong> disponibles.<br><br>Au Hangar 14 du Site historique maritime de la Pointe-au-Père. Événement 18+.">
+      <div class="up-flyer up-flyer--story"><img src="Image-Events/Invertus2026-Clown-Story.webp" alt="Invertus 5 — Les clowns, 30 octobre 2026" loading="lazy" width="1080" height="1920"></div>
       <div class="up-body">
-        <div class="up-badges"><span class="up-badge up-badge--next">✦ Prochain</span><span class="up-badge">Collectif Jardin</span><span class="up-badge">Brise-Lames</span></div>
-        <div class="up-name">Brise-Lames : Récoltes</div>
-        <div class="up-artists">AGUSTIN FICARRA (ARG) · HOYA · METHOT</div>
+        <div class="up-badges"><span class="up-badge up-badge--next">✦ Prochain</span><span class="up-badge">Collectif Jardin</span><span class="up-badge">Halloween</span></div>
+        <div class="up-name">Invertus 5 — Les clowns</div>
+        <div class="up-artists">GUILLAUME MICHAUD · ELIO ELIA · CIRQUE COSMIC</div>
         <div class="up-meta">
-          <div class="up-meta-item"><span class="up-meta-lbl">Date</span><span class="up-meta-val">Sam. 26 sept. 2026</span></div>
-          <div class="up-meta-item"><span class="up-meta-lbl">Heure</span><span class="up-meta-val">15h → 22h</span></div>
-          <div class="up-meta-item"><span class="up-meta-lbl">Lieu</span><span class="up-meta-val mauve">Brise-Lames, Rimouski</span></div>
+          <div class="up-meta-item"><span class="up-meta-lbl">Date</span><span class="up-meta-val">Ven. 30 oct. 2026</span></div>
+          <div class="up-meta-item"><span class="up-meta-lbl">Heure</span><span class="up-meta-val">21h → 3h</span></div>
+          <div class="up-meta-item"><span class="up-meta-lbl">Lieu</span><span class="up-meta-val mauve">Hangar 14, Pointe-au-Père</span></div>
         </div>
         <div class="up-actions">
           <button class="up-btn up-btn-details" onclick="openEvent(this.closest('.up-card'))">Détails</button>
-          <a class="up-btn up-btn-tickets" href="https://www.zeffy.com/fr-CA/ticketing/brise-lames-recoltes--2026" target="_blank" rel="noopener">Billetterie</a>
         </div>
       </div>
     </div>
@@ -276,6 +286,11 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
   </div>
 
   <div class="arch-grid reveal">
+
+    <div class="arch-card" data-name="Brise-Lames : Récoltes" data-cat="Événement Collectif Jardin · Brise-Lames" data-date="26 septembre 2026 — 15h → 22h" data-loc="Brise-Lames, Rimouski" data-artists="AGUSTIN FICARRA (ARG) · HOYA · METHOT" data-desc="Le quatrième et dernier chapitre de notre saison estivale au Brise-Lames : <strong>Récoltes</strong>.<br><br>Après avoir planté nos premières graines, pris racine et grandi ensemble au fil de l'été, le moment était venu de récolter ce que nous avions cultivé — les rencontres, les souvenirs, les sourires, les nuits qui s'étirent et cette énergie particulière qui naît lorsque la musique rassemble autour d'une même fréquence. Une dernière grande floraison avant que la saison change de rythme.<br><br><strong>Programmation</strong><br><strong>15h</strong> — Début des DJ sets.<br><em>Line-up (a-z) : AGUSTIN FICARRA (ARG), HOYA, METHOT.</em><br><strong>22h</strong> — Fin.<br><br>Service de bar et pizzas à Diwan sur place, puis after au <strong>Bains Publics</strong>." data-img="Image-Events/Brise-lames2026-Recoltes-Public.webp" onclick="openArch(this)">
+      <div class="arch-flyer"><img src="Image-Events/Brise-lames2026-Recoltes-Public.webp" alt="Brise-Lames : Récoltes — 26 septembre 2026" loading="lazy"></div>
+      <div class="arch-info"><div class="arch-date">26 septembre 2026</div><div class="arch-name">Brise-Lames : Récoltes</div><div class="arch-loc">Brise-Lames, Rimouski</div></div>
+    </div>
 
     <div class="arch-card" data-name="Electrojazziness" data-cat="Festi Jazz International de Rimouski × Collectif Jardin" data-date="6 septembre 2026 — dès 17h30" data-loc="Brise-Lames, Rimouski" data-desc="Le <strong>Festi Jazz International de Rimouski</strong> et le <strong>Collectif Jardin</strong> coprésentaient <strong>Electrojazziness</strong> au Brise-Lames — une rencontre entre jazz et musique électronique, face au Saint-Laurent, dès 17h30.<br><br>L'entrée était à contribution volontaire, en ligne à l'avance ou directement sur place." data-img="Image-Events/FestiJazz2026-BriseLames-ElectroJazziness.webp" onclick="openArch(this)">
       <div class="arch-flyer"><img src="Image-Events/FestiJazz2026-BriseLames-ElectroJazziness.webp" alt="Electrojazziness — Festi Jazz au Brise-Lames, 6 septembre 2026" loading="lazy"></div>
@@ -432,6 +447,7 @@ document.getElementById('navOverlay').addEventListener('click',function(e){if(e.
 var modal=document.getElementById('evModal');
 function fill(d){
   var img=document.getElementById('evmImg');
+  modal.querySelector('.evm-card').classList.toggle('evm-story',!!d.img&&d.imgLayout==='story');
   if(d.img){img.src=d.img;img.alt=d.name||'';img.style.display='block';}else{img.style.display='none';}
   document.getElementById('evmCat').textContent=d.cat||'Collectif Jardin';
   document.getElementById('evmTitle').textContent=d.name||'';
@@ -446,8 +462,9 @@ function fill(d){
   if(d.ticket&&d.ticket!=='#'&&d.ticket!==''){t.href=d.ticket;t.textContent=(d.ticketLabel||'Billetterie')+' →';t.style.display='inline-block';}else{t.style.display='none';}
   modal.classList.add('open');document.body.style.overflow='hidden';
   modal.querySelector('.evm-card').scrollTop=0;
+  modal.querySelector('.evm-body').scrollTop=0;
 }
-window.openEvent=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat,date:d.date,loc:d.loc,artists:d.artists,img:d.img,ticket:d.ticket,ticketLabel:d.ticketLabel,desc:d.desc});};
+window.openEvent=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat,date:d.date,loc:d.loc,artists:d.artists,img:d.img,imgLayout:d.imgLayout,ticket:d.ticket,ticketLabel:d.ticketLabel,desc:d.desc});};
 window.openArch=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat||'Archives · Collectif Jardin',date:d.date,loc:d.loc,artists:d.artists,img:d.img});};
 window.closeEvent=function(){modal.classList.remove('open');document.body.style.overflow='';};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow='';closeNav();}});
