@@ -1907,7 +1907,7 @@ function update(){
   // Difficulté progressive : vitesse + trouée évoluent avec le score.
   // La vitesse horizontale suit la largeur du canvas (référence 900px, l'ancienne
   // boîte) pour garder le même rythme de traversée en pleine largeur qu'avant.
-  var spd=(2.7+Math.min(score,60)*.05)*Math.max(.7,Math.min(1.9,W/900));
+  var spd=(2.7+Math.min(score,60)*.05)*Math.max(.45,Math.min(1.9,W/900));
   var playH=H-30;
   var gap=playH*Math.max(.33,.52-Math.min(score,40)*.007);
 
@@ -2109,7 +2109,7 @@ function drawFloor(){
   ctx.fillStyle='#38050e';ctx.fillRect(0,fy,W,30);
   ctx.strokeStyle='rgba(237,172,255,.15)';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(0,fy);ctx.lineTo(W,fy);ctx.stroke();
-  var spd=state===S.PLAY?(2.2+Math.min(score,40)*.038)*Math.max(.7,Math.min(1.9,W/900)):0;
+  var spd=state===S.PLAY?(2.7+Math.min(score,60)*.05)*Math.max(.45,Math.min(1.9,W/900)):0;
   grassBlades.forEach(function(b){
     var bx=((b.ox-t*spd)%(W+200)+W+200)%(W+200)-20;
     if(bx<-25||bx>W+25)return;
