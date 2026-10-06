@@ -104,6 +104,10 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .up-meta-val{font-size:var(--text-sm);color:rgba(255,251,219,.7);}
 .up-meta-val.mauve{color:var(--mauve);}
 .up-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;}
+.up-card-partner{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:var(--space-sm);}
+.up-card-partner-lbl{font-size:var(--text-2xs);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,251,219,.4);}
+.up-card-partner img{display:block;height:64px;width:auto;opacity:.95;transition:opacity .3s,transform .3s;}
+.up-card-partner a:hover img{opacity:1;transform:scale(1.04);}
 .up-btn{display:inline-block;font-family:'Space Mono',monospace;font-size:var(--text-xs);letter-spacing:var(--tracking-wide);text-transform:uppercase;padding:11px 24px;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s,color .2s;-webkit-tap-highlight-color:transparent;border:none;}
 .up-btn-tickets{background:var(--orange);color:var(--bg);}
 .up-btn-tickets:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(253,47,0,.35);}
@@ -135,6 +139,10 @@ nav.scrolled{background:rgba(20,20,20,.95);-webkit-backdrop-filter:blur(12px);ba
 .evm-close{position:absolute;top:12px;right:14px;z-index:3;background:rgba(20,20,20,.7);border:none;color:var(--mauve);font-size:22px;line-height:1;cursor:pointer;padding:6px 10px;-webkit-tap-highlight-color:transparent;}
 .evm-img{width:100%;max-height:340px;object-fit:contain;background:var(--bg);display:block;}
 /* Affiche format story (9:16) : carte remplie, fiche en deux colonnes */
+.evm-partner{flex-direction:column;align-items:flex-start;gap:12px;padding-top:20px;margin-bottom:24px;border-top:1px solid rgba(237,172,255,.12);}
+.evm-partner-lbl{font-size:var(--text-2xs);letter-spacing:.28em;text-transform:uppercase;color:rgba(255,251,219,.4);}
+.evm-partner img{display:block;width:170px;height:auto;opacity:.9;transition:opacity .3s;}
+.evm-partner a:hover img{opacity:1;}
 .up-flyer--story{width:300px;position:relative;min-height:400px;}
 .up-flyer--story img{position:absolute;inset:0;object-fit:cover;object-position:center top;}
 .evm-card.evm-story{max-width:980px;flex-direction:row;overflow:hidden;}
@@ -257,6 +265,9 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
       data-artists="GUILLAUME MICHAUD · ELIO ELIA · CIRQUE COSMIC"
       data-img="Image-Events/Invertus2026-Clown-Story.webp"
       data-img-layout="story"
+      data-partner-img="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp"
+      data-partner-name="Site historique maritime de la Pointe-au-Père"
+      data-partner-url="https://shmp.qc.ca/"
       data-desc="Pour célébrer les <strong>5 ans d'Invertus</strong>, on a voulu rendre ça plus fou que les dernières fois : un genre de délirium qui ne veut plus jamais finir, pris en charge par une trâlée de clowns incapables de rester sérieux plus de deux secondes.<br><br>Ce n'est pas des farces. On a choisi les pires idées — mixées avec des roches à papier, tournées et virées sur les bords, crinquées et re-crinquées dans une boîte à manivelle — et ça donne un beau bordel pas mal le fun.<br><br>Alors, notre gang de clowns, venez goûter à cette belle accumulation d'idées burlesques, qu'on mijote depuis un bon bout déjà, dans le confort de notre joli carnaval.<br><br><strong>Programmation</strong><br><strong>21h</strong> — Début de la soirée.<br><em>DJ invités : GUILLAUME MICHAUD, ELIO ELIA, CIRQUE COSMIC.</em><br>+ performances d'art vivant.<br><strong>3h</strong> — Fin.<br><br><strong>Transport en navette</strong> depuis Rimouski et <strong>hébergement à bas prix</strong> disponibles.<br><br>Au Hangar 14 du Site historique maritime de la Pointe-au-Père. Événement 18+.">
       <div class="up-flyer up-flyer--story"><img src="Image-Events/Invertus2026-Clown-Story.webp" alt="Invertus 5 — Les clowns, 30 octobre 2026" loading="lazy" width="1080" height="1920"></div>
       <div class="up-body">
@@ -268,6 +279,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
           <div class="up-meta-item"><span class="up-meta-lbl">Heure</span><span class="up-meta-val">21h → 3h</span></div>
           <div class="up-meta-item"><span class="up-meta-lbl">Lieu</span><span class="up-meta-val mauve">Hangar 14, Pointe-au-Père</span></div>
         </div>
+        <div class="up-card-partner"><span class="up-card-partner-lbl">En collaboration avec</span><a href="https://shmp.qc.ca/" target="_blank" rel="noopener"><img src="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp" alt="Site historique maritime de la Pointe-au-Père"></a></div>
         <div class="up-actions">
           <button class="up-btn up-btn-details" onclick="openEvent(this.closest('.up-card'))">Détails</button>
         </div>
@@ -397,6 +409,7 @@ footer{background:var(--bg);padding:48px 48px 32px;border-top:1px solid rgba(237
       <div class="evm-meta" id="evmMeta"></div>
       <div class="evm-rule"></div>
       <div class="evm-desc" id="evmDesc" style="display:none;"></div>
+      <div class="evm-partner" id="evmPartner" style="display:none;"><span class="evm-partner-lbl">En collaboration avec</span><a id="evmPartnerLink" target="_blank" rel="noopener"><img id="evmPartnerImg" src="" alt=""></a></div>
       <a class="evm-ticket" id="evmTicket" href="#" target="_blank" rel="noopener" style="display:none;">Billetterie →</a>
     </div>
   </div>
@@ -458,13 +471,15 @@ function fill(d){
   if(d.loc){meta.innerHTML+='<div class="mauve">'+d.loc+'</div>';}
   var desc=document.getElementById('evmDesc');
   if(d.desc){desc.innerHTML=d.desc;desc.style.display='block';}else{desc.style.display='none';}
+  var pt=document.getElementById('evmPartner');
+  if(d.partnerImg){var pi=document.getElementById('evmPartnerImg'),pl=document.getElementById('evmPartnerLink');pi.src=d.partnerImg;pi.alt=d.partnerName||'';if(d.partnerUrl){pl.href=d.partnerUrl;}else{pl.removeAttribute('href');}pt.style.display='flex';}else{pt.style.display='none';}
   var t=document.getElementById('evmTicket');
   if(d.ticket&&d.ticket!=='#'&&d.ticket!==''){t.href=d.ticket;t.textContent=(d.ticketLabel||'Billetterie')+' →';t.style.display='inline-block';}else{t.style.display='none';}
   modal.classList.add('open');document.body.style.overflow='hidden';
   modal.querySelector('.evm-card').scrollTop=0;
   modal.querySelector('.evm-body').scrollTop=0;
 }
-window.openEvent=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat,date:d.date,loc:d.loc,artists:d.artists,img:d.img,imgLayout:d.imgLayout,ticket:d.ticket,ticketLabel:d.ticketLabel,desc:d.desc});};
+window.openEvent=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat,date:d.date,loc:d.loc,artists:d.artists,img:d.img,imgLayout:d.imgLayout,ticket:d.ticket,ticketLabel:d.ticketLabel,desc:d.desc,partnerImg:d.partnerImg,partnerName:d.partnerName,partnerUrl:d.partnerUrl});};
 window.openArch=function(el){var d=el.dataset;fill({name:d.name,cat:d.cat||'Archives · Collectif Jardin',date:d.date,loc:d.loc,artists:d.artists,img:d.img});};
 window.closeEvent=function(){modal.classList.remove('open');document.body.style.overflow='';};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow='';closeNav();}});

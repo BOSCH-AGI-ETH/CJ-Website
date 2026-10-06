@@ -300,6 +300,11 @@ body #contact { background:
 .evd-story #ev-detail-content { display:grid; grid-template-columns:auto minmax(0,1fr); max-height:88vh; }
 .evd-story .evd-img { height:88vh; width:auto; aspect-ratio:9/16; object-fit:cover; object-position:center top; display:block; }
 .evd-story .evd-body { padding:56px 44px 44px; overflow-y:auto; max-height:88vh; -webkit-overflow-scrolling:touch; }
+/* Partenaire de l'événement dans la fiche détaillée */
+.evd-partner { display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding-top:20px; margin-bottom:28px; border-top:1px solid rgba(237,172,255,.12); }
+.evd-partner-lbl { font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,251,219,.4); }
+.evd-partner img { display:block; width:170px; height:auto; opacity:.9; transition:opacity .3s; }
+.evd-partner a:hover img { opacity:1; }
 .evd-story .evd-close { background:rgba(20,20,20,.7) !important; z-index:2; }
 @media (max-width:768px){
   #ev-detail-panel.evd-story { width:100vw !important; max-height:100vh !important; height:100%; border:none !important; overflow-y:auto !important; }
@@ -334,6 +339,10 @@ body #contact { background:
 .ev-btn-tickets--musee { display:inline-block; border: 3px dotted rgba(255,251,219,.45); color: rgba(255,251,219,.75); background: rgba(255,251,219,.03); padding:11px 22px; font-family:'Space Mono',monospace; font-size:var(--text-xs); letter-spacing:var(--tracking-wide); text-transform:uppercase; text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent; transition: border-color .2s, background .2s, color .2s; }
 .ev-btn-tickets--musee:hover { border-color: rgba(255,251,219,.9); background: rgba(255,251,219,.07); color: var(--cream); }
 .ev-actions { display: flex; gap: var(--space-sm); align-items: center; flex-wrap: wrap; }
+.ev-card-partner { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: var(--space-md); }
+.ev-card-partner-lbl { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,251,219,.4); }
+.ev-card-partner img { display: block; height: 64px; width: auto; opacity: .95; transition: opacity .3s, transform .3s; }
+.ev-card-partner a:hover img { opacity: 1; transform: scale(1.04); }
 
 /* STATS */
 #stats-wrap { background: var(--bg); }
@@ -558,12 +567,12 @@ body #contact { background:
 .logo-scale-bain { transform: scale(1.8); transform-origin: center; }
 .logo-scale-quoi { transform: scale(1.4); transform-origin: center; }
 .logo-scale-alim { transform: scale(1.1); transform-origin: center; }
-.logo-scale-gaia { transform: scale(1.8); transform-origin: center; }
+.logo-scale-shmp { transform: scale(1.15); transform-origin: center; }
 .logo-scale-para { transform: scale(1.15); transform-origin: center; }
 .partner-logo:hover .logo-scale-bain { transform: scale(1.92); }
 .partner-logo:hover .logo-scale-quoi { transform: scale(1.52); }
 .partner-logo:hover .logo-scale-alim { transform: scale(1.18); }
-.partner-logo:hover .logo-scale-gaia { transform: scale(1.9); }
+.partner-logo:hover .logo-scale-shmp { transform: scale(1.22); }
 .partner-logo:hover .logo-scale-para { transform: scale(1.22); }
 
 /* DON */
@@ -1352,6 +1361,9 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
         data-loc="Hangar 14, Pointe-au-Père"
         data-img="Image-Events/Invertus2026-Clown-Story.webp"
         data-img-layout="story"
+        data-partner-img="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp"
+        data-partner-name="Site historique maritime de la Pointe-au-Père"
+        data-partner-url="https://shmp.qc.ca/"
         data-artists="GUILLAUME MICHAUD · ELIO ELIA · CIRQUE COSMIC"
         data-desc="Pour célébrer les <strong>5 ans d'Invertus</strong>, on a voulu rendre ça plus fou que les dernières fois : un genre de délirium qui ne veut plus jamais finir, pris en charge par une trâlée de clowns incapables de rester sérieux plus de deux secondes.<br><br>Ce n'est pas des farces. On a choisi les pires idées — mixées avec des roches à papier, tournées et virées sur les bords, crinquées et re-crinquées dans une boîte à manivelle — et ça donne un beau bordel pas mal le fun.<br><br>Alors, notre gang de clowns, venez goûter à cette belle accumulation d'idées burlesques, qu'on mijote depuis un bon bout déjà, dans le confort de notre joli carnaval.<br><br><strong>Programmation</strong><br><strong>21h</strong> — Début de la soirée.<br><em>DJ invités : GUILLAUME MICHAUD, ELIO ELIA, CIRQUE COSMIC.</em><br>+ performances d'art vivant.<br><strong>3h</strong> — Fin.<br><br><strong>Transport en navette</strong> depuis Rimouski et <strong>hébergement à bas prix</strong> disponibles.<br><br>Au Hangar 14 du Site historique maritime de la Pointe-au-Père. Événement 18+."
         onclick="openEvCard(this)">
@@ -1369,6 +1381,7 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
             <div class="ev-meta-item"><span class="ev-meta-lbl">Heure</span><span class="ev-meta-val">21h → 3h</span></div>
             <div class="ev-meta-item"><span class="ev-meta-lbl">Lieu</span><span class="ev-meta-val mauve">Hangar 14, Pointe-au-Père</span></div>
           </div>
+          <div class="ev-card-partner" onclick="event.stopPropagation()"><span class="ev-card-partner-lbl">En collaboration avec</span><a href="https://shmp.qc.ca/" target="_blank" rel="noopener"><img src="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp" alt="Site historique maritime de la Pointe-au-Père"></a></div>
           <div class="ev-actions" onclick="event.stopPropagation()">
             <button class="ev-btn-details" onclick="openEvCard(this.closest('.ev-card-new'))">Détails</button>
             <a class="ev-btn-tickets" target="_blank" rel="noopener">Billetterie</a>
@@ -1633,9 +1646,9 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
       </div>
 
       <div class="partner-logo">
-        <a href="https://gaiaepicerie.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+        <a href="https://shmp.qc.ca/" target="_blank" rel="noopener" class="partner-logo-link">
           <div class="partner-logo-img-wrap">
-            <img src="Image-Sponsor/Gaia-cream.webp" class="logo-scale-gaia" alt="Gaïa Épicerie Santé">
+            <img src="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp" class="logo-scale-shmp" alt="Site historique maritime de la Pointe-au-Père">
           </div>
         </a>
       </div>
@@ -1690,9 +1703,9 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
       </div>
 
       <div class="partner-logo">
-        <a href="https://gaiaepicerie.ca/" target="_blank" rel="noopener" class="partner-logo-link">
+        <a href="https://shmp.qc.ca/" target="_blank" rel="noopener" class="partner-logo-link">
           <div class="partner-logo-img-wrap">
-            <img src="Image-Sponsor/Gaia-cream.webp" class="logo-scale-gaia" alt="Gaïa Épicerie Santé">
+            <img src="Image-Sponsor/Site-Maritime-Pointe-au-Pere-cream.webp" class="logo-scale-shmp" alt="Site historique maritime de la Pointe-au-Père">
           </div>
         </a>
       </div>
@@ -1717,6 +1730,11 @@ footer { background:var(--bg);padding:var(--space-lg) var(--gutter) var(--space-
 
 <script>
 (function(){ 'use strict';
+/* Réfs natives capturées tout de suite : si un script console redéfinit plus
+   tard requestAnimationFrame/cancelAnimationFrame (truc classique pour truquer
+   un score), ces réfs déjà figées n'en sont pas affectées. */
+var nativeRAF=window.requestAnimationFrame.bind(window);
+var nativeCAF=window.cancelAnimationFrame.bind(window);
 var canvas=document.getElementById('fj-canvas');
 if(!canvas)return;
 var ctx=canvas.getContext('2d');
@@ -1779,6 +1797,7 @@ var state=S.IDLE,t=0,score=0,best=0;
 var P={x:100,y:150,vy:0,r:16};
 var pipes=[],parts=[],seeds=[],cans=[],trail=[],floats=[];
 var combo=0,invUntil=0,scorePulse=0,nextCan=8,nextPipe=60;
+var lastScore=0,tampered=false; // anti-triche : voir updateScoreGuard()
 var rafId=null;        // id de la boucle rAF (null = arrêtée)
 var jeuVisible=true;   // section #jeu dans le viewport
 var pageVisible=true;  // onglet visible
@@ -1787,25 +1806,29 @@ resize();
 // ─── CONTRÔLE DE LA BOUCLE rAF ─────────────────────────────────────
 function startLoop(){
   if(rafId===null && jeuVisible && pageVisible){
-    rafId=requestAnimationFrame(frame);
+    rafId=nativeRAF(frame);
   }
 }
 function stopLoop(){
-  if(rafId!==null){ cancelAnimationFrame(rafId); rafId=null; }
+  if(rafId!==null){ nativeCAF(rafId); rafId=null; }
 }
 
 function jump(){
   if(state===S.IDLE){start();return;}
   if(state===S.DEAD){restart();return;}
-  P.vy=-4.2;
+  P.vy=-4.5;
 }
+/* e.isTrusted : propriété native, non réinscriptible en JS — un événement
+   fabriqué via dispatchEvent() (bot/macro) l'a à false. On ignore ces
+   événements-là : seul un vrai clic/touche/appui humain fait sauter. */
+function trustedJump(e){ if(e && e.isTrusted===false) return; jump(); }
 /* Souris : saut immédiat. Tactile : on distingue le tap (jouer) du
    glissement (scroller la page) — le navigateur garde le scroll vertical
    grâce à touch-action:pan-y, et on ne saute que sur un vrai tap. */
 var _tap={x:0,y:0,t:0,moved:false,active:false};
 canvas.addEventListener('pointerdown',function(e){
-  if(e.pointerType==='mouse'){ e.preventDefault(); jump(); return; }
-  _tap.x=e.clientX; _tap.y=e.clientY; _tap.t=Date.now(); _tap.moved=false; _tap.active=true;
+  if(e.pointerType==='mouse'){ e.preventDefault(); trustedJump(e); return; }
+  _tap.x=e.clientX; _tap.y=e.clientY; _tap.t=Date.now(); _tap.moved=false; _tap.active=e.isTrusted!==false;
 });
 canvas.addEventListener('pointermove',function(e){
   if(!_tap.active) return;
@@ -1813,18 +1836,18 @@ canvas.addEventListener('pointermove',function(e){
 });
 canvas.addEventListener('pointerup',function(e){
   if(e.pointerType==='mouse') return;
-  if(_tap.active && !_tap.moved && (Date.now()-_tap.t)<300){ jump(); }
+  if(_tap.active && !_tap.moved && (Date.now()-_tap.t)<300){ trustedJump(e); }
   _tap.active=false;
 });
 canvas.addEventListener('pointercancel',function(){ _tap.active=false; });
-document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump();}});
+document.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();trustedJump(e);}});
 
 
 function start(){
   state=S.PLAY;pipes=[];parts=[];seeds=[];cans=[];trail=[];floats=[];score=0;
-  combo=0;invUntil=0;scorePulse=0;nextCan=8;nextPipe=60;
+  combo=0;invUntil=0;scorePulse=0;nextCan=14;nextPipe=52;
+  lastScore=0;tampered=false;
   P.y=H/2;P.vy=0;P.x=Math.min(150,W*.16);
-  var sv=document.getElementById('fj-score-val');if(sv)sv.textContent='0';
   startLoop();
 }
 function restart(){start();}
@@ -1832,7 +1855,10 @@ function restart(){start();}
 function die(){
   if(state!==S.PLAY)return;
   state=S.DEAD;
-  if(score>best){best=score;var bv=document.getElementById('fj-best-val');if(bv)bv.textContent=best;}
+  // Un score marqué "tampered" (variable modifiée hors des règles du jeu,
+  // ex. via le debugger pendant qu'on est en pause sur un breakpoint) ne
+  // devient jamais le meilleur score.
+  if(score>best && !tampered){best=score;}
   for(var i=0;i<32;i++){
     var ang=Math.random()*6.28,spd=Math.random()*4+1;
     parts.push({x:P.x,y:P.y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd-1.5,life:1,col:HALLOWEEN?TOILE[Math.floor(Math.random()*TOILE.length)]:(Math.random()>.5?'#edacff':'#fd2f00'),sz:Math.random()*5+2,rot:0,spin:(Math.random()-.5)*.3,type:Math.random()>.45?'sq':'fl'});
@@ -1847,6 +1873,7 @@ function burst(x,y,col,n){
   }
 }
 
+var MAX_SCORE_DELTA=10; // gain plausible max en un seul tick (1 tige + 1 graine en combo)
 function update(){
   t++;
   polens.forEach(function(p){
@@ -1855,12 +1882,22 @@ function update(){
     if(p.y<2)p.y=H-50;if(p.y>H-45)p.y=2;
   });
   if(state!==S.PLAY)return;
-  P.vy+=.22;P.y+=P.vy;
+
+  /* Garde-fou anti-triche : si "score" a changé depuis le dernier tick d'une
+     façon qu'aucune règle du jeu ne permet (ex. valeur réécrite via la console
+     ou le panneau Scope du débogueur pendant une pause sur breakpoint), on
+     l'annule immédiatement et sans le signaler — ni flash à l'écran, ni
+     indice pour qui triche. Ce score ne pourra jamais devenir le meilleur. */
+  if(score!==lastScore){
+    var delta=score-lastScore;
+    if(delta>MAX_SCORE_DELTA || delta<0){ tampered=true; score=lastScore; }
+  }
+
+  P.vy+=.24;P.y+=P.vy;
   var floor=H-30;
   if(P.y+P.r>=floor){P.y=floor-P.r;die();return;}
   if(P.y-P.r<0){P.y=P.r;if(P.vy<0)P.vy=0;}
 
-  var sv=document.getElementById('fj-score-val');
   var inv=t<invUntil;
 
   // Traînée derrière le jardinier
@@ -1869,9 +1906,9 @@ function update(){
   // Difficulté progressive : vitesse + trouée évoluent avec le score.
   // La vitesse horizontale suit la largeur du canvas (référence 900px, l'ancienne
   // boîte) pour garder le même rythme de traversée en pleine largeur qu'avant.
-  var spd=(2.2+Math.min(score,40)*.038)*Math.max(.7,Math.min(1.9,W/900));
+  var spd=(2.7+Math.min(score,60)*.05)*Math.max(.7,Math.min(1.9,W/900));
   var playH=H-30;
-  var gap=playH*Math.max(.38,.52-Math.min(score,28)*.0052);
+  var gap=playH*Math.max(.33,.52-Math.min(score,40)*.007);
 
   // Apparition des structures (intervalle variable + aléatoire)
   if(--nextPipe<=0){
@@ -1879,13 +1916,13 @@ function update(){
     var gY=Math.random()*(maxG-minG)+minG;
     pipes.push({x:W+22,gapY:gY,gap:gap,passed:false,wo:Math.random()*6.28});
     if(Math.random()<.7)seeds.push({x:W+22,y:gY+gap/2,r:Math.min(20,gap*.13),ph:Math.random()*6.28});
-    if(score>=nextCan){cans.push({x:W+46,y:gY+gap/2,ph:Math.random()*6.28});nextCan=score+12+Math.floor(Math.random()*8);}
-    nextPipe=Math.max(72,118-Math.min(score,30)*1.2)+(Math.random()*18-9);
+    if(score>=nextCan){cans.push({x:W+46,y:gY+gap/2,ph:Math.random()*6.28});nextCan=score+18+Math.floor(Math.random()*10);}
+    nextPipe=Math.max(52,112-Math.min(score,45)*1.3)+(Math.random()*16-8);
   }
 
   for(var i=pipes.length-1;i>=0;i--){
     var pp=pipes[i];pp.x-=spd;
-    if(!pp.passed&&pp.x+15<P.x){pp.passed=true;score++;scorePulse=1;if(sv)sv.textContent=score;}
+    if(!pp.passed&&pp.x+15<P.x){pp.passed=true;score++;scorePulse=1;}
     if(!inv){
       var pl=pp.x-15,pr=pp.x+15,pr2=P.r-3;
       if(P.x+pr2>pl&&P.x-pr2<pr){if(P.y-pr2<pp.gapY||P.y+pr2>pp.gapY+pp.gap)die();}
@@ -1901,7 +1938,7 @@ function update(){
       combo++;var bonus=2+Math.min(combo,5);score+=bonus;scorePulse=1;
       floats.push({x:sd.x,y:sd.y,txt:'+'+bonus,life:1,col:'#fffbdb'});
       burst(sd.x,sd.y,'#fffbdb',9);
-      seeds.splice(i,1);if(sv)sv.textContent=score;continue;
+      seeds.splice(i,1);continue;
     }
     if(sd.x<-20){combo=0;seeds.splice(i,1);}
   }
@@ -1930,6 +1967,7 @@ function update(){
     var pt=parts[i];pt.x+=pt.vx;pt.y+=pt.vy;pt.vy+=.15;pt.life-=.038;pt.rot+=pt.spin;
     if(pt.life<=0)parts.splice(i,1);
   }
+  lastScore=score; // référence pour le garde-fou anti-triche du prochain tick
 }
 
 function drawBg(){
@@ -2468,12 +2506,32 @@ function draw(){
 }
 
 function frame(){
-  rafId=requestAnimationFrame(frame);
+  rafId=nativeRAF(frame);
   update();
   draw();
   // IDLE/DEAD : on rend une seule frame puis on fige (zéro CPU au repos)
   if(state!==S.PLAY) stopLoop();
 }
+
+/* ─── INTÉGRITÉ DE L'AFFICHAGE SCORE/MEILLEUR ────────────────────────────
+   Les deux chiffres du bandeau (#fj-score-val, #fj-best-val) ne sont JAMAIS
+   écrits ailleurs que par cette boucle. Elle tourne en continu, même jeu à
+   l'arrêt (IDLE/DEAD), via la réf rAF native capturée au tout début du
+   script — donc même un script console qui écraserait window.requestAnimationFrame
+   ou viderait tous les timers (setInterval/setTimeout, truc classique)
+   ne l'arrête pas. Elle re-cherche les éléments par id à chaque passage
+   plutôt que de garder une réf : si on supprime/remplace les span dans
+   l'inspecteur, le nouveau nœud au même id est quand même corrigé. Résultat :
+   éditer ce chiffre dans le DOM ne "tient" jamais plus d'une frame (~16 ms),
+   impossible à capturer proprement en capture d'écran. */
+function hudIntegrityTick(){
+  var sv=document.getElementById('fj-score-val');
+  if(sv && sv.textContent!==String(score)) sv.textContent=score;
+  var bv=document.getElementById('fj-best-val');
+  if(bv && bv.textContent!==String(best)) bv.textContent=best;
+  nativeRAF(hudIntegrityTick);
+}
+nativeRAF(hudIntegrityTick);
 
 // Pause/reprise quand la section #jeu sort du viewport (uniquement en partie)
 var jeuSection=document.getElementById('jeu');
@@ -2744,7 +2802,7 @@ if(document.readyState === 'loading'){
 }
 
 
-window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artists,underground,ticketLabel,imgLayout){
+window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artists,underground,ticketLabel,imgLayout,partner){
   ticketLabel = ticketLabel || 'Billetterie';
   var lb=document.getElementById('ev-detail-lb');
   var content=document.getElementById('ev-detail-content');
@@ -2762,6 +2820,7 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artist
     +'</div>'
     +'<div style="width:32px;height:1px;background:rgba(237,172,255,.2);margin-bottom:20px;"></div>'
     +(desc?'<p style="font-size:12px;color:rgba(255,251,219,.6);line-height:2;letter-spacing:.04em;margin-bottom:28px;">'+desc+'</p>':'')
+    +(partner&&partner.img?'<div class="evd-partner"><span class="evd-partner-lbl">En collaboration avec</span>'+(partner.url?'<a href="'+partner.url+'" target="_blank" rel="noopener">':'')+'<img src="'+partner.img+'" alt="'+(partner.name||'')+'">'+(partner.url?'</a>':'')+'</div>':'')
     +(ticketUrl && ticketUrl!=='#'
       ? (underground
           ? '<a href="'+ticketUrl+'" style="display:inline-block;border:3px dotted rgba(255,251,219,.45);color:rgba(255,251,219,.75);background:rgba(255,251,219,.03);padding:12px 28px;font-family:\'Space Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;" target="_blank" rel="noopener">'+ticketLabel+' →</a>'
@@ -2775,7 +2834,7 @@ window.openEvDetail=function(name,cat,date,location,desc,ticketUrl,imgUrl,artist
 /* Ouvre le détail à partir des data-* de la carte (évite l'échappement des apostrophes dans les onclick) */
 window.openEvCard=function(el){
   var d=el.dataset;
-  openEvDetail(d.name,d.cat,d.date,d.loc,d.desc,d.ticket||'',d.img||'',d.artists||'',false,d.ticketLabel||'',d.imgLayout||'');
+  openEvDetail(d.name,d.cat,d.date,d.loc,d.desc,d.ticket||'',d.img||'',d.artists||'',false,d.ticketLabel||'',d.imgLayout||'',{img:d.partnerImg,name:d.partnerName,url:d.partnerUrl});
 };
 window.closeEvDetail=function(){
   document.getElementById('ev-detail-lb').style.display='none';
